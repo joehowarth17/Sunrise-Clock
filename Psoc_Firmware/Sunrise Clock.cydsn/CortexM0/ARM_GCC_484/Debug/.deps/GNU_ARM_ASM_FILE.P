@@ -1,0 +1,8 @@
+C:/Users/Joseph/Documents/CY8CKIT-049-42xx/1.0/Firmware/SCB_Bootloader/Design02.cydsn/CortexM0/ARM_GCC_484/Debug/CyBootAsmGnu.o : C:/Users/Joseph/Documents/CY8CKIT-049-42xx/1.0/Firmware/SCB_Bootloader/Design02.cydsn/Generated_Source/PSoC4/cydevicegnu_trm.inc C:/Users/Joseph/Documents/CY8CKIT-049-42xx/1.0/Firmware/SCB_Bootloader/Design02.cydsn/Generated_Source/PSoC4/cyfittergnu.inc C:/Users/Joseph/Documents/CY8CKIT-049-42xx/1.0/Firmware/SCB_Bootloader/Design02.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s 
+
+C:/Users/Joseph/Documents/CY8CKIT-049-42xx/1.0/Firmware/SCB_Bootloader/Design02.cydsn/Generated_Source/PSoC4/cydevicegnu_trm.inc : 
+
+C:/Users/Joseph/Documents/CY8CKIT-049-42xx/1.0/Firmware/SCB_Bootloader/Design02.cydsn/Generated_Source/PSoC4/cyfittergnu.inc : 
+
+C:/Users/Joseph/Documents/CY8CKIT-049-42xx/1.0/Firmware/SCB_Bootloader/Design02.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s : 
+

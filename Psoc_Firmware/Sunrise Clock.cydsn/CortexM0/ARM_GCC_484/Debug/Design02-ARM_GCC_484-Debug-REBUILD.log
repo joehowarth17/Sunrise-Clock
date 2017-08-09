@@ -1,0 +1,16 @@
+--------------- Rebuild Started: 05/12/2017 00:50:55 Project: main.c, Configuration: ARM GCC 4.8.4 Debug ---------------
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -I.\Generated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_484\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -O0 -c .\main.c -o .\CortexM0\ARM_GCC_484\Debug\main.o
+.\main.c: In function 'main':
+.\main.c:38:14: warning: unused variable 'output' [-Wunused-variable]
+         char output[9] = "NoERR";
+              ^
+.\main.c:40:14: warning: unused variable 'output' [-Wunused-variable]
+         char output[9] = "NtRDY";
+              ^
+.\main.c:43:14: warning: unused variable 'output' [-Wunused-variable]
+         char output[9] = "Busy";
+              ^
+.\main.c:47:13: warning: unused variable 'e2' [-Wunused-variable]
+         int e2 = I2C_I2CMasterReadBuf(PCF8523, bufferPoint,1,I2C_I2C_MODE_COMPLETE_XFER);
+             ^
+--------------- Rebuild Succeeded: 05/12/2017 00:50:55 ---------------

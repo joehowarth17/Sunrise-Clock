@@ -1,0 +1,2878 @@
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"RTC.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.changeHourMode,"ax",%progbits
+  18              		.align	2
+  19              		.global	changeHourMode
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	changeHourMode, %function
+  23              	changeHourMode:
+  24              	.LFB34:
+  25              		.file 1 "RTC.c"
+   1:RTC.c         **** /* ========================================
+   2:RTC.c         ****  *
+   3:RTC.c         ****  * Copyright YOUR COMPANY, THE YEAR
+   4:RTC.c         ****  * All Rights Reserved
+   5:RTC.c         ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:RTC.c         ****  *
+   7:RTC.c         ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:RTC.c         ****  * WHICH IS THE PROPERTY OF your company.
+   9:RTC.c         ****  *
+  10:RTC.c         ****  * ========================================
+  11:RTC.c         **** */
+  12:RTC.c         **** 
+  13:RTC.c         **** #include <RTC.h>
+  14:RTC.c         **** 
+  15:RTC.c         **** void changeHourMode(uint8 mode){
+  26              		.loc 1 15 0
+  27              		.cfi_startproc
+  28 0000 90B5     		push	{r4, r7, lr}
+  29              		.cfi_def_cfa_offset 12
+  30              		.cfi_offset 4, -12
+  31              		.cfi_offset 7, -8
+  32              		.cfi_offset 14, -4
+  33 0002 85B0     		sub	sp, sp, #20
+  34              		.cfi_def_cfa_offset 32
+  35 0004 00AF     		add	r7, sp, #0
+  36              		.cfi_def_cfa_register 7
+  37 0006 021C     		mov	r2, r0
+  38 0008 FB1D     		add	r3, r7, #7
+  39 000a 1A70     		strb	r2, [r3]
+  16:RTC.c         ****     
+  17:RTC.c         ****     uint8 controlReg = readReg(CONTROL_REG_1);
+  40              		.loc 1 17 0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 2
+
+
+  41 000c 0E23     		mov	r3, #14
+  42 000e FC18     		add	r4, r7, r3
+  43 0010 0020     		mov	r0, #0
+  44 0012 FFF7FEFF 		bl	readReg
+  45 0016 031C     		mov	r3, r0
+  46 0018 2370     		strb	r3, [r4]
+  18:RTC.c         ****     uint8 value;
+  19:RTC.c         **** 
+  20:RTC.c         ****     if(mode == HOURMODE_12){
+  47              		.loc 1 20 0
+  48 001a FB1D     		add	r3, r7, #7
+  49 001c 1B78     		ldrb	r3, [r3]
+  50 001e 082B     		cmp	r3, #8
+  51 0020 08D1     		bne	.L2
+  21:RTC.c         ****         
+  22:RTC.c         ****         value = controlReg | HOURMODE_12;
+  52              		.loc 1 22 0
+  53 0022 0F23     		mov	r3, #15
+  54 0024 FB18     		add	r3, r7, r3
+  55 0026 0E22     		mov	r2, #14
+  56 0028 BA18     		add	r2, r7, r2
+  57 002a 1278     		ldrb	r2, [r2]
+  58 002c 0821     		mov	r1, #8
+  59 002e 0A43     		orr	r2, r1
+  60 0030 1A70     		strb	r2, [r3]
+  61 0032 0BE0     		b	.L3
+  62              	.L2:
+  23:RTC.c         ****     }
+  24:RTC.c         ****     else if(mode == HOURMODE_24){
+  63              		.loc 1 24 0
+  64 0034 FB1D     		add	r3, r7, #7
+  65 0036 1B78     		ldrb	r3, [r3]
+  66 0038 F72B     		cmp	r3, #247
+  67 003a 07D1     		bne	.L3
+  25:RTC.c         ****         
+  26:RTC.c         ****         value = controlReg & HOURMODE_24; 
+  68              		.loc 1 26 0
+  69 003c 0F23     		mov	r3, #15
+  70 003e FB18     		add	r3, r7, r3
+  71 0040 0E22     		mov	r2, #14
+  72 0042 BA18     		add	r2, r7, r2
+  73 0044 1278     		ldrb	r2, [r2]
+  74 0046 0821     		mov	r1, #8
+  75 0048 8A43     		bic	r2, r1
+  76 004a 1A70     		strb	r2, [r3]
+  77              	.L3:
+  27:RTC.c         ****     }
+  28:RTC.c         ****     
+  29:RTC.c         ****     writeReg(CONTROL_REG_1, value);
+  78              		.loc 1 29 0
+  79 004c 0F23     		mov	r3, #15
+  80 004e FB18     		add	r3, r7, r3
+  81 0050 1B78     		ldrb	r3, [r3]
+  82 0052 0020     		mov	r0, #0
+  83 0054 191C     		mov	r1, r3
+  84 0056 FFF7FEFF 		bl	writeReg
+  30:RTC.c         **** 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 3
+
+
+  31:RTC.c         **** }
+  85              		.loc 1 31 0
+  86 005a BD46     		mov	sp, r7
+  87 005c 05B0     		add	sp, sp, #20
+  88              		@ sp needed
+  89 005e 90BD     		pop	{r4, r7, pc}
+  90              		.cfi_endproc
+  91              	.LFE34:
+  92              		.size	changeHourMode, .-changeHourMode
+  93              		.section	.text.changePowerMode,"ax",%progbits
+  94              		.align	2
+  95              		.global	changePowerMode
+  96              		.code	16
+  97              		.thumb_func
+  98              		.type	changePowerMode, %function
+  99              	changePowerMode:
+ 100              	.LFB35:
+  32:RTC.c         **** 
+  33:RTC.c         **** void changePowerMode(uint8 mode){
+ 101              		.loc 1 33 0
+ 102              		.cfi_startproc
+ 103 0000 80B5     		push	{r7, lr}
+ 104              		.cfi_def_cfa_offset 8
+ 105              		.cfi_offset 7, -8
+ 106              		.cfi_offset 14, -4
+ 107 0002 82B0     		sub	sp, sp, #8
+ 108              		.cfi_def_cfa_offset 16
+ 109 0004 00AF     		add	r7, sp, #0
+ 110              		.cfi_def_cfa_register 7
+ 111 0006 021C     		mov	r2, r0
+ 112 0008 FB1D     		add	r3, r7, #7
+ 113 000a 1A70     		strb	r2, [r3]
+  34:RTC.c         ****     
+  35:RTC.c         ****     writeReg(CONTROL_REG_3, mode);
+ 114              		.loc 1 35 0
+ 115 000c FB1D     		add	r3, r7, #7
+ 116 000e 1B78     		ldrb	r3, [r3]
+ 117 0010 0220     		mov	r0, #2
+ 118 0012 191C     		mov	r1, r3
+ 119 0014 FFF7FEFF 		bl	writeReg
+  36:RTC.c         **** 
+  37:RTC.c         **** }
+ 120              		.loc 1 37 0
+ 121 0018 BD46     		mov	sp, r7
+ 122 001a 02B0     		add	sp, sp, #8
+ 123              		@ sp needed
+ 124 001c 80BD     		pop	{r7, pc}
+ 125              		.cfi_endproc
+ 126              	.LFE35:
+ 127              		.size	changePowerMode, .-changePowerMode
+ 128 001e C046     		.section	.text.setSec,"ax",%progbits
+ 129              		.align	2
+ 130              		.global	setSec
+ 131              		.code	16
+ 132              		.thumb_func
+ 133              		.type	setSec, %function
+ 134              	setSec:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 4
+
+
+ 135              	.LFB36:
+  38:RTC.c         **** 
+  39:RTC.c         **** 
+  40:RTC.c         **** void setSec(uint8 sec){
+ 136              		.loc 1 40 0
+ 137              		.cfi_startproc
+ 138 0000 90B5     		push	{r4, r7, lr}
+ 139              		.cfi_def_cfa_offset 12
+ 140              		.cfi_offset 4, -12
+ 141              		.cfi_offset 7, -8
+ 142              		.cfi_offset 14, -4
+ 143 0002 85B0     		sub	sp, sp, #20
+ 144              		.cfi_def_cfa_offset 32
+ 145 0004 00AF     		add	r7, sp, #0
+ 146              		.cfi_def_cfa_register 7
+ 147 0006 021C     		mov	r2, r0
+ 148 0008 FB1D     		add	r3, r7, #7
+ 149 000a 1A70     		strb	r2, [r3]
+  41:RTC.c         **** 
+  42:RTC.c         ****     uint8 secondsBCD = encodeSec(sec);
+ 150              		.loc 1 42 0
+ 151 000c 0F23     		mov	r3, #15
+ 152 000e FC18     		add	r4, r7, r3
+ 153 0010 FB1D     		add	r3, r7, #7
+ 154 0012 1B78     		ldrb	r3, [r3]
+ 155 0014 181C     		mov	r0, r3
+ 156 0016 FFF7FEFF 		bl	encodeSec
+ 157 001a 031C     		mov	r3, r0
+ 158 001c 2370     		strb	r3, [r4]
+  43:RTC.c         ****     
+  44:RTC.c         ****     writeReg(SECONDS_REG, secondsBCD);
+ 159              		.loc 1 44 0
+ 160 001e 0F23     		mov	r3, #15
+ 161 0020 FB18     		add	r3, r7, r3
+ 162 0022 1B78     		ldrb	r3, [r3]
+ 163 0024 0320     		mov	r0, #3
+ 164 0026 191C     		mov	r1, r3
+ 165 0028 FFF7FEFF 		bl	writeReg
+  45:RTC.c         **** }
+ 166              		.loc 1 45 0
+ 167 002c BD46     		mov	sp, r7
+ 168 002e 05B0     		add	sp, sp, #20
+ 169              		@ sp needed
+ 170 0030 90BD     		pop	{r4, r7, pc}
+ 171              		.cfi_endproc
+ 172              	.LFE36:
+ 173              		.size	setSec, .-setSec
+ 174 0032 C046     		.section	.text.getSec,"ax",%progbits
+ 175              		.align	2
+ 176              		.global	getSec
+ 177              		.code	16
+ 178              		.thumb_func
+ 179              		.type	getSec, %function
+ 180              	getSec:
+ 181              	.LFB37:
+  46:RTC.c         **** uint8 getSec(){
+ 182              		.loc 1 46 0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 5
+
+
+ 183              		.cfi_startproc
+ 184 0000 80B5     		push	{r7, lr}
+ 185              		.cfi_def_cfa_offset 8
+ 186              		.cfi_offset 7, -8
+ 187              		.cfi_offset 14, -4
+ 188 0002 00AF     		add	r7, sp, #0
+ 189              		.cfi_def_cfa_register 7
+  47:RTC.c         **** 
+  48:RTC.c         ****     return decodeSec(readReg(SECONDS_REG));
+ 190              		.loc 1 48 0
+ 191 0004 0320     		mov	r0, #3
+ 192 0006 FFF7FEFF 		bl	readReg
+ 193 000a 031C     		mov	r3, r0
+ 194 000c 181C     		mov	r0, r3
+ 195 000e FFF7FEFF 		bl	decodeSec
+ 196 0012 031C     		mov	r3, r0
+  49:RTC.c         **** }
+ 197              		.loc 1 49 0
+ 198 0014 181C     		mov	r0, r3
+ 199 0016 BD46     		mov	sp, r7
+ 200              		@ sp needed
+ 201 0018 80BD     		pop	{r7, pc}
+ 202              		.cfi_endproc
+ 203              	.LFE37:
+ 204              		.size	getSec, .-getSec
+ 205 001a C046     		.section	.text.setMin,"ax",%progbits
+ 206              		.align	2
+ 207              		.global	setMin
+ 208              		.code	16
+ 209              		.thumb_func
+ 210              		.type	setMin, %function
+ 211              	setMin:
+ 212              	.LFB38:
+  50:RTC.c         **** 
+  51:RTC.c         **** void setMin(uint8 minutes){
+ 213              		.loc 1 51 0
+ 214              		.cfi_startproc
+ 215 0000 90B5     		push	{r4, r7, lr}
+ 216              		.cfi_def_cfa_offset 12
+ 217              		.cfi_offset 4, -12
+ 218              		.cfi_offset 7, -8
+ 219              		.cfi_offset 14, -4
+ 220 0002 85B0     		sub	sp, sp, #20
+ 221              		.cfi_def_cfa_offset 32
+ 222 0004 00AF     		add	r7, sp, #0
+ 223              		.cfi_def_cfa_register 7
+ 224 0006 021C     		mov	r2, r0
+ 225 0008 FB1D     		add	r3, r7, #7
+ 226 000a 1A70     		strb	r2, [r3]
+  52:RTC.c         **** 
+  53:RTC.c         ****     uint8 minutesBCD = encodeMin(minutes);
+ 227              		.loc 1 53 0
+ 228 000c 0F23     		mov	r3, #15
+ 229 000e FC18     		add	r4, r7, r3
+ 230 0010 FB1D     		add	r3, r7, #7
+ 231 0012 1B78     		ldrb	r3, [r3]
+ 232 0014 181C     		mov	r0, r3
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 6
+
+
+ 233 0016 FFF7FEFF 		bl	encodeMin
+ 234 001a 031C     		mov	r3, r0
+ 235 001c 2370     		strb	r3, [r4]
+  54:RTC.c         ****     writeReg(MINUTES_REG,minutesBCD);
+ 236              		.loc 1 54 0
+ 237 001e 0F23     		mov	r3, #15
+ 238 0020 FB18     		add	r3, r7, r3
+ 239 0022 1B78     		ldrb	r3, [r3]
+ 240 0024 0420     		mov	r0, #4
+ 241 0026 191C     		mov	r1, r3
+ 242 0028 FFF7FEFF 		bl	writeReg
+  55:RTC.c         **** 
+  56:RTC.c         **** }
+ 243              		.loc 1 56 0
+ 244 002c BD46     		mov	sp, r7
+ 245 002e 05B0     		add	sp, sp, #20
+ 246              		@ sp needed
+ 247 0030 90BD     		pop	{r4, r7, pc}
+ 248              		.cfi_endproc
+ 249              	.LFE38:
+ 250              		.size	setMin, .-setMin
+ 251 0032 C046     		.section	.text.getMin,"ax",%progbits
+ 252              		.align	2
+ 253              		.global	getMin
+ 254              		.code	16
+ 255              		.thumb_func
+ 256              		.type	getMin, %function
+ 257              	getMin:
+ 258              	.LFB39:
+  57:RTC.c         **** uint8 getMin(){
+ 259              		.loc 1 57 0
+ 260              		.cfi_startproc
+ 261 0000 80B5     		push	{r7, lr}
+ 262              		.cfi_def_cfa_offset 8
+ 263              		.cfi_offset 7, -8
+ 264              		.cfi_offset 14, -4
+ 265 0002 00AF     		add	r7, sp, #0
+ 266              		.cfi_def_cfa_register 7
+  58:RTC.c         **** 
+  59:RTC.c         ****     return decodeMin(readReg(MINUTES_REG));
+ 267              		.loc 1 59 0
+ 268 0004 0420     		mov	r0, #4
+ 269 0006 FFF7FEFF 		bl	readReg
+ 270 000a 031C     		mov	r3, r0
+ 271 000c 181C     		mov	r0, r3
+ 272 000e FFF7FEFF 		bl	decodeMin
+ 273 0012 031C     		mov	r3, r0
+  60:RTC.c         **** 
+  61:RTC.c         **** }
+ 274              		.loc 1 61 0
+ 275 0014 181C     		mov	r0, r3
+ 276 0016 BD46     		mov	sp, r7
+ 277              		@ sp needed
+ 278 0018 80BD     		pop	{r7, pc}
+ 279              		.cfi_endproc
+ 280              	.LFE39:
+ 281              		.size	getMin, .-getMin
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 7
+
+
+ 282 001a C046     		.section	.text.setHours,"ax",%progbits
+ 283              		.align	2
+ 284              		.global	setHours
+ 285              		.code	16
+ 286              		.thumb_func
+ 287              		.type	setHours, %function
+ 288              	setHours:
+ 289              	.LFB40:
+  62:RTC.c         **** 
+  63:RTC.c         **** void setHours(uint8 hour){
+ 290              		.loc 1 63 0
+ 291              		.cfi_startproc
+ 292 0000 90B5     		push	{r4, r7, lr}
+ 293              		.cfi_def_cfa_offset 12
+ 294              		.cfi_offset 4, -12
+ 295              		.cfi_offset 7, -8
+ 296              		.cfi_offset 14, -4
+ 297 0002 85B0     		sub	sp, sp, #20
+ 298              		.cfi_def_cfa_offset 32
+ 299 0004 00AF     		add	r7, sp, #0
+ 300              		.cfi_def_cfa_register 7
+ 301 0006 021C     		mov	r2, r0
+ 302 0008 FB1D     		add	r3, r7, #7
+ 303 000a 1A70     		strb	r2, [r3]
+  64:RTC.c         **** 
+  65:RTC.c         ****     uint8 bcdHour = encodeHours24(hour);
+ 304              		.loc 1 65 0
+ 305 000c 0F23     		mov	r3, #15
+ 306 000e FC18     		add	r4, r7, r3
+ 307 0010 FB1D     		add	r3, r7, #7
+ 308 0012 1B78     		ldrb	r3, [r3]
+ 309 0014 181C     		mov	r0, r3
+ 310 0016 FFF7FEFF 		bl	encodeHours24
+ 311 001a 031C     		mov	r3, r0
+ 312 001c 2370     		strb	r3, [r4]
+  66:RTC.c         ****     
+  67:RTC.c         ****     writeReg(HOURS_REG,bcdHour);
+ 313              		.loc 1 67 0
+ 314 001e 0F23     		mov	r3, #15
+ 315 0020 FB18     		add	r3, r7, r3
+ 316 0022 1B78     		ldrb	r3, [r3]
+ 317 0024 0520     		mov	r0, #5
+ 318 0026 191C     		mov	r1, r3
+ 319 0028 FFF7FEFF 		bl	writeReg
+  68:RTC.c         **** 
+  69:RTC.c         **** }
+ 320              		.loc 1 69 0
+ 321 002c BD46     		mov	sp, r7
+ 322 002e 05B0     		add	sp, sp, #20
+ 323              		@ sp needed
+ 324 0030 90BD     		pop	{r4, r7, pc}
+ 325              		.cfi_endproc
+ 326              	.LFE40:
+ 327              		.size	setHours, .-setHours
+ 328 0032 C046     		.section	.text.getHours,"ax",%progbits
+ 329              		.align	2
+ 330              		.global	getHours
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 8
+
+
+ 331              		.code	16
+ 332              		.thumb_func
+ 333              		.type	getHours, %function
+ 334              	getHours:
+ 335              	.LFB41:
+  70:RTC.c         **** uint8 getHours(){
+ 336              		.loc 1 70 0
+ 337              		.cfi_startproc
+ 338 0000 90B5     		push	{r4, r7, lr}
+ 339              		.cfi_def_cfa_offset 12
+ 340              		.cfi_offset 4, -12
+ 341              		.cfi_offset 7, -8
+ 342              		.cfi_offset 14, -4
+ 343 0002 83B0     		sub	sp, sp, #12
+ 344              		.cfi_def_cfa_offset 24
+ 345 0004 00AF     		add	r7, sp, #0
+ 346              		.cfi_def_cfa_register 7
+  71:RTC.c         **** 
+  72:RTC.c         ****     uint8 hourBCD = readReg(HOURS_REG);
+ 347              		.loc 1 72 0
+ 348 0006 FC1D     		add	r4, r7, #7
+ 349 0008 0520     		mov	r0, #5
+ 350 000a FFF7FEFF 		bl	readReg
+ 351 000e 031C     		mov	r3, r0
+ 352 0010 2370     		strb	r3, [r4]
+  73:RTC.c         ****     
+  74:RTC.c         ****     return decodeHours24(hourBCD);
+ 353              		.loc 1 74 0
+ 354 0012 FB1D     		add	r3, r7, #7
+ 355 0014 1B78     		ldrb	r3, [r3]
+ 356 0016 181C     		mov	r0, r3
+ 357 0018 FFF7FEFF 		bl	decodeHours24
+ 358 001c 031C     		mov	r3, r0
+  75:RTC.c         **** 
+  76:RTC.c         **** }
+ 359              		.loc 1 76 0
+ 360 001e 181C     		mov	r0, r3
+ 361 0020 BD46     		mov	sp, r7
+ 362 0022 03B0     		add	sp, sp, #12
+ 363              		@ sp needed
+ 364 0024 90BD     		pop	{r4, r7, pc}
+ 365              		.cfi_endproc
+ 366              	.LFE41:
+ 367              		.size	getHours, .-getHours
+ 368 0026 C046     		.section	.text.setDay,"ax",%progbits
+ 369              		.align	2
+ 370              		.global	setDay
+ 371              		.code	16
+ 372              		.thumb_func
+ 373              		.type	setDay, %function
+ 374              	setDay:
+ 375              	.LFB42:
+  77:RTC.c         **** 
+  78:RTC.c         **** void setDay(uint8 day){
+ 376              		.loc 1 78 0
+ 377              		.cfi_startproc
+ 378 0000 90B5     		push	{r4, r7, lr}
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 9
+
+
+ 379              		.cfi_def_cfa_offset 12
+ 380              		.cfi_offset 4, -12
+ 381              		.cfi_offset 7, -8
+ 382              		.cfi_offset 14, -4
+ 383 0002 85B0     		sub	sp, sp, #20
+ 384              		.cfi_def_cfa_offset 32
+ 385 0004 00AF     		add	r7, sp, #0
+ 386              		.cfi_def_cfa_register 7
+ 387 0006 021C     		mov	r2, r0
+ 388 0008 FB1D     		add	r3, r7, #7
+ 389 000a 1A70     		strb	r2, [r3]
+  79:RTC.c         **** 
+  80:RTC.c         ****     uint8 bcdDay = encodeDays(day);
+ 390              		.loc 1 80 0
+ 391 000c 0F23     		mov	r3, #15
+ 392 000e FC18     		add	r4, r7, r3
+ 393 0010 FB1D     		add	r3, r7, #7
+ 394 0012 1B78     		ldrb	r3, [r3]
+ 395 0014 181C     		mov	r0, r3
+ 396 0016 FFF7FEFF 		bl	encodeDays
+ 397 001a 031C     		mov	r3, r0
+ 398 001c 2370     		strb	r3, [r4]
+  81:RTC.c         ****     
+  82:RTC.c         ****     writeReg(DAYS_REG,bcdDay);
+ 399              		.loc 1 82 0
+ 400 001e 0F23     		mov	r3, #15
+ 401 0020 FB18     		add	r3, r7, r3
+ 402 0022 1B78     		ldrb	r3, [r3]
+ 403 0024 0620     		mov	r0, #6
+ 404 0026 191C     		mov	r1, r3
+ 405 0028 FFF7FEFF 		bl	writeReg
+  83:RTC.c         **** 
+  84:RTC.c         **** }
+ 406              		.loc 1 84 0
+ 407 002c BD46     		mov	sp, r7
+ 408 002e 05B0     		add	sp, sp, #20
+ 409              		@ sp needed
+ 410 0030 90BD     		pop	{r4, r7, pc}
+ 411              		.cfi_endproc
+ 412              	.LFE42:
+ 413              		.size	setDay, .-setDay
+ 414 0032 C046     		.section	.text.getDay,"ax",%progbits
+ 415              		.align	2
+ 416              		.global	getDay
+ 417              		.code	16
+ 418              		.thumb_func
+ 419              		.type	getDay, %function
+ 420              	getDay:
+ 421              	.LFB43:
+  85:RTC.c         **** uint8 getDay(){
+ 422              		.loc 1 85 0
+ 423              		.cfi_startproc
+ 424 0000 90B5     		push	{r4, r7, lr}
+ 425              		.cfi_def_cfa_offset 12
+ 426              		.cfi_offset 4, -12
+ 427              		.cfi_offset 7, -8
+ 428              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 10
+
+
+ 429 0002 83B0     		sub	sp, sp, #12
+ 430              		.cfi_def_cfa_offset 24
+ 431 0004 00AF     		add	r7, sp, #0
+ 432              		.cfi_def_cfa_register 7
+  86:RTC.c         **** 
+  87:RTC.c         ****     uint8 dayBCD = readReg(DAYS_REG);
+ 433              		.loc 1 87 0
+ 434 0006 FC1D     		add	r4, r7, #7
+ 435 0008 0620     		mov	r0, #6
+ 436 000a FFF7FEFF 		bl	readReg
+ 437 000e 031C     		mov	r3, r0
+ 438 0010 2370     		strb	r3, [r4]
+  88:RTC.c         ****     
+  89:RTC.c         ****     return decodeHours24(dayBCD);
+ 439              		.loc 1 89 0
+ 440 0012 FB1D     		add	r3, r7, #7
+ 441 0014 1B78     		ldrb	r3, [r3]
+ 442 0016 181C     		mov	r0, r3
+ 443 0018 FFF7FEFF 		bl	decodeHours24
+ 444 001c 031C     		mov	r3, r0
+  90:RTC.c         **** 
+  91:RTC.c         **** }
+ 445              		.loc 1 91 0
+ 446 001e 181C     		mov	r0, r3
+ 447 0020 BD46     		mov	sp, r7
+ 448 0022 03B0     		add	sp, sp, #12
+ 449              		@ sp needed
+ 450 0024 90BD     		pop	{r4, r7, pc}
+ 451              		.cfi_endproc
+ 452              	.LFE43:
+ 453              		.size	getDay, .-getDay
+ 454 0026 C046     		.section	.text.setWkDay,"ax",%progbits
+ 455              		.align	2
+ 456              		.global	setWkDay
+ 457              		.code	16
+ 458              		.thumb_func
+ 459              		.type	setWkDay, %function
+ 460              	setWkDay:
+ 461              	.LFB44:
+  92:RTC.c         **** 
+  93:RTC.c         **** void setWkDay(uint8 wkday){
+ 462              		.loc 1 93 0
+ 463              		.cfi_startproc
+ 464 0000 90B5     		push	{r4, r7, lr}
+ 465              		.cfi_def_cfa_offset 12
+ 466              		.cfi_offset 4, -12
+ 467              		.cfi_offset 7, -8
+ 468              		.cfi_offset 14, -4
+ 469 0002 85B0     		sub	sp, sp, #20
+ 470              		.cfi_def_cfa_offset 32
+ 471 0004 00AF     		add	r7, sp, #0
+ 472              		.cfi_def_cfa_register 7
+ 473 0006 021C     		mov	r2, r0
+ 474 0008 FB1D     		add	r3, r7, #7
+ 475 000a 1A70     		strb	r2, [r3]
+  94:RTC.c         ****     
+  95:RTC.c         ****     uint8 bcdWkday = encodeWeekDay(wkday);
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 11
+
+
+ 476              		.loc 1 95 0
+ 477 000c 0F23     		mov	r3, #15
+ 478 000e FC18     		add	r4, r7, r3
+ 479 0010 FB1D     		add	r3, r7, #7
+ 480 0012 1B78     		ldrb	r3, [r3]
+ 481 0014 181C     		mov	r0, r3
+ 482 0016 FFF7FEFF 		bl	encodeWeekDay
+ 483 001a 031C     		mov	r3, r0
+ 484 001c 2370     		strb	r3, [r4]
+  96:RTC.c         ****     writeReg(WEEKDAY_REG, bcdWkday);
+ 485              		.loc 1 96 0
+ 486 001e 0F23     		mov	r3, #15
+ 487 0020 FB18     		add	r3, r7, r3
+ 488 0022 1B78     		ldrb	r3, [r3]
+ 489 0024 0720     		mov	r0, #7
+ 490 0026 191C     		mov	r1, r3
+ 491 0028 FFF7FEFF 		bl	writeReg
+  97:RTC.c         ****     
+  98:RTC.c         **** }
+ 492              		.loc 1 98 0
+ 493 002c BD46     		mov	sp, r7
+ 494 002e 05B0     		add	sp, sp, #20
+ 495              		@ sp needed
+ 496 0030 90BD     		pop	{r4, r7, pc}
+ 497              		.cfi_endproc
+ 498              	.LFE44:
+ 499              		.size	setWkDay, .-setWkDay
+ 500 0032 C046     		.section	.text.getWkDay,"ax",%progbits
+ 501              		.align	2
+ 502              		.global	getWkDay
+ 503              		.code	16
+ 504              		.thumb_func
+ 505              		.type	getWkDay, %function
+ 506              	getWkDay:
+ 507              	.LFB45:
+  99:RTC.c         **** uint8 getWkDay(){
+ 508              		.loc 1 99 0
+ 509              		.cfi_startproc
+ 510 0000 90B5     		push	{r4, r7, lr}
+ 511              		.cfi_def_cfa_offset 12
+ 512              		.cfi_offset 4, -12
+ 513              		.cfi_offset 7, -8
+ 514              		.cfi_offset 14, -4
+ 515 0002 83B0     		sub	sp, sp, #12
+ 516              		.cfi_def_cfa_offset 24
+ 517 0004 00AF     		add	r7, sp, #0
+ 518              		.cfi_def_cfa_register 7
+ 100:RTC.c         **** 
+ 101:RTC.c         ****     uint8 wkDayBCD = readReg(WEEKDAY_REG);
+ 519              		.loc 1 101 0
+ 520 0006 FC1D     		add	r4, r7, #7
+ 521 0008 0720     		mov	r0, #7
+ 522 000a FFF7FEFF 		bl	readReg
+ 523 000e 031C     		mov	r3, r0
+ 524 0010 2370     		strb	r3, [r4]
+ 102:RTC.c         ****     
+ 103:RTC.c         ****     return decodeWeekDay(wkDayBCD);
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 12
+
+
+ 525              		.loc 1 103 0
+ 526 0012 FB1D     		add	r3, r7, #7
+ 527 0014 1B78     		ldrb	r3, [r3]
+ 528 0016 181C     		mov	r0, r3
+ 529 0018 FFF7FEFF 		bl	decodeWeekDay
+ 530 001c 031C     		mov	r3, r0
+ 104:RTC.c         ****     
+ 105:RTC.c         **** }
+ 531              		.loc 1 105 0
+ 532 001e 181C     		mov	r0, r3
+ 533 0020 BD46     		mov	sp, r7
+ 534 0022 03B0     		add	sp, sp, #12
+ 535              		@ sp needed
+ 536 0024 90BD     		pop	{r4, r7, pc}
+ 537              		.cfi_endproc
+ 538              	.LFE45:
+ 539              		.size	getWkDay, .-getWkDay
+ 540 0026 C046     		.section	.text.setMonth,"ax",%progbits
+ 541              		.align	2
+ 542              		.global	setMonth
+ 543              		.code	16
+ 544              		.thumb_func
+ 545              		.type	setMonth, %function
+ 546              	setMonth:
+ 547              	.LFB46:
+ 106:RTC.c         **** 
+ 107:RTC.c         **** void setMonth(uint8 month){
+ 548              		.loc 1 107 0
+ 549              		.cfi_startproc
+ 550 0000 90B5     		push	{r4, r7, lr}
+ 551              		.cfi_def_cfa_offset 12
+ 552              		.cfi_offset 4, -12
+ 553              		.cfi_offset 7, -8
+ 554              		.cfi_offset 14, -4
+ 555 0002 85B0     		sub	sp, sp, #20
+ 556              		.cfi_def_cfa_offset 32
+ 557 0004 00AF     		add	r7, sp, #0
+ 558              		.cfi_def_cfa_register 7
+ 559 0006 021C     		mov	r2, r0
+ 560 0008 FB1D     		add	r3, r7, #7
+ 561 000a 1A70     		strb	r2, [r3]
+ 108:RTC.c         **** 
+ 109:RTC.c         ****     uint8 bcdMonth = encodeMonth(month);
+ 562              		.loc 1 109 0
+ 563 000c 0F23     		mov	r3, #15
+ 564 000e FC18     		add	r4, r7, r3
+ 565 0010 FB1D     		add	r3, r7, #7
+ 566 0012 1B78     		ldrb	r3, [r3]
+ 567 0014 181C     		mov	r0, r3
+ 568 0016 FFF7FEFF 		bl	encodeMonth
+ 569 001a 031C     		mov	r3, r0
+ 570 001c 2370     		strb	r3, [r4]
+ 110:RTC.c         ****     writeReg(MONTH_REG,bcdMonth);
+ 571              		.loc 1 110 0
+ 572 001e 0F23     		mov	r3, #15
+ 573 0020 FB18     		add	r3, r7, r3
+ 574 0022 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 13
+
+
+ 575 0024 0820     		mov	r0, #8
+ 576 0026 191C     		mov	r1, r3
+ 577 0028 FFF7FEFF 		bl	writeReg
+ 111:RTC.c         ****     
+ 112:RTC.c         **** }
+ 578              		.loc 1 112 0
+ 579 002c BD46     		mov	sp, r7
+ 580 002e 05B0     		add	sp, sp, #20
+ 581              		@ sp needed
+ 582 0030 90BD     		pop	{r4, r7, pc}
+ 583              		.cfi_endproc
+ 584              	.LFE46:
+ 585              		.size	setMonth, .-setMonth
+ 586 0032 C046     		.section	.text.getMonth,"ax",%progbits
+ 587              		.align	2
+ 588              		.global	getMonth
+ 589              		.code	16
+ 590              		.thumb_func
+ 591              		.type	getMonth, %function
+ 592              	getMonth:
+ 593              	.LFB47:
+ 113:RTC.c         **** uint8 getMonth(){
+ 594              		.loc 1 113 0
+ 595              		.cfi_startproc
+ 596 0000 90B5     		push	{r4, r7, lr}
+ 597              		.cfi_def_cfa_offset 12
+ 598              		.cfi_offset 4, -12
+ 599              		.cfi_offset 7, -8
+ 600              		.cfi_offset 14, -4
+ 601 0002 83B0     		sub	sp, sp, #12
+ 602              		.cfi_def_cfa_offset 24
+ 603 0004 00AF     		add	r7, sp, #0
+ 604              		.cfi_def_cfa_register 7
+ 114:RTC.c         **** 
+ 115:RTC.c         ****     uint8 monthBCD = readReg(MONTH_REG);
+ 605              		.loc 1 115 0
+ 606 0006 FC1D     		add	r4, r7, #7
+ 607 0008 0820     		mov	r0, #8
+ 608 000a FFF7FEFF 		bl	readReg
+ 609 000e 031C     		mov	r3, r0
+ 610 0010 2370     		strb	r3, [r4]
+ 116:RTC.c         ****     
+ 117:RTC.c         ****     return decodeMonth(monthBCD);
+ 611              		.loc 1 117 0
+ 612 0012 FB1D     		add	r3, r7, #7
+ 613 0014 1B78     		ldrb	r3, [r3]
+ 614 0016 181C     		mov	r0, r3
+ 615 0018 FFF7FEFF 		bl	decodeMonth
+ 616 001c 031C     		mov	r3, r0
+ 118:RTC.c         **** 
+ 119:RTC.c         **** }
+ 617              		.loc 1 119 0
+ 618 001e 181C     		mov	r0, r3
+ 619 0020 BD46     		mov	sp, r7
+ 620 0022 03B0     		add	sp, sp, #12
+ 621              		@ sp needed
+ 622 0024 90BD     		pop	{r4, r7, pc}
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 14
+
+
+ 623              		.cfi_endproc
+ 624              	.LFE47:
+ 625              		.size	getMonth, .-getMonth
+ 626 0026 C046     		.section	.text.setYear,"ax",%progbits
+ 627              		.align	2
+ 628              		.global	setYear
+ 629              		.code	16
+ 630              		.thumb_func
+ 631              		.type	setYear, %function
+ 632              	setYear:
+ 633              	.LFB48:
+ 120:RTC.c         **** 
+ 121:RTC.c         **** void setYear(uint8 year){
+ 634              		.loc 1 121 0
+ 635              		.cfi_startproc
+ 636 0000 90B5     		push	{r4, r7, lr}
+ 637              		.cfi_def_cfa_offset 12
+ 638              		.cfi_offset 4, -12
+ 639              		.cfi_offset 7, -8
+ 640              		.cfi_offset 14, -4
+ 641 0002 85B0     		sub	sp, sp, #20
+ 642              		.cfi_def_cfa_offset 32
+ 643 0004 00AF     		add	r7, sp, #0
+ 644              		.cfi_def_cfa_register 7
+ 645 0006 021C     		mov	r2, r0
+ 646 0008 FB1D     		add	r3, r7, #7
+ 647 000a 1A70     		strb	r2, [r3]
+ 122:RTC.c         **** 
+ 123:RTC.c         ****     uint8 bcdYear = encodeYear(year);
+ 648              		.loc 1 123 0
+ 649 000c 0F23     		mov	r3, #15
+ 650 000e FC18     		add	r4, r7, r3
+ 651 0010 FB1D     		add	r3, r7, #7
+ 652 0012 1B78     		ldrb	r3, [r3]
+ 653 0014 181C     		mov	r0, r3
+ 654 0016 FFF7FEFF 		bl	encodeYear
+ 655 001a 031C     		mov	r3, r0
+ 656 001c 2370     		strb	r3, [r4]
+ 124:RTC.c         ****     
+ 125:RTC.c         ****     writeReg(YEAR_REG,bcdYear);
+ 657              		.loc 1 125 0
+ 658 001e 0F23     		mov	r3, #15
+ 659 0020 FB18     		add	r3, r7, r3
+ 660 0022 1B78     		ldrb	r3, [r3]
+ 661 0024 0920     		mov	r0, #9
+ 662 0026 191C     		mov	r1, r3
+ 663 0028 FFF7FEFF 		bl	writeReg
+ 126:RTC.c         **** 
+ 127:RTC.c         **** }
+ 664              		.loc 1 127 0
+ 665 002c BD46     		mov	sp, r7
+ 666 002e 05B0     		add	sp, sp, #20
+ 667              		@ sp needed
+ 668 0030 90BD     		pop	{r4, r7, pc}
+ 669              		.cfi_endproc
+ 670              	.LFE48:
+ 671              		.size	setYear, .-setYear
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 15
+
+
+ 672 0032 C046     		.section	.text.getYear,"ax",%progbits
+ 673              		.align	2
+ 674              		.global	getYear
+ 675              		.code	16
+ 676              		.thumb_func
+ 677              		.type	getYear, %function
+ 678              	getYear:
+ 679              	.LFB49:
+ 128:RTC.c         **** uint8 getYear(){
+ 680              		.loc 1 128 0
+ 681              		.cfi_startproc
+ 682 0000 90B5     		push	{r4, r7, lr}
+ 683              		.cfi_def_cfa_offset 12
+ 684              		.cfi_offset 4, -12
+ 685              		.cfi_offset 7, -8
+ 686              		.cfi_offset 14, -4
+ 687 0002 83B0     		sub	sp, sp, #12
+ 688              		.cfi_def_cfa_offset 24
+ 689 0004 00AF     		add	r7, sp, #0
+ 690              		.cfi_def_cfa_register 7
+ 129:RTC.c         **** 
+ 130:RTC.c         ****     uint8 yearBCD = readReg(YEAR_REG);
+ 691              		.loc 1 130 0
+ 692 0006 FC1D     		add	r4, r7, #7
+ 693 0008 0920     		mov	r0, #9
+ 694 000a FFF7FEFF 		bl	readReg
+ 695 000e 031C     		mov	r3, r0
+ 696 0010 2370     		strb	r3, [r4]
+ 131:RTC.c         ****     
+ 132:RTC.c         ****     return decodeYear(yearBCD);
+ 697              		.loc 1 132 0
+ 698 0012 FB1D     		add	r3, r7, #7
+ 699 0014 1B78     		ldrb	r3, [r3]
+ 700 0016 181C     		mov	r0, r3
+ 701 0018 FFF7FEFF 		bl	decodeYear
+ 702 001c 031C     		mov	r3, r0
+ 133:RTC.c         **** 
+ 134:RTC.c         **** }
+ 703              		.loc 1 134 0
+ 704 001e 181C     		mov	r0, r3
+ 705 0020 BD46     		mov	sp, r7
+ 706 0022 03B0     		add	sp, sp, #12
+ 707              		@ sp needed
+ 708 0024 90BD     		pop	{r4, r7, pc}
+ 709              		.cfi_endproc
+ 710              	.LFE49:
+ 711              		.size	getYear, .-getYear
+ 712 0026 C046     		.section	.text.getTime,"ax",%progbits
+ 713              		.align	2
+ 714              		.global	getTime
+ 715              		.code	16
+ 716              		.thumb_func
+ 717              		.type	getTime, %function
+ 718              	getTime:
+ 719              	.LFB50:
+ 135:RTC.c         **** 
+ 136:RTC.c         **** void getTime(struct time *currentTime){
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 16
+
+
+ 720              		.loc 1 136 0
+ 721              		.cfi_startproc
+ 722 0000 80B5     		push	{r7, lr}
+ 723              		.cfi_def_cfa_offset 8
+ 724              		.cfi_offset 7, -8
+ 725              		.cfi_offset 14, -4
+ 726 0002 82B0     		sub	sp, sp, #8
+ 727              		.cfi_def_cfa_offset 16
+ 728 0004 00AF     		add	r7, sp, #0
+ 729              		.cfi_def_cfa_register 7
+ 730 0006 7860     		str	r0, [r7, #4]
+ 137:RTC.c         ****     
+ 138:RTC.c         ****     
+ 139:RTC.c         ****     currentTime->year    =   getYear();
+ 731              		.loc 1 139 0
+ 732 0008 FFF7FEFF 		bl	getYear
+ 733 000c 031C     		mov	r3, r0
+ 734 000e 1A1C     		mov	r2, r3
+ 735 0010 7B68     		ldr	r3, [r7, #4]
+ 736 0012 9A71     		strb	r2, [r3, #6]
+ 140:RTC.c         ****     currentTime->month   =   getMonth();   
+ 737              		.loc 1 140 0
+ 738 0014 FFF7FEFF 		bl	getMonth
+ 739 0018 031C     		mov	r3, r0
+ 740 001a 1A1C     		mov	r2, r3
+ 741 001c 7B68     		ldr	r3, [r7, #4]
+ 742 001e 5A71     		strb	r2, [r3, #5]
+ 141:RTC.c         ****     currentTime->day     =   getDay();
+ 743              		.loc 1 141 0
+ 744 0020 FFF7FEFF 		bl	getDay
+ 745 0024 031C     		mov	r3, r0
+ 746 0026 1A1C     		mov	r2, r3
+ 747 0028 7B68     		ldr	r3, [r7, #4]
+ 748 002a DA70     		strb	r2, [r3, #3]
+ 142:RTC.c         ****     currentTime->weekday =   getWkDay();
+ 749              		.loc 1 142 0
+ 750 002c FFF7FEFF 		bl	getWkDay
+ 751 0030 031C     		mov	r3, r0
+ 752 0032 1A1C     		mov	r2, r3
+ 753 0034 7B68     		ldr	r3, [r7, #4]
+ 754 0036 1A71     		strb	r2, [r3, #4]
+ 143:RTC.c         ****     currentTime->hour    =   getHours();
+ 755              		.loc 1 143 0
+ 756 0038 FFF7FEFF 		bl	getHours
+ 757 003c 031C     		mov	r3, r0
+ 758 003e 1A1C     		mov	r2, r3
+ 759 0040 7B68     		ldr	r3, [r7, #4]
+ 760 0042 9A70     		strb	r2, [r3, #2]
+ 144:RTC.c         ****     currentTime->minute  =   getMin();
+ 761              		.loc 1 144 0
+ 762 0044 FFF7FEFF 		bl	getMin
+ 763 0048 031C     		mov	r3, r0
+ 764 004a 1A1C     		mov	r2, r3
+ 765 004c 7B68     		ldr	r3, [r7, #4]
+ 766 004e 5A70     		strb	r2, [r3, #1]
+ 145:RTC.c         ****     currentTime->second  =   getSec();
+ 767              		.loc 1 145 0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 17
+
+
+ 768 0050 FFF7FEFF 		bl	getSec
+ 769 0054 031C     		mov	r3, r0
+ 770 0056 1A1C     		mov	r2, r3
+ 771 0058 7B68     		ldr	r3, [r7, #4]
+ 772 005a 1A70     		strb	r2, [r3]
+ 146:RTC.c         ****    
+ 147:RTC.c         **** 
+ 148:RTC.c         **** }
+ 773              		.loc 1 148 0
+ 774 005c BD46     		mov	sp, r7
+ 775 005e 02B0     		add	sp, sp, #8
+ 776              		@ sp needed
+ 777 0060 80BD     		pop	{r7, pc}
+ 778              		.cfi_endproc
+ 779              	.LFE50:
+ 780              		.size	getTime, .-getTime
+ 781 0062 C046     		.section	.text.setTime,"ax",%progbits
+ 782              		.align	2
+ 783              		.global	setTime
+ 784              		.code	16
+ 785              		.thumb_func
+ 786              		.type	setTime, %function
+ 787              	setTime:
+ 788              	.LFB51:
+ 149:RTC.c         **** 
+ 150:RTC.c         **** void setTime(struct time *currentTime){
+ 789              		.loc 1 150 0
+ 790              		.cfi_startproc
+ 791 0000 80B5     		push	{r7, lr}
+ 792              		.cfi_def_cfa_offset 8
+ 793              		.cfi_offset 7, -8
+ 794              		.cfi_offset 14, -4
+ 795 0002 82B0     		sub	sp, sp, #8
+ 796              		.cfi_def_cfa_offset 16
+ 797 0004 00AF     		add	r7, sp, #0
+ 798              		.cfi_def_cfa_register 7
+ 799 0006 7860     		str	r0, [r7, #4]
+ 151:RTC.c         ****     
+ 152:RTC.c         **** 
+ 153:RTC.c         **** setSec(currentTime->second);   
+ 800              		.loc 1 153 0
+ 801 0008 7B68     		ldr	r3, [r7, #4]
+ 802 000a 1B78     		ldrb	r3, [r3]
+ 803 000c 181C     		mov	r0, r3
+ 804 000e FFF7FEFF 		bl	setSec
+ 154:RTC.c         **** setMin(currentTime->minute);
+ 805              		.loc 1 154 0
+ 806 0012 7B68     		ldr	r3, [r7, #4]
+ 807 0014 5B78     		ldrb	r3, [r3, #1]
+ 808 0016 181C     		mov	r0, r3
+ 809 0018 FFF7FEFF 		bl	setMin
+ 155:RTC.c         **** setHours(currentTime->hour);
+ 810              		.loc 1 155 0
+ 811 001c 7B68     		ldr	r3, [r7, #4]
+ 812 001e 9B78     		ldrb	r3, [r3, #2]
+ 813 0020 181C     		mov	r0, r3
+ 814 0022 FFF7FEFF 		bl	setHours
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 18
+
+
+ 156:RTC.c         **** setWkDay(currentTime->weekday);
+ 815              		.loc 1 156 0
+ 816 0026 7B68     		ldr	r3, [r7, #4]
+ 817 0028 1B79     		ldrb	r3, [r3, #4]
+ 818 002a 181C     		mov	r0, r3
+ 819 002c FFF7FEFF 		bl	setWkDay
+ 157:RTC.c         **** setDay(currentTime->day);
+ 820              		.loc 1 157 0
+ 821 0030 7B68     		ldr	r3, [r7, #4]
+ 822 0032 DB78     		ldrb	r3, [r3, #3]
+ 823 0034 181C     		mov	r0, r3
+ 824 0036 FFF7FEFF 		bl	setDay
+ 158:RTC.c         **** setMonth(currentTime->month);  
+ 825              		.loc 1 158 0
+ 826 003a 7B68     		ldr	r3, [r7, #4]
+ 827 003c 5B79     		ldrb	r3, [r3, #5]
+ 828 003e 181C     		mov	r0, r3
+ 829 0040 FFF7FEFF 		bl	setMonth
+ 159:RTC.c         **** setYear(currentTime->year); 
+ 830              		.loc 1 159 0
+ 831 0044 7B68     		ldr	r3, [r7, #4]
+ 832 0046 9B79     		ldrb	r3, [r3, #6]
+ 833 0048 181C     		mov	r0, r3
+ 834 004a FFF7FEFF 		bl	setYear
+ 160:RTC.c         **** 
+ 161:RTC.c         **** }
+ 835              		.loc 1 161 0
+ 836 004e BD46     		mov	sp, r7
+ 837 0050 02B0     		add	sp, sp, #8
+ 838              		@ sp needed
+ 839 0052 80BD     		pop	{r7, pc}
+ 840              		.cfi_endproc
+ 841              	.LFE51:
+ 842              		.size	setTime, .-setTime
+ 843              		.section	.text.createAlarm,"ax",%progbits
+ 844              		.align	2
+ 845              		.global	createAlarm
+ 846              		.code	16
+ 847              		.thumb_func
+ 848              		.type	createAlarm, %function
+ 849              	createAlarm:
+ 850              	.LFB52:
+ 162:RTC.c         **** 
+ 163:RTC.c         **** void createAlarm(struct time *alarm, uint8 weekDay, uint8 hour, uint8 minute){
+ 851              		.loc 1 163 0
+ 852              		.cfi_startproc
+ 853 0000 90B5     		push	{r4, r7, lr}
+ 854              		.cfi_def_cfa_offset 12
+ 855              		.cfi_offset 4, -12
+ 856              		.cfi_offset 7, -8
+ 857              		.cfi_offset 14, -4
+ 858 0002 83B0     		sub	sp, sp, #12
+ 859              		.cfi_def_cfa_offset 24
+ 860 0004 00AF     		add	r7, sp, #0
+ 861              		.cfi_def_cfa_register 7
+ 862 0006 7860     		str	r0, [r7, #4]
+ 863 0008 0C1C     		mov	r4, r1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 19
+
+
+ 864 000a 101C     		mov	r0, r2
+ 865 000c 191C     		mov	r1, r3
+ 866 000e FB1C     		add	r3, r7, #3
+ 867 0010 221C     		add	r2, r4, #0
+ 868 0012 1A70     		strb	r2, [r3]
+ 869 0014 BB1C     		add	r3, r7, #2
+ 870 0016 021C     		add	r2, r0, #0
+ 871 0018 1A70     		strb	r2, [r3]
+ 872 001a 7B1C     		add	r3, r7, #1
+ 873 001c 0A1C     		add	r2, r1, #0
+ 874 001e 1A70     		strb	r2, [r3]
+ 164:RTC.c         **** 
+ 165:RTC.c         **** 
+ 166:RTC.c         ****     alarm->year = 0xFF;
+ 875              		.loc 1 166 0
+ 876 0020 7B68     		ldr	r3, [r7, #4]
+ 877 0022 FF22     		mov	r2, #255
+ 878 0024 9A71     		strb	r2, [r3, #6]
+ 167:RTC.c         ****     alarm->month = 0xFF;
+ 879              		.loc 1 167 0
+ 880 0026 7B68     		ldr	r3, [r7, #4]
+ 881 0028 FF22     		mov	r2, #255
+ 882 002a 5A71     		strb	r2, [r3, #5]
+ 168:RTC.c         ****     alarm->day =0xFF;
+ 883              		.loc 1 168 0
+ 884 002c 7B68     		ldr	r3, [r7, #4]
+ 885 002e FF22     		mov	r2, #255
+ 886 0030 DA70     		strb	r2, [r3, #3]
+ 169:RTC.c         ****     alarm->weekday = weekDay;
+ 887              		.loc 1 169 0
+ 888 0032 7B68     		ldr	r3, [r7, #4]
+ 889 0034 FA1C     		add	r2, r7, #3
+ 890 0036 1278     		ldrb	r2, [r2]
+ 891 0038 1A71     		strb	r2, [r3, #4]
+ 170:RTC.c         ****     alarm->hour = hour;
+ 892              		.loc 1 170 0
+ 893 003a 7B68     		ldr	r3, [r7, #4]
+ 894 003c BA1C     		add	r2, r7, #2
+ 895 003e 1278     		ldrb	r2, [r2]
+ 896 0040 9A70     		strb	r2, [r3, #2]
+ 171:RTC.c         ****     alarm->minute = minute;
+ 897              		.loc 1 171 0
+ 898 0042 7B68     		ldr	r3, [r7, #4]
+ 899 0044 7A1C     		add	r2, r7, #1
+ 900 0046 1278     		ldrb	r2, [r2]
+ 901 0048 5A70     		strb	r2, [r3, #1]
+ 172:RTC.c         ****     alarm->second = 0;
+ 902              		.loc 1 172 0
+ 903 004a 7B68     		ldr	r3, [r7, #4]
+ 904 004c 0022     		mov	r2, #0
+ 905 004e 1A70     		strb	r2, [r3]
+ 173:RTC.c         **** 
+ 174:RTC.c         **** }
+ 906              		.loc 1 174 0
+ 907 0050 BD46     		mov	sp, r7
+ 908 0052 03B0     		add	sp, sp, #12
+ 909              		@ sp needed
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 20
+
+
+ 910 0054 90BD     		pop	{r4, r7, pc}
+ 911              		.cfi_endproc
+ 912              	.LFE52:
+ 913              		.size	createAlarm, .-createAlarm
+ 914 0056 C046     		.section	.text.createAlarmTEST,"ax",%progbits
+ 915              		.align	2
+ 916              		.global	createAlarmTEST
+ 917              		.code	16
+ 918              		.thumb_func
+ 919              		.type	createAlarmTEST, %function
+ 920              	createAlarmTEST:
+ 921              	.LFB53:
+ 175:RTC.c         **** 
+ 176:RTC.c         **** void createAlarmTEST(struct time *alarm,uint8 minute, uint8 second){
+ 922              		.loc 1 176 0
+ 923              		.cfi_startproc
+ 924 0000 80B5     		push	{r7, lr}
+ 925              		.cfi_def_cfa_offset 8
+ 926              		.cfi_offset 7, -8
+ 927              		.cfi_offset 14, -4
+ 928 0002 82B0     		sub	sp, sp, #8
+ 929              		.cfi_def_cfa_offset 16
+ 930 0004 00AF     		add	r7, sp, #0
+ 931              		.cfi_def_cfa_register 7
+ 932 0006 7860     		str	r0, [r7, #4]
+ 933 0008 081C     		mov	r0, r1
+ 934 000a 111C     		mov	r1, r2
+ 935 000c FB1C     		add	r3, r7, #3
+ 936 000e 021C     		add	r2, r0, #0
+ 937 0010 1A70     		strb	r2, [r3]
+ 938 0012 BB1C     		add	r3, r7, #2
+ 939 0014 0A1C     		add	r2, r1, #0
+ 940 0016 1A70     		strb	r2, [r3]
+ 177:RTC.c         **** 
+ 178:RTC.c         ****     alarm->year = 0xFF;
+ 941              		.loc 1 178 0
+ 942 0018 7B68     		ldr	r3, [r7, #4]
+ 943 001a FF22     		mov	r2, #255
+ 944 001c 9A71     		strb	r2, [r3, #6]
+ 179:RTC.c         ****     alarm->month = 0xFF;
+ 945              		.loc 1 179 0
+ 946 001e 7B68     		ldr	r3, [r7, #4]
+ 947 0020 FF22     		mov	r2, #255
+ 948 0022 5A71     		strb	r2, [r3, #5]
+ 180:RTC.c         ****     alarm->day =0xFF;
+ 949              		.loc 1 180 0
+ 950 0024 7B68     		ldr	r3, [r7, #4]
+ 951 0026 FF22     		mov	r2, #255
+ 952 0028 DA70     		strb	r2, [r3, #3]
+ 181:RTC.c         ****     alarm->weekday = 0xFF;
+ 953              		.loc 1 181 0
+ 954 002a 7B68     		ldr	r3, [r7, #4]
+ 955 002c FF22     		mov	r2, #255
+ 956 002e 1A71     		strb	r2, [r3, #4]
+ 182:RTC.c         ****     alarm->hour = 0xFF;
+ 957              		.loc 1 182 0
+ 958 0030 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 21
+
+
+ 959 0032 FF22     		mov	r2, #255
+ 960 0034 9A70     		strb	r2, [r3, #2]
+ 183:RTC.c         ****     alarm->minute = minute;
+ 961              		.loc 1 183 0
+ 962 0036 7B68     		ldr	r3, [r7, #4]
+ 963 0038 FA1C     		add	r2, r7, #3
+ 964 003a 1278     		ldrb	r2, [r2]
+ 965 003c 5A70     		strb	r2, [r3, #1]
+ 184:RTC.c         ****     alarm->second = second;
+ 966              		.loc 1 184 0
+ 967 003e 7B68     		ldr	r3, [r7, #4]
+ 968 0040 BA1C     		add	r2, r7, #2
+ 969 0042 1278     		ldrb	r2, [r2]
+ 970 0044 1A70     		strb	r2, [r3]
+ 185:RTC.c         **** }
+ 971              		.loc 1 185 0
+ 972 0046 BD46     		mov	sp, r7
+ 973 0048 02B0     		add	sp, sp, #8
+ 974              		@ sp needed
+ 975 004a 80BD     		pop	{r7, pc}
+ 976              		.cfi_endproc
+ 977              	.LFE53:
+ 978              		.size	createAlarmTEST, .-createAlarmTEST
+ 979              		.section	.text.checkAlarm,"ax",%progbits
+ 980              		.align	2
+ 981              		.global	checkAlarm
+ 982              		.code	16
+ 983              		.thumb_func
+ 984              		.type	checkAlarm, %function
+ 985              	checkAlarm:
+ 986              	.LFB54:
+ 186:RTC.c         **** 
+ 187:RTC.c         **** char checkAlarm(struct time *currentTime, struct time *alarmTime){
+ 987              		.loc 1 187 0
+ 988              		.cfi_startproc
+ 989 0000 80B5     		push	{r7, lr}
+ 990              		.cfi_def_cfa_offset 8
+ 991              		.cfi_offset 7, -8
+ 992              		.cfi_offset 14, -4
+ 993 0002 84B0     		sub	sp, sp, #16
+ 994              		.cfi_def_cfa_offset 24
+ 995 0004 00AF     		add	r7, sp, #0
+ 996              		.cfi_def_cfa_register 7
+ 997 0006 7860     		str	r0, [r7, #4]
+ 998 0008 3960     		str	r1, [r7]
+ 188:RTC.c         **** /* This function checks if the current time is equal to a time alarm.
+ 189:RTC.c         ****  * If the times are equal the function returns 0. If a field of time
+ 190:RTC.c         ****  * is to be ignored, the alarmTime should have 0xFF as that field.
+ 191:RTC.c         ****  *  
+ 192:RTC.c         ****  */
+ 193:RTC.c         ****     char result = 0;
+ 999              		.loc 1 193 0
+ 1000 000a 0F23     		mov	r3, #15
+ 1001 000c FB18     		add	r3, r7, r3
+ 1002 000e 0022     		mov	r2, #0
+ 1003 0010 1A70     		strb	r2, [r3]
+ 194:RTC.c         ****     
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 22
+
+
+ 195:RTC.c         ****     // Check that each field of time is equal and not 0xFF.
+ 196:RTC.c         ****     // If a field is 0xFF, then the if statment will always be false and not execute
+ 197:RTC.c         ****     // effectivley rendering it ignored. If a field is not 0xFF, then only the relation to current
+ 198:RTC.c         ****     // matters.
+ 199:RTC.c         ****     if((!(currentTime->year == alarmTime->year)) && (!(alarmTime->year == 0xFF))){
+ 1004              		.loc 1 199 0
+ 1005 0012 7B68     		ldr	r3, [r7, #4]
+ 1006 0014 9A79     		ldrb	r2, [r3, #6]
+ 1007 0016 3B68     		ldr	r3, [r7]
+ 1008 0018 9B79     		ldrb	r3, [r3, #6]
+ 1009 001a 9A42     		cmp	r2, r3
+ 1010 001c 0AD0     		beq	.L31
+ 1011              		.loc 1 199 0 is_stmt 0 discriminator 1
+ 1012 001e 3B68     		ldr	r3, [r7]
+ 1013 0020 9B79     		ldrb	r3, [r3, #6]
+ 1014 0022 FF2B     		cmp	r3, #255
+ 1015 0024 06D0     		beq	.L31
+ 200:RTC.c         ****         result++ ;
+ 1016              		.loc 1 200 0 is_stmt 1
+ 1017 0026 0F23     		mov	r3, #15
+ 1018 0028 FB18     		add	r3, r7, r3
+ 1019 002a 1A78     		ldrb	r2, [r3]
+ 1020 002c 0F23     		mov	r3, #15
+ 1021 002e FB18     		add	r3, r7, r3
+ 1022 0030 0132     		add	r2, r2, #1
+ 1023 0032 1A70     		strb	r2, [r3]
+ 1024              	.L31:
+ 201:RTC.c         ****     }
+ 202:RTC.c         ****     if((!(currentTime->month == alarmTime->month)) && (!(alarmTime->month == 0xFF))){
+ 1025              		.loc 1 202 0
+ 1026 0034 7B68     		ldr	r3, [r7, #4]
+ 1027 0036 5A79     		ldrb	r2, [r3, #5]
+ 1028 0038 3B68     		ldr	r3, [r7]
+ 1029 003a 5B79     		ldrb	r3, [r3, #5]
+ 1030 003c 9A42     		cmp	r2, r3
+ 1031 003e 0AD0     		beq	.L32
+ 1032              		.loc 1 202 0 is_stmt 0 discriminator 1
+ 1033 0040 3B68     		ldr	r3, [r7]
+ 1034 0042 5B79     		ldrb	r3, [r3, #5]
+ 1035 0044 FF2B     		cmp	r3, #255
+ 1036 0046 06D0     		beq	.L32
+ 203:RTC.c         ****         result++ ;
+ 1037              		.loc 1 203 0 is_stmt 1
+ 1038 0048 0F23     		mov	r3, #15
+ 1039 004a FB18     		add	r3, r7, r3
+ 1040 004c 1A78     		ldrb	r2, [r3]
+ 1041 004e 0F23     		mov	r3, #15
+ 1042 0050 FB18     		add	r3, r7, r3
+ 1043 0052 0132     		add	r2, r2, #1
+ 1044 0054 1A70     		strb	r2, [r3]
+ 1045              	.L32:
+ 204:RTC.c         ****     }
+ 205:RTC.c         ****     if((!(currentTime->day == alarmTime->day)) && (!(alarmTime->day == 0xFF))){
+ 1046              		.loc 1 205 0
+ 1047 0056 7B68     		ldr	r3, [r7, #4]
+ 1048 0058 DA78     		ldrb	r2, [r3, #3]
+ 1049 005a 3B68     		ldr	r3, [r7]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 23
+
+
+ 1050 005c DB78     		ldrb	r3, [r3, #3]
+ 1051 005e 9A42     		cmp	r2, r3
+ 1052 0060 0AD0     		beq	.L33
+ 1053              		.loc 1 205 0 is_stmt 0 discriminator 1
+ 1054 0062 3B68     		ldr	r3, [r7]
+ 1055 0064 DB78     		ldrb	r3, [r3, #3]
+ 1056 0066 FF2B     		cmp	r3, #255
+ 1057 0068 06D0     		beq	.L33
+ 206:RTC.c         ****         result++ ;
+ 1058              		.loc 1 206 0 is_stmt 1
+ 1059 006a 0F23     		mov	r3, #15
+ 1060 006c FB18     		add	r3, r7, r3
+ 1061 006e 1A78     		ldrb	r2, [r3]
+ 1062 0070 0F23     		mov	r3, #15
+ 1063 0072 FB18     		add	r3, r7, r3
+ 1064 0074 0132     		add	r2, r2, #1
+ 1065 0076 1A70     		strb	r2, [r3]
+ 1066              	.L33:
+ 207:RTC.c         ****     }
+ 208:RTC.c         ****     if((!(currentTime->weekday == alarmTime->weekday)) && (!(alarmTime->weekday == 0xFF))){
+ 1067              		.loc 1 208 0
+ 1068 0078 7B68     		ldr	r3, [r7, #4]
+ 1069 007a 1A79     		ldrb	r2, [r3, #4]
+ 1070 007c 3B68     		ldr	r3, [r7]
+ 1071 007e 1B79     		ldrb	r3, [r3, #4]
+ 1072 0080 9A42     		cmp	r2, r3
+ 1073 0082 0AD0     		beq	.L34
+ 1074              		.loc 1 208 0 is_stmt 0 discriminator 1
+ 1075 0084 3B68     		ldr	r3, [r7]
+ 1076 0086 1B79     		ldrb	r3, [r3, #4]
+ 1077 0088 FF2B     		cmp	r3, #255
+ 1078 008a 06D0     		beq	.L34
+ 209:RTC.c         ****         result++ ;
+ 1079              		.loc 1 209 0 is_stmt 1
+ 1080 008c 0F23     		mov	r3, #15
+ 1081 008e FB18     		add	r3, r7, r3
+ 1082 0090 1A78     		ldrb	r2, [r3]
+ 1083 0092 0F23     		mov	r3, #15
+ 1084 0094 FB18     		add	r3, r7, r3
+ 1085 0096 0132     		add	r2, r2, #1
+ 1086 0098 1A70     		strb	r2, [r3]
+ 1087              	.L34:
+ 210:RTC.c         ****     }
+ 211:RTC.c         ****     if((!(currentTime->hour == alarmTime->hour)) && (!(alarmTime->hour == 0xFF))){
+ 1088              		.loc 1 211 0
+ 1089 009a 7B68     		ldr	r3, [r7, #4]
+ 1090 009c 9A78     		ldrb	r2, [r3, #2]
+ 1091 009e 3B68     		ldr	r3, [r7]
+ 1092 00a0 9B78     		ldrb	r3, [r3, #2]
+ 1093 00a2 9A42     		cmp	r2, r3
+ 1094 00a4 0AD0     		beq	.L35
+ 1095              		.loc 1 211 0 is_stmt 0 discriminator 1
+ 1096 00a6 3B68     		ldr	r3, [r7]
+ 1097 00a8 9B78     		ldrb	r3, [r3, #2]
+ 1098 00aa FF2B     		cmp	r3, #255
+ 1099 00ac 06D0     		beq	.L35
+ 212:RTC.c         ****         result++ ;
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 24
+
+
+ 1100              		.loc 1 212 0 is_stmt 1
+ 1101 00ae 0F23     		mov	r3, #15
+ 1102 00b0 FB18     		add	r3, r7, r3
+ 1103 00b2 1A78     		ldrb	r2, [r3]
+ 1104 00b4 0F23     		mov	r3, #15
+ 1105 00b6 FB18     		add	r3, r7, r3
+ 1106 00b8 0132     		add	r2, r2, #1
+ 1107 00ba 1A70     		strb	r2, [r3]
+ 1108              	.L35:
+ 213:RTC.c         ****     }
+ 214:RTC.c         ****     if((!(currentTime->minute == alarmTime->minute)) && ( !(alarmTime->minute == 0xFF))){
+ 1109              		.loc 1 214 0
+ 1110 00bc 7B68     		ldr	r3, [r7, #4]
+ 1111 00be 5A78     		ldrb	r2, [r3, #1]
+ 1112 00c0 3B68     		ldr	r3, [r7]
+ 1113 00c2 5B78     		ldrb	r3, [r3, #1]
+ 1114 00c4 9A42     		cmp	r2, r3
+ 1115 00c6 0AD0     		beq	.L36
+ 1116              		.loc 1 214 0 is_stmt 0 discriminator 1
+ 1117 00c8 3B68     		ldr	r3, [r7]
+ 1118 00ca 5B78     		ldrb	r3, [r3, #1]
+ 1119 00cc FF2B     		cmp	r3, #255
+ 1120 00ce 06D0     		beq	.L36
+ 215:RTC.c         ****         result++ ;
+ 1121              		.loc 1 215 0 is_stmt 1
+ 1122 00d0 0F23     		mov	r3, #15
+ 1123 00d2 FB18     		add	r3, r7, r3
+ 1124 00d4 1A78     		ldrb	r2, [r3]
+ 1125 00d6 0F23     		mov	r3, #15
+ 1126 00d8 FB18     		add	r3, r7, r3
+ 1127 00da 0132     		add	r2, r2, #1
+ 1128 00dc 1A70     		strb	r2, [r3]
+ 1129              	.L36:
+ 216:RTC.c         ****     }
+ 217:RTC.c         ****     if((!(currentTime->second == alarmTime->second)) && (!(alarmTime->second == 0xFF))){
+ 1130              		.loc 1 217 0
+ 1131 00de 7B68     		ldr	r3, [r7, #4]
+ 1132 00e0 1A78     		ldrb	r2, [r3]
+ 1133 00e2 3B68     		ldr	r3, [r7]
+ 1134 00e4 1B78     		ldrb	r3, [r3]
+ 1135 00e6 9A42     		cmp	r2, r3
+ 1136 00e8 0AD0     		beq	.L37
+ 1137              		.loc 1 217 0 is_stmt 0 discriminator 1
+ 1138 00ea 3B68     		ldr	r3, [r7]
+ 1139 00ec 1B78     		ldrb	r3, [r3]
+ 1140 00ee FF2B     		cmp	r3, #255
+ 1141 00f0 06D0     		beq	.L37
+ 218:RTC.c         ****         result++ ;
+ 1142              		.loc 1 218 0 is_stmt 1
+ 1143 00f2 0F23     		mov	r3, #15
+ 1144 00f4 FB18     		add	r3, r7, r3
+ 1145 00f6 1A78     		ldrb	r2, [r3]
+ 1146 00f8 0F23     		mov	r3, #15
+ 1147 00fa FB18     		add	r3, r7, r3
+ 1148 00fc 0132     		add	r2, r2, #1
+ 1149 00fe 1A70     		strb	r2, [r3]
+ 1150              	.L37:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 25
+
+
+ 219:RTC.c         ****     }
+ 220:RTC.c         ****     
+ 221:RTC.c         ****     
+ 222:RTC.c         **** 
+ 223:RTC.c         ****     return result;
+ 1151              		.loc 1 223 0
+ 1152 0100 0F23     		mov	r3, #15
+ 1153 0102 FB18     		add	r3, r7, r3
+ 1154 0104 1B78     		ldrb	r3, [r3]
+ 224:RTC.c         **** }
+ 1155              		.loc 1 224 0
+ 1156 0106 181C     		mov	r0, r3
+ 1157 0108 BD46     		mov	sp, r7
+ 1158 010a 04B0     		add	sp, sp, #16
+ 1159              		@ sp needed
+ 1160 010c 80BD     		pop	{r7, pc}
+ 1161              		.cfi_endproc
+ 1162              	.LFE54:
+ 1163              		.size	checkAlarm, .-checkAlarm
+ 1164 010e C046     		.section	.text.softReset,"ax",%progbits
+ 1165              		.align	2
+ 1166              		.global	softReset
+ 1167              		.code	16
+ 1168              		.thumb_func
+ 1169              		.type	softReset, %function
+ 1170              	softReset:
+ 1171              	.LFB55:
+ 225:RTC.c         **** 
+ 226:RTC.c         **** void softReset(){
+ 1172              		.loc 1 226 0
+ 1173              		.cfi_startproc
+ 1174 0000 80B5     		push	{r7, lr}
+ 1175              		.cfi_def_cfa_offset 8
+ 1176              		.cfi_offset 7, -8
+ 1177              		.cfi_offset 14, -4
+ 1178 0002 00AF     		add	r7, sp, #0
+ 1179              		.cfi_def_cfa_register 7
+ 227:RTC.c         **** 
+ 228:RTC.c         **** writeReg(CONTROL_REG_1, RESET_VALUE);
+ 1180              		.loc 1 228 0
+ 1181 0004 0020     		mov	r0, #0
+ 1182 0006 5821     		mov	r1, #88
+ 1183 0008 FFF7FEFF 		bl	writeReg
+ 229:RTC.c         ****     
+ 230:RTC.c         **** }
+ 1184              		.loc 1 230 0
+ 1185 000c BD46     		mov	sp, r7
+ 1186              		@ sp needed
+ 1187 000e 80BD     		pop	{r7, pc}
+ 1188              		.cfi_endproc
+ 1189              	.LFE55:
+ 1190              		.size	softReset, .-softReset
+ 1191              		.text
+ 1192              	.Letext0:
+ 1193              		.file 2 "./RTC.h"
+ 1194              		.file 3 "Generated_Source\\PSoC4/cytypes.h"
+ 1195              		.section	.debug_info,"",%progbits
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 26
+
+
+ 1196              	.Ldebug_info0:
+ 1197 0000 D6040000 		.4byte	0x4d6
+ 1198 0004 0400     		.2byte	0x4
+ 1199 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1200 000a 04       		.byte	0x4
+ 1201 000b 01       		.uleb128 0x1
+ 1202 000c BC010000 		.4byte	.LASF61
+ 1203 0010 01       		.byte	0x1
+ 1204 0011 0B010000 		.4byte	.LASF62
+ 1205 0015 4A020000 		.4byte	.LASF63
+ 1206 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1207 001d 00000000 		.4byte	0
+ 1208 0021 00000000 		.4byte	.Ldebug_line0
+ 1209 0025 02       		.uleb128 0x2
+ 1210 0026 01       		.byte	0x1
+ 1211 0027 06       		.byte	0x6
+ 1212 0028 3C010000 		.4byte	.LASF0
+ 1213 002c 02       		.uleb128 0x2
+ 1214 002d 01       		.byte	0x1
+ 1215 002e 08       		.byte	0x8
+ 1216 002f FD000000 		.4byte	.LASF1
+ 1217 0033 02       		.uleb128 0x2
+ 1218 0034 02       		.byte	0x2
+ 1219 0035 05       		.byte	0x5
+ 1220 0036 20000000 		.4byte	.LASF2
+ 1221 003a 02       		.uleb128 0x2
+ 1222 003b 02       		.byte	0x2
+ 1223 003c 07       		.byte	0x7
+ 1224 003d 8F010000 		.4byte	.LASF3
+ 1225 0041 02       		.uleb128 0x2
+ 1226 0042 04       		.byte	0x4
+ 1227 0043 05       		.byte	0x5
+ 1228 0044 D1000000 		.4byte	.LASF4
+ 1229 0048 02       		.uleb128 0x2
+ 1230 0049 04       		.byte	0x4
+ 1231 004a 07       		.byte	0x7
+ 1232 004b C1020000 		.4byte	.LASF5
+ 1233 004f 02       		.uleb128 0x2
+ 1234 0050 08       		.byte	0x8
+ 1235 0051 05       		.byte	0x5
+ 1236 0052 A1000000 		.4byte	.LASF6
+ 1237 0056 02       		.uleb128 0x2
+ 1238 0057 08       		.byte	0x8
+ 1239 0058 07       		.byte	0x7
+ 1240 0059 4F010000 		.4byte	.LASF7
+ 1241 005d 03       		.uleb128 0x3
+ 1242 005e 04       		.byte	0x4
+ 1243 005f 05       		.byte	0x5
+ 1244 0060 696E7400 		.ascii	"int\000"
+ 1245 0064 02       		.uleb128 0x2
+ 1246 0065 04       		.byte	0x4
+ 1247 0066 07       		.byte	0x7
+ 1248 0067 66010000 		.4byte	.LASF8
+ 1249 006b 04       		.uleb128 0x4
+ 1250 006c 7D000000 		.4byte	.LASF64
+ 1251 0070 03       		.byte	0x3
+ 1252 0071 B901     		.2byte	0x1b9
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 27
+
+
+ 1253 0073 2C000000 		.4byte	0x2c
+ 1254 0077 02       		.uleb128 0x2
+ 1255 0078 04       		.byte	0x4
+ 1256 0079 04       		.byte	0x4
+ 1257 007a 9B000000 		.4byte	.LASF9
+ 1258 007e 02       		.uleb128 0x2
+ 1259 007f 08       		.byte	0x8
+ 1260 0080 04       		.byte	0x4
+ 1261 0081 DB020000 		.4byte	.LASF10
+ 1262 0085 02       		.uleb128 0x2
+ 1263 0086 01       		.byte	0x1
+ 1264 0087 08       		.byte	0x8
+ 1265 0088 B0010000 		.4byte	.LASF11
+ 1266 008c 02       		.uleb128 0x2
+ 1267 008d 04       		.byte	0x4
+ 1268 008e 07       		.byte	0x7
+ 1269 008f 32000000 		.4byte	.LASF12
+ 1270 0093 05       		.uleb128 0x5
+ 1271 0094 83010000 		.4byte	.LASF65
+ 1272 0098 07       		.byte	0x7
+ 1273 0099 02       		.byte	0x2
+ 1274 009a 40       		.byte	0x40
+ 1275 009b F4000000 		.4byte	0xf4
+ 1276 009f 06       		.uleb128 0x6
+ 1277 00a0 48010000 		.4byte	.LASF13
+ 1278 00a4 02       		.byte	0x2
+ 1279 00a5 42       		.byte	0x42
+ 1280 00a6 6B000000 		.4byte	0x6b
+ 1281 00aa 00       		.byte	0
+ 1282 00ab 06       		.uleb128 0x6
+ 1283 00ac B1020000 		.4byte	.LASF14
+ 1284 00b0 02       		.byte	0x2
+ 1285 00b1 43       		.byte	0x43
+ 1286 00b2 6B000000 		.4byte	0x6b
+ 1287 00b6 01       		.byte	0x1
+ 1288 00b7 06       		.uleb128 0x6
+ 1289 00b8 F8000000 		.4byte	.LASF15
+ 1290 00bc 02       		.byte	0x2
+ 1291 00bd 44       		.byte	0x44
+ 1292 00be 6B000000 		.4byte	0x6b
+ 1293 00c2 02       		.byte	0x2
+ 1294 00c3 07       		.uleb128 0x7
+ 1295 00c4 64617900 		.ascii	"day\000"
+ 1296 00c8 02       		.byte	0x2
+ 1297 00c9 45       		.byte	0x45
+ 1298 00ca 6B000000 		.4byte	0x6b
+ 1299 00ce 03       		.byte	0x3
+ 1300 00cf 06       		.uleb128 0x6
+ 1301 00d0 48000000 		.4byte	.LASF16
+ 1302 00d4 02       		.byte	0x2
+ 1303 00d5 46       		.byte	0x46
+ 1304 00d6 6B000000 		.4byte	0x6b
+ 1305 00da 04       		.byte	0x4
+ 1306 00db 06       		.uleb128 0x6
+ 1307 00dc A5020000 		.4byte	.LASF17
+ 1308 00e0 02       		.byte	0x2
+ 1309 00e1 47       		.byte	0x47
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 28
+
+
+ 1310 00e2 6B000000 		.4byte	0x6b
+ 1311 00e6 05       		.byte	0x5
+ 1312 00e7 06       		.uleb128 0x6
+ 1313 00e8 A2010000 		.4byte	.LASF18
+ 1314 00ec 02       		.byte	0x2
+ 1315 00ed 48       		.byte	0x48
+ 1316 00ee 6B000000 		.4byte	0x6b
+ 1317 00f2 06       		.byte	0x6
+ 1318 00f3 00       		.byte	0
+ 1319 00f4 08       		.uleb128 0x8
+ 1320 00f5 19030000 		.4byte	.LASF21
+ 1321 00f9 01       		.byte	0x1
+ 1322 00fa 0F       		.byte	0xf
+ 1323 00fb 00000000 		.4byte	.LFB34
+ 1324 00ff 60000000 		.4byte	.LFE34-.LFB34
+ 1325 0103 01       		.uleb128 0x1
+ 1326 0104 9C       		.byte	0x9c
+ 1327 0105 34010000 		.4byte	0x134
+ 1328 0109 09       		.uleb128 0x9
+ 1329 010a 43000000 		.4byte	.LASF23
+ 1330 010e 01       		.byte	0x1
+ 1331 010f 0F       		.byte	0xf
+ 1332 0110 6B000000 		.4byte	0x6b
+ 1333 0114 02       		.uleb128 0x2
+ 1334 0115 91       		.byte	0x91
+ 1335 0116 67       		.sleb128 -25
+ 1336 0117 0A       		.uleb128 0xa
+ 1337 0118 72000000 		.4byte	.LASF19
+ 1338 011c 01       		.byte	0x1
+ 1339 011d 11       		.byte	0x11
+ 1340 011e 6B000000 		.4byte	0x6b
+ 1341 0122 02       		.uleb128 0x2
+ 1342 0123 91       		.byte	0x91
+ 1343 0124 6E       		.sleb128 -18
+ 1344 0125 0A       		.uleb128 0xa
+ 1345 0126 5C000000 		.4byte	.LASF20
+ 1346 012a 01       		.byte	0x1
+ 1347 012b 12       		.byte	0x12
+ 1348 012c 6B000000 		.4byte	0x6b
+ 1349 0130 02       		.uleb128 0x2
+ 1350 0131 91       		.byte	0x91
+ 1351 0132 6F       		.sleb128 -17
+ 1352 0133 00       		.byte	0
+ 1353 0134 08       		.uleb128 0x8
+ 1354 0135 62000000 		.4byte	.LASF22
+ 1355 0139 01       		.byte	0x1
+ 1356 013a 21       		.byte	0x21
+ 1357 013b 00000000 		.4byte	.LFB35
+ 1358 013f 1E000000 		.4byte	.LFE35-.LFB35
+ 1359 0143 01       		.uleb128 0x1
+ 1360 0144 9C       		.byte	0x9c
+ 1361 0145 58010000 		.4byte	0x158
+ 1362 0149 09       		.uleb128 0x9
+ 1363 014a 43000000 		.4byte	.LASF23
+ 1364 014e 01       		.byte	0x1
+ 1365 014f 21       		.byte	0x21
+ 1366 0150 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 29
+
+
+ 1367 0154 02       		.uleb128 0x2
+ 1368 0155 91       		.byte	0x91
+ 1369 0156 77       		.sleb128 -9
+ 1370 0157 00       		.byte	0
+ 1371 0158 08       		.uleb128 0x8
+ 1372 0159 83000000 		.4byte	.LASF24
+ 1373 015d 01       		.byte	0x1
+ 1374 015e 28       		.byte	0x28
+ 1375 015f 00000000 		.4byte	.LFB36
+ 1376 0163 32000000 		.4byte	.LFE36-.LFB36
+ 1377 0167 01       		.uleb128 0x1
+ 1378 0168 9C       		.byte	0x9c
+ 1379 0169 8A010000 		.4byte	0x18a
+ 1380 016d 0B       		.uleb128 0xb
+ 1381 016e 73656300 		.ascii	"sec\000"
+ 1382 0172 01       		.byte	0x1
+ 1383 0173 28       		.byte	0x28
+ 1384 0174 6B000000 		.4byte	0x6b
+ 1385 0178 02       		.uleb128 0x2
+ 1386 0179 91       		.byte	0x91
+ 1387 017a 67       		.sleb128 -25
+ 1388 017b 0A       		.uleb128 0xa
+ 1389 017c E4000000 		.4byte	.LASF25
+ 1390 0180 01       		.byte	0x1
+ 1391 0181 2A       		.byte	0x2a
+ 1392 0182 6B000000 		.4byte	0x6b
+ 1393 0186 02       		.uleb128 0x2
+ 1394 0187 91       		.byte	0x91
+ 1395 0188 6F       		.sleb128 -17
+ 1396 0189 00       		.byte	0
+ 1397 018a 0C       		.uleb128 0xc
+ 1398 018b 00030000 		.4byte	.LASF29
+ 1399 018f 01       		.byte	0x1
+ 1400 0190 2E       		.byte	0x2e
+ 1401 0191 6B000000 		.4byte	0x6b
+ 1402 0195 00000000 		.4byte	.LFB37
+ 1403 0199 1A000000 		.4byte	.LFE37-.LFB37
+ 1404 019d 01       		.uleb128 0x1
+ 1405 019e 9C       		.byte	0x9c
+ 1406 019f 08       		.uleb128 0x8
+ 1407 01a0 73010000 		.4byte	.LASF26
+ 1408 01a4 01       		.byte	0x1
+ 1409 01a5 33       		.byte	0x33
+ 1410 01a6 00000000 		.4byte	.LFB38
+ 1411 01aa 32000000 		.4byte	.LFE38-.LFB38
+ 1412 01ae 01       		.uleb128 0x1
+ 1413 01af 9C       		.byte	0x9c
+ 1414 01b0 D1010000 		.4byte	0x1d1
+ 1415 01b4 09       		.uleb128 0x9
+ 1416 01b5 EF020000 		.4byte	.LASF27
+ 1417 01b9 01       		.byte	0x1
+ 1418 01ba 33       		.byte	0x33
+ 1419 01bb 6B000000 		.4byte	0x6b
+ 1420 01bf 02       		.uleb128 0x2
+ 1421 01c0 91       		.byte	0x91
+ 1422 01c1 67       		.sleb128 -25
+ 1423 01c2 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 30
+
+
+ 1424 01c3 22010000 		.4byte	.LASF28
+ 1425 01c7 01       		.byte	0x1
+ 1426 01c8 35       		.byte	0x35
+ 1427 01c9 6B000000 		.4byte	0x6b
+ 1428 01cd 02       		.uleb128 0x2
+ 1429 01ce 91       		.byte	0x91
+ 1430 01cf 6F       		.sleb128 -17
+ 1431 01d0 00       		.byte	0
+ 1432 01d1 0C       		.uleb128 0xc
+ 1433 01d2 B5010000 		.4byte	.LASF30
+ 1434 01d6 01       		.byte	0x1
+ 1435 01d7 39       		.byte	0x39
+ 1436 01d8 6B000000 		.4byte	0x6b
+ 1437 01dc 00000000 		.4byte	.LFB39
+ 1438 01e0 1A000000 		.4byte	.LFE39-.LFB39
+ 1439 01e4 01       		.uleb128 0x1
+ 1440 01e5 9C       		.byte	0x9c
+ 1441 01e6 08       		.uleb128 0x8
+ 1442 01e7 7A010000 		.4byte	.LASF31
+ 1443 01eb 01       		.byte	0x1
+ 1444 01ec 3F       		.byte	0x3f
+ 1445 01ed 00000000 		.4byte	.LFB40
+ 1446 01f1 32000000 		.4byte	.LFE40-.LFB40
+ 1447 01f5 01       		.uleb128 0x1
+ 1448 01f6 9C       		.byte	0x9c
+ 1449 01f7 18020000 		.4byte	0x218
+ 1450 01fb 09       		.uleb128 0x9
+ 1451 01fc F8000000 		.4byte	.LASF15
+ 1452 0200 01       		.byte	0x1
+ 1453 0201 3F       		.byte	0x3f
+ 1454 0202 6B000000 		.4byte	0x6b
+ 1455 0206 02       		.uleb128 0x2
+ 1456 0207 91       		.byte	0x91
+ 1457 0208 67       		.sleb128 -25
+ 1458 0209 0A       		.uleb128 0xa
+ 1459 020a 18000000 		.4byte	.LASF32
+ 1460 020e 01       		.byte	0x1
+ 1461 020f 41       		.byte	0x41
+ 1462 0210 6B000000 		.4byte	0x6b
+ 1463 0214 02       		.uleb128 0x2
+ 1464 0215 91       		.byte	0x91
+ 1465 0216 6F       		.sleb128 -17
+ 1466 0217 00       		.byte	0
+ 1467 0218 0D       		.uleb128 0xd
+ 1468 0219 EF000000 		.4byte	.LASF33
+ 1469 021d 01       		.byte	0x1
+ 1470 021e 46       		.byte	0x46
+ 1471 021f 6B000000 		.4byte	0x6b
+ 1472 0223 00000000 		.4byte	.LFB41
+ 1473 0227 26000000 		.4byte	.LFE41-.LFB41
+ 1474 022b 01       		.uleb128 0x1
+ 1475 022c 9C       		.byte	0x9c
+ 1476 022d 40020000 		.4byte	0x240
+ 1477 0231 0A       		.uleb128 0xa
+ 1478 0232 D3020000 		.4byte	.LASF34
+ 1479 0236 01       		.byte	0x1
+ 1480 0237 48       		.byte	0x48
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 31
+
+
+ 1481 0238 6B000000 		.4byte	0x6b
+ 1482 023c 02       		.uleb128 0x2
+ 1483 023d 91       		.byte	0x91
+ 1484 023e 6F       		.sleb128 -17
+ 1485 023f 00       		.byte	0
+ 1486 0240 08       		.uleb128 0x8
+ 1487 0241 2D010000 		.4byte	.LASF35
+ 1488 0245 01       		.byte	0x1
+ 1489 0246 4E       		.byte	0x4e
+ 1490 0247 00000000 		.4byte	.LFB42
+ 1491 024b 32000000 		.4byte	.LFE42-.LFB42
+ 1492 024f 01       		.uleb128 0x1
+ 1493 0250 9C       		.byte	0x9c
+ 1494 0251 72020000 		.4byte	0x272
+ 1495 0255 0B       		.uleb128 0xb
+ 1496 0256 64617900 		.ascii	"day\000"
+ 1497 025a 01       		.byte	0x1
+ 1498 025b 4E       		.byte	0x4e
+ 1499 025c 6B000000 		.4byte	0x6b
+ 1500 0260 02       		.uleb128 0x2
+ 1501 0261 91       		.byte	0x91
+ 1502 0262 67       		.sleb128 -25
+ 1503 0263 0A       		.uleb128 0xa
+ 1504 0264 E2020000 		.4byte	.LASF36
+ 1505 0268 01       		.byte	0x1
+ 1506 0269 50       		.byte	0x50
+ 1507 026a 6B000000 		.4byte	0x6b
+ 1508 026e 02       		.uleb128 0x2
+ 1509 026f 91       		.byte	0x91
+ 1510 0270 6F       		.sleb128 -17
+ 1511 0271 00       		.byte	0
+ 1512 0272 0D       		.uleb128 0xd
+ 1513 0273 88010000 		.4byte	.LASF37
+ 1514 0277 01       		.byte	0x1
+ 1515 0278 55       		.byte	0x55
+ 1516 0279 6B000000 		.4byte	0x6b
+ 1517 027d 00000000 		.4byte	.LFB43
+ 1518 0281 26000000 		.4byte	.LFE43-.LFB43
+ 1519 0285 01       		.uleb128 0x1
+ 1520 0286 9C       		.byte	0x9c
+ 1521 0287 9A020000 		.4byte	0x29a
+ 1522 028b 0A       		.uleb128 0xa
+ 1523 028c CA000000 		.4byte	.LASF38
+ 1524 0290 01       		.byte	0x1
+ 1525 0291 57       		.byte	0x57
+ 1526 0292 6B000000 		.4byte	0x6b
+ 1527 0296 02       		.uleb128 0x2
+ 1528 0297 91       		.byte	0x91
+ 1529 0298 6F       		.sleb128 -17
+ 1530 0299 00       		.byte	0
+ 1531 029a 08       		.uleb128 0x8
+ 1532 029b 10030000 		.4byte	.LASF39
+ 1533 029f 01       		.byte	0x1
+ 1534 02a0 5D       		.byte	0x5d
+ 1535 02a1 00000000 		.4byte	.LFB44
+ 1536 02a5 32000000 		.4byte	.LFE44-.LFB44
+ 1537 02a9 01       		.uleb128 0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 32
+
+
+ 1538 02aa 9C       		.byte	0x9c
+ 1539 02ab CC020000 		.4byte	0x2cc
+ 1540 02af 09       		.uleb128 0x9
+ 1541 02b0 E9020000 		.4byte	.LASF40
+ 1542 02b4 01       		.byte	0x1
+ 1543 02b5 5D       		.byte	0x5d
+ 1544 02b6 6B000000 		.4byte	0x6b
+ 1545 02ba 02       		.uleb128 0x2
+ 1546 02bb 91       		.byte	0x91
+ 1547 02bc 67       		.sleb128 -25
+ 1548 02bd 0A       		.uleb128 0xa
+ 1549 02be 07030000 		.4byte	.LASF41
+ 1550 02c2 01       		.byte	0x1
+ 1551 02c3 5F       		.byte	0x5f
+ 1552 02c4 6B000000 		.4byte	0x6b
+ 1553 02c8 02       		.uleb128 0x2
+ 1554 02c9 91       		.byte	0x91
+ 1555 02ca 6F       		.sleb128 -17
+ 1556 02cb 00       		.byte	0
+ 1557 02cc 0D       		.uleb128 0xd
+ 1558 02cd F7020000 		.4byte	.LASF42
+ 1559 02d1 01       		.byte	0x1
+ 1560 02d2 63       		.byte	0x63
+ 1561 02d3 6B000000 		.4byte	0x6b
+ 1562 02d7 00000000 		.4byte	.LFB45
+ 1563 02db 26000000 		.4byte	.LFE45-.LFB45
+ 1564 02df 01       		.uleb128 0x1
+ 1565 02e0 9C       		.byte	0x9c
+ 1566 02e1 F4020000 		.4byte	0x2f4
+ 1567 02e5 0A       		.uleb128 0xa
+ 1568 02e6 0F000000 		.4byte	.LASF43
+ 1569 02ea 01       		.byte	0x1
+ 1570 02eb 65       		.byte	0x65
+ 1571 02ec 6B000000 		.4byte	0x6b
+ 1572 02f0 02       		.uleb128 0x2
+ 1573 02f1 91       		.byte	0x91
+ 1574 02f2 6F       		.sleb128 -17
+ 1575 02f3 00       		.byte	0
+ 1576 02f4 08       		.uleb128 0x8
+ 1577 02f5 A7010000 		.4byte	.LASF44
+ 1578 02f9 01       		.byte	0x1
+ 1579 02fa 6B       		.byte	0x6b
+ 1580 02fb 00000000 		.4byte	.LFB46
+ 1581 02ff 32000000 		.4byte	.LFE46-.LFB46
+ 1582 0303 01       		.uleb128 0x1
+ 1583 0304 9C       		.byte	0x9c
+ 1584 0305 26030000 		.4byte	0x326
+ 1585 0309 09       		.uleb128 0x9
+ 1586 030a A5020000 		.4byte	.LASF17
+ 1587 030e 01       		.byte	0x1
+ 1588 030f 6B       		.byte	0x6b
+ 1589 0310 6B000000 		.4byte	0x6b
+ 1590 0314 02       		.uleb128 0x2
+ 1591 0315 91       		.byte	0x91
+ 1592 0316 67       		.sleb128 -25
+ 1593 0317 0A       		.uleb128 0xa
+ 1594 0318 92000000 		.4byte	.LASF45
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 33
+
+
+ 1595 031c 01       		.byte	0x1
+ 1596 031d 6D       		.byte	0x6d
+ 1597 031e 6B000000 		.4byte	0x6b
+ 1598 0322 02       		.uleb128 0x2
+ 1599 0323 91       		.byte	0x91
+ 1600 0324 6F       		.sleb128 -17
+ 1601 0325 00       		.byte	0
+ 1602 0326 0D       		.uleb128 0xd
+ 1603 0327 11010000 		.4byte	.LASF46
+ 1604 032b 01       		.byte	0x1
+ 1605 032c 71       		.byte	0x71
+ 1606 032d 6B000000 		.4byte	0x6b
+ 1607 0331 00000000 		.4byte	.LFB47
+ 1608 0335 26000000 		.4byte	.LFE47-.LFB47
+ 1609 0339 01       		.uleb128 0x1
+ 1610 033a 9C       		.byte	0x9c
+ 1611 033b 4E030000 		.4byte	0x34e
+ 1612 033f 0A       		.uleb128 0xa
+ 1613 0340 B8020000 		.4byte	.LASF47
+ 1614 0344 01       		.byte	0x1
+ 1615 0345 73       		.byte	0x73
+ 1616 0346 6B000000 		.4byte	0x6b
+ 1617 034a 02       		.uleb128 0x2
+ 1618 034b 91       		.byte	0x91
+ 1619 034c 6F       		.sleb128 -17
+ 1620 034d 00       		.byte	0
+ 1621 034e 08       		.uleb128 0x8
+ 1622 034f 3B000000 		.4byte	.LASF48
+ 1623 0353 01       		.byte	0x1
+ 1624 0354 79       		.byte	0x79
+ 1625 0355 00000000 		.4byte	.LFB48
+ 1626 0359 32000000 		.4byte	.LFE48-.LFB48
+ 1627 035d 01       		.uleb128 0x1
+ 1628 035e 9C       		.byte	0x9c
+ 1629 035f 80030000 		.4byte	0x380
+ 1630 0363 09       		.uleb128 0x9
+ 1631 0364 A2010000 		.4byte	.LASF18
+ 1632 0368 01       		.byte	0x1
+ 1633 0369 79       		.byte	0x79
+ 1634 036a 6B000000 		.4byte	0x6b
+ 1635 036e 02       		.uleb128 0x2
+ 1636 036f 91       		.byte	0x91
+ 1637 0370 67       		.sleb128 -25
+ 1638 0371 0A       		.uleb128 0xa
+ 1639 0372 8A000000 		.4byte	.LASF49
+ 1640 0376 01       		.byte	0x1
+ 1641 0377 7B       		.byte	0x7b
+ 1642 0378 6B000000 		.4byte	0x6b
+ 1643 037c 02       		.uleb128 0x2
+ 1644 037d 91       		.byte	0x91
+ 1645 037e 6F       		.sleb128 -17
+ 1646 037f 00       		.byte	0
+ 1647 0380 0D       		.uleb128 0xd
+ 1648 0381 2A000000 		.4byte	.LASF50
+ 1649 0385 01       		.byte	0x1
+ 1650 0386 80       		.byte	0x80
+ 1651 0387 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 34
+
+
+ 1652 038b 00000000 		.4byte	.LFB49
+ 1653 038f 26000000 		.4byte	.LFE49-.LFB49
+ 1654 0393 01       		.uleb128 0x1
+ 1655 0394 9C       		.byte	0x9c
+ 1656 0395 A8030000 		.4byte	0x3a8
+ 1657 0399 0A       		.uleb128 0xa
+ 1658 039a 07000000 		.4byte	.LASF51
+ 1659 039e 01       		.byte	0x1
+ 1660 039f 82       		.byte	0x82
+ 1661 03a0 6B000000 		.4byte	0x6b
+ 1662 03a4 02       		.uleb128 0x2
+ 1663 03a5 91       		.byte	0x91
+ 1664 03a6 6F       		.sleb128 -17
+ 1665 03a7 00       		.byte	0
+ 1666 03a8 08       		.uleb128 0x8
+ 1667 03a9 1A010000 		.4byte	.LASF52
+ 1668 03ad 01       		.byte	0x1
+ 1669 03ae 88       		.byte	0x88
+ 1670 03af 00000000 		.4byte	.LFB50
+ 1671 03b3 62000000 		.4byte	.LFE50-.LFB50
+ 1672 03b7 01       		.uleb128 0x1
+ 1673 03b8 9C       		.byte	0x9c
+ 1674 03b9 CC030000 		.4byte	0x3cc
+ 1675 03bd 09       		.uleb128 0x9
+ 1676 03be 50000000 		.4byte	.LASF53
+ 1677 03c2 01       		.byte	0x1
+ 1678 03c3 88       		.byte	0x88
+ 1679 03c4 CC030000 		.4byte	0x3cc
+ 1680 03c8 02       		.uleb128 0x2
+ 1681 03c9 91       		.byte	0x91
+ 1682 03ca 74       		.sleb128 -12
+ 1683 03cb 00       		.byte	0
+ 1684 03cc 0E       		.uleb128 0xe
+ 1685 03cd 04       		.byte	0x4
+ 1686 03ce 93000000 		.4byte	0x93
+ 1687 03d2 08       		.uleb128 0x8
+ 1688 03d3 34010000 		.4byte	.LASF54
+ 1689 03d7 01       		.byte	0x1
+ 1690 03d8 96       		.byte	0x96
+ 1691 03d9 00000000 		.4byte	.LFB51
+ 1692 03dd 54000000 		.4byte	.LFE51-.LFB51
+ 1693 03e1 01       		.uleb128 0x1
+ 1694 03e2 9C       		.byte	0x9c
+ 1695 03e3 F6030000 		.4byte	0x3f6
+ 1696 03e7 09       		.uleb128 0x9
+ 1697 03e8 50000000 		.4byte	.LASF53
+ 1698 03ec 01       		.byte	0x1
+ 1699 03ed 96       		.byte	0x96
+ 1700 03ee CC030000 		.4byte	0x3cc
+ 1701 03f2 02       		.uleb128 0x2
+ 1702 03f3 91       		.byte	0x91
+ 1703 03f4 74       		.sleb128 -12
+ 1704 03f5 00       		.byte	0
+ 1705 03f6 0F       		.uleb128 0xf
+ 1706 03f7 3A030000 		.4byte	.LASF55
+ 1707 03fb 01       		.byte	0x1
+ 1708 03fc A3       		.byte	0xa3
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 35
+
+
+ 1709 03fd 00000000 		.4byte	.LFB52
+ 1710 0401 56000000 		.4byte	.LFE52-.LFB52
+ 1711 0405 01       		.uleb128 0x1
+ 1712 0406 9C       		.byte	0x9c
+ 1713 0407 44040000 		.4byte	0x444
+ 1714 040b 09       		.uleb128 0x9
+ 1715 040c AB020000 		.4byte	.LASF56
+ 1716 0410 01       		.byte	0x1
+ 1717 0411 A3       		.byte	0xa3
+ 1718 0412 CC030000 		.4byte	0x3cc
+ 1719 0416 02       		.uleb128 0x2
+ 1720 0417 91       		.byte	0x91
+ 1721 0418 6C       		.sleb128 -20
+ 1722 0419 09       		.uleb128 0x9
+ 1723 041a 28030000 		.4byte	.LASF57
+ 1724 041e 01       		.byte	0x1
+ 1725 041f A3       		.byte	0xa3
+ 1726 0420 6B000000 		.4byte	0x6b
+ 1727 0424 02       		.uleb128 0x2
+ 1728 0425 91       		.byte	0x91
+ 1729 0426 6B       		.sleb128 -21
+ 1730 0427 09       		.uleb128 0x9
+ 1731 0428 F8000000 		.4byte	.LASF15
+ 1732 042c 01       		.byte	0x1
+ 1733 042d A3       		.byte	0xa3
+ 1734 042e 6B000000 		.4byte	0x6b
+ 1735 0432 02       		.uleb128 0x2
+ 1736 0433 91       		.byte	0x91
+ 1737 0434 6A       		.sleb128 -22
+ 1738 0435 09       		.uleb128 0x9
+ 1739 0436 B1020000 		.4byte	.LASF14
+ 1740 043a 01       		.byte	0x1
+ 1741 043b A3       		.byte	0xa3
+ 1742 043c 6B000000 		.4byte	0x6b
+ 1743 0440 02       		.uleb128 0x2
+ 1744 0441 91       		.byte	0x91
+ 1745 0442 69       		.sleb128 -23
+ 1746 0443 00       		.byte	0
+ 1747 0444 0F       		.uleb128 0xf
+ 1748 0445 BA000000 		.4byte	.LASF58
+ 1749 0449 01       		.byte	0x1
+ 1750 044a B0       		.byte	0xb0
+ 1751 044b 00000000 		.4byte	.LFB53
+ 1752 044f 4C000000 		.4byte	.LFE53-.LFB53
+ 1753 0453 01       		.uleb128 0x1
+ 1754 0454 9C       		.byte	0x9c
+ 1755 0455 84040000 		.4byte	0x484
+ 1756 0459 09       		.uleb128 0x9
+ 1757 045a AB020000 		.4byte	.LASF56
+ 1758 045e 01       		.byte	0x1
+ 1759 045f B0       		.byte	0xb0
+ 1760 0460 CC030000 		.4byte	0x3cc
+ 1761 0464 02       		.uleb128 0x2
+ 1762 0465 91       		.byte	0x91
+ 1763 0466 74       		.sleb128 -12
+ 1764 0467 09       		.uleb128 0x9
+ 1765 0468 B1020000 		.4byte	.LASF14
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 36
+
+
+ 1766 046c 01       		.byte	0x1
+ 1767 046d B0       		.byte	0xb0
+ 1768 046e 6B000000 		.4byte	0x6b
+ 1769 0472 02       		.uleb128 0x2
+ 1770 0473 91       		.byte	0x91
+ 1771 0474 73       		.sleb128 -13
+ 1772 0475 09       		.uleb128 0x9
+ 1773 0476 48010000 		.4byte	.LASF13
+ 1774 047a 01       		.byte	0x1
+ 1775 047b B0       		.byte	0xb0
+ 1776 047c 6B000000 		.4byte	0x6b
+ 1777 0480 02       		.uleb128 0x2
+ 1778 0481 91       		.byte	0x91
+ 1779 0482 72       		.sleb128 -14
+ 1780 0483 00       		.byte	0
+ 1781 0484 10       		.uleb128 0x10
+ 1782 0485 AF000000 		.4byte	.LASF66
+ 1783 0489 01       		.byte	0x1
+ 1784 048a BB       		.byte	0xbb
+ 1785 048b 85000000 		.4byte	0x85
+ 1786 048f 00000000 		.4byte	.LFB54
+ 1787 0493 0E010000 		.4byte	.LFE54-.LFB54
+ 1788 0497 01       		.uleb128 0x1
+ 1789 0498 9C       		.byte	0x9c
+ 1790 0499 C8040000 		.4byte	0x4c8
+ 1791 049d 09       		.uleb128 0x9
+ 1792 049e 50000000 		.4byte	.LASF53
+ 1793 04a2 01       		.byte	0x1
+ 1794 04a3 BB       		.byte	0xbb
+ 1795 04a4 CC030000 		.4byte	0x3cc
+ 1796 04a8 02       		.uleb128 0x2
+ 1797 04a9 91       		.byte	0x91
+ 1798 04aa 6C       		.sleb128 -20
+ 1799 04ab 09       		.uleb128 0x9
+ 1800 04ac DA000000 		.4byte	.LASF59
+ 1801 04b0 01       		.byte	0x1
+ 1802 04b1 BB       		.byte	0xbb
+ 1803 04b2 CC030000 		.4byte	0x3cc
+ 1804 04b6 02       		.uleb128 0x2
+ 1805 04b7 91       		.byte	0x91
+ 1806 04b8 68       		.sleb128 -24
+ 1807 04b9 0A       		.uleb128 0xa
+ 1808 04ba 00000000 		.4byte	.LASF60
+ 1809 04be 01       		.byte	0x1
+ 1810 04bf C1       		.byte	0xc1
+ 1811 04c0 85000000 		.4byte	0x85
+ 1812 04c4 02       		.uleb128 0x2
+ 1813 04c5 91       		.byte	0x91
+ 1814 04c6 77       		.sleb128 -9
+ 1815 04c7 00       		.byte	0
+ 1816 04c8 11       		.uleb128 0x11
+ 1817 04c9 30030000 		.4byte	.LASF67
+ 1818 04cd 01       		.byte	0x1
+ 1819 04ce E2       		.byte	0xe2
+ 1820 04cf 00000000 		.4byte	.LFB55
+ 1821 04d3 10000000 		.4byte	.LFE55-.LFB55
+ 1822 04d7 01       		.uleb128 0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 37
+
+
+ 1823 04d8 9C       		.byte	0x9c
+ 1824 04d9 00       		.byte	0
+ 1825              		.section	.debug_abbrev,"",%progbits
+ 1826              	.Ldebug_abbrev0:
+ 1827 0000 01       		.uleb128 0x1
+ 1828 0001 11       		.uleb128 0x11
+ 1829 0002 01       		.byte	0x1
+ 1830 0003 25       		.uleb128 0x25
+ 1831 0004 0E       		.uleb128 0xe
+ 1832 0005 13       		.uleb128 0x13
+ 1833 0006 0B       		.uleb128 0xb
+ 1834 0007 03       		.uleb128 0x3
+ 1835 0008 0E       		.uleb128 0xe
+ 1836 0009 1B       		.uleb128 0x1b
+ 1837 000a 0E       		.uleb128 0xe
+ 1838 000b 55       		.uleb128 0x55
+ 1839 000c 17       		.uleb128 0x17
+ 1840 000d 11       		.uleb128 0x11
+ 1841 000e 01       		.uleb128 0x1
+ 1842 000f 10       		.uleb128 0x10
+ 1843 0010 17       		.uleb128 0x17
+ 1844 0011 00       		.byte	0
+ 1845 0012 00       		.byte	0
+ 1846 0013 02       		.uleb128 0x2
+ 1847 0014 24       		.uleb128 0x24
+ 1848 0015 00       		.byte	0
+ 1849 0016 0B       		.uleb128 0xb
+ 1850 0017 0B       		.uleb128 0xb
+ 1851 0018 3E       		.uleb128 0x3e
+ 1852 0019 0B       		.uleb128 0xb
+ 1853 001a 03       		.uleb128 0x3
+ 1854 001b 0E       		.uleb128 0xe
+ 1855 001c 00       		.byte	0
+ 1856 001d 00       		.byte	0
+ 1857 001e 03       		.uleb128 0x3
+ 1858 001f 24       		.uleb128 0x24
+ 1859 0020 00       		.byte	0
+ 1860 0021 0B       		.uleb128 0xb
+ 1861 0022 0B       		.uleb128 0xb
+ 1862 0023 3E       		.uleb128 0x3e
+ 1863 0024 0B       		.uleb128 0xb
+ 1864 0025 03       		.uleb128 0x3
+ 1865 0026 08       		.uleb128 0x8
+ 1866 0027 00       		.byte	0
+ 1867 0028 00       		.byte	0
+ 1868 0029 04       		.uleb128 0x4
+ 1869 002a 16       		.uleb128 0x16
+ 1870 002b 00       		.byte	0
+ 1871 002c 03       		.uleb128 0x3
+ 1872 002d 0E       		.uleb128 0xe
+ 1873 002e 3A       		.uleb128 0x3a
+ 1874 002f 0B       		.uleb128 0xb
+ 1875 0030 3B       		.uleb128 0x3b
+ 1876 0031 05       		.uleb128 0x5
+ 1877 0032 49       		.uleb128 0x49
+ 1878 0033 13       		.uleb128 0x13
+ 1879 0034 00       		.byte	0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 38
+
+
+ 1880 0035 00       		.byte	0
+ 1881 0036 05       		.uleb128 0x5
+ 1882 0037 13       		.uleb128 0x13
+ 1883 0038 01       		.byte	0x1
+ 1884 0039 03       		.uleb128 0x3
+ 1885 003a 0E       		.uleb128 0xe
+ 1886 003b 0B       		.uleb128 0xb
+ 1887 003c 0B       		.uleb128 0xb
+ 1888 003d 3A       		.uleb128 0x3a
+ 1889 003e 0B       		.uleb128 0xb
+ 1890 003f 3B       		.uleb128 0x3b
+ 1891 0040 0B       		.uleb128 0xb
+ 1892 0041 01       		.uleb128 0x1
+ 1893 0042 13       		.uleb128 0x13
+ 1894 0043 00       		.byte	0
+ 1895 0044 00       		.byte	0
+ 1896 0045 06       		.uleb128 0x6
+ 1897 0046 0D       		.uleb128 0xd
+ 1898 0047 00       		.byte	0
+ 1899 0048 03       		.uleb128 0x3
+ 1900 0049 0E       		.uleb128 0xe
+ 1901 004a 3A       		.uleb128 0x3a
+ 1902 004b 0B       		.uleb128 0xb
+ 1903 004c 3B       		.uleb128 0x3b
+ 1904 004d 0B       		.uleb128 0xb
+ 1905 004e 49       		.uleb128 0x49
+ 1906 004f 13       		.uleb128 0x13
+ 1907 0050 38       		.uleb128 0x38
+ 1908 0051 0B       		.uleb128 0xb
+ 1909 0052 00       		.byte	0
+ 1910 0053 00       		.byte	0
+ 1911 0054 07       		.uleb128 0x7
+ 1912 0055 0D       		.uleb128 0xd
+ 1913 0056 00       		.byte	0
+ 1914 0057 03       		.uleb128 0x3
+ 1915 0058 08       		.uleb128 0x8
+ 1916 0059 3A       		.uleb128 0x3a
+ 1917 005a 0B       		.uleb128 0xb
+ 1918 005b 3B       		.uleb128 0x3b
+ 1919 005c 0B       		.uleb128 0xb
+ 1920 005d 49       		.uleb128 0x49
+ 1921 005e 13       		.uleb128 0x13
+ 1922 005f 38       		.uleb128 0x38
+ 1923 0060 0B       		.uleb128 0xb
+ 1924 0061 00       		.byte	0
+ 1925 0062 00       		.byte	0
+ 1926 0063 08       		.uleb128 0x8
+ 1927 0064 2E       		.uleb128 0x2e
+ 1928 0065 01       		.byte	0x1
+ 1929 0066 3F       		.uleb128 0x3f
+ 1930 0067 19       		.uleb128 0x19
+ 1931 0068 03       		.uleb128 0x3
+ 1932 0069 0E       		.uleb128 0xe
+ 1933 006a 3A       		.uleb128 0x3a
+ 1934 006b 0B       		.uleb128 0xb
+ 1935 006c 3B       		.uleb128 0x3b
+ 1936 006d 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 39
+
+
+ 1937 006e 27       		.uleb128 0x27
+ 1938 006f 19       		.uleb128 0x19
+ 1939 0070 11       		.uleb128 0x11
+ 1940 0071 01       		.uleb128 0x1
+ 1941 0072 12       		.uleb128 0x12
+ 1942 0073 06       		.uleb128 0x6
+ 1943 0074 40       		.uleb128 0x40
+ 1944 0075 18       		.uleb128 0x18
+ 1945 0076 9642     		.uleb128 0x2116
+ 1946 0078 19       		.uleb128 0x19
+ 1947 0079 01       		.uleb128 0x1
+ 1948 007a 13       		.uleb128 0x13
+ 1949 007b 00       		.byte	0
+ 1950 007c 00       		.byte	0
+ 1951 007d 09       		.uleb128 0x9
+ 1952 007e 05       		.uleb128 0x5
+ 1953 007f 00       		.byte	0
+ 1954 0080 03       		.uleb128 0x3
+ 1955 0081 0E       		.uleb128 0xe
+ 1956 0082 3A       		.uleb128 0x3a
+ 1957 0083 0B       		.uleb128 0xb
+ 1958 0084 3B       		.uleb128 0x3b
+ 1959 0085 0B       		.uleb128 0xb
+ 1960 0086 49       		.uleb128 0x49
+ 1961 0087 13       		.uleb128 0x13
+ 1962 0088 02       		.uleb128 0x2
+ 1963 0089 18       		.uleb128 0x18
+ 1964 008a 00       		.byte	0
+ 1965 008b 00       		.byte	0
+ 1966 008c 0A       		.uleb128 0xa
+ 1967 008d 34       		.uleb128 0x34
+ 1968 008e 00       		.byte	0
+ 1969 008f 03       		.uleb128 0x3
+ 1970 0090 0E       		.uleb128 0xe
+ 1971 0091 3A       		.uleb128 0x3a
+ 1972 0092 0B       		.uleb128 0xb
+ 1973 0093 3B       		.uleb128 0x3b
+ 1974 0094 0B       		.uleb128 0xb
+ 1975 0095 49       		.uleb128 0x49
+ 1976 0096 13       		.uleb128 0x13
+ 1977 0097 02       		.uleb128 0x2
+ 1978 0098 18       		.uleb128 0x18
+ 1979 0099 00       		.byte	0
+ 1980 009a 00       		.byte	0
+ 1981 009b 0B       		.uleb128 0xb
+ 1982 009c 05       		.uleb128 0x5
+ 1983 009d 00       		.byte	0
+ 1984 009e 03       		.uleb128 0x3
+ 1985 009f 08       		.uleb128 0x8
+ 1986 00a0 3A       		.uleb128 0x3a
+ 1987 00a1 0B       		.uleb128 0xb
+ 1988 00a2 3B       		.uleb128 0x3b
+ 1989 00a3 0B       		.uleb128 0xb
+ 1990 00a4 49       		.uleb128 0x49
+ 1991 00a5 13       		.uleb128 0x13
+ 1992 00a6 02       		.uleb128 0x2
+ 1993 00a7 18       		.uleb128 0x18
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 40
+
+
+ 1994 00a8 00       		.byte	0
+ 1995 00a9 00       		.byte	0
+ 1996 00aa 0C       		.uleb128 0xc
+ 1997 00ab 2E       		.uleb128 0x2e
+ 1998 00ac 00       		.byte	0
+ 1999 00ad 3F       		.uleb128 0x3f
+ 2000 00ae 19       		.uleb128 0x19
+ 2001 00af 03       		.uleb128 0x3
+ 2002 00b0 0E       		.uleb128 0xe
+ 2003 00b1 3A       		.uleb128 0x3a
+ 2004 00b2 0B       		.uleb128 0xb
+ 2005 00b3 3B       		.uleb128 0x3b
+ 2006 00b4 0B       		.uleb128 0xb
+ 2007 00b5 49       		.uleb128 0x49
+ 2008 00b6 13       		.uleb128 0x13
+ 2009 00b7 11       		.uleb128 0x11
+ 2010 00b8 01       		.uleb128 0x1
+ 2011 00b9 12       		.uleb128 0x12
+ 2012 00ba 06       		.uleb128 0x6
+ 2013 00bb 40       		.uleb128 0x40
+ 2014 00bc 18       		.uleb128 0x18
+ 2015 00bd 9642     		.uleb128 0x2116
+ 2016 00bf 19       		.uleb128 0x19
+ 2017 00c0 00       		.byte	0
+ 2018 00c1 00       		.byte	0
+ 2019 00c2 0D       		.uleb128 0xd
+ 2020 00c3 2E       		.uleb128 0x2e
+ 2021 00c4 01       		.byte	0x1
+ 2022 00c5 3F       		.uleb128 0x3f
+ 2023 00c6 19       		.uleb128 0x19
+ 2024 00c7 03       		.uleb128 0x3
+ 2025 00c8 0E       		.uleb128 0xe
+ 2026 00c9 3A       		.uleb128 0x3a
+ 2027 00ca 0B       		.uleb128 0xb
+ 2028 00cb 3B       		.uleb128 0x3b
+ 2029 00cc 0B       		.uleb128 0xb
+ 2030 00cd 49       		.uleb128 0x49
+ 2031 00ce 13       		.uleb128 0x13
+ 2032 00cf 11       		.uleb128 0x11
+ 2033 00d0 01       		.uleb128 0x1
+ 2034 00d1 12       		.uleb128 0x12
+ 2035 00d2 06       		.uleb128 0x6
+ 2036 00d3 40       		.uleb128 0x40
+ 2037 00d4 18       		.uleb128 0x18
+ 2038 00d5 9642     		.uleb128 0x2116
+ 2039 00d7 19       		.uleb128 0x19
+ 2040 00d8 01       		.uleb128 0x1
+ 2041 00d9 13       		.uleb128 0x13
+ 2042 00da 00       		.byte	0
+ 2043 00db 00       		.byte	0
+ 2044 00dc 0E       		.uleb128 0xe
+ 2045 00dd 0F       		.uleb128 0xf
+ 2046 00de 00       		.byte	0
+ 2047 00df 0B       		.uleb128 0xb
+ 2048 00e0 0B       		.uleb128 0xb
+ 2049 00e1 49       		.uleb128 0x49
+ 2050 00e2 13       		.uleb128 0x13
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 41
+
+
+ 2051 00e3 00       		.byte	0
+ 2052 00e4 00       		.byte	0
+ 2053 00e5 0F       		.uleb128 0xf
+ 2054 00e6 2E       		.uleb128 0x2e
+ 2055 00e7 01       		.byte	0x1
+ 2056 00e8 3F       		.uleb128 0x3f
+ 2057 00e9 19       		.uleb128 0x19
+ 2058 00ea 03       		.uleb128 0x3
+ 2059 00eb 0E       		.uleb128 0xe
+ 2060 00ec 3A       		.uleb128 0x3a
+ 2061 00ed 0B       		.uleb128 0xb
+ 2062 00ee 3B       		.uleb128 0x3b
+ 2063 00ef 0B       		.uleb128 0xb
+ 2064 00f0 27       		.uleb128 0x27
+ 2065 00f1 19       		.uleb128 0x19
+ 2066 00f2 11       		.uleb128 0x11
+ 2067 00f3 01       		.uleb128 0x1
+ 2068 00f4 12       		.uleb128 0x12
+ 2069 00f5 06       		.uleb128 0x6
+ 2070 00f6 40       		.uleb128 0x40
+ 2071 00f7 18       		.uleb128 0x18
+ 2072 00f8 9742     		.uleb128 0x2117
+ 2073 00fa 19       		.uleb128 0x19
+ 2074 00fb 01       		.uleb128 0x1
+ 2075 00fc 13       		.uleb128 0x13
+ 2076 00fd 00       		.byte	0
+ 2077 00fe 00       		.byte	0
+ 2078 00ff 10       		.uleb128 0x10
+ 2079 0100 2E       		.uleb128 0x2e
+ 2080 0101 01       		.byte	0x1
+ 2081 0102 3F       		.uleb128 0x3f
+ 2082 0103 19       		.uleb128 0x19
+ 2083 0104 03       		.uleb128 0x3
+ 2084 0105 0E       		.uleb128 0xe
+ 2085 0106 3A       		.uleb128 0x3a
+ 2086 0107 0B       		.uleb128 0xb
+ 2087 0108 3B       		.uleb128 0x3b
+ 2088 0109 0B       		.uleb128 0xb
+ 2089 010a 27       		.uleb128 0x27
+ 2090 010b 19       		.uleb128 0x19
+ 2091 010c 49       		.uleb128 0x49
+ 2092 010d 13       		.uleb128 0x13
+ 2093 010e 11       		.uleb128 0x11
+ 2094 010f 01       		.uleb128 0x1
+ 2095 0110 12       		.uleb128 0x12
+ 2096 0111 06       		.uleb128 0x6
+ 2097 0112 40       		.uleb128 0x40
+ 2098 0113 18       		.uleb128 0x18
+ 2099 0114 9742     		.uleb128 0x2117
+ 2100 0116 19       		.uleb128 0x19
+ 2101 0117 01       		.uleb128 0x1
+ 2102 0118 13       		.uleb128 0x13
+ 2103 0119 00       		.byte	0
+ 2104 011a 00       		.byte	0
+ 2105 011b 11       		.uleb128 0x11
+ 2106 011c 2E       		.uleb128 0x2e
+ 2107 011d 00       		.byte	0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 42
+
+
+ 2108 011e 3F       		.uleb128 0x3f
+ 2109 011f 19       		.uleb128 0x19
+ 2110 0120 03       		.uleb128 0x3
+ 2111 0121 0E       		.uleb128 0xe
+ 2112 0122 3A       		.uleb128 0x3a
+ 2113 0123 0B       		.uleb128 0xb
+ 2114 0124 3B       		.uleb128 0x3b
+ 2115 0125 0B       		.uleb128 0xb
+ 2116 0126 11       		.uleb128 0x11
+ 2117 0127 01       		.uleb128 0x1
+ 2118 0128 12       		.uleb128 0x12
+ 2119 0129 06       		.uleb128 0x6
+ 2120 012a 40       		.uleb128 0x40
+ 2121 012b 18       		.uleb128 0x18
+ 2122 012c 9642     		.uleb128 0x2116
+ 2123 012e 19       		.uleb128 0x19
+ 2124 012f 00       		.byte	0
+ 2125 0130 00       		.byte	0
+ 2126 0131 00       		.byte	0
+ 2127              		.section	.debug_aranges,"",%progbits
+ 2128 0000 C4000000 		.4byte	0xc4
+ 2129 0004 0200     		.2byte	0x2
+ 2130 0006 00000000 		.4byte	.Ldebug_info0
+ 2131 000a 04       		.byte	0x4
+ 2132 000b 00       		.byte	0
+ 2133 000c 0000     		.2byte	0
+ 2134 000e 0000     		.2byte	0
+ 2135 0010 00000000 		.4byte	.LFB34
+ 2136 0014 60000000 		.4byte	.LFE34-.LFB34
+ 2137 0018 00000000 		.4byte	.LFB35
+ 2138 001c 1E000000 		.4byte	.LFE35-.LFB35
+ 2139 0020 00000000 		.4byte	.LFB36
+ 2140 0024 32000000 		.4byte	.LFE36-.LFB36
+ 2141 0028 00000000 		.4byte	.LFB37
+ 2142 002c 1A000000 		.4byte	.LFE37-.LFB37
+ 2143 0030 00000000 		.4byte	.LFB38
+ 2144 0034 32000000 		.4byte	.LFE38-.LFB38
+ 2145 0038 00000000 		.4byte	.LFB39
+ 2146 003c 1A000000 		.4byte	.LFE39-.LFB39
+ 2147 0040 00000000 		.4byte	.LFB40
+ 2148 0044 32000000 		.4byte	.LFE40-.LFB40
+ 2149 0048 00000000 		.4byte	.LFB41
+ 2150 004c 26000000 		.4byte	.LFE41-.LFB41
+ 2151 0050 00000000 		.4byte	.LFB42
+ 2152 0054 32000000 		.4byte	.LFE42-.LFB42
+ 2153 0058 00000000 		.4byte	.LFB43
+ 2154 005c 26000000 		.4byte	.LFE43-.LFB43
+ 2155 0060 00000000 		.4byte	.LFB44
+ 2156 0064 32000000 		.4byte	.LFE44-.LFB44
+ 2157 0068 00000000 		.4byte	.LFB45
+ 2158 006c 26000000 		.4byte	.LFE45-.LFB45
+ 2159 0070 00000000 		.4byte	.LFB46
+ 2160 0074 32000000 		.4byte	.LFE46-.LFB46
+ 2161 0078 00000000 		.4byte	.LFB47
+ 2162 007c 26000000 		.4byte	.LFE47-.LFB47
+ 2163 0080 00000000 		.4byte	.LFB48
+ 2164 0084 32000000 		.4byte	.LFE48-.LFB48
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 43
+
+
+ 2165 0088 00000000 		.4byte	.LFB49
+ 2166 008c 26000000 		.4byte	.LFE49-.LFB49
+ 2167 0090 00000000 		.4byte	.LFB50
+ 2168 0094 62000000 		.4byte	.LFE50-.LFB50
+ 2169 0098 00000000 		.4byte	.LFB51
+ 2170 009c 54000000 		.4byte	.LFE51-.LFB51
+ 2171 00a0 00000000 		.4byte	.LFB52
+ 2172 00a4 56000000 		.4byte	.LFE52-.LFB52
+ 2173 00a8 00000000 		.4byte	.LFB53
+ 2174 00ac 4C000000 		.4byte	.LFE53-.LFB53
+ 2175 00b0 00000000 		.4byte	.LFB54
+ 2176 00b4 0E010000 		.4byte	.LFE54-.LFB54
+ 2177 00b8 00000000 		.4byte	.LFB55
+ 2178 00bc 10000000 		.4byte	.LFE55-.LFB55
+ 2179 00c0 00000000 		.4byte	0
+ 2180 00c4 00000000 		.4byte	0
+ 2181              		.section	.debug_ranges,"",%progbits
+ 2182              	.Ldebug_ranges0:
+ 2183 0000 00000000 		.4byte	.LFB34
+ 2184 0004 60000000 		.4byte	.LFE34
+ 2185 0008 00000000 		.4byte	.LFB35
+ 2186 000c 1E000000 		.4byte	.LFE35
+ 2187 0010 00000000 		.4byte	.LFB36
+ 2188 0014 32000000 		.4byte	.LFE36
+ 2189 0018 00000000 		.4byte	.LFB37
+ 2190 001c 1A000000 		.4byte	.LFE37
+ 2191 0020 00000000 		.4byte	.LFB38
+ 2192 0024 32000000 		.4byte	.LFE38
+ 2193 0028 00000000 		.4byte	.LFB39
+ 2194 002c 1A000000 		.4byte	.LFE39
+ 2195 0030 00000000 		.4byte	.LFB40
+ 2196 0034 32000000 		.4byte	.LFE40
+ 2197 0038 00000000 		.4byte	.LFB41
+ 2198 003c 26000000 		.4byte	.LFE41
+ 2199 0040 00000000 		.4byte	.LFB42
+ 2200 0044 32000000 		.4byte	.LFE42
+ 2201 0048 00000000 		.4byte	.LFB43
+ 2202 004c 26000000 		.4byte	.LFE43
+ 2203 0050 00000000 		.4byte	.LFB44
+ 2204 0054 32000000 		.4byte	.LFE44
+ 2205 0058 00000000 		.4byte	.LFB45
+ 2206 005c 26000000 		.4byte	.LFE45
+ 2207 0060 00000000 		.4byte	.LFB46
+ 2208 0064 32000000 		.4byte	.LFE46
+ 2209 0068 00000000 		.4byte	.LFB47
+ 2210 006c 26000000 		.4byte	.LFE47
+ 2211 0070 00000000 		.4byte	.LFB48
+ 2212 0074 32000000 		.4byte	.LFE48
+ 2213 0078 00000000 		.4byte	.LFB49
+ 2214 007c 26000000 		.4byte	.LFE49
+ 2215 0080 00000000 		.4byte	.LFB50
+ 2216 0084 62000000 		.4byte	.LFE50
+ 2217 0088 00000000 		.4byte	.LFB51
+ 2218 008c 54000000 		.4byte	.LFE51
+ 2219 0090 00000000 		.4byte	.LFB52
+ 2220 0094 56000000 		.4byte	.LFE52
+ 2221 0098 00000000 		.4byte	.LFB53
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 44
+
+
+ 2222 009c 4C000000 		.4byte	.LFE53
+ 2223 00a0 00000000 		.4byte	.LFB54
+ 2224 00a4 0E010000 		.4byte	.LFE54
+ 2225 00a8 00000000 		.4byte	.LFB55
+ 2226 00ac 10000000 		.4byte	.LFE55
+ 2227 00b0 00000000 		.4byte	0
+ 2228 00b4 00000000 		.4byte	0
+ 2229              		.section	.debug_line,"",%progbits
+ 2230              	.Ldebug_line0:
+ 2231 0000 3F020000 		.section	.debug_str,"MS",%progbits,1
+ 2231      02004B00 
+ 2231      00000201 
+ 2231      FB0E0D00 
+ 2231      01010101 
+ 2232              	.LASF60:
+ 2233 0000 72657375 		.ascii	"result\000"
+ 2233      6C7400
+ 2234              	.LASF51:
+ 2235 0007 79656172 		.ascii	"yearBCD\000"
+ 2235      42434400 
+ 2236              	.LASF43:
+ 2237 000f 776B4461 		.ascii	"wkDayBCD\000"
+ 2237      79424344 
+ 2237      00
+ 2238              	.LASF32:
+ 2239 0018 62636448 		.ascii	"bcdHour\000"
+ 2239      6F757200 
+ 2240              	.LASF2:
+ 2241 0020 73686F72 		.ascii	"short int\000"
+ 2241      7420696E 
+ 2241      7400
+ 2242              	.LASF50:
+ 2243 002a 67657459 		.ascii	"getYear\000"
+ 2243      65617200 
+ 2244              	.LASF12:
+ 2245 0032 73697A65 		.ascii	"sizetype\000"
+ 2245      74797065 
+ 2245      00
+ 2246              	.LASF48:
+ 2247 003b 73657459 		.ascii	"setYear\000"
+ 2247      65617200 
+ 2248              	.LASF23:
+ 2249 0043 6D6F6465 		.ascii	"mode\000"
+ 2249      00
+ 2250              	.LASF16:
+ 2251 0048 7765656B 		.ascii	"weekday\000"
+ 2251      64617900 
+ 2252              	.LASF53:
+ 2253 0050 63757272 		.ascii	"currentTime\000"
+ 2253      656E7454 
+ 2253      696D6500 
+ 2254              	.LASF20:
+ 2255 005c 76616C75 		.ascii	"value\000"
+ 2255      6500
+ 2256              	.LASF22:
+ 2257 0062 6368616E 		.ascii	"changePowerMode\000"
+ 2257      6765506F 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 45
+
+
+ 2257      7765724D 
+ 2257      6F646500 
+ 2258              	.LASF19:
+ 2259 0072 636F6E74 		.ascii	"controlReg\000"
+ 2259      726F6C52 
+ 2259      656700
+ 2260              	.LASF64:
+ 2261 007d 75696E74 		.ascii	"uint8\000"
+ 2261      3800
+ 2262              	.LASF24:
+ 2263 0083 73657453 		.ascii	"setSec\000"
+ 2263      656300
+ 2264              	.LASF49:
+ 2265 008a 62636459 		.ascii	"bcdYear\000"
+ 2265      65617200 
+ 2266              	.LASF45:
+ 2267 0092 6263644D 		.ascii	"bcdMonth\000"
+ 2267      6F6E7468 
+ 2267      00
+ 2268              	.LASF9:
+ 2269 009b 666C6F61 		.ascii	"float\000"
+ 2269      7400
+ 2270              	.LASF6:
+ 2271 00a1 6C6F6E67 		.ascii	"long long int\000"
+ 2271      206C6F6E 
+ 2271      6720696E 
+ 2271      7400
+ 2272              	.LASF66:
+ 2273 00af 63686563 		.ascii	"checkAlarm\000"
+ 2273      6B416C61 
+ 2273      726D00
+ 2274              	.LASF58:
+ 2275 00ba 63726561 		.ascii	"createAlarmTEST\000"
+ 2275      7465416C 
+ 2275      61726D54 
+ 2275      45535400 
+ 2276              	.LASF38:
+ 2277 00ca 64617942 		.ascii	"dayBCD\000"
+ 2277      434400
+ 2278              	.LASF4:
+ 2279 00d1 6C6F6E67 		.ascii	"long int\000"
+ 2279      20696E74 
+ 2279      00
+ 2280              	.LASF59:
+ 2281 00da 616C6172 		.ascii	"alarmTime\000"
+ 2281      6D54696D 
+ 2281      6500
+ 2282              	.LASF25:
+ 2283 00e4 7365636F 		.ascii	"secondsBCD\000"
+ 2283      6E647342 
+ 2283      434400
+ 2284              	.LASF33:
+ 2285 00ef 67657448 		.ascii	"getHours\000"
+ 2285      6F757273 
+ 2285      00
+ 2286              	.LASF15:
+ 2287 00f8 686F7572 		.ascii	"hour\000"
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 46
+
+
+ 2287      00
+ 2288              	.LASF1:
+ 2289 00fd 756E7369 		.ascii	"unsigned char\000"
+ 2289      676E6564 
+ 2289      20636861 
+ 2289      7200
+ 2290              	.LASF62:
+ 2291 010b 5254432E 		.ascii	"RTC.c\000"
+ 2291      6300
+ 2292              	.LASF46:
+ 2293 0111 6765744D 		.ascii	"getMonth\000"
+ 2293      6F6E7468 
+ 2293      00
+ 2294              	.LASF52:
+ 2295 011a 67657454 		.ascii	"getTime\000"
+ 2295      696D6500 
+ 2296              	.LASF28:
+ 2297 0122 6D696E75 		.ascii	"minutesBCD\000"
+ 2297      74657342 
+ 2297      434400
+ 2298              	.LASF35:
+ 2299 012d 73657444 		.ascii	"setDay\000"
+ 2299      617900
+ 2300              	.LASF54:
+ 2301 0134 73657454 		.ascii	"setTime\000"
+ 2301      696D6500 
+ 2302              	.LASF0:
+ 2303 013c 7369676E 		.ascii	"signed char\000"
+ 2303      65642063 
+ 2303      68617200 
+ 2304              	.LASF13:
+ 2305 0148 7365636F 		.ascii	"second\000"
+ 2305      6E6400
+ 2306              	.LASF7:
+ 2307 014f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2307      206C6F6E 
+ 2307      6720756E 
+ 2307      7369676E 
+ 2307      65642069 
+ 2308              	.LASF8:
+ 2309 0166 756E7369 		.ascii	"unsigned int\000"
+ 2309      676E6564 
+ 2309      20696E74 
+ 2309      00
+ 2310              	.LASF26:
+ 2311 0173 7365744D 		.ascii	"setMin\000"
+ 2311      696E00
+ 2312              	.LASF31:
+ 2313 017a 73657448 		.ascii	"setHours\000"
+ 2313      6F757273 
+ 2313      00
+ 2314              	.LASF65:
+ 2315 0183 74696D65 		.ascii	"time\000"
+ 2315      00
+ 2316              	.LASF37:
+ 2317 0188 67657444 		.ascii	"getDay\000"
+ 2317      617900
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 47
+
+
+ 2318              	.LASF3:
+ 2319 018f 73686F72 		.ascii	"short unsigned int\000"
+ 2319      7420756E 
+ 2319      7369676E 
+ 2319      65642069 
+ 2319      6E7400
+ 2320              	.LASF18:
+ 2321 01a2 79656172 		.ascii	"year\000"
+ 2321      00
+ 2322              	.LASF44:
+ 2323 01a7 7365744D 		.ascii	"setMonth\000"
+ 2323      6F6E7468 
+ 2323      00
+ 2324              	.LASF11:
+ 2325 01b0 63686172 		.ascii	"char\000"
+ 2325      00
+ 2326              	.LASF30:
+ 2327 01b5 6765744D 		.ascii	"getMin\000"
+ 2327      696E00
+ 2328              	.LASF61:
+ 2329 01bc 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 2329      4320342E 
+ 2329      392E3320 
+ 2329      32303135 
+ 2329      30333033 
+ 2330 01ef 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 2330      20726576 
+ 2330      6973696F 
+ 2330      6E203232 
+ 2330      31323230 
+ 2331 0222 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 2331      66756E63 
+ 2331      74696F6E 
+ 2331      2D736563 
+ 2331      74696F6E 
+ 2332              	.LASF63:
+ 2333 024a 433A5C55 		.ascii	"C:\\Users\\Joseph\\Documents\\CY8CKIT-049-42xx\\1.0"
+ 2333      73657273 
+ 2333      5C4A6F73 
+ 2333      6570685C 
+ 2333      446F6375 
+ 2334 0278 5C466972 		.ascii	"\\Firmware\\SCB_Bootloader\\Sunrise Clock.cydsn\000"
+ 2334      6D776172 
+ 2334      655C5343 
+ 2334      425F426F 
+ 2334      6F746C6F 
+ 2335              	.LASF17:
+ 2336 02a5 6D6F6E74 		.ascii	"month\000"
+ 2336      6800
+ 2337              	.LASF56:
+ 2338 02ab 616C6172 		.ascii	"alarm\000"
+ 2338      6D00
+ 2339              	.LASF14:
+ 2340 02b1 6D696E75 		.ascii	"minute\000"
+ 2340      746500
+ 2341              	.LASF47:
+ 2342 02b8 6D6F6E74 		.ascii	"monthBCD\000"
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjrQg7j.s 			page 48
+
+
+ 2342      68424344 
+ 2342      00
+ 2343              	.LASF5:
+ 2344 02c1 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2344      20756E73 
+ 2344      69676E65 
+ 2344      6420696E 
+ 2344      7400
+ 2345              	.LASF34:
+ 2346 02d3 686F7572 		.ascii	"hourBCD\000"
+ 2346      42434400 
+ 2347              	.LASF10:
+ 2348 02db 646F7562 		.ascii	"double\000"
+ 2348      6C6500
+ 2349              	.LASF36:
+ 2350 02e2 62636444 		.ascii	"bcdDay\000"
+ 2350      617900
+ 2351              	.LASF40:
+ 2352 02e9 776B6461 		.ascii	"wkday\000"
+ 2352      7900
+ 2353              	.LASF27:
+ 2354 02ef 6D696E75 		.ascii	"minutes\000"
+ 2354      74657300 
+ 2355              	.LASF42:
+ 2356 02f7 67657457 		.ascii	"getWkDay\000"
+ 2356      6B446179 
+ 2356      00
+ 2357              	.LASF29:
+ 2358 0300 67657453 		.ascii	"getSec\000"
+ 2358      656300
+ 2359              	.LASF41:
+ 2360 0307 62636457 		.ascii	"bcdWkday\000"
+ 2360      6B646179 
+ 2360      00
+ 2361              	.LASF39:
+ 2362 0310 73657457 		.ascii	"setWkDay\000"
+ 2362      6B446179 
+ 2362      00
+ 2363              	.LASF21:
+ 2364 0319 6368616E 		.ascii	"changeHourMode\000"
+ 2364      6765486F 
+ 2364      75724D6F 
+ 2364      646500
+ 2365              	.LASF57:
+ 2366 0328 7765656B 		.ascii	"weekDay\000"
+ 2366      44617900 
+ 2367              	.LASF67:
+ 2368 0330 736F6674 		.ascii	"softReset\000"
+ 2368      52657365 
+ 2368      7400
+ 2369              	.LASF55:
+ 2370 033a 63726561 		.ascii	"createAlarm\000"
+ 2370      7465416C 
+ 2370      61726D00 
+ 2371              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

@@ -1,0 +1,1357 @@
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata
+  18              		.align	2
+  19              	.LC0:
+  20 0000 4572726F 		.ascii	"Error: Baterry backup did not work\012\015\000"
+  20      723A2042 
+  20      61746572 
+  20      72792062 
+  20      61636B75 
+  21 0025 000000   		.align	2
+  22              	.LC2:
+  23 0028 4E6F7465 		.ascii	"Note: Power was lost. Battery backup successfull!\012"
+  23      3A20506F 
+  23      77657220 
+  23      77617320 
+  23      6C6F7374 
+  24 005a 0D00     		.ascii	"\015\000"
+  25              		.global	__aeabi_idivmod
+  26              		.align	2
+  27              	.LC4:
+  28 005c 636F6E74 		.ascii	"control 3 :%X      \000"
+  28      726F6C20 
+  28      33203A25 
+  28      58202020 
+  28      20202000 
+  29              		.align	2
+  30              	.LC6:
+  31 0070 79656172 		.ascii	"year: %d month: %d day:%d wkDay:%d %d:%2d:%d \012\015"
+  31      3A202564 
+  31      206D6F6E 
+  31      74683A20 
+  31      25642064 
+  32 009f 00       		.ascii	"\000"
+  33              		.section	.text.main,"ax",%progbits
+  34              		.align	2
+  35              		.global	main
+  36              		.code	16
+  37              		.thumb_func
+  38              		.type	main, %function
+  39              	main:
+  40              	.LFB34:
+  41              		.file 1 "main.c"
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 2
+
+
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include <project.h>
+  13:main.c        **** #include <stdio.h>
+  14:main.c        **** #include <RTC.h>
+  15:main.c        **** #include <SerialPrint.h>
+  16:main.c        **** 
+  17:main.c        **** 
+  18:main.c        **** 
+  19:main.c        **** int main()
+  20:main.c        **** {
+  42              		.loc 1 20 0
+  43              		.cfi_startproc
+  44 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  45              		.cfi_def_cfa_offset 20
+  46              		.cfi_offset 4, -20
+  47              		.cfi_offset 5, -16
+  48              		.cfi_offset 6, -12
+  49              		.cfi_offset 7, -8
+  50              		.cfi_offset 14, -4
+  51 0002 ABB0     		sub	sp, sp, #172
+  52              		.cfi_def_cfa_offset 192
+  53 0004 06AF     		add	r7, sp, #24
+  54              		.cfi_def_cfa 7, 168
+  21:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  22:main.c        ****     I2C_Start();
+  55              		.loc 1 22 0
+  56 0006 FFF7FEFF 		bl	I2C_Start
+  23:main.c        ****     UART_1_Start();   
+  57              		.loc 1 23 0
+  58 000a FFF7FEFF 		bl	UART_1_Start
+  24:main.c        **** 
+  25:main.c        ****     CyGlobalIntEnable;  /* Uncomment this line to enable global interrupts. */
+  59              		.loc 1 25 0
+  60              	@ 25 "main.c" 1
+  61 000e 62B6     		CPSIE   i
+  62              	@ 0 "" 2
+  26:main.c        ****     
+  27:main.c        ****     //  check that rtc is in battery backup mode
+  28:main.c        ****     uint8 control3 = readReg(CONTROL_REG_3) ;
+  63              		.loc 1 28 0
+  64              		.code	16
+  65 0010 8723     		mov	r3, #135
+  66 0012 0822     		mov	r2, #8
+  67 0014 BA18     		add	r2, r7, r2
+  68 0016 D418     		add	r4, r2, r3
+  69 0018 0220     		mov	r0, #2
+  70 001a FFF7FEFF 		bl	readReg
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 3
+
+
+  71 001e 031C     		mov	r3, r0
+  72 0020 2370     		strb	r3, [r4]
+  29:main.c        ****     if((control3 >>4) != 0xA){
+  73              		.loc 1 29 0
+  74 0022 8723     		mov	r3, #135
+  75 0024 0822     		mov	r2, #8
+  76 0026 9446     		mov	ip, r2
+  77 0028 BC44     		add	ip, ip, r7
+  78 002a 6344     		add	r3, r3, ip
+  79 002c 1B78     		ldrb	r3, [r3]
+  80 002e 1B09     		lsr	r3, r3, #4
+  81 0030 DBB2     		uxtb	r3, r3
+  82 0032 0A2B     		cmp	r3, #10
+  83 0034 4ED0     		beq	.L2
+  84              	.LBB2:
+  30:main.c        ****         Pin_3_Write(1);
+  85              		.loc 1 30 0
+  86 0036 0120     		mov	r0, #1
+  87 0038 FFF7FEFF 		bl	Pin_3_Write
+  31:main.c        ****         CyDelay(1000);
+  88              		.loc 1 31 0
+  89 003c FA23     		mov	r3, #250
+  90 003e 9B00     		lsl	r3, r3, #2
+  91 0040 181C     		mov	r0, r3
+  92 0042 FFF7FEFF 		bl	CyDelay
+  32:main.c        ****         Pin_3_Write(0);
+  93              		.loc 1 32 0
+  94 0046 0020     		mov	r0, #0
+  95 0048 FFF7FEFF 		bl	Pin_3_Write
+  33:main.c        ****         CyDelay(1000);
+  96              		.loc 1 33 0
+  97 004c FA23     		mov	r3, #250
+  98 004e 9B00     		lsl	r3, r3, #2
+  99 0050 181C     		mov	r0, r3
+ 100 0052 FFF7FEFF 		bl	CyDelay
+  34:main.c        ****         Pin_3_Write(1);
+ 101              		.loc 1 34 0
+ 102 0056 0120     		mov	r0, #1
+ 103 0058 FFF7FEFF 		bl	Pin_3_Write
+  35:main.c        ****         CyDelay(1000);
+ 104              		.loc 1 35 0
+ 105 005c FA23     		mov	r3, #250
+ 106 005e 9B00     		lsl	r3, r3, #2
+ 107 0060 181C     		mov	r0, r3
+ 108 0062 FFF7FEFF 		bl	CyDelay
+  36:main.c        ****         Pin_3_Write(0);
+ 109              		.loc 1 36 0
+ 110 0066 0020     		mov	r0, #0
+ 111 0068 FFF7FEFF 		bl	Pin_3_Write
+  37:main.c        ****         
+  38:main.c        ****         printlnNum(control3,'X');
+ 112              		.loc 1 38 0
+ 113 006c 8723     		mov	r3, #135
+ 114 006e 0822     		mov	r2, #8
+ 115 0070 9446     		mov	ip, r2
+ 116 0072 BC44     		add	ip, ip, r7
+ 117 0074 6344     		add	r3, r3, ip
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 4
+
+
+ 118 0076 1B78     		ldrb	r3, [r3]
+ 119 0078 9BB2     		uxth	r3, r3
+ 120 007a 181C     		mov	r0, r3
+ 121 007c 5821     		mov	r1, #88
+ 122 007e FFF7FEFF 		bl	printlnNum
+  39:main.c        ****         //changeHourMode(EVERYTHING_ENABLED);
+  40:main.c        ****         uint8_t registerValue = 0xA0;// write 1010 to PM bits which enable directSwitching and disa
+ 123              		.loc 1 40 0
+ 124 0082 7F23     		mov	r3, #127
+ 125 0084 0822     		mov	r2, #8
+ 126 0086 9446     		mov	ip, r2
+ 127 0088 BC44     		add	ip, ip, r7
+ 128 008a 6344     		add	r3, r3, ip
+ 129 008c A022     		mov	r2, #160
+ 130 008e 1A70     		strb	r2, [r3]
+  41:main.c        ****         writeReg(CONTROL_REG_3,registerValue); 
+ 131              		.loc 1 41 0
+ 132 0090 7F23     		mov	r3, #127
+ 133 0092 0822     		mov	r2, #8
+ 134 0094 9446     		mov	ip, r2
+ 135 0096 BC44     		add	ip, ip, r7
+ 136 0098 6344     		add	r3, r3, ip
+ 137 009a 1B78     		ldrb	r3, [r3]
+ 138 009c 0220     		mov	r0, #2
+ 139 009e 191C     		mov	r1, r3
+ 140 00a0 FFF7FEFF 		bl	writeReg
+  42:main.c        ****         control3 = readReg(CONTROL_REG_3);
+ 141              		.loc 1 42 0
+ 142 00a4 8723     		mov	r3, #135
+ 143 00a6 0822     		mov	r2, #8
+ 144 00a8 BA18     		add	r2, r7, r2
+ 145 00aa D418     		add	r4, r2, r3
+ 146 00ac 0220     		mov	r0, #2
+ 147 00ae FFF7FEFF 		bl	readReg
+ 148 00b2 031C     		mov	r3, r0
+ 149 00b4 2370     		strb	r3, [r4]
+  43:main.c        ****         printlnNum(control3,'X');
+ 150              		.loc 1 43 0
+ 151 00b6 8723     		mov	r3, #135
+ 152 00b8 0822     		mov	r2, #8
+ 153 00ba 9446     		mov	ip, r2
+ 154 00bc BC44     		add	ip, ip, r7
+ 155 00be 6344     		add	r3, r3, ip
+ 156 00c0 1B78     		ldrb	r3, [r3]
+ 157 00c2 9BB2     		uxth	r3, r3
+ 158 00c4 181C     		mov	r0, r3
+ 159 00c6 5821     		mov	r1, #88
+ 160 00c8 FFF7FEFF 		bl	printlnNum
+  44:main.c        ****         UART_1_UartPutString("Error: Baterry backup did not work\n\r");
+ 161              		.loc 1 44 0
+ 162 00cc 934B     		ldr	r3, .L7
+ 163 00ce 181C     		mov	r0, r3
+ 164 00d0 FFF7FEFF 		bl	UART_1_UartPutString
+ 165              	.L2:
+ 166              	.LBE2:
+  45:main.c        ****     }
+  46:main.c        ****     
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 5
+
+
+  47:main.c        ****     if((control3 & 0x0F) != 0){
+ 167              		.loc 1 47 0
+ 168 00d4 8723     		mov	r3, #135
+ 169 00d6 0822     		mov	r2, #8
+ 170 00d8 9446     		mov	ip, r2
+ 171 00da BC44     		add	ip, ip, r7
+ 172 00dc 6344     		add	r3, r3, ip
+ 173 00de 1B78     		ldrb	r3, [r3]
+ 174 00e0 0F22     		mov	r2, #15
+ 175 00e2 1340     		and	r3, r2
+ 176 00e4 31D0     		beq	.L3
+  48:main.c        ****         Pin_2_Write(1);
+ 177              		.loc 1 48 0
+ 178 00e6 0120     		mov	r0, #1
+ 179 00e8 FFF7FEFF 		bl	Pin_2_Write
+  49:main.c        ****         CyDelay(2000);
+ 180              		.loc 1 49 0
+ 181 00ec FA23     		mov	r3, #250
+ 182 00ee DB00     		lsl	r3, r3, #3
+ 183 00f0 181C     		mov	r0, r3
+ 184 00f2 FFF7FEFF 		bl	CyDelay
+  50:main.c        ****         Pin_2_Write(0);
+ 185              		.loc 1 50 0
+ 186 00f6 0020     		mov	r0, #0
+ 187 00f8 FFF7FEFF 		bl	Pin_2_Write
+  51:main.c        ****         
+  52:main.c        ****         printlnNum(control3,'X');
+ 188              		.loc 1 52 0
+ 189 00fc 8723     		mov	r3, #135
+ 190 00fe 0822     		mov	r2, #8
+ 191 0100 9446     		mov	ip, r2
+ 192 0102 BC44     		add	ip, ip, r7
+ 193 0104 6344     		add	r3, r3, ip
+ 194 0106 1B78     		ldrb	r3, [r3]
+ 195 0108 9BB2     		uxth	r3, r3
+ 196 010a 181C     		mov	r0, r3
+ 197 010c 5821     		mov	r1, #88
+ 198 010e FFF7FEFF 		bl	printlnNum
+  53:main.c        **** 
+  54:main.c        **** 
+  55:main.c        ****         writeReg(CONTROL_REG_3,0xA0); 
+ 199              		.loc 1 55 0
+ 200 0112 0220     		mov	r0, #2
+ 201 0114 A021     		mov	r1, #160
+ 202 0116 FFF7FEFF 		bl	writeReg
+  56:main.c        ****         control3 = readReg(CONTROL_REG_3);
+ 203              		.loc 1 56 0
+ 204 011a 8723     		mov	r3, #135
+ 205 011c 0822     		mov	r2, #8
+ 206 011e BA18     		add	r2, r7, r2
+ 207 0120 D418     		add	r4, r2, r3
+ 208 0122 0220     		mov	r0, #2
+ 209 0124 FFF7FEFF 		bl	readReg
+ 210 0128 031C     		mov	r3, r0
+ 211 012a 2370     		strb	r3, [r4]
+  57:main.c        ****         printlnNum(control3,'X');
+ 212              		.loc 1 57 0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 6
+
+
+ 213 012c 8723     		mov	r3, #135
+ 214 012e 0822     		mov	r2, #8
+ 215 0130 9446     		mov	ip, r2
+ 216 0132 BC44     		add	ip, ip, r7
+ 217 0134 6344     		add	r3, r3, ip
+ 218 0136 1B78     		ldrb	r3, [r3]
+ 219 0138 9BB2     		uxth	r3, r3
+ 220 013a 181C     		mov	r0, r3
+ 221 013c 5821     		mov	r1, #88
+ 222 013e FFF7FEFF 		bl	printlnNum
+  58:main.c        ****         UART_1_UartPutString("Note: Power was lost. Battery backup successfull!\n\r");
+ 223              		.loc 1 58 0
+ 224 0142 774B     		ldr	r3, .L7+4
+ 225 0144 181C     		mov	r0, r3
+ 226 0146 FFF7FEFF 		bl	UART_1_UartPutString
+ 227              	.L3:
+  59:main.c        ****     
+  60:main.c        ****     }
+  61:main.c        **** //    UART_1_UartPutString("Enabling alarm interupt ...\n\r");
+  62:main.c        **** //    uint8_t control1 = readReg(CONTROL_REG_1);
+  63:main.c        **** //    printlnNum(control1,'X');
+  64:main.c        **** //    writeReg(CONTROL_REG_1,(control1 | 0x02));
+  65:main.c        **** //    printlnNum(control1,'X');
+  66:main.c        ****     
+  67:main.c        ****     struct time currentTime;
+  68:main.c        ****     //currentTime.second = 21;
+  69:main.c        ****     uint8 hour;
+  70:main.c        ****     uint8 seconds;
+  71:main.c        ****     uint8 minutes;
+  72:main.c        ****     
+  73:main.c        ****     
+  74:main.c        ****     currentTime.year =17;
+ 228              		.loc 1 74 0
+ 229 014a 7423     		mov	r3, #116
+ 230 014c 0822     		mov	r2, #8
+ 231 014e 9446     		mov	ip, r2
+ 232 0150 BC44     		add	ip, ip, r7
+ 233 0152 6344     		add	r3, r3, ip
+ 234 0154 1122     		mov	r2, #17
+ 235 0156 9A71     		strb	r2, [r3, #6]
+  75:main.c        ****     currentTime.month=8;
+ 236              		.loc 1 75 0
+ 237 0158 7423     		mov	r3, #116
+ 238 015a 0822     		mov	r2, #8
+ 239 015c 9446     		mov	ip, r2
+ 240 015e BC44     		add	ip, ip, r7
+ 241 0160 6344     		add	r3, r3, ip
+ 242 0162 0822     		mov	r2, #8
+ 243 0164 5A71     		strb	r2, [r3, #5]
+  76:main.c        ****     currentTime.day = 8;
+ 244              		.loc 1 76 0
+ 245 0166 7423     		mov	r3, #116
+ 246 0168 0822     		mov	r2, #8
+ 247 016a 9446     		mov	ip, r2
+ 248 016c BC44     		add	ip, ip, r7
+ 249 016e 6344     		add	r3, r3, ip
+ 250 0170 0822     		mov	r2, #8
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 7
+
+
+ 251 0172 DA70     		strb	r2, [r3, #3]
+  77:main.c        ****     currentTime.weekday = TUESDAY;
+ 252              		.loc 1 77 0
+ 253 0174 7423     		mov	r3, #116
+ 254 0176 0822     		mov	r2, #8
+ 255 0178 9446     		mov	ip, r2
+ 256 017a BC44     		add	ip, ip, r7
+ 257 017c 6344     		add	r3, r3, ip
+ 258 017e 0222     		mov	r2, #2
+ 259 0180 1A71     		strb	r2, [r3, #4]
+  78:main.c        ****     currentTime.hour = 22;
+ 260              		.loc 1 78 0
+ 261 0182 7423     		mov	r3, #116
+ 262 0184 0822     		mov	r2, #8
+ 263 0186 9446     		mov	ip, r2
+ 264 0188 BC44     		add	ip, ip, r7
+ 265 018a 6344     		add	r3, r3, ip
+ 266 018c 1622     		mov	r2, #22
+ 267 018e 9A70     		strb	r2, [r3, #2]
+  79:main.c        ****     currentTime.minute=50;
+ 268              		.loc 1 79 0
+ 269 0190 7423     		mov	r3, #116
+ 270 0192 0822     		mov	r2, #8
+ 271 0194 9446     		mov	ip, r2
+ 272 0196 BC44     		add	ip, ip, r7
+ 273 0198 6344     		add	r3, r3, ip
+ 274 019a 3222     		mov	r2, #50
+ 275 019c 5A70     		strb	r2, [r3, #1]
+  80:main.c        ****     currentTime.second = 45;
+ 276              		.loc 1 80 0
+ 277 019e 7423     		mov	r3, #116
+ 278 01a0 0822     		mov	r2, #8
+ 279 01a2 9446     		mov	ip, r2
+ 280 01a4 BC44     		add	ip, ip, r7
+ 281 01a6 6344     		add	r3, r3, ip
+ 282 01a8 2D22     		mov	r2, #45
+ 283 01aa 1A70     		strb	r2, [r3]
+  81:main.c        ****     
+  82:main.c        ****     struct time alarm;
+  83:main.c        ****     createAlarmTEST(&alarm,0xFF,0);
+ 284              		.loc 1 83 0
+ 285 01ac 6C23     		mov	r3, #108
+ 286 01ae 0822     		mov	r2, #8
+ 287 01b0 9446     		mov	ip, r2
+ 288 01b2 BC44     		add	ip, ip, r7
+ 289 01b4 6344     		add	r3, r3, ip
+ 290 01b6 181C     		mov	r0, r3
+ 291 01b8 FF21     		mov	r1, #255
+ 292 01ba 0022     		mov	r2, #0
+ 293 01bc FFF7FEFF 		bl	createAlarmTEST
+  84:main.c        **** 
+  85:main.c        ****     //setTime(&currentTime);
+  86:main.c        ****     int count = 0;
+ 294              		.loc 1 86 0
+ 295 01c0 0023     		mov	r3, #0
+ 296 01c2 8022     		mov	r2, #128
+ 297 01c4 0821     		mov	r1, #8
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 8
+
+
+ 298 01c6 8C46     		mov	ip, r1
+ 299 01c8 BC44     		add	ip, ip, r7
+ 300 01ca 6244     		add	r2, r2, ip
+ 301 01cc 1360     		str	r3, [r2]
+ 302              	.L6:
+ 303              	.LBB3:
+  87:main.c        **** 
+  88:main.c        **** for(;;)
+  89:main.c        ****     { 
+  90:main.c        ****         
+  91:main.c        ****         //changeHourMode(HOURMODE_24);
+  92:main.c        ****         //setHours(14);
+  93:main.c        ****         //char bcd[10];
+  94:main.c        ****         //sprintf(bcd,"hourbcd: %d",encodeHours24(2));
+  95:main.c        ****         //UART_1_UartPutString(bcd);    
+  96:main.c        ****            
+  97:main.c        **** //        hour = getHours();
+  98:main.c        **** //        seconds = getSec();
+  99:main.c        **** //        minutes = getMin();
+ 100:main.c        **** 
+ 101:main.c        **** 
+ 102:main.c        ****         getTime(&currentTime);
+ 304              		.loc 1 102 0
+ 305 01ce 7423     		mov	r3, #116
+ 306 01d0 0822     		mov	r2, #8
+ 307 01d2 9446     		mov	ip, r2
+ 308 01d4 BC44     		add	ip, ip, r7
+ 309 01d6 6344     		add	r3, r3, ip
+ 310 01d8 181C     		mov	r0, r3
+ 311 01da FFF7FEFF 		bl	getTime
+ 103:main.c        ****         char check = (checkAlarm(&currentTime,&alarm));
+ 312              		.loc 1 103 0
+ 313 01de 7E23     		mov	r3, #126
+ 314 01e0 0822     		mov	r2, #8
+ 315 01e2 BA18     		add	r2, r7, r2
+ 316 01e4 D418     		add	r4, r2, r3
+ 317 01e6 7423     		mov	r3, #116
+ 318 01e8 0822     		mov	r2, #8
+ 319 01ea BA18     		add	r2, r7, r2
+ 320 01ec D218     		add	r2, r2, r3
+ 321 01ee 6C23     		mov	r3, #108
+ 322 01f0 0821     		mov	r1, #8
+ 323 01f2 8C46     		mov	ip, r1
+ 324 01f4 BC44     		add	ip, ip, r7
+ 325 01f6 6344     		add	r3, r3, ip
+ 326 01f8 101C     		mov	r0, r2
+ 327 01fa 191C     		mov	r1, r3
+ 328 01fc FFF7FEFF 		bl	checkAlarm
+ 329 0200 031C     		mov	r3, r0
+ 330 0202 2370     		strb	r3, [r4]
+ 104:main.c        ****         if(!check){
+ 331              		.loc 1 104 0
+ 332 0204 7E23     		mov	r3, #126
+ 333 0206 0822     		mov	r2, #8
+ 334 0208 9446     		mov	ip, r2
+ 335 020a BC44     		add	ip, ip, r7
+ 336 020c 6344     		add	r3, r3, ip
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 9
+
+
+ 337 020e 1B78     		ldrb	r3, [r3]
+ 338 0210 002B     		cmp	r3, #0
+ 339 0212 0AD1     		bne	.L4
+ 105:main.c        ****         Pin_3_Write(1);
+ 340              		.loc 1 105 0
+ 341 0214 0120     		mov	r0, #1
+ 342 0216 FFF7FEFF 		bl	Pin_3_Write
+ 106:main.c        ****         CyDelay(1000);
+ 343              		.loc 1 106 0
+ 344 021a FA23     		mov	r3, #250
+ 345 021c 9B00     		lsl	r3, r3, #2
+ 346 021e 181C     		mov	r0, r3
+ 347 0220 FFF7FEFF 		bl	CyDelay
+ 107:main.c        ****         Pin_3_Write(0);
+ 348              		.loc 1 107 0
+ 349 0224 0020     		mov	r0, #0
+ 350 0226 FFF7FEFF 		bl	Pin_3_Write
+ 351              	.L4:
+ 108:main.c        ****         }
+ 109:main.c        **** 
+ 110:main.c        ****         
+ 111:main.c        ****         //printlnNum(currentTime.second,'d');
+ 112:main.c        ****         
+ 113:main.c        ****         char output[25];
+ 114:main.c        ****         char output2[75];
+ 115:main.c        ****         //uint8 control1 = readReg(CONTROL_REG_1);
+ 116:main.c        ****         //uint8 control2 = readReg(CONTROL_REG_2);
+ 117:main.c        ****         uint8 control3 = readReg(CONTROL_REG_3);
+ 352              		.loc 1 117 0
+ 353 022a 7D23     		mov	r3, #125
+ 354 022c 0822     		mov	r2, #8
+ 355 022e BA18     		add	r2, r7, r2
+ 356 0230 D418     		add	r4, r2, r3
+ 357 0232 0220     		mov	r0, #2
+ 358 0234 FFF7FEFF 		bl	readReg
+ 359 0238 031C     		mov	r3, r0
+ 360 023a 2370     		strb	r3, [r4]
+ 118:main.c        ****         if(count%25 ==0 ){
+ 361              		.loc 1 118 0
+ 362 023c 8023     		mov	r3, #128
+ 363 023e 0822     		mov	r2, #8
+ 364 0240 9446     		mov	ip, r2
+ 365 0242 BC44     		add	ip, ip, r7
+ 366 0244 6344     		add	r3, r3, ip
+ 367 0246 1B68     		ldr	r3, [r3]
+ 368 0248 181C     		mov	r0, r3
+ 369 024a 1921     		mov	r1, #25
+ 370 024c FFF7FEFF 		bl	__aeabi_idivmod
+ 371 0250 0B1E     		sub	r3, r1, #0
+ 372 0252 55D1     		bne	.L5
+ 119:main.c        ****         sprintf(output, "control 3 :%X      ", control3);
+ 373              		.loc 1 119 0
+ 374 0254 7D23     		mov	r3, #125
+ 375 0256 0822     		mov	r2, #8
+ 376 0258 9446     		mov	ip, r2
+ 377 025a BC44     		add	ip, ip, r7
+ 378 025c 6344     		add	r3, r3, ip
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 10
+
+
+ 379 025e 1B78     		ldrb	r3, [r3]
+ 380 0260 5022     		mov	r2, #80
+ 381 0262 0821     		mov	r1, #8
+ 382 0264 7918     		add	r1, r7, r1
+ 383 0266 8918     		add	r1, r1, r2
+ 384 0268 2E4A     		ldr	r2, .L7+8
+ 385 026a 081C     		mov	r0, r1
+ 386 026c 111C     		mov	r1, r2
+ 387 026e 1A1C     		mov	r2, r3
+ 388 0270 FFF7FEFF 		bl	sprintf
+ 120:main.c        ****         sprintf(output2,"year: %d month: %d day:%d wkDay:%d %d:%2d:%d \n\r",currentTime.year,curren
+ 389              		.loc 1 120 0
+ 390 0274 7423     		mov	r3, #116
+ 391 0276 0822     		mov	r2, #8
+ 392 0278 9446     		mov	ip, r2
+ 393 027a BC44     		add	ip, ip, r7
+ 394 027c 6344     		add	r3, r3, ip
+ 395 027e 9B79     		ldrb	r3, [r3, #6]
+ 396 0280 7B60     		str	r3, [r7, #4]
+ 397 0282 7421     		mov	r1, #116
+ 398 0284 0823     		mov	r3, #8
+ 399 0286 FB18     		add	r3, r7, r3
+ 400 0288 5B18     		add	r3, r3, r1
+ 401 028a 5B79     		ldrb	r3, [r3, #5]
+ 402 028c 3B60     		str	r3, [r7]
+ 403 028e 7421     		mov	r1, #116
+ 404 0290 0823     		mov	r3, #8
+ 405 0292 FB18     		add	r3, r7, r3
+ 406 0294 5B18     		add	r3, r3, r1
+ 407 0296 DB78     		ldrb	r3, [r3, #3]
+ 408 0298 1E1C     		mov	r6, r3
+ 409 029a 7421     		mov	r1, #116
+ 410 029c 0823     		mov	r3, #8
+ 411 029e FB18     		add	r3, r7, r3
+ 412 02a0 5B18     		add	r3, r3, r1
+ 413 02a2 1B79     		ldrb	r3, [r3, #4]
+ 414 02a4 1D1C     		mov	r5, r3
+ 415 02a6 7421     		mov	r1, #116
+ 416 02a8 0823     		mov	r3, #8
+ 417 02aa FB18     		add	r3, r7, r3
+ 418 02ac 5B18     		add	r3, r3, r1
+ 419 02ae 9B78     		ldrb	r3, [r3, #2]
+ 420 02b0 1C1C     		mov	r4, r3
+ 421 02b2 7421     		mov	r1, #116
+ 422 02b4 0823     		mov	r3, #8
+ 423 02b6 FB18     		add	r3, r7, r3
+ 424 02b8 5B18     		add	r3, r3, r1
+ 425 02ba 5B78     		ldrb	r3, [r3, #1]
+ 426 02bc 181C     		mov	r0, r3
+ 427 02be 7421     		mov	r1, #116
+ 428 02c0 0823     		mov	r3, #8
+ 429 02c2 FB18     		add	r3, r7, r3
+ 430 02c4 5B18     		add	r3, r3, r1
+ 431 02c6 1B78     		ldrb	r3, [r3]
+ 432 02c8 191C     		mov	r1, r3
+ 433 02ca 0C23     		mov	r3, #12
+ 434 02cc FA18     		add	r2, r7, r3
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 11
+
+
+ 435 02ce 164B     		ldr	r3, .L7+12
+ 436 02d0 0096     		str	r6, [sp]
+ 437 02d2 0195     		str	r5, [sp, #4]
+ 438 02d4 0294     		str	r4, [sp, #8]
+ 439 02d6 0390     		str	r0, [sp, #12]
+ 440 02d8 0491     		str	r1, [sp, #16]
+ 441 02da 101C     		mov	r0, r2
+ 442 02dc 191C     		mov	r1, r3
+ 443 02de 7A68     		ldr	r2, [r7, #4]
+ 444 02e0 3B68     		ldr	r3, [r7]
+ 445 02e2 FFF7FEFF 		bl	sprintf
+ 121:main.c        ****         //sprintf(output2," %d:%2d:%d \n\r",hour, minutes,seconds);
+ 122:main.c        ****         UART_1_UartPutString(output);
+ 446              		.loc 1 122 0
+ 447 02e6 5023     		mov	r3, #80
+ 448 02e8 0822     		mov	r2, #8
+ 449 02ea 9446     		mov	ip, r2
+ 450 02ec BC44     		add	ip, ip, r7
+ 451 02ee 6344     		add	r3, r3, ip
+ 452 02f0 181C     		mov	r0, r3
+ 453 02f2 FFF7FEFF 		bl	UART_1_UartPutString
+ 123:main.c        ****         UART_1_UartPutString(output2);
+ 454              		.loc 1 123 0
+ 455 02f6 0C23     		mov	r3, #12
+ 456 02f8 FB18     		add	r3, r7, r3
+ 457 02fa 181C     		mov	r0, r3
+ 458 02fc FFF7FEFF 		bl	UART_1_UartPutString
+ 459              	.L5:
+ 124:main.c        ****         }
+ 125:main.c        **** 
+ 126:main.c        ****         count++;
+ 460              		.loc 1 126 0
+ 461 0300 8023     		mov	r3, #128
+ 462 0302 0822     		mov	r2, #8
+ 463 0304 9446     		mov	ip, r2
+ 464 0306 BC44     		add	ip, ip, r7
+ 465 0308 6344     		add	r3, r3, ip
+ 466 030a 1B68     		ldr	r3, [r3]
+ 467 030c 0133     		add	r3, r3, #1
+ 468 030e 8022     		mov	r2, #128
+ 469 0310 0821     		mov	r1, #8
+ 470 0312 8C46     		mov	ip, r1
+ 471 0314 BC44     		add	ip, ip, r7
+ 472 0316 6244     		add	r2, r2, ip
+ 473 0318 1360     		str	r3, [r2]
+ 474              	.LBE3:
+ 127:main.c        ****         //softReset();
+ 128:main.c        ****         //year:%d,month%d,day:%d,wkday:%d currentTime.year,currentTime.month,currentTime.day,curren
+ 129:main.c        ****         
+ 130:main.c        ****     }    /* Place your application code here. */
+ 475              		.loc 1 130 0
+ 476 031a 58E7     		b	.L6
+ 477              	.L8:
+ 478              		.align	2
+ 479              	.L7:
+ 480 031c 00000000 		.word	.LC0
+ 481 0320 28000000 		.word	.LC2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 12
+
+
+ 482 0324 5C000000 		.word	.LC4
+ 483 0328 70000000 		.word	.LC6
+ 484              		.cfi_endproc
+ 485              	.LFE34:
+ 486              		.size	main, .-main
+ 487              		.text
+ 488              	.Letext0:
+ 489              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
+ 490              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
+ 491              		.file 4 "Generated_Source\\PSoC4/cytypes.h"
+ 492              		.file 5 "./RTC.h"
+ 493              		.section	.debug_info,"",%progbits
+ 494              	.Ldebug_info0:
+ 495 0000 F6010000 		.4byte	0x1f6
+ 496 0004 0400     		.2byte	0x4
+ 497 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 498 000a 04       		.byte	0x4
+ 499 000b 01       		.uleb128 0x1
+ 500 000c A5000000 		.4byte	.LASF32
+ 501 0010 01       		.byte	0x1
+ 502 0011 F3010000 		.4byte	.LASF33
+ 503 0015 33010000 		.4byte	.LASF34
+ 504 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 505 001d 00000000 		.4byte	0
+ 506 0021 00000000 		.4byte	.Ldebug_line0
+ 507 0025 02       		.uleb128 0x2
+ 508 0026 01       		.byte	0x1
+ 509 0027 06       		.byte	0x6
+ 510 0028 1F020000 		.4byte	.LASF0
+ 511 002c 03       		.uleb128 0x3
+ 512 002d 08000000 		.4byte	.LASF9
+ 513 0031 02       		.byte	0x2
+ 514 0032 1D       		.byte	0x1d
+ 515 0033 37000000 		.4byte	0x37
+ 516 0037 02       		.uleb128 0x2
+ 517 0038 01       		.byte	0x1
+ 518 0039 08       		.byte	0x8
+ 519 003a 48000000 		.4byte	.LASF1
+ 520 003e 02       		.uleb128 0x2
+ 521 003f 02       		.byte	0x2
+ 522 0040 05       		.byte	0x5
+ 523 0041 FF010000 		.4byte	.LASF2
+ 524 0045 02       		.uleb128 0x2
+ 525 0046 02       		.byte	0x2
+ 526 0047 07       		.byte	0x7
+ 527 0048 64000000 		.4byte	.LASF3
+ 528 004c 02       		.uleb128 0x2
+ 529 004d 04       		.byte	0x4
+ 530 004e 05       		.byte	0x5
+ 531 004f 16020000 		.4byte	.LASF4
+ 532 0053 02       		.uleb128 0x2
+ 533 0054 04       		.byte	0x4
+ 534 0055 07       		.byte	0x7
+ 535 0056 8E000000 		.4byte	.LASF5
+ 536 005a 02       		.uleb128 0x2
+ 537 005b 08       		.byte	0x8
+ 538 005c 05       		.byte	0x5
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 13
+
+
+ 539 005d DD010000 		.4byte	.LASF6
+ 540 0061 02       		.uleb128 0x2
+ 541 0062 08       		.byte	0x8
+ 542 0063 07       		.byte	0x7
+ 543 0064 9B010000 		.4byte	.LASF7
+ 544 0068 04       		.uleb128 0x4
+ 545 0069 04       		.byte	0x4
+ 546 006a 05       		.byte	0x5
+ 547 006b 696E7400 		.ascii	"int\000"
+ 548 006f 02       		.uleb128 0x2
+ 549 0070 04       		.byte	0x4
+ 550 0071 07       		.byte	0x7
+ 551 0072 8E010000 		.4byte	.LASF8
+ 552 0076 03       		.uleb128 0x3
+ 553 0077 B2010000 		.4byte	.LASF10
+ 554 007b 03       		.byte	0x3
+ 555 007c 15       		.byte	0x15
+ 556 007d 2C000000 		.4byte	0x2c
+ 557 0081 05       		.uleb128 0x5
+ 558 0082 10020000 		.4byte	.LASF11
+ 559 0086 04       		.byte	0x4
+ 560 0087 B901     		.2byte	0x1b9
+ 561 0089 37000000 		.4byte	0x37
+ 562 008d 02       		.uleb128 0x2
+ 563 008e 04       		.byte	0x4
+ 564 008f 04       		.byte	0x4
+ 565 0090 42000000 		.4byte	.LASF12
+ 566 0094 02       		.uleb128 0x2
+ 567 0095 08       		.byte	0x8
+ 568 0096 04       		.byte	0x4
+ 569 0097 2F000000 		.4byte	.LASF13
+ 570 009b 02       		.uleb128 0x2
+ 571 009c 01       		.byte	0x1
+ 572 009d 08       		.byte	0x8
+ 573 009e FA010000 		.4byte	.LASF14
+ 574 00a2 02       		.uleb128 0x2
+ 575 00a3 04       		.byte	0x4
+ 576 00a4 07       		.byte	0x7
+ 577 00a5 D4010000 		.4byte	.LASF15
+ 578 00a9 06       		.uleb128 0x6
+ 579 00aa 9B000000 		.4byte	0x9b
+ 580 00ae B9000000 		.4byte	0xb9
+ 581 00b2 07       		.uleb128 0x7
+ 582 00b3 A2000000 		.4byte	0xa2
+ 583 00b7 18       		.byte	0x18
+ 584 00b8 00       		.byte	0
+ 585 00b9 08       		.uleb128 0x8
+ 586 00ba C6010000 		.4byte	.LASF35
+ 587 00be 07       		.byte	0x7
+ 588 00bf 05       		.byte	0x5
+ 589 00c0 40       		.byte	0x40
+ 590 00c1 1A010000 		.4byte	0x11a
+ 591 00c5 09       		.uleb128 0x9
+ 592 00c6 82000000 		.4byte	.LASF16
+ 593 00ca 05       		.byte	0x5
+ 594 00cb 42       		.byte	0x42
+ 595 00cc 81000000 		.4byte	0x81
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 14
+
+
+ 596 00d0 00       		.byte	0
+ 597 00d1 09       		.uleb128 0x9
+ 598 00d2 28000000 		.4byte	.LASF17
+ 599 00d6 05       		.byte	0x5
+ 600 00d7 43       		.byte	0x43
+ 601 00d8 81000000 		.4byte	0x81
+ 602 00dc 01       		.byte	0x1
+ 603 00dd 09       		.uleb128 0x9
+ 604 00de 7D000000 		.4byte	.LASF18
+ 605 00e2 05       		.byte	0x5
+ 606 00e3 44       		.byte	0x44
+ 607 00e4 81000000 		.4byte	0x81
+ 608 00e8 02       		.byte	0x2
+ 609 00e9 0A       		.uleb128 0xa
+ 610 00ea 64617900 		.ascii	"day\000"
+ 611 00ee 05       		.byte	0x5
+ 612 00ef 45       		.byte	0x45
+ 613 00f0 81000000 		.4byte	0x81
+ 614 00f4 03       		.byte	0x3
+ 615 00f5 09       		.uleb128 0x9
+ 616 00f6 12000000 		.4byte	.LASF19
+ 617 00fa 05       		.byte	0x5
+ 618 00fb 46       		.byte	0x46
+ 619 00fc 81000000 		.4byte	0x81
+ 620 0100 04       		.byte	0x4
+ 621 0101 09       		.uleb128 0x9
+ 622 0102 36000000 		.4byte	.LASF20
+ 623 0106 05       		.byte	0x5
+ 624 0107 47       		.byte	0x47
+ 625 0108 81000000 		.4byte	0x81
+ 626 010c 05       		.byte	0x5
+ 627 010d 09       		.uleb128 0x9
+ 628 010e 89000000 		.4byte	.LASF21
+ 629 0112 05       		.byte	0x5
+ 630 0113 48       		.byte	0x48
+ 631 0114 81000000 		.4byte	0x81
+ 632 0118 06       		.byte	0x6
+ 633 0119 00       		.byte	0
+ 634 011a 0B       		.uleb128 0xb
+ 635 011b A0000000 		.4byte	.LASF36
+ 636 011f 01       		.byte	0x1
+ 637 0120 13       		.byte	0x13
+ 638 0121 68000000 		.4byte	0x68
+ 639 0125 00000000 		.4byte	.LFB34
+ 640 0129 2C030000 		.4byte	.LFE34-.LFB34
+ 641 012d 01       		.uleb128 0x1
+ 642 012e 9C       		.byte	0x9c
+ 643 012f ED010000 		.4byte	0x1ed
+ 644 0133 0C       		.uleb128 0xc
+ 645 0134 CB010000 		.4byte	.LASF22
+ 646 0138 01       		.byte	0x1
+ 647 0139 1C       		.byte	0x1c
+ 648 013a 81000000 		.4byte	0x81
+ 649 013e 02       		.uleb128 0x2
+ 650 013f 91       		.byte	0x91
+ 651 0140 67       		.sleb128 -25
+ 652 0141 0C       		.uleb128 0xc
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 15
+
+
+ 653 0142 BA010000 		.4byte	.LASF23
+ 654 0146 01       		.byte	0x1
+ 655 0147 43       		.byte	0x43
+ 656 0148 B9000000 		.4byte	0xb9
+ 657 014c 02       		.uleb128 0x2
+ 658 014d 91       		.byte	0x91
+ 659 014e 54       		.sleb128 -44
+ 660 014f 0D       		.uleb128 0xd
+ 661 0150 7D000000 		.4byte	.LASF18
+ 662 0154 01       		.byte	0x1
+ 663 0155 45       		.byte	0x45
+ 664 0156 81000000 		.4byte	0x81
+ 665 015a 0D       		.uleb128 0xd
+ 666 015b EB010000 		.4byte	.LASF24
+ 667 015f 01       		.byte	0x1
+ 668 0160 46       		.byte	0x46
+ 669 0161 81000000 		.4byte	0x81
+ 670 0165 0D       		.uleb128 0xd
+ 671 0166 00000000 		.4byte	.LASF25
+ 672 016a 01       		.byte	0x1
+ 673 016b 47       		.byte	0x47
+ 674 016c 81000000 		.4byte	0x81
+ 675 0170 0C       		.uleb128 0xc
+ 676 0171 77000000 		.4byte	.LASF26
+ 677 0175 01       		.byte	0x1
+ 678 0176 52       		.byte	0x52
+ 679 0177 B9000000 		.4byte	0xb9
+ 680 017b 02       		.uleb128 0x2
+ 681 017c 91       		.byte	0x91
+ 682 017d 4C       		.sleb128 -52
+ 683 017e 0C       		.uleb128 0xc
+ 684 017f 22000000 		.4byte	.LASF27
+ 685 0183 01       		.byte	0x1
+ 686 0184 56       		.byte	0x56
+ 687 0185 68000000 		.4byte	0x68
+ 688 0189 02       		.uleb128 0x2
+ 689 018a 91       		.byte	0x91
+ 690 018b 60       		.sleb128 -32
+ 691 018c 0E       		.uleb128 0xe
+ 692 018d 36000000 		.4byte	.LBB2
+ 693 0191 9E000000 		.4byte	.LBE2-.LBB2
+ 694 0195 A8010000 		.4byte	0x1a8
+ 695 0199 0C       		.uleb128 0xc
+ 696 019a 56000000 		.4byte	.LASF28
+ 697 019e 01       		.byte	0x1
+ 698 019f 28       		.byte	0x28
+ 699 01a0 76000000 		.4byte	0x76
+ 700 01a4 02       		.uleb128 0x2
+ 701 01a5 91       		.byte	0x91
+ 702 01a6 5F       		.sleb128 -33
+ 703 01a7 00       		.byte	0
+ 704 01a8 0F       		.uleb128 0xf
+ 705 01a9 CE010000 		.4byte	.LBB3
+ 706 01ad 4C010000 		.4byte	.LBE3-.LBB3
+ 707 01b1 0C       		.uleb128 0xc
+ 708 01b2 3C000000 		.4byte	.LASF29
+ 709 01b6 01       		.byte	0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 16
+
+
+ 710 01b7 67       		.byte	0x67
+ 711 01b8 9B000000 		.4byte	0x9b
+ 712 01bc 02       		.uleb128 0x2
+ 713 01bd 91       		.byte	0x91
+ 714 01be 5E       		.sleb128 -34
+ 715 01bf 0C       		.uleb128 0xc
+ 716 01c0 09020000 		.4byte	.LASF30
+ 717 01c4 01       		.byte	0x1
+ 718 01c5 71       		.byte	0x71
+ 719 01c6 A9000000 		.4byte	0xa9
+ 720 01ca 03       		.uleb128 0x3
+ 721 01cb 91       		.byte	0x91
+ 722 01cc B07F     		.sleb128 -80
+ 723 01ce 0C       		.uleb128 0xc
+ 724 01cf 1A000000 		.4byte	.LASF31
+ 725 01d3 01       		.byte	0x1
+ 726 01d4 72       		.byte	0x72
+ 727 01d5 ED010000 		.4byte	0x1ed
+ 728 01d9 03       		.uleb128 0x3
+ 729 01da 91       		.byte	0x91
+ 730 01db E47E     		.sleb128 -156
+ 731 01dd 0C       		.uleb128 0xc
+ 732 01de CB010000 		.4byte	.LASF22
+ 733 01e2 01       		.byte	0x1
+ 734 01e3 75       		.byte	0x75
+ 735 01e4 81000000 		.4byte	0x81
+ 736 01e8 02       		.uleb128 0x2
+ 737 01e9 91       		.byte	0x91
+ 738 01ea 5D       		.sleb128 -35
+ 739 01eb 00       		.byte	0
+ 740 01ec 00       		.byte	0
+ 741 01ed 10       		.uleb128 0x10
+ 742 01ee 9B000000 		.4byte	0x9b
+ 743 01f2 07       		.uleb128 0x7
+ 744 01f3 A2000000 		.4byte	0xa2
+ 745 01f7 4A       		.byte	0x4a
+ 746 01f8 00       		.byte	0
+ 747 01f9 00       		.byte	0
+ 748              		.section	.debug_abbrev,"",%progbits
+ 749              	.Ldebug_abbrev0:
+ 750 0000 01       		.uleb128 0x1
+ 751 0001 11       		.uleb128 0x11
+ 752 0002 01       		.byte	0x1
+ 753 0003 25       		.uleb128 0x25
+ 754 0004 0E       		.uleb128 0xe
+ 755 0005 13       		.uleb128 0x13
+ 756 0006 0B       		.uleb128 0xb
+ 757 0007 03       		.uleb128 0x3
+ 758 0008 0E       		.uleb128 0xe
+ 759 0009 1B       		.uleb128 0x1b
+ 760 000a 0E       		.uleb128 0xe
+ 761 000b 55       		.uleb128 0x55
+ 762 000c 17       		.uleb128 0x17
+ 763 000d 11       		.uleb128 0x11
+ 764 000e 01       		.uleb128 0x1
+ 765 000f 10       		.uleb128 0x10
+ 766 0010 17       		.uleb128 0x17
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 17
+
+
+ 767 0011 00       		.byte	0
+ 768 0012 00       		.byte	0
+ 769 0013 02       		.uleb128 0x2
+ 770 0014 24       		.uleb128 0x24
+ 771 0015 00       		.byte	0
+ 772 0016 0B       		.uleb128 0xb
+ 773 0017 0B       		.uleb128 0xb
+ 774 0018 3E       		.uleb128 0x3e
+ 775 0019 0B       		.uleb128 0xb
+ 776 001a 03       		.uleb128 0x3
+ 777 001b 0E       		.uleb128 0xe
+ 778 001c 00       		.byte	0
+ 779 001d 00       		.byte	0
+ 780 001e 03       		.uleb128 0x3
+ 781 001f 16       		.uleb128 0x16
+ 782 0020 00       		.byte	0
+ 783 0021 03       		.uleb128 0x3
+ 784 0022 0E       		.uleb128 0xe
+ 785 0023 3A       		.uleb128 0x3a
+ 786 0024 0B       		.uleb128 0xb
+ 787 0025 3B       		.uleb128 0x3b
+ 788 0026 0B       		.uleb128 0xb
+ 789 0027 49       		.uleb128 0x49
+ 790 0028 13       		.uleb128 0x13
+ 791 0029 00       		.byte	0
+ 792 002a 00       		.byte	0
+ 793 002b 04       		.uleb128 0x4
+ 794 002c 24       		.uleb128 0x24
+ 795 002d 00       		.byte	0
+ 796 002e 0B       		.uleb128 0xb
+ 797 002f 0B       		.uleb128 0xb
+ 798 0030 3E       		.uleb128 0x3e
+ 799 0031 0B       		.uleb128 0xb
+ 800 0032 03       		.uleb128 0x3
+ 801 0033 08       		.uleb128 0x8
+ 802 0034 00       		.byte	0
+ 803 0035 00       		.byte	0
+ 804 0036 05       		.uleb128 0x5
+ 805 0037 16       		.uleb128 0x16
+ 806 0038 00       		.byte	0
+ 807 0039 03       		.uleb128 0x3
+ 808 003a 0E       		.uleb128 0xe
+ 809 003b 3A       		.uleb128 0x3a
+ 810 003c 0B       		.uleb128 0xb
+ 811 003d 3B       		.uleb128 0x3b
+ 812 003e 05       		.uleb128 0x5
+ 813 003f 49       		.uleb128 0x49
+ 814 0040 13       		.uleb128 0x13
+ 815 0041 00       		.byte	0
+ 816 0042 00       		.byte	0
+ 817 0043 06       		.uleb128 0x6
+ 818 0044 01       		.uleb128 0x1
+ 819 0045 01       		.byte	0x1
+ 820 0046 49       		.uleb128 0x49
+ 821 0047 13       		.uleb128 0x13
+ 822 0048 01       		.uleb128 0x1
+ 823 0049 13       		.uleb128 0x13
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 18
+
+
+ 824 004a 00       		.byte	0
+ 825 004b 00       		.byte	0
+ 826 004c 07       		.uleb128 0x7
+ 827 004d 21       		.uleb128 0x21
+ 828 004e 00       		.byte	0
+ 829 004f 49       		.uleb128 0x49
+ 830 0050 13       		.uleb128 0x13
+ 831 0051 2F       		.uleb128 0x2f
+ 832 0052 0B       		.uleb128 0xb
+ 833 0053 00       		.byte	0
+ 834 0054 00       		.byte	0
+ 835 0055 08       		.uleb128 0x8
+ 836 0056 13       		.uleb128 0x13
+ 837 0057 01       		.byte	0x1
+ 838 0058 03       		.uleb128 0x3
+ 839 0059 0E       		.uleb128 0xe
+ 840 005a 0B       		.uleb128 0xb
+ 841 005b 0B       		.uleb128 0xb
+ 842 005c 3A       		.uleb128 0x3a
+ 843 005d 0B       		.uleb128 0xb
+ 844 005e 3B       		.uleb128 0x3b
+ 845 005f 0B       		.uleb128 0xb
+ 846 0060 01       		.uleb128 0x1
+ 847 0061 13       		.uleb128 0x13
+ 848 0062 00       		.byte	0
+ 849 0063 00       		.byte	0
+ 850 0064 09       		.uleb128 0x9
+ 851 0065 0D       		.uleb128 0xd
+ 852 0066 00       		.byte	0
+ 853 0067 03       		.uleb128 0x3
+ 854 0068 0E       		.uleb128 0xe
+ 855 0069 3A       		.uleb128 0x3a
+ 856 006a 0B       		.uleb128 0xb
+ 857 006b 3B       		.uleb128 0x3b
+ 858 006c 0B       		.uleb128 0xb
+ 859 006d 49       		.uleb128 0x49
+ 860 006e 13       		.uleb128 0x13
+ 861 006f 38       		.uleb128 0x38
+ 862 0070 0B       		.uleb128 0xb
+ 863 0071 00       		.byte	0
+ 864 0072 00       		.byte	0
+ 865 0073 0A       		.uleb128 0xa
+ 866 0074 0D       		.uleb128 0xd
+ 867 0075 00       		.byte	0
+ 868 0076 03       		.uleb128 0x3
+ 869 0077 08       		.uleb128 0x8
+ 870 0078 3A       		.uleb128 0x3a
+ 871 0079 0B       		.uleb128 0xb
+ 872 007a 3B       		.uleb128 0x3b
+ 873 007b 0B       		.uleb128 0xb
+ 874 007c 49       		.uleb128 0x49
+ 875 007d 13       		.uleb128 0x13
+ 876 007e 38       		.uleb128 0x38
+ 877 007f 0B       		.uleb128 0xb
+ 878 0080 00       		.byte	0
+ 879 0081 00       		.byte	0
+ 880 0082 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 19
+
+
+ 881 0083 2E       		.uleb128 0x2e
+ 882 0084 01       		.byte	0x1
+ 883 0085 3F       		.uleb128 0x3f
+ 884 0086 19       		.uleb128 0x19
+ 885 0087 03       		.uleb128 0x3
+ 886 0088 0E       		.uleb128 0xe
+ 887 0089 3A       		.uleb128 0x3a
+ 888 008a 0B       		.uleb128 0xb
+ 889 008b 3B       		.uleb128 0x3b
+ 890 008c 0B       		.uleb128 0xb
+ 891 008d 49       		.uleb128 0x49
+ 892 008e 13       		.uleb128 0x13
+ 893 008f 11       		.uleb128 0x11
+ 894 0090 01       		.uleb128 0x1
+ 895 0091 12       		.uleb128 0x12
+ 896 0092 06       		.uleb128 0x6
+ 897 0093 40       		.uleb128 0x40
+ 898 0094 18       		.uleb128 0x18
+ 899 0095 9642     		.uleb128 0x2116
+ 900 0097 19       		.uleb128 0x19
+ 901 0098 01       		.uleb128 0x1
+ 902 0099 13       		.uleb128 0x13
+ 903 009a 00       		.byte	0
+ 904 009b 00       		.byte	0
+ 905 009c 0C       		.uleb128 0xc
+ 906 009d 34       		.uleb128 0x34
+ 907 009e 00       		.byte	0
+ 908 009f 03       		.uleb128 0x3
+ 909 00a0 0E       		.uleb128 0xe
+ 910 00a1 3A       		.uleb128 0x3a
+ 911 00a2 0B       		.uleb128 0xb
+ 912 00a3 3B       		.uleb128 0x3b
+ 913 00a4 0B       		.uleb128 0xb
+ 914 00a5 49       		.uleb128 0x49
+ 915 00a6 13       		.uleb128 0x13
+ 916 00a7 02       		.uleb128 0x2
+ 917 00a8 18       		.uleb128 0x18
+ 918 00a9 00       		.byte	0
+ 919 00aa 00       		.byte	0
+ 920 00ab 0D       		.uleb128 0xd
+ 921 00ac 34       		.uleb128 0x34
+ 922 00ad 00       		.byte	0
+ 923 00ae 03       		.uleb128 0x3
+ 924 00af 0E       		.uleb128 0xe
+ 925 00b0 3A       		.uleb128 0x3a
+ 926 00b1 0B       		.uleb128 0xb
+ 927 00b2 3B       		.uleb128 0x3b
+ 928 00b3 0B       		.uleb128 0xb
+ 929 00b4 49       		.uleb128 0x49
+ 930 00b5 13       		.uleb128 0x13
+ 931 00b6 00       		.byte	0
+ 932 00b7 00       		.byte	0
+ 933 00b8 0E       		.uleb128 0xe
+ 934 00b9 0B       		.uleb128 0xb
+ 935 00ba 01       		.byte	0x1
+ 936 00bb 11       		.uleb128 0x11
+ 937 00bc 01       		.uleb128 0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 20
+
+
+ 938 00bd 12       		.uleb128 0x12
+ 939 00be 06       		.uleb128 0x6
+ 940 00bf 01       		.uleb128 0x1
+ 941 00c0 13       		.uleb128 0x13
+ 942 00c1 00       		.byte	0
+ 943 00c2 00       		.byte	0
+ 944 00c3 0F       		.uleb128 0xf
+ 945 00c4 0B       		.uleb128 0xb
+ 946 00c5 01       		.byte	0x1
+ 947 00c6 11       		.uleb128 0x11
+ 948 00c7 01       		.uleb128 0x1
+ 949 00c8 12       		.uleb128 0x12
+ 950 00c9 06       		.uleb128 0x6
+ 951 00ca 00       		.byte	0
+ 952 00cb 00       		.byte	0
+ 953 00cc 10       		.uleb128 0x10
+ 954 00cd 01       		.uleb128 0x1
+ 955 00ce 01       		.byte	0x1
+ 956 00cf 49       		.uleb128 0x49
+ 957 00d0 13       		.uleb128 0x13
+ 958 00d1 00       		.byte	0
+ 959 00d2 00       		.byte	0
+ 960 00d3 00       		.byte	0
+ 961              		.section	.debug_aranges,"",%progbits
+ 962 0000 1C000000 		.4byte	0x1c
+ 963 0004 0200     		.2byte	0x2
+ 964 0006 00000000 		.4byte	.Ldebug_info0
+ 965 000a 04       		.byte	0x4
+ 966 000b 00       		.byte	0
+ 967 000c 0000     		.2byte	0
+ 968 000e 0000     		.2byte	0
+ 969 0010 00000000 		.4byte	.LFB34
+ 970 0014 2C030000 		.4byte	.LFE34-.LFB34
+ 971 0018 00000000 		.4byte	0
+ 972 001c 00000000 		.4byte	0
+ 973              		.section	.debug_ranges,"",%progbits
+ 974              	.Ldebug_ranges0:
+ 975 0000 00000000 		.4byte	.LFB34
+ 976 0004 2C030000 		.4byte	.LFE34
+ 977 0008 00000000 		.4byte	0
+ 978 000c 00000000 		.4byte	0
+ 979              		.section	.debug_line,"",%progbits
+ 980              	.Ldebug_line0:
+ 981 0000 94010000 		.section	.debug_str,"MS",%progbits,1
+ 981      02004401 
+ 981      00000201 
+ 981      FB0E0D00 
+ 981      01010101 
+ 982              	.LASF25:
+ 983 0000 6D696E75 		.ascii	"minutes\000"
+ 983      74657300 
+ 984              	.LASF9:
+ 985 0008 5F5F7569 		.ascii	"__uint8_t\000"
+ 985      6E74385F 
+ 985      7400
+ 986              	.LASF19:
+ 987 0012 7765656B 		.ascii	"weekday\000"
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 21
+
+
+ 987      64617900 
+ 988              	.LASF31:
+ 989 001a 6F757470 		.ascii	"output2\000"
+ 989      75743200 
+ 990              	.LASF27:
+ 991 0022 636F756E 		.ascii	"count\000"
+ 991      7400
+ 992              	.LASF17:
+ 993 0028 6D696E75 		.ascii	"minute\000"
+ 993      746500
+ 994              	.LASF13:
+ 995 002f 646F7562 		.ascii	"double\000"
+ 995      6C6500
+ 996              	.LASF20:
+ 997 0036 6D6F6E74 		.ascii	"month\000"
+ 997      6800
+ 998              	.LASF29:
+ 999 003c 63686563 		.ascii	"check\000"
+ 999      6B00
+ 1000              	.LASF12:
+ 1001 0042 666C6F61 		.ascii	"float\000"
+ 1001      7400
+ 1002              	.LASF1:
+ 1003 0048 756E7369 		.ascii	"unsigned char\000"
+ 1003      676E6564 
+ 1003      20636861 
+ 1003      7200
+ 1004              	.LASF28:
+ 1005 0056 72656769 		.ascii	"registerValue\000"
+ 1005      73746572 
+ 1005      56616C75 
+ 1005      6500
+ 1006              	.LASF3:
+ 1007 0064 73686F72 		.ascii	"short unsigned int\000"
+ 1007      7420756E 
+ 1007      7369676E 
+ 1007      65642069 
+ 1007      6E7400
+ 1008              	.LASF26:
+ 1009 0077 616C6172 		.ascii	"alarm\000"
+ 1009      6D00
+ 1010              	.LASF18:
+ 1011 007d 686F7572 		.ascii	"hour\000"
+ 1011      00
+ 1012              	.LASF16:
+ 1013 0082 7365636F 		.ascii	"second\000"
+ 1013      6E6400
+ 1014              	.LASF21:
+ 1015 0089 79656172 		.ascii	"year\000"
+ 1015      00
+ 1016              	.LASF5:
+ 1017 008e 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1017      20756E73 
+ 1017      69676E65 
+ 1017      6420696E 
+ 1017      7400
+ 1018              	.LASF36:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 22
+
+
+ 1019 00a0 6D61696E 		.ascii	"main\000"
+ 1019      00
+ 1020              	.LASF32:
+ 1021 00a5 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1021      4320342E 
+ 1021      392E3320 
+ 1021      32303135 
+ 1021      30333033 
+ 1022 00d8 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 1022      20726576 
+ 1022      6973696F 
+ 1022      6E203232 
+ 1022      31323230 
+ 1023 010b 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1023      66756E63 
+ 1023      74696F6E 
+ 1023      2D736563 
+ 1023      74696F6E 
+ 1024              	.LASF34:
+ 1025 0133 433A5C55 		.ascii	"C:\\Users\\Joseph\\Documents\\CY8CKIT-049-42xx\\1.0"
+ 1025      73657273 
+ 1025      5C4A6F73 
+ 1025      6570685C 
+ 1025      446F6375 
+ 1026 0161 5C466972 		.ascii	"\\Firmware\\SCB_Bootloader\\Sunrise Clock.cydsn\000"
+ 1026      6D776172 
+ 1026      655C5343 
+ 1026      425F426F 
+ 1026      6F746C6F 
+ 1027              	.LASF8:
+ 1028 018e 756E7369 		.ascii	"unsigned int\000"
+ 1028      676E6564 
+ 1028      20696E74 
+ 1028      00
+ 1029              	.LASF7:
+ 1030 019b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1030      206C6F6E 
+ 1030      6720756E 
+ 1030      7369676E 
+ 1030      65642069 
+ 1031              	.LASF10:
+ 1032 01b2 75696E74 		.ascii	"uint8_t\000"
+ 1032      385F7400 
+ 1033              	.LASF23:
+ 1034 01ba 63757272 		.ascii	"currentTime\000"
+ 1034      656E7454 
+ 1034      696D6500 
+ 1035              	.LASF35:
+ 1036 01c6 74696D65 		.ascii	"time\000"
+ 1036      00
+ 1037              	.LASF22:
+ 1038 01cb 636F6E74 		.ascii	"control3\000"
+ 1038      726F6C33 
+ 1038      00
+ 1039              	.LASF15:
+ 1040 01d4 73697A65 		.ascii	"sizetype\000"
+ 1040      74797065 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccoySzNJ.s 			page 23
+
+
+ 1040      00
+ 1041              	.LASF6:
+ 1042 01dd 6C6F6E67 		.ascii	"long long int\000"
+ 1042      206C6F6E 
+ 1042      6720696E 
+ 1042      7400
+ 1043              	.LASF24:
+ 1044 01eb 7365636F 		.ascii	"seconds\000"
+ 1044      6E647300 
+ 1045              	.LASF33:
+ 1046 01f3 6D61696E 		.ascii	"main.c\000"
+ 1046      2E6300
+ 1047              	.LASF14:
+ 1048 01fa 63686172 		.ascii	"char\000"
+ 1048      00
+ 1049              	.LASF2:
+ 1050 01ff 73686F72 		.ascii	"short int\000"
+ 1050      7420696E 
+ 1050      7400
+ 1051              	.LASF30:
+ 1052 0209 6F757470 		.ascii	"output\000"
+ 1052      757400
+ 1053              	.LASF11:
+ 1054 0210 75696E74 		.ascii	"uint8\000"
+ 1054      3800
+ 1055              	.LASF4:
+ 1056 0216 6C6F6E67 		.ascii	"long int\000"
+ 1056      20696E74 
+ 1056      00
+ 1057              	.LASF0:
+ 1058 021f 7369676E 		.ascii	"signed char\000"
+ 1058      65642063 
+ 1058      68617200 
+ 1059              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

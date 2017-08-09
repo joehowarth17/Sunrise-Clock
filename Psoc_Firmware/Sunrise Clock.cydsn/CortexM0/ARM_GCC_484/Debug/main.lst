@@ -1,0 +1,668 @@
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata
+  18              		.align	2
+  19              	.LC0:
+  20 0000 636F6E74 		.ascii	"control 3 :%X      \000"
+  20      726F6C20 
+  20      33203A25 
+  20      58202020 
+  20      20202000 
+  21              		.align	2
+  22              	.LC2:
+  23 0014 25643A25 		.ascii	"%d:%2d:%d \012\015\000"
+  23      32643A25 
+  23      64200A0D 
+  23      00
+  24 0021 000000   		.section	.text.main,"ax",%progbits
+  25              		.align	2
+  26              		.global	main
+  27              		.code	16
+  28              		.thumb_func
+  29              		.type	main, %function
+  30              	main:
+  31              	.LFB33:
+  32              		.file 1 ".\\main.c"
+   1:.\main.c      **** /* ========================================
+   2:.\main.c      ****  *
+   3:.\main.c      ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\main.c      ****  * All Rights Reserved
+   5:.\main.c      ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\main.c      ****  *
+   7:.\main.c      ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\main.c      ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\main.c      ****  *
+  10:.\main.c      ****  * ========================================
+  11:.\main.c      **** */
+  12:.\main.c      **** #include <project.h>
+  13:.\main.c      **** #include <stdio.h>
+  14:.\main.c      **** #include <RTC.h>
+  15:.\main.c      **** 
+  16:.\main.c      **** int main()
+  17:.\main.c      **** {
+  33              		.loc 1 17 0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 2
+
+
+  34              		.cfi_startproc
+  35 0000 90B5     		push	{r4, r7, lr}
+  36              		.cfi_def_cfa_offset 12
+  37              		.cfi_offset 4, -12
+  38              		.cfi_offset 7, -8
+  39              		.cfi_offset 14, -4
+  40 0002 93B0     		sub	sp, sp, #76
+  41              		.cfi_def_cfa_offset 88
+  42 0004 02AF     		add	r7, sp, #8
+  43              		.cfi_def_cfa 7, 80
+  18:.\main.c      ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  19:.\main.c      ****     I2C_Start();
+  44              		.loc 1 19 0
+  45 0006 FFF7FEFF 		bl	I2C_Start
+  20:.\main.c      ****     UART_1_Start();   
+  46              		.loc 1 20 0
+  47 000a FFF7FEFF 		bl	UART_1_Start
+  21:.\main.c      ****     
+  22:.\main.c      ****     CyGlobalIntEnable;  /* Uncomment this line to enable global interrupts. */
+  48              		.loc 1 22 0
+  49              	@ 22 ".\main.c" 1
+  50 000e 62B6     		CPSIE   i
+  51              	@ 0 "" 2
+  23:.\main.c      ****     uint8 hour;
+  24:.\main.c      ****     uint8 seconds;
+  25:.\main.c      ****     uint8 minutes;
+  26:.\main.c      ****     uint8 value=0b00100000;
+  52              		.loc 1 26 0
+  53              		.code	16
+  54 0010 3B1C     		mov	r3, r7
+  55 0012 3F33     		add	r3, r3, #63
+  56 0014 2022     		mov	r2, #32
+  57 0016 1A70     		strb	r2, [r3]
+  27:.\main.c      ****     //changePowerMode(EVERYTHING_ENABLED);
+  28:.\main.c      ****     setHours(16);
+  58              		.loc 1 28 0
+  59 0018 1020     		mov	r0, #16
+  60 001a FFF7FEFF 		bl	setHours
+  29:.\main.c      ****     setMin(35);
+  61              		.loc 1 29 0
+  62 001e 2320     		mov	r0, #35
+  63 0020 FFF7FEFF 		bl	setMin
+  30:.\main.c      ****     setSec(1);
+  64              		.loc 1 30 0
+  65 0024 0120     		mov	r0, #1
+  66 0026 FFF7FEFF 		bl	setSec
+  67              	.L2:
+  68              	.LBB2:
+  31:.\main.c      **** 
+  32:.\main.c      **** for(;;)
+  33:.\main.c      ****     { 
+  34:.\main.c      ****         //changeHourMode(HOURMODE_24);
+  35:.\main.c      ****         setHours(14);
+  69              		.loc 1 35 0 discriminator 1
+  70 002a 0E20     		mov	r0, #14
+  71 002c FFF7FEFF 		bl	setHours
+  36:.\main.c      ****         //char bcd[10];
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 3
+
+
+  37:.\main.c      ****         //sprintf(bcd,"hourbcd: %d",encodeHours24(2));
+  38:.\main.c      ****         //UART_1_UartPutString(bcd);    
+  39:.\main.c      ****            
+  40:.\main.c      ****         hour = getHours();
+  72              		.loc 1 40 0 discriminator 1
+  73 0030 3C1C     		mov	r4, r7
+  74 0032 3E34     		add	r4, r4, #62
+  75 0034 FFF7FEFF 		bl	getHours
+  76 0038 031C     		mov	r3, r0
+  77 003a 2370     		strb	r3, [r4]
+  41:.\main.c      ****         seconds = getSec();
+  78              		.loc 1 41 0 discriminator 1
+  79 003c 3C1C     		mov	r4, r7
+  80 003e 3D34     		add	r4, r4, #61
+  81 0040 FFF7FEFF 		bl	getSec
+  82 0044 031C     		mov	r3, r0
+  83 0046 2370     		strb	r3, [r4]
+  42:.\main.c      ****         minutes = getMin();
+  84              		.loc 1 42 0 discriminator 1
+  85 0048 3C1C     		mov	r4, r7
+  86 004a 3C34     		add	r4, r4, #60
+  87 004c FFF7FEFF 		bl	getMin
+  88 0050 031C     		mov	r3, r0
+  89 0052 2370     		strb	r3, [r4]
+  43:.\main.c      ****         char output[25];
+  44:.\main.c      ****         char output2[25];
+  45:.\main.c      ****         //uint8 control1 = readReg(CONTROL_REG_1);
+  46:.\main.c      ****         //uint8 control2 = readReg(CONTROL_REG_2);
+  47:.\main.c      ****         uint8 control3 = readReg(CONTROL_REG_3);
+  90              		.loc 1 47 0 discriminator 1
+  91 0054 3C1C     		mov	r4, r7
+  92 0056 3B34     		add	r4, r4, #59
+  93 0058 0220     		mov	r0, #2
+  94 005a FFF7FEFF 		bl	readReg
+  95 005e 031C     		mov	r3, r0
+  96 0060 2370     		strb	r3, [r4]
+  48:.\main.c      ****         
+  49:.\main.c      ****         sprintf(output, "control 3 :%X      ", control3);
+  97              		.loc 1 49 0 discriminator 1
+  98 0062 3B1C     		mov	r3, r7
+  99 0064 3B33     		add	r3, r3, #59
+ 100 0066 1B78     		ldrb	r3, [r3]
+ 101 0068 391C     		mov	r1, r7
+ 102 006a 2031     		add	r1, r1, #32
+ 103 006c 114A     		ldr	r2, .L3
+ 104 006e 081C     		mov	r0, r1
+ 105 0070 111C     		mov	r1, r2
+ 106 0072 1A1C     		mov	r2, r3
+ 107 0074 FFF7FEFF 		bl	sprintf
+  50:.\main.c      ****         sprintf(output2,"%d:%2d:%d \n\r",hour,minutes,seconds);
+ 108              		.loc 1 50 0 discriminator 1
+ 109 0078 3B1C     		mov	r3, r7
+ 110 007a 3E33     		add	r3, r3, #62
+ 111 007c 1A78     		ldrb	r2, [r3]
+ 112 007e 3B1C     		mov	r3, r7
+ 113 0080 3C33     		add	r3, r3, #60
+ 114 0082 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 4
+
+
+ 115 0084 391C     		mov	r1, r7
+ 116 0086 3D31     		add	r1, r1, #61
+ 117 0088 0C78     		ldrb	r4, [r1]
+ 118 008a 381D     		add	r0, r7, #4
+ 119 008c 0A49     		ldr	r1, .L3+4
+ 120 008e 0094     		str	r4, [sp]
+ 121 0090 FFF7FEFF 		bl	sprintf
+  51:.\main.c      ****         UART_1_UartPutString(output);
+ 122              		.loc 1 51 0 discriminator 1
+ 123 0094 3B1C     		mov	r3, r7
+ 124 0096 2033     		add	r3, r3, #32
+ 125 0098 181C     		mov	r0, r3
+ 126 009a FFF7FEFF 		bl	UART_1_UartPutString
+  52:.\main.c      ****         UART_1_UartPutString(output2);
+ 127              		.loc 1 52 0 discriminator 1
+ 128 009e 3B1D     		add	r3, r7, #4
+ 129 00a0 181C     		mov	r0, r3
+ 130 00a2 FFF7FEFF 		bl	UART_1_UartPutString
+  53:.\main.c      ****         
+  54:.\main.c      ****         CyDelay(1000);
+ 131              		.loc 1 54 0 discriminator 1
+ 132 00a6 FA23     		mov	r3, #250
+ 133 00a8 9B00     		lsl	r3, r3, #2
+ 134 00aa 181C     		mov	r0, r3
+ 135 00ac FFF7FEFF 		bl	CyDelay
+ 136              	.LBE2:
+  55:.\main.c      ****         //softReset();
+  56:.\main.c      ****         
+  57:.\main.c      ****         
+  58:.\main.c      ****     }    /* Place your application code here. */
+ 137              		.loc 1 58 0 discriminator 1
+ 138 00b0 BBE7     		b	.L2
+ 139              	.L4:
+ 140 00b2 C046     		.align	2
+ 141              	.L3:
+ 142 00b4 00000000 		.word	.LC0
+ 143 00b8 14000000 		.word	.LC2
+ 144              		.cfi_endproc
+ 145              	.LFE33:
+ 146              		.size	main, .-main
+ 147              		.text
+ 148              	.Letext0:
+ 149              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 150              		.section	.debug_info,"",%progbits
+ 151              	.Ldebug_info0:
+ 152 0000 22010000 		.4byte	0x122
+ 153 0004 0400     		.2byte	0x4
+ 154 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 155 000a 04       		.byte	0x4
+ 156 000b 01       		.uleb128 0x1
+ 157 000c C9000000 		.4byte	.LASF20
+ 158 0010 01       		.byte	0x1
+ 159 0011 A6010000 		.4byte	.LASF21
+ 160 0015 73000000 		.4byte	.LASF22
+ 161 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 162 001d 00000000 		.4byte	0
+ 163 0021 00000000 		.4byte	.Ldebug_line0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 5
+
+
+ 164 0025 02       		.uleb128 0x2
+ 165 0026 01       		.byte	0x1
+ 166 0027 06       		.byte	0x6
+ 167 0028 8C010000 		.4byte	.LASF0
+ 168 002c 02       		.uleb128 0x2
+ 169 002d 01       		.byte	0x1
+ 170 002e 08       		.byte	0x8
+ 171 002f 1B000000 		.4byte	.LASF1
+ 172 0033 02       		.uleb128 0x2
+ 173 0034 02       		.byte	0x2
+ 174 0035 05       		.byte	0x5
+ 175 0036 68010000 		.4byte	.LASF2
+ 176 003a 02       		.uleb128 0x2
+ 177 003b 02       		.byte	0x2
+ 178 003c 07       		.byte	0x7
+ 179 003d 79010000 		.4byte	.LASF3
+ 180 0041 02       		.uleb128 0x2
+ 181 0042 04       		.byte	0x4
+ 182 0043 05       		.byte	0x5
+ 183 0044 56010000 		.4byte	.LASF4
+ 184 0048 02       		.uleb128 0x2
+ 185 0049 04       		.byte	0x4
+ 186 004a 07       		.byte	0x7
+ 187 004b 3C000000 		.4byte	.LASF5
+ 188 004f 02       		.uleb128 0x2
+ 189 0050 08       		.byte	0x8
+ 190 0051 05       		.byte	0x5
+ 191 0052 00000000 		.4byte	.LASF6
+ 192 0056 02       		.uleb128 0x2
+ 193 0057 08       		.byte	0x8
+ 194 0058 07       		.byte	0x7
+ 195 0059 4E000000 		.4byte	.LASF7
+ 196 005d 03       		.uleb128 0x3
+ 197 005e 04       		.byte	0x4
+ 198 005f 05       		.byte	0x5
+ 199 0060 696E7400 		.ascii	"int\000"
+ 200 0064 02       		.uleb128 0x2
+ 201 0065 04       		.byte	0x4
+ 202 0066 07       		.byte	0x7
+ 203 0067 0E000000 		.4byte	.LASF8
+ 204 006b 04       		.uleb128 0x4
+ 205 006c 36000000 		.4byte	.LASF23
+ 206 0070 02       		.byte	0x2
+ 207 0071 A1       		.byte	0xa1
+ 208 0072 2C000000 		.4byte	0x2c
+ 209 0076 02       		.uleb128 0x2
+ 210 0077 04       		.byte	0x4
+ 211 0078 04       		.byte	0x4
+ 212 0079 6D000000 		.4byte	.LASF9
+ 213 007d 02       		.uleb128 0x2
+ 214 007e 08       		.byte	0x8
+ 215 007f 04       		.byte	0x4
+ 216 0080 72010000 		.4byte	.LASF10
+ 217 0084 02       		.uleb128 0x2
+ 218 0085 01       		.byte	0x1
+ 219 0086 08       		.byte	0x8
+ 220 0087 51010000 		.4byte	.LASF11
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 6
+
+
+ 221 008b 02       		.uleb128 0x2
+ 222 008c 04       		.byte	0x4
+ 223 008d 07       		.byte	0x7
+ 224 008e AF010000 		.4byte	.LASF12
+ 225 0092 05       		.uleb128 0x5
+ 226 0093 84000000 		.4byte	0x84
+ 227 0097 A2000000 		.4byte	0xa2
+ 228 009b 06       		.uleb128 0x6
+ 229 009c 8B000000 		.4byte	0x8b
+ 230 00a0 18       		.byte	0x18
+ 231 00a1 00       		.byte	0
+ 232 00a2 07       		.uleb128 0x7
+ 233 00a3 31000000 		.4byte	.LASF24
+ 234 00a7 01       		.byte	0x1
+ 235 00a8 10       		.byte	0x10
+ 236 00a9 5D000000 		.4byte	0x5d
+ 237 00ad 00000000 		.4byte	.LFB33
+ 238 00b1 BC000000 		.4byte	.LFE33-.LFB33
+ 239 00b5 01       		.uleb128 0x1
+ 240 00b6 9C       		.byte	0x9c
+ 241 00b7 08       		.uleb128 0x8
+ 242 00b8 4C010000 		.4byte	.LASF13
+ 243 00bc 01       		.byte	0x1
+ 244 00bd 17       		.byte	0x17
+ 245 00be 6B000000 		.4byte	0x6b
+ 246 00c2 02       		.uleb128 0x2
+ 247 00c3 91       		.byte	0x91
+ 248 00c4 6E       		.sleb128 -18
+ 249 00c5 08       		.uleb128 0x8
+ 250 00c6 9E010000 		.4byte	.LASF14
+ 251 00ca 01       		.byte	0x1
+ 252 00cb 18       		.byte	0x18
+ 253 00cc 6B000000 		.4byte	0x6b
+ 254 00d0 02       		.uleb128 0x2
+ 255 00d1 91       		.byte	0x91
+ 256 00d2 6D       		.sleb128 -19
+ 257 00d3 08       		.uleb128 0x8
+ 258 00d4 29000000 		.4byte	.LASF15
+ 259 00d8 01       		.byte	0x1
+ 260 00d9 19       		.byte	0x19
+ 261 00da 6B000000 		.4byte	0x6b
+ 262 00de 02       		.uleb128 0x2
+ 263 00df 91       		.byte	0x91
+ 264 00e0 6C       		.sleb128 -20
+ 265 00e1 08       		.uleb128 0x8
+ 266 00e2 98010000 		.4byte	.LASF16
+ 267 00e6 01       		.byte	0x1
+ 268 00e7 1A       		.byte	0x1a
+ 269 00e8 6B000000 		.4byte	0x6b
+ 270 00ec 02       		.uleb128 0x2
+ 271 00ed 91       		.byte	0x91
+ 272 00ee 6F       		.sleb128 -17
+ 273 00ef 09       		.uleb128 0x9
+ 274 00f0 2A000000 		.4byte	.LBB2
+ 275 00f4 86000000 		.4byte	.LBE2-.LBB2
+ 276 00f8 08       		.uleb128 0x8
+ 277 00f9 45010000 		.4byte	.LASF17
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 7
+
+
+ 278 00fd 01       		.byte	0x1
+ 279 00fe 2B       		.byte	0x2b
+ 280 00ff 92000000 		.4byte	0x92
+ 281 0103 02       		.uleb128 0x2
+ 282 0104 91       		.byte	0x91
+ 283 0105 50       		.sleb128 -48
+ 284 0106 08       		.uleb128 0x8
+ 285 0107 65000000 		.4byte	.LASF18
+ 286 010b 01       		.byte	0x1
+ 287 010c 2C       		.byte	0x2c
+ 288 010d 92000000 		.4byte	0x92
+ 289 0111 03       		.uleb128 0x3
+ 290 0112 91       		.byte	0x91
+ 291 0113 B47F     		.sleb128 -76
+ 292 0115 08       		.uleb128 0x8
+ 293 0116 5F010000 		.4byte	.LASF19
+ 294 011a 01       		.byte	0x1
+ 295 011b 2F       		.byte	0x2f
+ 296 011c 6B000000 		.4byte	0x6b
+ 297 0120 02       		.uleb128 0x2
+ 298 0121 91       		.byte	0x91
+ 299 0122 6B       		.sleb128 -21
+ 300 0123 00       		.byte	0
+ 301 0124 00       		.byte	0
+ 302 0125 00       		.byte	0
+ 303              		.section	.debug_abbrev,"",%progbits
+ 304              	.Ldebug_abbrev0:
+ 305 0000 01       		.uleb128 0x1
+ 306 0001 11       		.uleb128 0x11
+ 307 0002 01       		.byte	0x1
+ 308 0003 25       		.uleb128 0x25
+ 309 0004 0E       		.uleb128 0xe
+ 310 0005 13       		.uleb128 0x13
+ 311 0006 0B       		.uleb128 0xb
+ 312 0007 03       		.uleb128 0x3
+ 313 0008 0E       		.uleb128 0xe
+ 314 0009 1B       		.uleb128 0x1b
+ 315 000a 0E       		.uleb128 0xe
+ 316 000b 55       		.uleb128 0x55
+ 317 000c 17       		.uleb128 0x17
+ 318 000d 11       		.uleb128 0x11
+ 319 000e 01       		.uleb128 0x1
+ 320 000f 10       		.uleb128 0x10
+ 321 0010 17       		.uleb128 0x17
+ 322 0011 00       		.byte	0
+ 323 0012 00       		.byte	0
+ 324 0013 02       		.uleb128 0x2
+ 325 0014 24       		.uleb128 0x24
+ 326 0015 00       		.byte	0
+ 327 0016 0B       		.uleb128 0xb
+ 328 0017 0B       		.uleb128 0xb
+ 329 0018 3E       		.uleb128 0x3e
+ 330 0019 0B       		.uleb128 0xb
+ 331 001a 03       		.uleb128 0x3
+ 332 001b 0E       		.uleb128 0xe
+ 333 001c 00       		.byte	0
+ 334 001d 00       		.byte	0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 8
+
+
+ 335 001e 03       		.uleb128 0x3
+ 336 001f 24       		.uleb128 0x24
+ 337 0020 00       		.byte	0
+ 338 0021 0B       		.uleb128 0xb
+ 339 0022 0B       		.uleb128 0xb
+ 340 0023 3E       		.uleb128 0x3e
+ 341 0024 0B       		.uleb128 0xb
+ 342 0025 03       		.uleb128 0x3
+ 343 0026 08       		.uleb128 0x8
+ 344 0027 00       		.byte	0
+ 345 0028 00       		.byte	0
+ 346 0029 04       		.uleb128 0x4
+ 347 002a 16       		.uleb128 0x16
+ 348 002b 00       		.byte	0
+ 349 002c 03       		.uleb128 0x3
+ 350 002d 0E       		.uleb128 0xe
+ 351 002e 3A       		.uleb128 0x3a
+ 352 002f 0B       		.uleb128 0xb
+ 353 0030 3B       		.uleb128 0x3b
+ 354 0031 0B       		.uleb128 0xb
+ 355 0032 49       		.uleb128 0x49
+ 356 0033 13       		.uleb128 0x13
+ 357 0034 00       		.byte	0
+ 358 0035 00       		.byte	0
+ 359 0036 05       		.uleb128 0x5
+ 360 0037 01       		.uleb128 0x1
+ 361 0038 01       		.byte	0x1
+ 362 0039 49       		.uleb128 0x49
+ 363 003a 13       		.uleb128 0x13
+ 364 003b 01       		.uleb128 0x1
+ 365 003c 13       		.uleb128 0x13
+ 366 003d 00       		.byte	0
+ 367 003e 00       		.byte	0
+ 368 003f 06       		.uleb128 0x6
+ 369 0040 21       		.uleb128 0x21
+ 370 0041 00       		.byte	0
+ 371 0042 49       		.uleb128 0x49
+ 372 0043 13       		.uleb128 0x13
+ 373 0044 2F       		.uleb128 0x2f
+ 374 0045 0B       		.uleb128 0xb
+ 375 0046 00       		.byte	0
+ 376 0047 00       		.byte	0
+ 377 0048 07       		.uleb128 0x7
+ 378 0049 2E       		.uleb128 0x2e
+ 379 004a 01       		.byte	0x1
+ 380 004b 3F       		.uleb128 0x3f
+ 381 004c 19       		.uleb128 0x19
+ 382 004d 03       		.uleb128 0x3
+ 383 004e 0E       		.uleb128 0xe
+ 384 004f 3A       		.uleb128 0x3a
+ 385 0050 0B       		.uleb128 0xb
+ 386 0051 3B       		.uleb128 0x3b
+ 387 0052 0B       		.uleb128 0xb
+ 388 0053 49       		.uleb128 0x49
+ 389 0054 13       		.uleb128 0x13
+ 390 0055 11       		.uleb128 0x11
+ 391 0056 01       		.uleb128 0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 9
+
+
+ 392 0057 12       		.uleb128 0x12
+ 393 0058 06       		.uleb128 0x6
+ 394 0059 40       		.uleb128 0x40
+ 395 005a 18       		.uleb128 0x18
+ 396 005b 9642     		.uleb128 0x2116
+ 397 005d 19       		.uleb128 0x19
+ 398 005e 00       		.byte	0
+ 399 005f 00       		.byte	0
+ 400 0060 08       		.uleb128 0x8
+ 401 0061 34       		.uleb128 0x34
+ 402 0062 00       		.byte	0
+ 403 0063 03       		.uleb128 0x3
+ 404 0064 0E       		.uleb128 0xe
+ 405 0065 3A       		.uleb128 0x3a
+ 406 0066 0B       		.uleb128 0xb
+ 407 0067 3B       		.uleb128 0x3b
+ 408 0068 0B       		.uleb128 0xb
+ 409 0069 49       		.uleb128 0x49
+ 410 006a 13       		.uleb128 0x13
+ 411 006b 02       		.uleb128 0x2
+ 412 006c 18       		.uleb128 0x18
+ 413 006d 00       		.byte	0
+ 414 006e 00       		.byte	0
+ 415 006f 09       		.uleb128 0x9
+ 416 0070 0B       		.uleb128 0xb
+ 417 0071 01       		.byte	0x1
+ 418 0072 11       		.uleb128 0x11
+ 419 0073 01       		.uleb128 0x1
+ 420 0074 12       		.uleb128 0x12
+ 421 0075 06       		.uleb128 0x6
+ 422 0076 00       		.byte	0
+ 423 0077 00       		.byte	0
+ 424 0078 00       		.byte	0
+ 425              		.section	.debug_aranges,"",%progbits
+ 426 0000 1C000000 		.4byte	0x1c
+ 427 0004 0200     		.2byte	0x2
+ 428 0006 00000000 		.4byte	.Ldebug_info0
+ 429 000a 04       		.byte	0x4
+ 430 000b 00       		.byte	0
+ 431 000c 0000     		.2byte	0
+ 432 000e 0000     		.2byte	0
+ 433 0010 00000000 		.4byte	.LFB33
+ 434 0014 BC000000 		.4byte	.LFE33-.LFB33
+ 435 0018 00000000 		.4byte	0
+ 436 001c 00000000 		.4byte	0
+ 437              		.section	.debug_ranges,"",%progbits
+ 438              	.Ldebug_ranges0:
+ 439 0000 00000000 		.4byte	.LFB33
+ 440 0004 BC000000 		.4byte	.LFE33
+ 441 0008 00000000 		.4byte	0
+ 442 000c 00000000 		.4byte	0
+ 443              		.section	.debug_line,"",%progbits
+ 444              	.Ldebug_line0:
+ 445 0000 98000000 		.section	.debug_str,"MS",%progbits,1
+ 445      02004500 
+ 445      00000201 
+ 445      FB0E0D00 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 10
+
+
+ 445      01010101 
+ 446              	.LASF6:
+ 447 0000 6C6F6E67 		.ascii	"long long int\000"
+ 447      206C6F6E 
+ 447      6720696E 
+ 447      7400
+ 448              	.LASF8:
+ 449 000e 756E7369 		.ascii	"unsigned int\000"
+ 449      676E6564 
+ 449      20696E74 
+ 449      00
+ 450              	.LASF1:
+ 451 001b 756E7369 		.ascii	"unsigned char\000"
+ 451      676E6564 
+ 451      20636861 
+ 451      7200
+ 452              	.LASF15:
+ 453 0029 6D696E75 		.ascii	"minutes\000"
+ 453      74657300 
+ 454              	.LASF24:
+ 455 0031 6D61696E 		.ascii	"main\000"
+ 455      00
+ 456              	.LASF23:
+ 457 0036 75696E74 		.ascii	"uint8\000"
+ 457      3800
+ 458              	.LASF5:
+ 459 003c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 459      20756E73 
+ 459      69676E65 
+ 459      6420696E 
+ 459      7400
+ 460              	.LASF7:
+ 461 004e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 461      206C6F6E 
+ 461      6720756E 
+ 461      7369676E 
+ 461      65642069 
+ 462              	.LASF18:
+ 463 0065 6F757470 		.ascii	"output2\000"
+ 463      75743200 
+ 464              	.LASF9:
+ 465 006d 666C6F61 		.ascii	"float\000"
+ 465      7400
+ 466              	.LASF22:
+ 467 0073 433A5C55 		.ascii	"C:\\Users\\Joseph\\Documents\\CY8CKIT-049-42xx\\1.0"
+ 467      73657273 
+ 467      5C4A6F73 
+ 467      6570685C 
+ 467      446F6375 
+ 468 00a1 5C466972 		.ascii	"\\Firmware\\SCB_Bootloader\\Design02.cydsn\000"
+ 468      6D776172 
+ 468      655C5343 
+ 468      425F426F 
+ 468      6F746C6F 
+ 469              	.LASF20:
+ 470 00c9 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 470      4320342E 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 11
+
+
+ 470      382E3420 
+ 470      32303134 
+ 470      30353236 
+ 471 00fc 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 471      20726576 
+ 471      6973696F 
+ 471      6E203231 
+ 471      31333538 
+ 472 012f 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 472      66756E63 
+ 472      74696F6E 
+ 472      2D736563 
+ 472      74696F6E 
+ 473              	.LASF17:
+ 474 0145 6F757470 		.ascii	"output\000"
+ 474      757400
+ 475              	.LASF13:
+ 476 014c 686F7572 		.ascii	"hour\000"
+ 476      00
+ 477              	.LASF11:
+ 478 0151 63686172 		.ascii	"char\000"
+ 478      00
+ 479              	.LASF4:
+ 480 0156 6C6F6E67 		.ascii	"long int\000"
+ 480      20696E74 
+ 480      00
+ 481              	.LASF19:
+ 482 015f 636F6E74 		.ascii	"control3\000"
+ 482      726F6C33 
+ 482      00
+ 483              	.LASF2:
+ 484 0168 73686F72 		.ascii	"short int\000"
+ 484      7420696E 
+ 484      7400
+ 485              	.LASF10:
+ 486 0172 646F7562 		.ascii	"double\000"
+ 486      6C6500
+ 487              	.LASF3:
+ 488 0179 73686F72 		.ascii	"short unsigned int\000"
+ 488      7420756E 
+ 488      7369676E 
+ 488      65642069 
+ 488      6E7400
+ 489              	.LASF0:
+ 490 018c 7369676E 		.ascii	"signed char\000"
+ 490      65642063 
+ 490      68617200 
+ 491              	.LASF16:
+ 492 0198 76616C75 		.ascii	"value\000"
+ 492      6500
+ 493              	.LASF14:
+ 494 019e 7365636F 		.ascii	"seconds\000"
+ 494      6E647300 
+ 495              	.LASF21:
+ 496 01a6 2E5C6D61 		.ascii	".\\main.c\000"
+ 496      696E2E63 
+ 496      00
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccjtlvac.s 			page 12
+
+
+ 497              	.LASF12:
+ 498 01af 73697A65 		.ascii	"sizetype\000"
+ 498      74797065 
+ 498      00
+ 499              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

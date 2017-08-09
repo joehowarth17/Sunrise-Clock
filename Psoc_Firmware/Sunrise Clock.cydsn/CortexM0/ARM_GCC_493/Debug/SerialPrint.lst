@@ -1,0 +1,684 @@
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"SerialPrint.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata
+  18              		.align	2
+  19              	.LC0:
+  20 0000 25252563 		.ascii	"%%%c\000"
+  20      00
+  21              		.section	.text.printNum,"ax",%progbits
+  22              		.align	2
+  23              		.global	printNum
+  24              		.code	16
+  25              		.thumb_func
+  26              		.type	printNum, %function
+  27              	printNum:
+  28              	.LFB34:
+  29              		.file 1 "SerialPrint.c"
+   1:SerialPrint.c **** /* ========================================
+   2:SerialPrint.c ****  *
+   3:SerialPrint.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:SerialPrint.c ****  * All Rights Reserved
+   5:SerialPrint.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:SerialPrint.c ****  *
+   7:SerialPrint.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:SerialPrint.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:SerialPrint.c ****  *
+  10:SerialPrint.c ****  * ========================================
+  11:SerialPrint.c **** */
+  12:SerialPrint.c **** #include <SerialPrint.h>
+  13:SerialPrint.c **** 
+  14:SerialPrint.c **** void printNum(uint16 input,char format){
+  30              		.loc 1 14 0
+  31              		.cfi_startproc
+  32 0000 80B5     		push	{r7, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+  36 0002 86B0     		sub	sp, sp, #24
+  37              		.cfi_def_cfa_offset 32
+  38 0004 00AF     		add	r7, sp, #0
+  39              		.cfi_def_cfa_register 7
+  40 0006 021C     		mov	r2, r0
+  41 0008 BB1D     		add	r3, r7, #6
+  42 000a 1A80     		strh	r2, [r3]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 2
+
+
+  43 000c 7B1D     		add	r3, r7, #5
+  44 000e 0A1C     		add	r2, r1, #0
+  45 0010 1A70     		strb	r2, [r3]
+  15:SerialPrint.c **** 
+  16:SerialPrint.c ****     char output[8];
+  17:SerialPrint.c ****     char formatter[3];
+  18:SerialPrint.c ****     
+  19:SerialPrint.c ****     sprintf(formatter,"%%%c", format);
+  46              		.loc 1 19 0
+  47 0012 7B1D     		add	r3, r7, #5
+  48 0014 1B78     		ldrb	r3, [r3]
+  49 0016 0C22     		mov	r2, #12
+  50 0018 B918     		add	r1, r7, r2
+  51 001a 0C4A     		ldr	r2, .L2
+  52 001c 081C     		mov	r0, r1
+  53 001e 111C     		mov	r1, r2
+  54 0020 1A1C     		mov	r2, r3
+  55 0022 FFF7FEFF 		bl	sprintf
+  20:SerialPrint.c ****     sprintf(output, formatter, input);
+  56              		.loc 1 20 0
+  57 0026 BB1D     		add	r3, r7, #6
+  58 0028 1B88     		ldrh	r3, [r3]
+  59 002a 1022     		mov	r2, #16
+  60 002c B918     		add	r1, r7, r2
+  61 002e 0C22     		mov	r2, #12
+  62 0030 BA18     		add	r2, r7, r2
+  63 0032 081C     		mov	r0, r1
+  64 0034 111C     		mov	r1, r2
+  65 0036 1A1C     		mov	r2, r3
+  66 0038 FFF7FEFF 		bl	sprintf
+  21:SerialPrint.c ****     UART_1_UartPutString(output);
+  67              		.loc 1 21 0
+  68 003c 1023     		mov	r3, #16
+  69 003e FB18     		add	r3, r7, r3
+  70 0040 181C     		mov	r0, r3
+  71 0042 FFF7FEFF 		bl	UART_1_UartPutString
+  22:SerialPrint.c **** }
+  72              		.loc 1 22 0
+  73 0046 BD46     		mov	sp, r7
+  74 0048 06B0     		add	sp, sp, #24
+  75              		@ sp needed
+  76 004a 80BD     		pop	{r7, pc}
+  77              	.L3:
+  78              		.align	2
+  79              	.L2:
+  80 004c 00000000 		.word	.LC0
+  81              		.cfi_endproc
+  82              	.LFE34:
+  83              		.size	printNum, .-printNum
+  84              		.section	.rodata
+  85 0005 000000   		.align	2
+  86              	.LC2:
+  87 0008 25252563 		.ascii	"%%%c\012\015\000"
+  87      0A0D00
+  88 000f 00       		.section	.text.printlnNum,"ax",%progbits
+  89              		.align	2
+  90              		.global	printlnNum
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 3
+
+
+  91              		.code	16
+  92              		.thumb_func
+  93              		.type	printlnNum, %function
+  94              	printlnNum:
+  95              	.LFB35:
+  23:SerialPrint.c **** 
+  24:SerialPrint.c **** void printlnNum(uint16 input, char format){
+  96              		.loc 1 24 0
+  97              		.cfi_startproc
+  98 0000 80B5     		push	{r7, lr}
+  99              		.cfi_def_cfa_offset 8
+ 100              		.cfi_offset 7, -8
+ 101              		.cfi_offset 14, -4
+ 102 0002 86B0     		sub	sp, sp, #24
+ 103              		.cfi_def_cfa_offset 32
+ 104 0004 00AF     		add	r7, sp, #0
+ 105              		.cfi_def_cfa_register 7
+ 106 0006 021C     		mov	r2, r0
+ 107 0008 BB1D     		add	r3, r7, #6
+ 108 000a 1A80     		strh	r2, [r3]
+ 109 000c 7B1D     		add	r3, r7, #5
+ 110 000e 0A1C     		add	r2, r1, #0
+ 111 0010 1A70     		strb	r2, [r3]
+  25:SerialPrint.c **** 
+  26:SerialPrint.c ****     char output[8];
+  27:SerialPrint.c ****     char formatter[5];
+  28:SerialPrint.c ****     
+  29:SerialPrint.c ****     sprintf(formatter,"%%%c\n\r", format);
+ 112              		.loc 1 29 0
+ 113 0012 7B1D     		add	r3, r7, #5
+ 114 0014 1B78     		ldrb	r3, [r3]
+ 115 0016 0822     		mov	r2, #8
+ 116 0018 B918     		add	r1, r7, r2
+ 117 001a 0C4A     		ldr	r2, .L5
+ 118 001c 081C     		mov	r0, r1
+ 119 001e 111C     		mov	r1, r2
+ 120 0020 1A1C     		mov	r2, r3
+ 121 0022 FFF7FEFF 		bl	sprintf
+  30:SerialPrint.c ****     sprintf(output, formatter, input);
+ 122              		.loc 1 30 0
+ 123 0026 BB1D     		add	r3, r7, #6
+ 124 0028 1B88     		ldrh	r3, [r3]
+ 125 002a 1022     		mov	r2, #16
+ 126 002c B918     		add	r1, r7, r2
+ 127 002e 0822     		mov	r2, #8
+ 128 0030 BA18     		add	r2, r7, r2
+ 129 0032 081C     		mov	r0, r1
+ 130 0034 111C     		mov	r1, r2
+ 131 0036 1A1C     		mov	r2, r3
+ 132 0038 FFF7FEFF 		bl	sprintf
+  31:SerialPrint.c ****     UART_1_UartPutString(output);
+ 133              		.loc 1 31 0
+ 134 003c 1023     		mov	r3, #16
+ 135 003e FB18     		add	r3, r7, r3
+ 136 0040 181C     		mov	r0, r3
+ 137 0042 FFF7FEFF 		bl	UART_1_UartPutString
+  32:SerialPrint.c ****     
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 4
+
+
+  33:SerialPrint.c **** }
+ 138              		.loc 1 33 0
+ 139 0046 BD46     		mov	sp, r7
+ 140 0048 06B0     		add	sp, sp, #24
+ 141              		@ sp needed
+ 142 004a 80BD     		pop	{r7, pc}
+ 143              	.L6:
+ 144              		.align	2
+ 145              	.L5:
+ 146 004c 08000000 		.word	.LC2
+ 147              		.cfi_endproc
+ 148              	.LFE35:
+ 149              		.size	printlnNum, .-printlnNum
+ 150              		.text
+ 151              	.Letext0:
+ 152              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 153              		.section	.debug_info,"",%progbits
+ 154              	.Ldebug_info0:
+ 155 0000 58010000 		.4byte	0x158
+ 156 0004 0400     		.2byte	0x4
+ 157 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 158 000a 04       		.byte	0x4
+ 159 000b 01       		.uleb128 0x1
+ 160 000c 5B000000 		.4byte	.LASF19
+ 161 0010 01       		.byte	0x1
+ 162 0011 82010000 		.4byte	.LASF20
+ 163 0015 00000000 		.4byte	.LASF21
+ 164 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 165 001d 00000000 		.4byte	0
+ 166 0021 00000000 		.4byte	.Ldebug_line0
+ 167 0025 02       		.uleb128 0x2
+ 168 0026 01       		.byte	0x1
+ 169 0027 06       		.byte	0x6
+ 170 0028 A3010000 		.4byte	.LASF0
+ 171 002c 02       		.uleb128 0x2
+ 172 002d 01       		.byte	0x1
+ 173 002e 08       		.byte	0x8
+ 174 002f 3F010000 		.4byte	.LASF1
+ 175 0033 02       		.uleb128 0x2
+ 176 0034 02       		.byte	0x2
+ 177 0035 05       		.byte	0x5
+ 178 0036 B5010000 		.4byte	.LASF2
+ 179 003a 02       		.uleb128 0x2
+ 180 003b 02       		.byte	0x2
+ 181 003c 07       		.byte	0x7
+ 182 003d 90010000 		.4byte	.LASF3
+ 183 0041 02       		.uleb128 0x2
+ 184 0042 04       		.byte	0x4
+ 185 0043 05       		.byte	0x5
+ 186 0044 52010000 		.4byte	.LASF4
+ 187 0048 02       		.uleb128 0x2
+ 188 0049 04       		.byte	0x4
+ 189 004a 07       		.byte	0x7
+ 190 004b 0F010000 		.4byte	.LASF5
+ 191 004f 02       		.uleb128 0x2
+ 192 0050 08       		.byte	0x8
+ 193 0051 05       		.byte	0x5
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 5
+
+
+ 194 0052 6D010000 		.4byte	.LASF6
+ 195 0056 02       		.uleb128 0x2
+ 196 0057 08       		.byte	0x8
+ 197 0058 07       		.byte	0x7
+ 198 0059 21010000 		.4byte	.LASF7
+ 199 005d 03       		.uleb128 0x3
+ 200 005e 04       		.byte	0x4
+ 201 005f 05       		.byte	0x5
+ 202 0060 696E7400 		.ascii	"int\000"
+ 203 0064 02       		.uleb128 0x2
+ 204 0065 04       		.byte	0x4
+ 205 0066 07       		.byte	0x7
+ 206 0067 E9000000 		.4byte	.LASF8
+ 207 006b 04       		.uleb128 0x4
+ 208 006c BF010000 		.4byte	.LASF22
+ 209 0070 02       		.byte	0x2
+ 210 0071 BA01     		.2byte	0x1ba
+ 211 0073 3A000000 		.4byte	0x3a
+ 212 0077 02       		.uleb128 0x2
+ 213 0078 04       		.byte	0x4
+ 214 0079 04       		.byte	0x4
+ 215 007a AF010000 		.4byte	.LASF9
+ 216 007e 02       		.uleb128 0x2
+ 217 007f 08       		.byte	0x8
+ 218 0080 04       		.byte	0x4
+ 219 0081 66010000 		.4byte	.LASF10
+ 220 0085 02       		.uleb128 0x2
+ 221 0086 01       		.byte	0x1
+ 222 0087 08       		.byte	0x8
+ 223 0088 4D010000 		.4byte	.LASF11
+ 224 008c 02       		.uleb128 0x2
+ 225 008d 04       		.byte	0x4
+ 226 008e 07       		.byte	0x7
+ 227 008f C6010000 		.4byte	.LASF12
+ 228 0093 05       		.uleb128 0x5
+ 229 0094 85000000 		.4byte	0x85
+ 230 0098 A3000000 		.4byte	0xa3
+ 231 009c 06       		.uleb128 0x6
+ 232 009d 8C000000 		.4byte	0x8c
+ 233 00a1 07       		.byte	0x7
+ 234 00a2 00       		.byte	0
+ 235 00a3 07       		.uleb128 0x7
+ 236 00a4 F6000000 		.4byte	.LASF17
+ 237 00a8 01       		.byte	0x1
+ 238 00a9 0E       		.byte	0xe
+ 239 00aa 00000000 		.4byte	.LFB34
+ 240 00ae 50000000 		.4byte	.LFE34-.LFB34
+ 241 00b2 01       		.uleb128 0x1
+ 242 00b3 9C       		.byte	0x9c
+ 243 00b4 F1000000 		.4byte	0xf1
+ 244 00b8 08       		.uleb128 0x8
+ 245 00b9 FF000000 		.4byte	.LASF13
+ 246 00bd 01       		.byte	0x1
+ 247 00be 0E       		.byte	0xe
+ 248 00bf 6B000000 		.4byte	0x6b
+ 249 00c3 02       		.uleb128 0x2
+ 250 00c4 91       		.byte	0x91
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 6
+
+
+ 251 00c5 66       		.sleb128 -26
+ 252 00c6 08       		.uleb128 0x8
+ 253 00c7 7B010000 		.4byte	.LASF14
+ 254 00cb 01       		.byte	0x1
+ 255 00cc 0E       		.byte	0xe
+ 256 00cd 85000000 		.4byte	0x85
+ 257 00d1 02       		.uleb128 0x2
+ 258 00d2 91       		.byte	0x91
+ 259 00d3 65       		.sleb128 -27
+ 260 00d4 09       		.uleb128 0x9
+ 261 00d5 38010000 		.4byte	.LASF15
+ 262 00d9 01       		.byte	0x1
+ 263 00da 10       		.byte	0x10
+ 264 00db 93000000 		.4byte	0x93
+ 265 00df 02       		.uleb128 0x2
+ 266 00e0 91       		.byte	0x91
+ 267 00e1 70       		.sleb128 -16
+ 268 00e2 09       		.uleb128 0x9
+ 269 00e3 05010000 		.4byte	.LASF16
+ 270 00e7 01       		.byte	0x1
+ 271 00e8 11       		.byte	0x11
+ 272 00e9 F1000000 		.4byte	0xf1
+ 273 00ed 02       		.uleb128 0x2
+ 274 00ee 91       		.byte	0x91
+ 275 00ef 6C       		.sleb128 -20
+ 276 00f0 00       		.byte	0
+ 277 00f1 05       		.uleb128 0x5
+ 278 00f2 85000000 		.4byte	0x85
+ 279 00f6 01010000 		.4byte	0x101
+ 280 00fa 06       		.uleb128 0x6
+ 281 00fb 8C000000 		.4byte	0x8c
+ 282 00ff 02       		.byte	0x2
+ 283 0100 00       		.byte	0
+ 284 0101 07       		.uleb128 0x7
+ 285 0102 5B010000 		.4byte	.LASF18
+ 286 0106 01       		.byte	0x1
+ 287 0107 18       		.byte	0x18
+ 288 0108 00000000 		.4byte	.LFB35
+ 289 010c 50000000 		.4byte	.LFE35-.LFB35
+ 290 0110 01       		.uleb128 0x1
+ 291 0111 9C       		.byte	0x9c
+ 292 0112 4F010000 		.4byte	0x14f
+ 293 0116 08       		.uleb128 0x8
+ 294 0117 FF000000 		.4byte	.LASF13
+ 295 011b 01       		.byte	0x1
+ 296 011c 18       		.byte	0x18
+ 297 011d 6B000000 		.4byte	0x6b
+ 298 0121 02       		.uleb128 0x2
+ 299 0122 91       		.byte	0x91
+ 300 0123 66       		.sleb128 -26
+ 301 0124 08       		.uleb128 0x8
+ 302 0125 7B010000 		.4byte	.LASF14
+ 303 0129 01       		.byte	0x1
+ 304 012a 18       		.byte	0x18
+ 305 012b 85000000 		.4byte	0x85
+ 306 012f 02       		.uleb128 0x2
+ 307 0130 91       		.byte	0x91
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 7
+
+
+ 308 0131 65       		.sleb128 -27
+ 309 0132 09       		.uleb128 0x9
+ 310 0133 38010000 		.4byte	.LASF15
+ 311 0137 01       		.byte	0x1
+ 312 0138 1A       		.byte	0x1a
+ 313 0139 93000000 		.4byte	0x93
+ 314 013d 02       		.uleb128 0x2
+ 315 013e 91       		.byte	0x91
+ 316 013f 70       		.sleb128 -16
+ 317 0140 09       		.uleb128 0x9
+ 318 0141 05010000 		.4byte	.LASF16
+ 319 0145 01       		.byte	0x1
+ 320 0146 1B       		.byte	0x1b
+ 321 0147 4F010000 		.4byte	0x14f
+ 322 014b 02       		.uleb128 0x2
+ 323 014c 91       		.byte	0x91
+ 324 014d 68       		.sleb128 -24
+ 325 014e 00       		.byte	0
+ 326 014f 0A       		.uleb128 0xa
+ 327 0150 85000000 		.4byte	0x85
+ 328 0154 06       		.uleb128 0x6
+ 329 0155 8C000000 		.4byte	0x8c
+ 330 0159 04       		.byte	0x4
+ 331 015a 00       		.byte	0
+ 332 015b 00       		.byte	0
+ 333              		.section	.debug_abbrev,"",%progbits
+ 334              	.Ldebug_abbrev0:
+ 335 0000 01       		.uleb128 0x1
+ 336 0001 11       		.uleb128 0x11
+ 337 0002 01       		.byte	0x1
+ 338 0003 25       		.uleb128 0x25
+ 339 0004 0E       		.uleb128 0xe
+ 340 0005 13       		.uleb128 0x13
+ 341 0006 0B       		.uleb128 0xb
+ 342 0007 03       		.uleb128 0x3
+ 343 0008 0E       		.uleb128 0xe
+ 344 0009 1B       		.uleb128 0x1b
+ 345 000a 0E       		.uleb128 0xe
+ 346 000b 55       		.uleb128 0x55
+ 347 000c 17       		.uleb128 0x17
+ 348 000d 11       		.uleb128 0x11
+ 349 000e 01       		.uleb128 0x1
+ 350 000f 10       		.uleb128 0x10
+ 351 0010 17       		.uleb128 0x17
+ 352 0011 00       		.byte	0
+ 353 0012 00       		.byte	0
+ 354 0013 02       		.uleb128 0x2
+ 355 0014 24       		.uleb128 0x24
+ 356 0015 00       		.byte	0
+ 357 0016 0B       		.uleb128 0xb
+ 358 0017 0B       		.uleb128 0xb
+ 359 0018 3E       		.uleb128 0x3e
+ 360 0019 0B       		.uleb128 0xb
+ 361 001a 03       		.uleb128 0x3
+ 362 001b 0E       		.uleb128 0xe
+ 363 001c 00       		.byte	0
+ 364 001d 00       		.byte	0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 8
+
+
+ 365 001e 03       		.uleb128 0x3
+ 366 001f 24       		.uleb128 0x24
+ 367 0020 00       		.byte	0
+ 368 0021 0B       		.uleb128 0xb
+ 369 0022 0B       		.uleb128 0xb
+ 370 0023 3E       		.uleb128 0x3e
+ 371 0024 0B       		.uleb128 0xb
+ 372 0025 03       		.uleb128 0x3
+ 373 0026 08       		.uleb128 0x8
+ 374 0027 00       		.byte	0
+ 375 0028 00       		.byte	0
+ 376 0029 04       		.uleb128 0x4
+ 377 002a 16       		.uleb128 0x16
+ 378 002b 00       		.byte	0
+ 379 002c 03       		.uleb128 0x3
+ 380 002d 0E       		.uleb128 0xe
+ 381 002e 3A       		.uleb128 0x3a
+ 382 002f 0B       		.uleb128 0xb
+ 383 0030 3B       		.uleb128 0x3b
+ 384 0031 05       		.uleb128 0x5
+ 385 0032 49       		.uleb128 0x49
+ 386 0033 13       		.uleb128 0x13
+ 387 0034 00       		.byte	0
+ 388 0035 00       		.byte	0
+ 389 0036 05       		.uleb128 0x5
+ 390 0037 01       		.uleb128 0x1
+ 391 0038 01       		.byte	0x1
+ 392 0039 49       		.uleb128 0x49
+ 393 003a 13       		.uleb128 0x13
+ 394 003b 01       		.uleb128 0x1
+ 395 003c 13       		.uleb128 0x13
+ 396 003d 00       		.byte	0
+ 397 003e 00       		.byte	0
+ 398 003f 06       		.uleb128 0x6
+ 399 0040 21       		.uleb128 0x21
+ 400 0041 00       		.byte	0
+ 401 0042 49       		.uleb128 0x49
+ 402 0043 13       		.uleb128 0x13
+ 403 0044 2F       		.uleb128 0x2f
+ 404 0045 0B       		.uleb128 0xb
+ 405 0046 00       		.byte	0
+ 406 0047 00       		.byte	0
+ 407 0048 07       		.uleb128 0x7
+ 408 0049 2E       		.uleb128 0x2e
+ 409 004a 01       		.byte	0x1
+ 410 004b 3F       		.uleb128 0x3f
+ 411 004c 19       		.uleb128 0x19
+ 412 004d 03       		.uleb128 0x3
+ 413 004e 0E       		.uleb128 0xe
+ 414 004f 3A       		.uleb128 0x3a
+ 415 0050 0B       		.uleb128 0xb
+ 416 0051 3B       		.uleb128 0x3b
+ 417 0052 0B       		.uleb128 0xb
+ 418 0053 27       		.uleb128 0x27
+ 419 0054 19       		.uleb128 0x19
+ 420 0055 11       		.uleb128 0x11
+ 421 0056 01       		.uleb128 0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 9
+
+
+ 422 0057 12       		.uleb128 0x12
+ 423 0058 06       		.uleb128 0x6
+ 424 0059 40       		.uleb128 0x40
+ 425 005a 18       		.uleb128 0x18
+ 426 005b 9642     		.uleb128 0x2116
+ 427 005d 19       		.uleb128 0x19
+ 428 005e 01       		.uleb128 0x1
+ 429 005f 13       		.uleb128 0x13
+ 430 0060 00       		.byte	0
+ 431 0061 00       		.byte	0
+ 432 0062 08       		.uleb128 0x8
+ 433 0063 05       		.uleb128 0x5
+ 434 0064 00       		.byte	0
+ 435 0065 03       		.uleb128 0x3
+ 436 0066 0E       		.uleb128 0xe
+ 437 0067 3A       		.uleb128 0x3a
+ 438 0068 0B       		.uleb128 0xb
+ 439 0069 3B       		.uleb128 0x3b
+ 440 006a 0B       		.uleb128 0xb
+ 441 006b 49       		.uleb128 0x49
+ 442 006c 13       		.uleb128 0x13
+ 443 006d 02       		.uleb128 0x2
+ 444 006e 18       		.uleb128 0x18
+ 445 006f 00       		.byte	0
+ 446 0070 00       		.byte	0
+ 447 0071 09       		.uleb128 0x9
+ 448 0072 34       		.uleb128 0x34
+ 449 0073 00       		.byte	0
+ 450 0074 03       		.uleb128 0x3
+ 451 0075 0E       		.uleb128 0xe
+ 452 0076 3A       		.uleb128 0x3a
+ 453 0077 0B       		.uleb128 0xb
+ 454 0078 3B       		.uleb128 0x3b
+ 455 0079 0B       		.uleb128 0xb
+ 456 007a 49       		.uleb128 0x49
+ 457 007b 13       		.uleb128 0x13
+ 458 007c 02       		.uleb128 0x2
+ 459 007d 18       		.uleb128 0x18
+ 460 007e 00       		.byte	0
+ 461 007f 00       		.byte	0
+ 462 0080 0A       		.uleb128 0xa
+ 463 0081 01       		.uleb128 0x1
+ 464 0082 01       		.byte	0x1
+ 465 0083 49       		.uleb128 0x49
+ 466 0084 13       		.uleb128 0x13
+ 467 0085 00       		.byte	0
+ 468 0086 00       		.byte	0
+ 469 0087 00       		.byte	0
+ 470              		.section	.debug_aranges,"",%progbits
+ 471 0000 24000000 		.4byte	0x24
+ 472 0004 0200     		.2byte	0x2
+ 473 0006 00000000 		.4byte	.Ldebug_info0
+ 474 000a 04       		.byte	0x4
+ 475 000b 00       		.byte	0
+ 476 000c 0000     		.2byte	0
+ 477 000e 0000     		.2byte	0
+ 478 0010 00000000 		.4byte	.LFB34
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 10
+
+
+ 479 0014 50000000 		.4byte	.LFE34-.LFB34
+ 480 0018 00000000 		.4byte	.LFB35
+ 481 001c 50000000 		.4byte	.LFE35-.LFB35
+ 482 0020 00000000 		.4byte	0
+ 483 0024 00000000 		.4byte	0
+ 484              		.section	.debug_ranges,"",%progbits
+ 485              	.Ldebug_ranges0:
+ 486 0000 00000000 		.4byte	.LFB34
+ 487 0004 50000000 		.4byte	.LFE34
+ 488 0008 00000000 		.4byte	.LFB35
+ 489 000c 50000000 		.4byte	.LFE35
+ 490 0010 00000000 		.4byte	0
+ 491 0014 00000000 		.4byte	0
+ 492              		.section	.debug_line,"",%progbits
+ 493              	.Ldebug_line0:
+ 494 0000 74000000 		.section	.debug_str,"MS",%progbits,1
+ 494      02004800 
+ 494      00000201 
+ 494      FB0E0D00 
+ 494      01010101 
+ 495              	.LASF21:
+ 496 0000 433A5C55 		.ascii	"C:\\Users\\Joseph\\Documents\\CY8CKIT-049-42xx\\1.0"
+ 496      73657273 
+ 496      5C4A6F73 
+ 496      6570685C 
+ 496      446F6375 
+ 497 002e 5C466972 		.ascii	"\\Firmware\\SCB_Bootloader\\Sunrise Clock.cydsn\000"
+ 497      6D776172 
+ 497      655C5343 
+ 497      425F426F 
+ 497      6F746C6F 
+ 498              	.LASF19:
+ 499 005b 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 499      4320342E 
+ 499      392E3320 
+ 499      32303135 
+ 499      30333033 
+ 500 008e 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 500      20726576 
+ 500      6973696F 
+ 500      6E203232 
+ 500      31323230 
+ 501 00c1 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 501      66756E63 
+ 501      74696F6E 
+ 501      2D736563 
+ 501      74696F6E 
+ 502              	.LASF8:
+ 503 00e9 756E7369 		.ascii	"unsigned int\000"
+ 503      676E6564 
+ 503      20696E74 
+ 503      00
+ 504              	.LASF17:
+ 505 00f6 7072696E 		.ascii	"printNum\000"
+ 505      744E756D 
+ 505      00
+ 506              	.LASF13:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 11
+
+
+ 507 00ff 696E7075 		.ascii	"input\000"
+ 507      7400
+ 508              	.LASF16:
+ 509 0105 666F726D 		.ascii	"formatter\000"
+ 509      61747465 
+ 509      7200
+ 510              	.LASF5:
+ 511 010f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 511      20756E73 
+ 511      69676E65 
+ 511      6420696E 
+ 511      7400
+ 512              	.LASF7:
+ 513 0121 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 513      206C6F6E 
+ 513      6720756E 
+ 513      7369676E 
+ 513      65642069 
+ 514              	.LASF15:
+ 515 0138 6F757470 		.ascii	"output\000"
+ 515      757400
+ 516              	.LASF1:
+ 517 013f 756E7369 		.ascii	"unsigned char\000"
+ 517      676E6564 
+ 517      20636861 
+ 517      7200
+ 518              	.LASF11:
+ 519 014d 63686172 		.ascii	"char\000"
+ 519      00
+ 520              	.LASF4:
+ 521 0152 6C6F6E67 		.ascii	"long int\000"
+ 521      20696E74 
+ 521      00
+ 522              	.LASF18:
+ 523 015b 7072696E 		.ascii	"printlnNum\000"
+ 523      746C6E4E 
+ 523      756D00
+ 524              	.LASF10:
+ 525 0166 646F7562 		.ascii	"double\000"
+ 525      6C6500
+ 526              	.LASF6:
+ 527 016d 6C6F6E67 		.ascii	"long long int\000"
+ 527      206C6F6E 
+ 527      6720696E 
+ 527      7400
+ 528              	.LASF14:
+ 529 017b 666F726D 		.ascii	"format\000"
+ 529      617400
+ 530              	.LASF20:
+ 531 0182 53657269 		.ascii	"SerialPrint.c\000"
+ 531      616C5072 
+ 531      696E742E 
+ 531      6300
+ 532              	.LASF3:
+ 533 0190 73686F72 		.ascii	"short unsigned int\000"
+ 533      7420756E 
+ 533      7369676E 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 12
+
+
+ 533      65642069 
+ 533      6E7400
+ 534              	.LASF0:
+ 535 01a3 7369676E 		.ascii	"signed char\000"
+ 535      65642063 
+ 535      68617200 
+ 536              	.LASF9:
+ 537 01af 666C6F61 		.ascii	"float\000"
+ 537      7400
+ 538              	.LASF2:
+ 539 01b5 73686F72 		.ascii	"short int\000"
+ 539      7420696E 
+ 539      7400
+ 540              	.LASF22:
+ 541 01bf 75696E74 		.ascii	"uint16\000"
+ 541      313600
+ 542              	.LASF12:
+ 543 01c6 73697A65 		.ascii	"sizetype\000"
+ 543      74797065 
+ 543      00
+ 544              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

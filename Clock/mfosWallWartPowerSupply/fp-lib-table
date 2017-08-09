@@ -1,3 +1,0 @@
-(fp_lib_table
-  (lib (name TO_SOT_Packages_THT)(type KiCad)(uri "$(KISYSMOD)/TO_SOT_Packages_THT.pretty")(options "")(descr ""))
-)
