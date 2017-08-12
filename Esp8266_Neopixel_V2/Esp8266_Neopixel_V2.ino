@@ -24,6 +24,8 @@ ESP8266WebServer server(80);
 
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
+
+
 /******************************************************************************/
 
 #define DEBUG          1
@@ -40,7 +42,7 @@ void sendColor(uint8_t r, uint8_t g, uint8_t b);
 void setup() {
 Serial.begin(115200);
 pixels.begin();
-
+pixels.clear();
 connectToWifi();
 
 if(mdns.begin("Light", WiFi.localIP())){
@@ -61,7 +63,7 @@ MDNS.addService("http","tcp",80);
 void loop() {
   // put your main code here, to run repeatedly:
   server.handleClient();
-  
+
 }
 
 
@@ -114,7 +116,8 @@ void handleIndex(){
     if(DEBUG){
       Serial.println("handling Index");
       }
-    server.send(200, "text/plain", " Welcome to the main page!!");
+    server.send(200, "html","<!DOCTYPE html><html><head><title>ESP8266 Lights</title></head><body><h1>Welcome !!</h1><p><a href=\"setColor\">Change the color of the Leds</a></p></body></html>");
+    //" Welcome to the main page!!"
     delay(100);
   }
 
@@ -133,11 +136,7 @@ void handleSetColor(){
   String g = server.arg("green");
   String b = server.arg("blue");
   sendColor(r.toInt(),g.toInt(), b.toInt());
-  char data[2];
-  data[0] = 0xD0 | (r.toInt()%60);
-  data[1] = ((g.toInt()%7)<<5) | (b.toInt()%24);
-  Serial.write(data,2);
-  server.send(200, "text/plain", "Color Sent");
+  server.send(200, "html", "<!DOCTYPE html><html><head><title>ESP8266 Lights</title></head><body><h1>Enter RGB Values</h1><p><form >  Red:<br>  <input type=\"text\" name=\"red\" ><br>  Green:<br>  <input type=\"text\" name=\"green\" ><br>  Blue:<br>  <input type=\"text\" name=\"blue\" ><br><br>  <input type=\"submit\" value=\"Submit\"></form></p></body></html>");
   }
 
 void sendColor(uint8_t r, uint8_t g, uint8_t b){
@@ -151,7 +150,6 @@ void sendColor(uint8_t r, uint8_t g, uint8_t b){
     pixels.show();
     delay(50);
   }
-
 
 
 
