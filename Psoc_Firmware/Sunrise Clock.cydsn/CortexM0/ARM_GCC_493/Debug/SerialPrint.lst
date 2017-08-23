@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
   40 0006 021C     		mov	r2, r0
   41 0008 BB1D     		add	r3, r7, #6
   42 000a 1A80     		strh	r2, [r3]
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 2
 
 
   43 000c 7B1D     		add	r3, r7, #5
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
   88 000f 00       		.section	.text.printlnNum,"ax",%progbits
   89              		.align	2
   90              		.global	printlnNum
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 3
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 3
 
 
   91              		.code	16
@@ -127,8 +127,9 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
   94              	printlnNum:
   95              	.LFB35:
   23:SerialPrint.c **** 
-  24:SerialPrint.c **** void printlnNum(uint16 input, char format){
-  96              		.loc 1 24 0
+  24:SerialPrint.c **** 
+  25:SerialPrint.c **** void printlnNum(uint16 input, char format){
+  96              		.loc 1 25 0
   97              		.cfi_startproc
   98 0000 80B5     		push	{r7, lr}
   99              		.cfi_def_cfa_offset 8
@@ -144,12 +145,12 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  109 000c 7B1D     		add	r3, r7, #5
  110 000e 0A1C     		add	r2, r1, #0
  111 0010 1A70     		strb	r2, [r3]
-  25:SerialPrint.c **** 
-  26:SerialPrint.c ****     char output[8];
-  27:SerialPrint.c ****     char formatter[5];
-  28:SerialPrint.c ****     
-  29:SerialPrint.c ****     sprintf(formatter,"%%%c\n\r", format);
- 112              		.loc 1 29 0
+  26:SerialPrint.c **** 
+  27:SerialPrint.c ****     char output[8];
+  28:SerialPrint.c ****     char formatter[5];
+  29:SerialPrint.c ****     
+  30:SerialPrint.c ****     sprintf(formatter,"%%%c\n\r", format);
+ 112              		.loc 1 30 0
  113 0012 7B1D     		add	r3, r7, #5
  114 0014 1B78     		ldrb	r3, [r3]
  115 0016 0822     		mov	r2, #8
@@ -159,8 +160,8 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  119 001e 111C     		mov	r1, r2
  120 0020 1A1C     		mov	r2, r3
  121 0022 FFF7FEFF 		bl	sprintf
-  30:SerialPrint.c ****     sprintf(output, formatter, input);
- 122              		.loc 1 30 0
+  31:SerialPrint.c ****     sprintf(output, formatter, input);
+ 122              		.loc 1 31 0
  123 0026 BB1D     		add	r3, r7, #6
  124 0028 1B88     		ldrh	r3, [r3]
  125 002a 1022     		mov	r2, #16
@@ -171,18 +172,18 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  130 0034 111C     		mov	r1, r2
  131 0036 1A1C     		mov	r2, r3
  132 0038 FFF7FEFF 		bl	sprintf
-  31:SerialPrint.c ****     UART_1_UartPutString(output);
- 133              		.loc 1 31 0
+  32:SerialPrint.c ****     UART_1_UartPutString(output);
+ 133              		.loc 1 32 0
  134 003c 1023     		mov	r3, #16
  135 003e FB18     		add	r3, r7, r3
  136 0040 181C     		mov	r0, r3
  137 0042 FFF7FEFF 		bl	UART_1_UartPutString
-  32:SerialPrint.c ****     
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 4
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 4
 
 
-  33:SerialPrint.c **** }
- 138              		.loc 1 33 0
+  33:SerialPrint.c ****     
+  34:SerialPrint.c **** }
+ 138              		.loc 1 34 0
  139 0046 BD46     		mov	sp, r7
  140 0048 06B0     		add	sp, sp, #24
  141              		@ sp needed
@@ -237,10 +238,10 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  190 004b 0F010000 		.4byte	.LASF5
  191 004f 02       		.uleb128 0x2
  192 0050 08       		.byte	0x8
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 5
+
+
  193 0051 05       		.byte	0x5
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 5
-
-
  194 0052 6D010000 		.4byte	.LASF6
  195 0056 02       		.uleb128 0x2
  196 0057 08       		.byte	0x8
@@ -297,10 +298,10 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  247 00be 0E       		.byte	0xe
  248 00bf 6B000000 		.4byte	0x6b
  249 00c3 02       		.uleb128 0x2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 6
+
+
  250 00c4 91       		.byte	0x91
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 6
-
-
  251 00c5 66       		.sleb128 -26
  252 00c6 08       		.uleb128 0x8
  253 00c7 7B010000 		.4byte	.LASF14
@@ -337,7 +338,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  284 0101 07       		.uleb128 0x7
  285 0102 5B010000 		.4byte	.LASF18
  286 0106 01       		.byte	0x1
- 287 0107 18       		.byte	0x18
+ 287 0107 19       		.byte	0x19
  288 0108 00000000 		.4byte	.LFB35
  289 010c 50000000 		.4byte	.LFE35-.LFB35
  290 0110 01       		.uleb128 0x1
@@ -346,7 +347,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  293 0116 08       		.uleb128 0x8
  294 0117 FF000000 		.4byte	.LASF13
  295 011b 01       		.byte	0x1
- 296 011c 18       		.byte	0x18
+ 296 011c 19       		.byte	0x19
  297 011d 6B000000 		.4byte	0x6b
  298 0121 02       		.uleb128 0x2
  299 0122 91       		.byte	0x91
@@ -354,18 +355,18 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  301 0124 08       		.uleb128 0x8
  302 0125 7B010000 		.4byte	.LASF14
  303 0129 01       		.byte	0x1
- 304 012a 18       		.byte	0x18
+ 304 012a 19       		.byte	0x19
  305 012b 85000000 		.4byte	0x85
  306 012f 02       		.uleb128 0x2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 7
+
+
  307 0130 91       		.byte	0x91
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 7
-
-
  308 0131 65       		.sleb128 -27
  309 0132 09       		.uleb128 0x9
  310 0133 38010000 		.4byte	.LASF15
  311 0137 01       		.byte	0x1
- 312 0138 1A       		.byte	0x1a
+ 312 0138 1B       		.byte	0x1b
  313 0139 93000000 		.4byte	0x93
  314 013d 02       		.uleb128 0x2
  315 013e 91       		.byte	0x91
@@ -373,7 +374,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  317 0140 09       		.uleb128 0x9
  318 0141 05010000 		.4byte	.LASF16
  319 0145 01       		.byte	0x1
- 320 0146 1B       		.byte	0x1b
+ 320 0146 1C       		.byte	0x1c
  321 0147 4F010000 		.4byte	0x14f
  322 014b 02       		.uleb128 0x2
  323 014c 91       		.byte	0x91
@@ -417,10 +418,10 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  361 001a 03       		.uleb128 0x3
  362 001b 0E       		.uleb128 0xe
  363 001c 00       		.byte	0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 8
+
+
  364 001d 00       		.byte	0
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 8
-
-
  365 001e 03       		.uleb128 0x3
  366 001f 24       		.uleb128 0x24
  367 0020 00       		.byte	0
@@ -477,10 +478,10 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  418 0053 27       		.uleb128 0x27
  419 0054 19       		.uleb128 0x19
  420 0055 11       		.uleb128 0x11
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 9
+
+
  421 0056 01       		.uleb128 0x1
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 9
-
-
  422 0057 12       		.uleb128 0x12
  423 0058 06       		.uleb128 0x6
  424 0059 40       		.uleb128 0x40
@@ -537,10 +538,10 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  475 000b 00       		.byte	0
  476 000c 0000     		.2byte	0
  477 000e 0000     		.2byte	0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 10
+
+
  478 0010 00000000 		.4byte	.LFB34
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 10
-
-
  479 0014 50000000 		.4byte	.LFE34-.LFB34
  480 0018 00000000 		.4byte	.LFB35
  481 001c 50000000 		.4byte	.LFE35-.LFB35
@@ -597,10 +598,10 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  505 00f6 7072696E 		.ascii	"printNum\000"
  505      744E756D 
  505      00
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 11
+
+
  506              	.LASF13:
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 11
-
-
  507 00ff 696E7075 		.ascii	"input\000"
  507      7400
  508              	.LASF16:
@@ -657,10 +658,10 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 1
  532              	.LASF3:
  533 0190 73686F72 		.ascii	"short unsigned int\000"
  533      7420756E 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cc9ZSO4a.s 			page 12
+
+
  533      7369676E 
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccwpGvnd.s 			page 12
-
-
  533      65642069 
  533      6E7400
  534              	.LASF0:

@@ -21,6 +21,7 @@ void printNum(uint16 input,char format){
     UART_1_UartPutString(output);
 }
 
+
 void printlnNum(uint16 input, char format){
 
     char output[8];

@@ -102,7 +102,7 @@ void createAlarmTEST(struct time *alarm,uint8 minute, uint8 second);
 char checkAlarm(struct time *time1, struct time *time2);
 void softReset();
 
-
+void printTime(struct time *currentTime);
 
 
     

@@ -44,27 +44,6 @@
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_SPI_UART_PVT.h" value="HEADER;;;;;UART_1" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_PVT.h" value="HEADER;;;;;UART_1" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_BOOT.h" value="HEADER;;;;;UART_1" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SPIM_1.c" value="SOURCE_C;CortexM0;;;;SPIM_1" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SPIM_1.h" value="HEADER;;;;;SPIM_1" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SPIM_1_PM.c" value="SOURCE_C;CortexM0;;;;SPIM_1" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SPIM_1_INT.c" value="SOURCE_C;CortexM0;;;;SPIM_1" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SPIM_1_PVT.h" value="HEADER;;;;;SPIM_1" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\MISO.c" value="SOURCE_C;CortexM0;;;;MISO" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\MISO.h" value="HEADER;;;;;MISO" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\MISO_aliases.h" value="HEADER;;;;;MISO" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\MISO_PM.c" value="SOURCE_C;CortexM0;;;;MISO" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SCLK.c" value="SOURCE_C;CortexM0;;;;SCLK" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SCLK.h" value="HEADER;;;;;SCLK" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SCLK_aliases.h" value="HEADER;;;;;SCLK" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SCLK_PM.c" value="SOURCE_C;CortexM0;;;;SCLK" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\MOSI.c" value="SOURCE_C;CortexM0;;;;MOSI" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\MOSI.h" value="HEADER;;;;;MOSI" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\MOSI_aliases.h" value="HEADER;;;;;MOSI" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\MOSI_PM.c" value="SOURCE_C;CortexM0;;;;MOSI" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SS.c" value="SOURCE_C;CortexM0;;;;SS" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SS.h" value="HEADER;;;;;SS" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SS_aliases.h" value="HEADER;;;;;SS" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SS_PM.c" value="SOURCE_C;CortexM0;;;;SS" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\Pin_1.c" value="SOURCE_C;CortexM0;;;;Pin_1" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\Pin_1.h" value="HEADER;;;;;Pin_1" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\Pin_1_aliases.h" value="HEADER;;;;;Pin_1" />
@@ -85,6 +64,14 @@
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\Pin_5.h" value="HEADER;;;;;Pin_5" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\Pin_5_aliases.h" value="HEADER;;;;;Pin_5" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\Pin_5_PM.c" value="SOURCE_C;CortexM0;;;;Pin_5" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\AlarmInterrupt.c" value="SOURCE_C;CortexM0;;;;AlarmInterrupt" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\AlarmInterrupt.h" value="HEADER;;;;;AlarmInterrupt" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\AlarmInterrupt_aliases.h" value="HEADER;;;;;AlarmInterrupt" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\AlarmInterrupt_PM.c" value="SOURCE_C;CortexM0;;;;AlarmInterrupt" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\CalibrateInterrupt.c" value="SOURCE_C;CortexM0;;;;CalibrateInterrupt" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\CalibrateInterrupt.h" value="HEADER;;;;;CalibrateInterrupt" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\CalibrateInterrupt_aliases.h" value="HEADER;;;;;CalibrateInterrupt" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\CalibrateInterrupt_PM.c" value="SOURCE_C;CortexM0;;;;CalibrateInterrupt" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\I2C_SCBCLK.c" value="SOURCE_C;CortexM0;;;;I2C_SCBCLK" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\I2C_SCBCLK.h" value="HEADER;;;;;I2C_SCBCLK" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\I2C_sda.c" value="SOURCE_C;CortexM0;;;;I2C_sda" />
@@ -103,12 +90,12 @@
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_tx.h" value="HEADER;;;;;UART_1_tx" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_tx_aliases.h" value="HEADER;;;;;UART_1_tx" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_tx_PM.c" value="SOURCE_C;CortexM0;;;;UART_1_tx" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_SCB_IRQ.c" value="SOURCE_C;CortexM0;;;;UART_1_SCB_IRQ" />
+  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_SCB_IRQ.h" value="HEADER;;;;;UART_1_SCB_IRQ" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_rx.c" value="SOURCE_C;CortexM0;;;;UART_1_rx" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_rx.h" value="HEADER;;;;;UART_1_rx" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_rx_aliases.h" value="HEADER;;;;;UART_1_rx" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\UART_1_rx_PM.c" value="SOURCE_C;CortexM0;;;;UART_1_rx" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SPIM_1_IntClock.c" value="SOURCE_C;CortexM0;;;;SPIM_1_IntClock" />
-  <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\SPIM_1_IntClock.h" value="HEADER;;;;;SPIM_1_IntClock" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\cm0gcc.ld" value="LINKER_SCRIPT;;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;;cy_boot" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\Cm0RealView.scat" value="LINKER_SCRIPT;;;fdb8e1ae-f83a-46cf-9446-1d703716f38a;;cy_boot" />
   <file name="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\codegentemp\Cm0Start.c" value="SOURCE_C;CortexM0;;;;cy_boot" />

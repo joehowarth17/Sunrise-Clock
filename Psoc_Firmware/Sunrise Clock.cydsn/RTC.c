@@ -11,6 +11,7 @@
 */
 
 #include <RTC.h>
+#include <stdio.h>
 
 void changeHourMode(uint8 mode){
     
@@ -205,7 +206,10 @@ char checkAlarm(struct time *currentTime, struct time *alarmTime){
     if((!(currentTime->day == alarmTime->day)) && (!(alarmTime->day == 0xFF))){
         result++ ;
     }
-    if((!(currentTime->weekday == alarmTime->weekday)) && (!(alarmTime->weekday == 0xFF))){
+
+    // each bit of alarmTime->weekday coresponds to a weekday, so to check if the current 
+    //day is part of alram, 1 is shifted by the value of the current wkday to make a bit mask.
+    if((!(alarmTime->weekday & (1 << currentTime->weekday))) && (!(alarmTime->weekday == 0xFF))){
         result++ ;
     }
     if((!(currentTime->hour == alarmTime->hour)) && (!(alarmTime->hour == 0xFF))){
@@ -227,6 +231,13 @@ void softReset(){
 
 writeReg(CONTROL_REG_1, RESET_VALUE);
     
+}
+
+void printTime(struct time *currentTime){
+
+        char output[75];
+        sprintf(output,"year: %d month: %d day:%d wkDay:%d %d:%2d:%d \n\r",currentTime->year,currentTime->month,currentTime->day,currentTime->weekday ,currentTime->hour, currentTime->minute,currentTime->second);
+        UART_1_UartPutString(output);
 }
 
 
