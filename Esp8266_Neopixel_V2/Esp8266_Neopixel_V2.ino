@@ -143,7 +143,7 @@ void loop() {
     }
    if(flagT){
     if(DEBUG)Serial.println(flagT, HEX);
-    sendTime(getTime());
+    sendTime(getTime()+2);
     
     }
     
@@ -227,7 +227,12 @@ void handleSetColor(){
   String r = server.arg("red");
   String g = server.arg("green");
   String b = server.arg("blue");
-
+  if(DEBUG){
+    Serial.println(r);
+     Serial.println(g);
+      Serial.println(b);
+      
+  }
   sendColor(r.toInt(),g.toInt(), b.toInt());
   }
 
