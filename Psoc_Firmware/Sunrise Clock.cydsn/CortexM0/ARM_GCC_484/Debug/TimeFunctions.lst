@@ -1,0 +1,2561 @@
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"TimeFunctions.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.decodeSec,"ax",%progbits
+  18              		.align	2
+  19              		.global	decodeSec
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	decodeSec, %function
+  23              	decodeSec:
+  24              	.LFB33:
+  25              		.file 1 ".\\TimeFunctions.c"
+   1:.\TimeFunctions.c **** /* ========================================
+   2:.\TimeFunctions.c ****  *
+   3:.\TimeFunctions.c ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\TimeFunctions.c ****  * All Rights Reserved
+   5:.\TimeFunctions.c ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\TimeFunctions.c ****  *
+   7:.\TimeFunctions.c ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\TimeFunctions.c ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\TimeFunctions.c ****  *
+  10:.\TimeFunctions.c ****  * ========================================
+  11:.\TimeFunctions.c **** */
+  12:.\TimeFunctions.c **** #include <TimeFunctions.h>
+  13:.\TimeFunctions.c **** 
+  14:.\TimeFunctions.c **** 
+  15:.\TimeFunctions.c **** uint8 decodeSec(uint8 seconds){
+  26              		.loc 1 15 0
+  27              		.cfi_startproc
+  28 0000 80B5     		push	{r7, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 7, -8
+  31              		.cfi_offset 14, -4
+  32 0002 84B0     		sub	sp, sp, #16
+  33              		.cfi_def_cfa_offset 24
+  34 0004 00AF     		add	r7, sp, #0
+  35              		.cfi_def_cfa_register 7
+  36 0006 021C     		mov	r2, r0
+  37 0008 FB1D     		add	r3, r7, #7
+  38 000a 1A70     		strb	r2, [r3]
+  16:.\TimeFunctions.c **** 
+  17:.\TimeFunctions.c ****     uint8 tensMask = 0x70;  // 0111 0000 (Table 13, Pg. 20 PCF8523 Datasheet)
+  39              		.loc 1 17 0
+  40 000c 3B1C     		mov	r3, r7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 2
+
+
+  41 000e 0F33     		add	r3, r3, #15
+  42 0010 7022     		mov	r2, #112
+  43 0012 1A70     		strb	r2, [r3]
+  18:.\TimeFunctions.c ****     uint8 onesMask = 0x0F;  // 0000 1111 (Table 13, Pg. 20 PCF8523 Datasheet)
+  44              		.loc 1 18 0
+  45 0014 3B1C     		mov	r3, r7
+  46 0016 0E33     		add	r3, r3, #14
+  47 0018 0F22     		mov	r2, #15
+  48 001a 1A70     		strb	r2, [r3]
+  19:.\TimeFunctions.c ****     
+  20:.\TimeFunctions.c ****     uint8 tens = (seconds & tensMask)>> 4;
+  49              		.loc 1 20 0
+  50 001c FB1D     		add	r3, r7, #7
+  51 001e 3A1C     		mov	r2, r7
+  52 0020 0F32     		add	r2, r2, #15
+  53 0022 1B78     		ldrb	r3, [r3]
+  54 0024 1278     		ldrb	r2, [r2]
+  55 0026 1340     		and	r3, r2
+  56 0028 DAB2     		uxtb	r2, r3
+  57 002a 3B1C     		mov	r3, r7
+  58 002c 0D33     		add	r3, r3, #13
+  59 002e 1209     		lsr	r2, r2, #4
+  60 0030 1A70     		strb	r2, [r3]
+  21:.\TimeFunctions.c ****     tens = tens * 10;
+  61              		.loc 1 21 0
+  62 0032 3A1C     		mov	r2, r7
+  63 0034 0D32     		add	r2, r2, #13
+  64 0036 3B1C     		mov	r3, r7
+  65 0038 0D33     		add	r3, r3, #13
+  66 003a 1B78     		ldrb	r3, [r3]
+  67 003c 191C     		add	r1, r3, #0
+  68 003e 8900     		lsl	r1, r1, #2
+  69 0040 CB18     		add	r3, r1, r3
+  70 0042 DB18     		add	r3, r3, r3
+  71 0044 1370     		strb	r3, [r2]
+  22:.\TimeFunctions.c ****     uint8 ones = (seconds & onesMask);
+  72              		.loc 1 22 0
+  73 0046 3B1C     		mov	r3, r7
+  74 0048 0C33     		add	r3, r3, #12
+  75 004a FA1D     		add	r2, r7, #7
+  76 004c 391C     		mov	r1, r7
+  77 004e 0E31     		add	r1, r1, #14
+  78 0050 1278     		ldrb	r2, [r2]
+  79 0052 0978     		ldrb	r1, [r1]
+  80 0054 0A40     		and	r2, r1
+  81 0056 1A70     		strb	r2, [r3]
+  23:.\TimeFunctions.c **** 
+  24:.\TimeFunctions.c ****     return tens  + ones; 
+  82              		.loc 1 24 0
+  83 0058 3A1C     		mov	r2, r7
+  84 005a 0D32     		add	r2, r2, #13
+  85 005c 3B1C     		mov	r3, r7
+  86 005e 0C33     		add	r3, r3, #12
+  87 0060 1278     		ldrb	r2, [r2]
+  88 0062 1B78     		ldrb	r3, [r3]
+  89 0064 D318     		add	r3, r2, r3
+  90 0066 DBB2     		uxtb	r3, r3
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 3
+
+
+  25:.\TimeFunctions.c **** }
+  91              		.loc 1 25 0
+  92 0068 181C     		mov	r0, r3
+  93 006a BD46     		mov	sp, r7
+  94 006c 04B0     		add	sp, sp, #16
+  95              		@ sp needed
+  96 006e 80BD     		pop	{r7, pc}
+  97              		.cfi_endproc
+  98              	.LFE33:
+  99              		.size	decodeSec, .-decodeSec
+ 100              		.global	__aeabi_uidiv
+ 101              		.section	.text.encodeSec,"ax",%progbits
+ 102              		.align	2
+ 103              		.global	encodeSec
+ 104              		.code	16
+ 105              		.thumb_func
+ 106              		.type	encodeSec, %function
+ 107              	encodeSec:
+ 108              	.LFB34:
+  26:.\TimeFunctions.c **** uint8 encodeSec(uint8 seconds){
+ 109              		.loc 1 26 0
+ 110              		.cfi_startproc
+ 111 0000 90B5     		push	{r4, r7, lr}
+ 112              		.cfi_def_cfa_offset 12
+ 113              		.cfi_offset 4, -12
+ 114              		.cfi_offset 7, -8
+ 115              		.cfi_offset 14, -4
+ 116 0002 85B0     		sub	sp, sp, #20
+ 117              		.cfi_def_cfa_offset 32
+ 118 0004 00AF     		add	r7, sp, #0
+ 119              		.cfi_def_cfa_register 7
+ 120 0006 021C     		mov	r2, r0
+ 121 0008 FB1D     		add	r3, r7, #7
+ 122 000a 1A70     		strb	r2, [r3]
+  27:.\TimeFunctions.c **** 
+  28:.\TimeFunctions.c ****     uint8 tens = seconds / 10;
+ 123              		.loc 1 28 0
+ 124 000c 3C1C     		mov	r4, r7
+ 125 000e 0F34     		add	r4, r4, #15
+ 126 0010 FB1D     		add	r3, r7, #7
+ 127 0012 1B78     		ldrb	r3, [r3]
+ 128 0014 181C     		mov	r0, r3
+ 129 0016 0A21     		mov	r1, #10
+ 130 0018 FFF7FEFF 		bl	__aeabi_uidiv
+ 131 001c 031C     		mov	r3, r0
+ 132 001e 2370     		strb	r3, [r4]
+  29:.\TimeFunctions.c ****     uint8 ones = seconds - (tens * 10);
+ 133              		.loc 1 29 0
+ 134 0020 3B1C     		mov	r3, r7
+ 135 0022 0F33     		add	r3, r3, #15
+ 136 0024 1B78     		ldrb	r3, [r3]
+ 137 0026 0A22     		mov	r2, #10
+ 138 0028 5242     		neg	r2, r2
+ 139 002a 5343     		mul	r3, r2
+ 140 002c D9B2     		uxtb	r1, r3
+ 141 002e 3B1C     		mov	r3, r7
+ 142 0030 0E33     		add	r3, r3, #14
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 4
+
+
+ 143 0032 FA1D     		add	r2, r7, #7
+ 144 0034 1278     		ldrb	r2, [r2]
+ 145 0036 8A18     		add	r2, r1, r2
+ 146 0038 1A70     		strb	r2, [r3]
+  30:.\TimeFunctions.c ****     
+  31:.\TimeFunctions.c ****     return (tens << 4) | ones;
+ 147              		.loc 1 31 0
+ 148 003a 3B1C     		mov	r3, r7
+ 149 003c 0F33     		add	r3, r3, #15
+ 150 003e 1B78     		ldrb	r3, [r3]
+ 151 0040 1B01     		lsl	r3, r3, #4
+ 152 0042 DAB2     		uxtb	r2, r3
+ 153 0044 3B1C     		mov	r3, r7
+ 154 0046 0E33     		add	r3, r3, #14
+ 155 0048 1B78     		ldrb	r3, [r3]
+ 156 004a 1343     		orr	r3, r2
+ 157 004c DBB2     		uxtb	r3, r3
+ 158 004e DBB2     		uxtb	r3, r3
+  32:.\TimeFunctions.c **** 
+  33:.\TimeFunctions.c **** }
+ 159              		.loc 1 33 0
+ 160 0050 181C     		mov	r0, r3
+ 161 0052 BD46     		mov	sp, r7
+ 162 0054 05B0     		add	sp, sp, #20
+ 163              		@ sp needed
+ 164 0056 90BD     		pop	{r4, r7, pc}
+ 165              		.cfi_endproc
+ 166              	.LFE34:
+ 167              		.size	encodeSec, .-encodeSec
+ 168              		.section	.text.decodeMin,"ax",%progbits
+ 169              		.align	2
+ 170              		.global	decodeMin
+ 171              		.code	16
+ 172              		.thumb_func
+ 173              		.type	decodeMin, %function
+ 174              	decodeMin:
+ 175              	.LFB35:
+  34:.\TimeFunctions.c **** 
+  35:.\TimeFunctions.c **** uint8 decodeMin(uint8 minutes){
+ 176              		.loc 1 35 0
+ 177              		.cfi_startproc
+ 178 0000 80B5     		push	{r7, lr}
+ 179              		.cfi_def_cfa_offset 8
+ 180              		.cfi_offset 7, -8
+ 181              		.cfi_offset 14, -4
+ 182 0002 84B0     		sub	sp, sp, #16
+ 183              		.cfi_def_cfa_offset 24
+ 184 0004 00AF     		add	r7, sp, #0
+ 185              		.cfi_def_cfa_register 7
+ 186 0006 021C     		mov	r2, r0
+ 187 0008 FB1D     		add	r3, r7, #7
+ 188 000a 1A70     		strb	r2, [r3]
+  36:.\TimeFunctions.c **** 
+  37:.\TimeFunctions.c ****     uint8 tensMask = 0x70;  // 0111 0000 (Table 14, Pg. 21 PCF8523 Datasheet)
+ 189              		.loc 1 37 0
+ 190 000c 3B1C     		mov	r3, r7
+ 191 000e 0F33     		add	r3, r3, #15
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 5
+
+
+ 192 0010 7022     		mov	r2, #112
+ 193 0012 1A70     		strb	r2, [r3]
+  38:.\TimeFunctions.c ****     uint8 onesMask = 0x0F;  // 0000 1111 (Table 14, Pg. 21 PCF8523 Datasheet)
+ 194              		.loc 1 38 0
+ 195 0014 3B1C     		mov	r3, r7
+ 196 0016 0E33     		add	r3, r3, #14
+ 197 0018 0F22     		mov	r2, #15
+ 198 001a 1A70     		strb	r2, [r3]
+  39:.\TimeFunctions.c ****     
+  40:.\TimeFunctions.c ****     uint8 tens = (minutes & tensMask)>> 4;
+ 199              		.loc 1 40 0
+ 200 001c FB1D     		add	r3, r7, #7
+ 201 001e 3A1C     		mov	r2, r7
+ 202 0020 0F32     		add	r2, r2, #15
+ 203 0022 1B78     		ldrb	r3, [r3]
+ 204 0024 1278     		ldrb	r2, [r2]
+ 205 0026 1340     		and	r3, r2
+ 206 0028 DAB2     		uxtb	r2, r3
+ 207 002a 3B1C     		mov	r3, r7
+ 208 002c 0D33     		add	r3, r3, #13
+ 209 002e 1209     		lsr	r2, r2, #4
+ 210 0030 1A70     		strb	r2, [r3]
+  41:.\TimeFunctions.c ****     tens = tens * 10;
+ 211              		.loc 1 41 0
+ 212 0032 3A1C     		mov	r2, r7
+ 213 0034 0D32     		add	r2, r2, #13
+ 214 0036 3B1C     		mov	r3, r7
+ 215 0038 0D33     		add	r3, r3, #13
+ 216 003a 1B78     		ldrb	r3, [r3]
+ 217 003c 191C     		add	r1, r3, #0
+ 218 003e 8900     		lsl	r1, r1, #2
+ 219 0040 CB18     		add	r3, r1, r3
+ 220 0042 DB18     		add	r3, r3, r3
+ 221 0044 1370     		strb	r3, [r2]
+  42:.\TimeFunctions.c ****     uint8 ones = (minutes & onesMask);
+ 222              		.loc 1 42 0
+ 223 0046 3B1C     		mov	r3, r7
+ 224 0048 0C33     		add	r3, r3, #12
+ 225 004a FA1D     		add	r2, r7, #7
+ 226 004c 391C     		mov	r1, r7
+ 227 004e 0E31     		add	r1, r1, #14
+ 228 0050 1278     		ldrb	r2, [r2]
+ 229 0052 0978     		ldrb	r1, [r1]
+ 230 0054 0A40     		and	r2, r1
+ 231 0056 1A70     		strb	r2, [r3]
+  43:.\TimeFunctions.c **** 
+  44:.\TimeFunctions.c ****     return tens  + ones; 
+ 232              		.loc 1 44 0
+ 233 0058 3A1C     		mov	r2, r7
+ 234 005a 0D32     		add	r2, r2, #13
+ 235 005c 3B1C     		mov	r3, r7
+ 236 005e 0C33     		add	r3, r3, #12
+ 237 0060 1278     		ldrb	r2, [r2]
+ 238 0062 1B78     		ldrb	r3, [r3]
+ 239 0064 D318     		add	r3, r2, r3
+ 240 0066 DBB2     		uxtb	r3, r3
+  45:.\TimeFunctions.c **** }
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 6
+
+
+ 241              		.loc 1 45 0
+ 242 0068 181C     		mov	r0, r3
+ 243 006a BD46     		mov	sp, r7
+ 244 006c 04B0     		add	sp, sp, #16
+ 245              		@ sp needed
+ 246 006e 80BD     		pop	{r7, pc}
+ 247              		.cfi_endproc
+ 248              	.LFE35:
+ 249              		.size	decodeMin, .-decodeMin
+ 250              		.section	.text.encodeMin,"ax",%progbits
+ 251              		.align	2
+ 252              		.global	encodeMin
+ 253              		.code	16
+ 254              		.thumb_func
+ 255              		.type	encodeMin, %function
+ 256              	encodeMin:
+ 257              	.LFB36:
+  46:.\TimeFunctions.c **** uint8 encodeMin(uint8 minutes){
+ 258              		.loc 1 46 0
+ 259              		.cfi_startproc
+ 260 0000 90B5     		push	{r4, r7, lr}
+ 261              		.cfi_def_cfa_offset 12
+ 262              		.cfi_offset 4, -12
+ 263              		.cfi_offset 7, -8
+ 264              		.cfi_offset 14, -4
+ 265 0002 85B0     		sub	sp, sp, #20
+ 266              		.cfi_def_cfa_offset 32
+ 267 0004 00AF     		add	r7, sp, #0
+ 268              		.cfi_def_cfa_register 7
+ 269 0006 021C     		mov	r2, r0
+ 270 0008 FB1D     		add	r3, r7, #7
+ 271 000a 1A70     		strb	r2, [r3]
+  47:.\TimeFunctions.c **** 
+  48:.\TimeFunctions.c ****     uint8 tens = minutes / 10;
+ 272              		.loc 1 48 0
+ 273 000c 3C1C     		mov	r4, r7
+ 274 000e 0F34     		add	r4, r4, #15
+ 275 0010 FB1D     		add	r3, r7, #7
+ 276 0012 1B78     		ldrb	r3, [r3]
+ 277 0014 181C     		mov	r0, r3
+ 278 0016 0A21     		mov	r1, #10
+ 279 0018 FFF7FEFF 		bl	__aeabi_uidiv
+ 280 001c 031C     		mov	r3, r0
+ 281 001e 2370     		strb	r3, [r4]
+  49:.\TimeFunctions.c ****     uint8 ones = minutes - (tens * 10);
+ 282              		.loc 1 49 0
+ 283 0020 3B1C     		mov	r3, r7
+ 284 0022 0F33     		add	r3, r3, #15
+ 285 0024 1B78     		ldrb	r3, [r3]
+ 286 0026 0A22     		mov	r2, #10
+ 287 0028 5242     		neg	r2, r2
+ 288 002a 5343     		mul	r3, r2
+ 289 002c D9B2     		uxtb	r1, r3
+ 290 002e 3B1C     		mov	r3, r7
+ 291 0030 0E33     		add	r3, r3, #14
+ 292 0032 FA1D     		add	r2, r7, #7
+ 293 0034 1278     		ldrb	r2, [r2]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 7
+
+
+ 294 0036 8A18     		add	r2, r1, r2
+ 295 0038 1A70     		strb	r2, [r3]
+  50:.\TimeFunctions.c ****     
+  51:.\TimeFunctions.c ****     return (tens << 4) | ones;
+ 296              		.loc 1 51 0
+ 297 003a 3B1C     		mov	r3, r7
+ 298 003c 0F33     		add	r3, r3, #15
+ 299 003e 1B78     		ldrb	r3, [r3]
+ 300 0040 1B01     		lsl	r3, r3, #4
+ 301 0042 DAB2     		uxtb	r2, r3
+ 302 0044 3B1C     		mov	r3, r7
+ 303 0046 0E33     		add	r3, r3, #14
+ 304 0048 1B78     		ldrb	r3, [r3]
+ 305 004a 1343     		orr	r3, r2
+ 306 004c DBB2     		uxtb	r3, r3
+ 307 004e DBB2     		uxtb	r3, r3
+  52:.\TimeFunctions.c **** 
+  53:.\TimeFunctions.c **** }
+ 308              		.loc 1 53 0
+ 309 0050 181C     		mov	r0, r3
+ 310 0052 BD46     		mov	sp, r7
+ 311 0054 05B0     		add	sp, sp, #20
+ 312              		@ sp needed
+ 313 0056 90BD     		pop	{r4, r7, pc}
+ 314              		.cfi_endproc
+ 315              	.LFE36:
+ 316              		.size	encodeMin, .-encodeMin
+ 317              		.section	.text.decodeHours12,"ax",%progbits
+ 318              		.align	2
+ 319              		.global	decodeHours12
+ 320              		.code	16
+ 321              		.thumb_func
+ 322              		.type	decodeHours12, %function
+ 323              	decodeHours12:
+ 324              	.LFB37:
+  54:.\TimeFunctions.c **** 
+  55:.\TimeFunctions.c **** uint8 decodeHours12(uint8 hours){
+ 325              		.loc 1 55 0
+ 326              		.cfi_startproc
+ 327 0000 80B5     		push	{r7, lr}
+ 328              		.cfi_def_cfa_offset 8
+ 329              		.cfi_offset 7, -8
+ 330              		.cfi_offset 14, -4
+ 331 0002 84B0     		sub	sp, sp, #16
+ 332              		.cfi_def_cfa_offset 24
+ 333 0004 00AF     		add	r7, sp, #0
+ 334              		.cfi_def_cfa_register 7
+ 335 0006 021C     		mov	r2, r0
+ 336 0008 FB1D     		add	r3, r7, #7
+ 337 000a 1A70     		strb	r2, [r3]
+  56:.\TimeFunctions.c ****     
+  57:.\TimeFunctions.c ****     uint8 AmPmMask = 0x20;  // 0010 0000 (Table 15, Pg. 21 PCF8523 Datasheet)
+ 338              		.loc 1 57 0
+ 339 000c 3B1C     		mov	r3, r7
+ 340 000e 0F33     		add	r3, r3, #15
+ 341 0010 2022     		mov	r2, #32
+ 342 0012 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 8
+
+
+  58:.\TimeFunctions.c ****     uint8 tensMask = 0x10;  // 0001 0000 (Table 15, Pg. 21 PCF8523 Datasheet)
+ 343              		.loc 1 58 0
+ 344 0014 3B1C     		mov	r3, r7
+ 345 0016 0E33     		add	r3, r3, #14
+ 346 0018 1022     		mov	r2, #16
+ 347 001a 1A70     		strb	r2, [r3]
+  59:.\TimeFunctions.c ****     uint8 onesMask = 0x0F;  // 0000 1111 (Table 15, Pg. 21 PCF8523 Datasheet)
+ 348              		.loc 1 59 0
+ 349 001c 3B1C     		mov	r3, r7
+ 350 001e 0D33     		add	r3, r3, #13
+ 351 0020 0F22     		mov	r2, #15
+ 352 0022 1A70     		strb	r2, [r3]
+  60:.\TimeFunctions.c ****     
+  61:.\TimeFunctions.c ****     uint8 tens = (hours & tensMask)>> 4;
+ 353              		.loc 1 61 0
+ 354 0024 FB1D     		add	r3, r7, #7
+ 355 0026 3A1C     		mov	r2, r7
+ 356 0028 0E32     		add	r2, r2, #14
+ 357 002a 1B78     		ldrb	r3, [r3]
+ 358 002c 1278     		ldrb	r2, [r2]
+ 359 002e 1340     		and	r3, r2
+ 360 0030 DAB2     		uxtb	r2, r3
+ 361 0032 3B1C     		mov	r3, r7
+ 362 0034 0C33     		add	r3, r3, #12
+ 363 0036 1209     		lsr	r2, r2, #4
+ 364 0038 1A70     		strb	r2, [r3]
+  62:.\TimeFunctions.c ****     tens = tens * 10;
+ 365              		.loc 1 62 0
+ 366 003a 3A1C     		mov	r2, r7
+ 367 003c 0C32     		add	r2, r2, #12
+ 368 003e 3B1C     		mov	r3, r7
+ 369 0040 0C33     		add	r3, r3, #12
+ 370 0042 1B78     		ldrb	r3, [r3]
+ 371 0044 191C     		add	r1, r3, #0
+ 372 0046 8900     		lsl	r1, r1, #2
+ 373 0048 CB18     		add	r3, r1, r3
+ 374 004a DB18     		add	r3, r3, r3
+ 375 004c 1370     		strb	r3, [r2]
+  63:.\TimeFunctions.c ****     uint8 ones = (hours & onesMask);
+ 376              		.loc 1 63 0
+ 377 004e 3B1C     		mov	r3, r7
+ 378 0050 0B33     		add	r3, r3, #11
+ 379 0052 FA1D     		add	r2, r7, #7
+ 380 0054 391C     		mov	r1, r7
+ 381 0056 0D31     		add	r1, r1, #13
+ 382 0058 1278     		ldrb	r2, [r2]
+ 383 005a 0978     		ldrb	r1, [r1]
+ 384 005c 0A40     		and	r2, r1
+ 385 005e 1A70     		strb	r2, [r3]
+  64:.\TimeFunctions.c ****     
+  65:.\TimeFunctions.c ****     if((AmPmMask & hours) == 0){
+  66:.\TimeFunctions.c ****     //tens += 100;
+  67:.\TimeFunctions.c ****         
+  68:.\TimeFunctions.c ****     }
+  69:.\TimeFunctions.c ****     else{
+  70:.\TimeFunctions.c ****         
+  71:.\TimeFunctions.c ****         
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 9
+
+
+  72:.\TimeFunctions.c ****     }
+  73:.\TimeFunctions.c ****     return tens  + ones;
+ 386              		.loc 1 73 0
+ 387 0060 3A1C     		mov	r2, r7
+ 388 0062 0C32     		add	r2, r2, #12
+ 389 0064 3B1C     		mov	r3, r7
+ 390 0066 0B33     		add	r3, r3, #11
+ 391 0068 1278     		ldrb	r2, [r2]
+ 392 006a 1B78     		ldrb	r3, [r3]
+ 393 006c D318     		add	r3, r2, r3
+ 394 006e DBB2     		uxtb	r3, r3
+  74:.\TimeFunctions.c **** }
+ 395              		.loc 1 74 0
+ 396 0070 181C     		mov	r0, r3
+ 397 0072 BD46     		mov	sp, r7
+ 398 0074 04B0     		add	sp, sp, #16
+ 399              		@ sp needed
+ 400 0076 80BD     		pop	{r7, pc}
+ 401              		.cfi_endproc
+ 402              	.LFE37:
+ 403              		.size	decodeHours12, .-decodeHours12
+ 404              		.section	.text.decodeHours24,"ax",%progbits
+ 405              		.align	2
+ 406              		.global	decodeHours24
+ 407              		.code	16
+ 408              		.thumb_func
+ 409              		.type	decodeHours24, %function
+ 410              	decodeHours24:
+ 411              	.LFB38:
+  75:.\TimeFunctions.c **** 
+  76:.\TimeFunctions.c **** uint8 decodeHours24(uint8 hours){
+ 412              		.loc 1 76 0
+ 413              		.cfi_startproc
+ 414 0000 80B5     		push	{r7, lr}
+ 415              		.cfi_def_cfa_offset 8
+ 416              		.cfi_offset 7, -8
+ 417              		.cfi_offset 14, -4
+ 418 0002 84B0     		sub	sp, sp, #16
+ 419              		.cfi_def_cfa_offset 24
+ 420 0004 00AF     		add	r7, sp, #0
+ 421              		.cfi_def_cfa_register 7
+ 422 0006 021C     		mov	r2, r0
+ 423 0008 FB1D     		add	r3, r7, #7
+ 424 000a 1A70     		strb	r2, [r3]
+  77:.\TimeFunctions.c **** 
+  78:.\TimeFunctions.c ****     uint8 tensMask = 0x30;  // 0011 0000 (Table 15, Pg. 21 PCF8523 Datasheet)
+ 425              		.loc 1 78 0
+ 426 000c 3B1C     		mov	r3, r7
+ 427 000e 0F33     		add	r3, r3, #15
+ 428 0010 3022     		mov	r2, #48
+ 429 0012 1A70     		strb	r2, [r3]
+  79:.\TimeFunctions.c ****     uint8 onesMask = 0x0F;  // 0000 1111 (Table 15, Pg. 21 PCF8523 Datasheet)
+ 430              		.loc 1 79 0
+ 431 0014 3B1C     		mov	r3, r7
+ 432 0016 0E33     		add	r3, r3, #14
+ 433 0018 0F22     		mov	r2, #15
+ 434 001a 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 10
+
+
+  80:.\TimeFunctions.c ****     
+  81:.\TimeFunctions.c ****     uint8 tens = (hours & tensMask)>> 4;
+ 435              		.loc 1 81 0
+ 436 001c FB1D     		add	r3, r7, #7
+ 437 001e 3A1C     		mov	r2, r7
+ 438 0020 0F32     		add	r2, r2, #15
+ 439 0022 1B78     		ldrb	r3, [r3]
+ 440 0024 1278     		ldrb	r2, [r2]
+ 441 0026 1340     		and	r3, r2
+ 442 0028 DAB2     		uxtb	r2, r3
+ 443 002a 3B1C     		mov	r3, r7
+ 444 002c 0D33     		add	r3, r3, #13
+ 445 002e 1209     		lsr	r2, r2, #4
+ 446 0030 1A70     		strb	r2, [r3]
+  82:.\TimeFunctions.c ****     tens = tens * 10;
+ 447              		.loc 1 82 0
+ 448 0032 3A1C     		mov	r2, r7
+ 449 0034 0D32     		add	r2, r2, #13
+ 450 0036 3B1C     		mov	r3, r7
+ 451 0038 0D33     		add	r3, r3, #13
+ 452 003a 1B78     		ldrb	r3, [r3]
+ 453 003c 191C     		add	r1, r3, #0
+ 454 003e 8900     		lsl	r1, r1, #2
+ 455 0040 CB18     		add	r3, r1, r3
+ 456 0042 DB18     		add	r3, r3, r3
+ 457 0044 1370     		strb	r3, [r2]
+  83:.\TimeFunctions.c ****     uint8 ones = (hours & onesMask);
+ 458              		.loc 1 83 0
+ 459 0046 3B1C     		mov	r3, r7
+ 460 0048 0C33     		add	r3, r3, #12
+ 461 004a FA1D     		add	r2, r7, #7
+ 462 004c 391C     		mov	r1, r7
+ 463 004e 0E31     		add	r1, r1, #14
+ 464 0050 1278     		ldrb	r2, [r2]
+ 465 0052 0978     		ldrb	r1, [r1]
+ 466 0054 0A40     		and	r2, r1
+ 467 0056 1A70     		strb	r2, [r3]
+  84:.\TimeFunctions.c **** 
+  85:.\TimeFunctions.c ****     return tens  + ones; 
+ 468              		.loc 1 85 0
+ 469 0058 3A1C     		mov	r2, r7
+ 470 005a 0D32     		add	r2, r2, #13
+ 471 005c 3B1C     		mov	r3, r7
+ 472 005e 0C33     		add	r3, r3, #12
+ 473 0060 1278     		ldrb	r2, [r2]
+ 474 0062 1B78     		ldrb	r3, [r3]
+ 475 0064 D318     		add	r3, r2, r3
+ 476 0066 DBB2     		uxtb	r3, r3
+  86:.\TimeFunctions.c ****     
+  87:.\TimeFunctions.c **** }
+ 477              		.loc 1 87 0
+ 478 0068 181C     		mov	r0, r3
+ 479 006a BD46     		mov	sp, r7
+ 480 006c 04B0     		add	sp, sp, #16
+ 481              		@ sp needed
+ 482 006e 80BD     		pop	{r7, pc}
+ 483              		.cfi_endproc
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 11
+
+
+ 484              	.LFE38:
+ 485              		.size	decodeHours24, .-decodeHours24
+ 486              		.section	.text.encodeHours24,"ax",%progbits
+ 487              		.align	2
+ 488              		.global	encodeHours24
+ 489              		.code	16
+ 490              		.thumb_func
+ 491              		.type	encodeHours24, %function
+ 492              	encodeHours24:
+ 493              	.LFB39:
+  88:.\TimeFunctions.c **** uint8 encodeHours24(uint8 hours){
+ 494              		.loc 1 88 0
+ 495              		.cfi_startproc
+ 496 0000 90B5     		push	{r4, r7, lr}
+ 497              		.cfi_def_cfa_offset 12
+ 498              		.cfi_offset 4, -12
+ 499              		.cfi_offset 7, -8
+ 500              		.cfi_offset 14, -4
+ 501 0002 85B0     		sub	sp, sp, #20
+ 502              		.cfi_def_cfa_offset 32
+ 503 0004 00AF     		add	r7, sp, #0
+ 504              		.cfi_def_cfa_register 7
+ 505 0006 021C     		mov	r2, r0
+ 506 0008 FB1D     		add	r3, r7, #7
+ 507 000a 1A70     		strb	r2, [r3]
+  89:.\TimeFunctions.c **** 
+  90:.\TimeFunctions.c ****     uint8 tens = hours / 10;   
+ 508              		.loc 1 90 0
+ 509 000c 3C1C     		mov	r4, r7
+ 510 000e 0F34     		add	r4, r4, #15
+ 511 0010 FB1D     		add	r3, r7, #7
+ 512 0012 1B78     		ldrb	r3, [r3]
+ 513 0014 181C     		mov	r0, r3
+ 514 0016 0A21     		mov	r1, #10
+ 515 0018 FFF7FEFF 		bl	__aeabi_uidiv
+ 516 001c 031C     		mov	r3, r0
+ 517 001e 2370     		strb	r3, [r4]
+  91:.\TimeFunctions.c ****     uint8 ones = hours -(tens *10);  
+ 518              		.loc 1 91 0
+ 519 0020 3B1C     		mov	r3, r7
+ 520 0022 0F33     		add	r3, r3, #15
+ 521 0024 1B78     		ldrb	r3, [r3]
+ 522 0026 0A22     		mov	r2, #10
+ 523 0028 5242     		neg	r2, r2
+ 524 002a 5343     		mul	r3, r2
+ 525 002c D9B2     		uxtb	r1, r3
+ 526 002e 3B1C     		mov	r3, r7
+ 527 0030 0E33     		add	r3, r3, #14
+ 528 0032 FA1D     		add	r2, r7, #7
+ 529 0034 1278     		ldrb	r2, [r2]
+ 530 0036 8A18     		add	r2, r1, r2
+ 531 0038 1A70     		strb	r2, [r3]
+  92:.\TimeFunctions.c ****     
+  93:.\TimeFunctions.c ****     tens = (tens<<4) ;
+ 532              		.loc 1 93 0
+ 533 003a 3B1C     		mov	r3, r7
+ 534 003c 0F33     		add	r3, r3, #15
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 12
+
+
+ 535 003e 3A1C     		mov	r2, r7
+ 536 0040 0F32     		add	r2, r2, #15
+ 537 0042 1278     		ldrb	r2, [r2]
+ 538 0044 1201     		lsl	r2, r2, #4
+ 539 0046 1A70     		strb	r2, [r3]
+  94:.\TimeFunctions.c ****        
+  95:.\TimeFunctions.c ****     uint8 output = (tens | ones);
+ 540              		.loc 1 95 0
+ 541 0048 3B1C     		mov	r3, r7
+ 542 004a 0D33     		add	r3, r3, #13
+ 543 004c 391C     		mov	r1, r7
+ 544 004e 0F31     		add	r1, r1, #15
+ 545 0050 3A1C     		mov	r2, r7
+ 546 0052 0E32     		add	r2, r2, #14
+ 547 0054 0978     		ldrb	r1, [r1]
+ 548 0056 1278     		ldrb	r2, [r2]
+ 549 0058 0A43     		orr	r2, r1
+ 550 005a 1A70     		strb	r2, [r3]
+  96:.\TimeFunctions.c **** 
+  97:.\TimeFunctions.c ****     return output;
+ 551              		.loc 1 97 0
+ 552 005c 3B1C     		mov	r3, r7
+ 553 005e 0D33     		add	r3, r3, #13
+ 554 0060 1B78     		ldrb	r3, [r3]
+  98:.\TimeFunctions.c **** 
+  99:.\TimeFunctions.c **** }
+ 555              		.loc 1 99 0
+ 556 0062 181C     		mov	r0, r3
+ 557 0064 BD46     		mov	sp, r7
+ 558 0066 05B0     		add	sp, sp, #20
+ 559              		@ sp needed
+ 560 0068 90BD     		pop	{r4, r7, pc}
+ 561              		.cfi_endproc
+ 562              	.LFE39:
+ 563              		.size	encodeHours24, .-encodeHours24
+ 564 006a C046     		.section	.text.decodeDays,"ax",%progbits
+ 565              		.align	2
+ 566              		.global	decodeDays
+ 567              		.code	16
+ 568              		.thumb_func
+ 569              		.type	decodeDays, %function
+ 570              	decodeDays:
+ 571              	.LFB40:
+ 100:.\TimeFunctions.c **** 
+ 101:.\TimeFunctions.c **** uint8 decodeDays(uint8 days){
+ 572              		.loc 1 101 0
+ 573              		.cfi_startproc
+ 574 0000 80B5     		push	{r7, lr}
+ 575              		.cfi_def_cfa_offset 8
+ 576              		.cfi_offset 7, -8
+ 577              		.cfi_offset 14, -4
+ 578 0002 84B0     		sub	sp, sp, #16
+ 579              		.cfi_def_cfa_offset 24
+ 580 0004 00AF     		add	r7, sp, #0
+ 581              		.cfi_def_cfa_register 7
+ 582 0006 021C     		mov	r2, r0
+ 583 0008 FB1D     		add	r3, r7, #7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 13
+
+
+ 584 000a 1A70     		strb	r2, [r3]
+ 102:.\TimeFunctions.c **** 
+ 103:.\TimeFunctions.c ****     uint8 tensMask = 0x30;  // 0011 0000 (Table 16, Pg. 21 PCF8523 Datasheet)
+ 585              		.loc 1 103 0
+ 586 000c 3B1C     		mov	r3, r7
+ 587 000e 0F33     		add	r3, r3, #15
+ 588 0010 3022     		mov	r2, #48
+ 589 0012 1A70     		strb	r2, [r3]
+ 104:.\TimeFunctions.c ****     uint8 onesMask = 0x0F;  // 0000 1111 (Table 16, Pg. 21 PCF8523 Datasheet)
+ 590              		.loc 1 104 0
+ 591 0014 3B1C     		mov	r3, r7
+ 592 0016 0E33     		add	r3, r3, #14
+ 593 0018 0F22     		mov	r2, #15
+ 594 001a 1A70     		strb	r2, [r3]
+ 105:.\TimeFunctions.c ****     
+ 106:.\TimeFunctions.c ****     uint8 tens = (days & tensMask)>> 4;
+ 595              		.loc 1 106 0
+ 596 001c FB1D     		add	r3, r7, #7
+ 597 001e 3A1C     		mov	r2, r7
+ 598 0020 0F32     		add	r2, r2, #15
+ 599 0022 1B78     		ldrb	r3, [r3]
+ 600 0024 1278     		ldrb	r2, [r2]
+ 601 0026 1340     		and	r3, r2
+ 602 0028 DAB2     		uxtb	r2, r3
+ 603 002a 3B1C     		mov	r3, r7
+ 604 002c 0D33     		add	r3, r3, #13
+ 605 002e 1209     		lsr	r2, r2, #4
+ 606 0030 1A70     		strb	r2, [r3]
+ 107:.\TimeFunctions.c ****     tens = tens * 10;
+ 607              		.loc 1 107 0
+ 608 0032 3A1C     		mov	r2, r7
+ 609 0034 0D32     		add	r2, r2, #13
+ 610 0036 3B1C     		mov	r3, r7
+ 611 0038 0D33     		add	r3, r3, #13
+ 612 003a 1B78     		ldrb	r3, [r3]
+ 613 003c 191C     		add	r1, r3, #0
+ 614 003e 8900     		lsl	r1, r1, #2
+ 615 0040 CB18     		add	r3, r1, r3
+ 616 0042 DB18     		add	r3, r3, r3
+ 617 0044 1370     		strb	r3, [r2]
+ 108:.\TimeFunctions.c ****     uint8 ones = (days & onesMask);
+ 618              		.loc 1 108 0
+ 619 0046 3B1C     		mov	r3, r7
+ 620 0048 0C33     		add	r3, r3, #12
+ 621 004a FA1D     		add	r2, r7, #7
+ 622 004c 391C     		mov	r1, r7
+ 623 004e 0E31     		add	r1, r1, #14
+ 624 0050 1278     		ldrb	r2, [r2]
+ 625 0052 0978     		ldrb	r1, [r1]
+ 626 0054 0A40     		and	r2, r1
+ 627 0056 1A70     		strb	r2, [r3]
+ 109:.\TimeFunctions.c **** 
+ 110:.\TimeFunctions.c ****     return tens  + ones;
+ 628              		.loc 1 110 0
+ 629 0058 3A1C     		mov	r2, r7
+ 630 005a 0D32     		add	r2, r2, #13
+ 631 005c 3B1C     		mov	r3, r7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 14
+
+
+ 632 005e 0C33     		add	r3, r3, #12
+ 633 0060 1278     		ldrb	r2, [r2]
+ 634 0062 1B78     		ldrb	r3, [r3]
+ 635 0064 D318     		add	r3, r2, r3
+ 636 0066 DBB2     		uxtb	r3, r3
+ 111:.\TimeFunctions.c **** 
+ 112:.\TimeFunctions.c **** }
+ 637              		.loc 1 112 0
+ 638 0068 181C     		mov	r0, r3
+ 639 006a BD46     		mov	sp, r7
+ 640 006c 04B0     		add	sp, sp, #16
+ 641              		@ sp needed
+ 642 006e 80BD     		pop	{r7, pc}
+ 643              		.cfi_endproc
+ 644              	.LFE40:
+ 645              		.size	decodeDays, .-decodeDays
+ 646              		.section	.text.encodeDays,"ax",%progbits
+ 647              		.align	2
+ 648              		.global	encodeDays
+ 649              		.code	16
+ 650              		.thumb_func
+ 651              		.type	encodeDays, %function
+ 652              	encodeDays:
+ 653              	.LFB41:
+ 113:.\TimeFunctions.c **** uint8 encodeDays(uint8 days){
+ 654              		.loc 1 113 0
+ 655              		.cfi_startproc
+ 656 0000 90B5     		push	{r4, r7, lr}
+ 657              		.cfi_def_cfa_offset 12
+ 658              		.cfi_offset 4, -12
+ 659              		.cfi_offset 7, -8
+ 660              		.cfi_offset 14, -4
+ 661 0002 85B0     		sub	sp, sp, #20
+ 662              		.cfi_def_cfa_offset 32
+ 663 0004 00AF     		add	r7, sp, #0
+ 664              		.cfi_def_cfa_register 7
+ 665 0006 021C     		mov	r2, r0
+ 666 0008 FB1D     		add	r3, r7, #7
+ 667 000a 1A70     		strb	r2, [r3]
+ 114:.\TimeFunctions.c **** 
+ 115:.\TimeFunctions.c ****     uint8 tens = days / 10;
+ 668              		.loc 1 115 0
+ 669 000c 3C1C     		mov	r4, r7
+ 670 000e 0F34     		add	r4, r4, #15
+ 671 0010 FB1D     		add	r3, r7, #7
+ 672 0012 1B78     		ldrb	r3, [r3]
+ 673 0014 181C     		mov	r0, r3
+ 674 0016 0A21     		mov	r1, #10
+ 675 0018 FFF7FEFF 		bl	__aeabi_uidiv
+ 676 001c 031C     		mov	r3, r0
+ 677 001e 2370     		strb	r3, [r4]
+ 116:.\TimeFunctions.c ****     uint8 ones = days - (tens * 10);
+ 678              		.loc 1 116 0
+ 679 0020 3B1C     		mov	r3, r7
+ 680 0022 0F33     		add	r3, r3, #15
+ 681 0024 1B78     		ldrb	r3, [r3]
+ 682 0026 0A22     		mov	r2, #10
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 15
+
+
+ 683 0028 5242     		neg	r2, r2
+ 684 002a 5343     		mul	r3, r2
+ 685 002c D9B2     		uxtb	r1, r3
+ 686 002e 3B1C     		mov	r3, r7
+ 687 0030 0E33     		add	r3, r3, #14
+ 688 0032 FA1D     		add	r2, r7, #7
+ 689 0034 1278     		ldrb	r2, [r2]
+ 690 0036 8A18     		add	r2, r1, r2
+ 691 0038 1A70     		strb	r2, [r3]
+ 117:.\TimeFunctions.c ****     
+ 118:.\TimeFunctions.c ****     return (tens << 4) | ones;
+ 692              		.loc 1 118 0
+ 693 003a 3B1C     		mov	r3, r7
+ 694 003c 0F33     		add	r3, r3, #15
+ 695 003e 1B78     		ldrb	r3, [r3]
+ 696 0040 1B01     		lsl	r3, r3, #4
+ 697 0042 DAB2     		uxtb	r2, r3
+ 698 0044 3B1C     		mov	r3, r7
+ 699 0046 0E33     		add	r3, r3, #14
+ 700 0048 1B78     		ldrb	r3, [r3]
+ 701 004a 1343     		orr	r3, r2
+ 702 004c DBB2     		uxtb	r3, r3
+ 703 004e DBB2     		uxtb	r3, r3
+ 119:.\TimeFunctions.c **** 
+ 120:.\TimeFunctions.c **** }
+ 704              		.loc 1 120 0
+ 705 0050 181C     		mov	r0, r3
+ 706 0052 BD46     		mov	sp, r7
+ 707 0054 05B0     		add	sp, sp, #20
+ 708              		@ sp needed
+ 709 0056 90BD     		pop	{r4, r7, pc}
+ 710              		.cfi_endproc
+ 711              	.LFE41:
+ 712              		.size	encodeDays, .-encodeDays
+ 713              		.section	.text.decodeWeekDay,"ax",%progbits
+ 714              		.align	2
+ 715              		.global	decodeWeekDay
+ 716              		.code	16
+ 717              		.thumb_func
+ 718              		.type	decodeWeekDay, %function
+ 719              	decodeWeekDay:
+ 720              	.LFB42:
+ 121:.\TimeFunctions.c **** 
+ 122:.\TimeFunctions.c **** uint8 decodeWeekDay(uint8 weekday){
+ 721              		.loc 1 122 0
+ 722              		.cfi_startproc
+ 723 0000 80B5     		push	{r7, lr}
+ 724              		.cfi_def_cfa_offset 8
+ 725              		.cfi_offset 7, -8
+ 726              		.cfi_offset 14, -4
+ 727 0002 84B0     		sub	sp, sp, #16
+ 728              		.cfi_def_cfa_offset 24
+ 729 0004 00AF     		add	r7, sp, #0
+ 730              		.cfi_def_cfa_register 7
+ 731 0006 021C     		mov	r2, r0
+ 732 0008 FB1D     		add	r3, r7, #7
+ 733 000a 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 16
+
+
+ 123:.\TimeFunctions.c **** 
+ 124:.\TimeFunctions.c ****     uint8 onesMask = 0x0F;  // 0000 1111 (Table 17, Pg. 22 PCF8523 Datasheet)
+ 734              		.loc 1 124 0
+ 735 000c 3B1C     		mov	r3, r7
+ 736 000e 0F33     		add	r3, r3, #15
+ 737 0010 0F22     		mov	r2, #15
+ 738 0012 1A70     		strb	r2, [r3]
+ 125:.\TimeFunctions.c ****     
+ 126:.\TimeFunctions.c ****     uint8 ones = (weekday & onesMask);
+ 739              		.loc 1 126 0
+ 740 0014 3B1C     		mov	r3, r7
+ 741 0016 0E33     		add	r3, r3, #14
+ 742 0018 FA1D     		add	r2, r7, #7
+ 743 001a 391C     		mov	r1, r7
+ 744 001c 0F31     		add	r1, r1, #15
+ 745 001e 1278     		ldrb	r2, [r2]
+ 746 0020 0978     		ldrb	r1, [r1]
+ 747 0022 0A40     		and	r2, r1
+ 748 0024 1A70     		strb	r2, [r3]
+ 127:.\TimeFunctions.c **** 
+ 128:.\TimeFunctions.c ****     return ones;
+ 749              		.loc 1 128 0
+ 750 0026 3B1C     		mov	r3, r7
+ 751 0028 0E33     		add	r3, r3, #14
+ 752 002a 1B78     		ldrb	r3, [r3]
+ 129:.\TimeFunctions.c **** 
+ 130:.\TimeFunctions.c **** }
+ 753              		.loc 1 130 0
+ 754 002c 181C     		mov	r0, r3
+ 755 002e BD46     		mov	sp, r7
+ 756 0030 04B0     		add	sp, sp, #16
+ 757              		@ sp needed
+ 758 0032 80BD     		pop	{r7, pc}
+ 759              		.cfi_endproc
+ 760              	.LFE42:
+ 761              		.size	decodeWeekDay, .-decodeWeekDay
+ 762              		.section	.text.encodeWeekDay,"ax",%progbits
+ 763              		.align	2
+ 764              		.global	encodeWeekDay
+ 765              		.code	16
+ 766              		.thumb_func
+ 767              		.type	encodeWeekDay, %function
+ 768              	encodeWeekDay:
+ 769              	.LFB43:
+ 131:.\TimeFunctions.c **** uint8 encodeWeekDay(uint8 weekday){
+ 770              		.loc 1 131 0
+ 771              		.cfi_startproc
+ 772 0000 80B5     		push	{r7, lr}
+ 773              		.cfi_def_cfa_offset 8
+ 774              		.cfi_offset 7, -8
+ 775              		.cfi_offset 14, -4
+ 776 0002 82B0     		sub	sp, sp, #8
+ 777              		.cfi_def_cfa_offset 16
+ 778 0004 00AF     		add	r7, sp, #0
+ 779              		.cfi_def_cfa_register 7
+ 780 0006 021C     		mov	r2, r0
+ 781 0008 FB1D     		add	r3, r7, #7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 17
+
+
+ 782 000a 1A70     		strb	r2, [r3]
+ 132:.\TimeFunctions.c **** 
+ 133:.\TimeFunctions.c ****     return weekday;
+ 783              		.loc 1 133 0
+ 784 000c FB1D     		add	r3, r7, #7
+ 785 000e 1B78     		ldrb	r3, [r3]
+ 134:.\TimeFunctions.c **** 
+ 135:.\TimeFunctions.c **** }
+ 786              		.loc 1 135 0
+ 787 0010 181C     		mov	r0, r3
+ 788 0012 BD46     		mov	sp, r7
+ 789 0014 02B0     		add	sp, sp, #8
+ 790              		@ sp needed
+ 791 0016 80BD     		pop	{r7, pc}
+ 792              		.cfi_endproc
+ 793              	.LFE43:
+ 794              		.size	encodeWeekDay, .-encodeWeekDay
+ 795              		.section	.text.decodeMonth,"ax",%progbits
+ 796              		.align	2
+ 797              		.global	decodeMonth
+ 798              		.code	16
+ 799              		.thumb_func
+ 800              		.type	decodeMonth, %function
+ 801              	decodeMonth:
+ 802              	.LFB44:
+ 136:.\TimeFunctions.c **** 
+ 137:.\TimeFunctions.c **** uint8 decodeMonth(uint8 month){
+ 803              		.loc 1 137 0
+ 804              		.cfi_startproc
+ 805 0000 80B5     		push	{r7, lr}
+ 806              		.cfi_def_cfa_offset 8
+ 807              		.cfi_offset 7, -8
+ 808              		.cfi_offset 14, -4
+ 809 0002 84B0     		sub	sp, sp, #16
+ 810              		.cfi_def_cfa_offset 24
+ 811 0004 00AF     		add	r7, sp, #0
+ 812              		.cfi_def_cfa_register 7
+ 813 0006 021C     		mov	r2, r0
+ 814 0008 FB1D     		add	r3, r7, #7
+ 815 000a 1A70     		strb	r2, [r3]
+ 138:.\TimeFunctions.c **** 
+ 139:.\TimeFunctions.c ****     uint8 tensMask = 0x10;  // 0001 0000 (Table 19, Pg. 22 PCF8523 Datasheet)
+ 816              		.loc 1 139 0
+ 817 000c 3B1C     		mov	r3, r7
+ 818 000e 0F33     		add	r3, r3, #15
+ 819 0010 1022     		mov	r2, #16
+ 820 0012 1A70     		strb	r2, [r3]
+ 140:.\TimeFunctions.c ****     uint8 onesMask = 0x0F;  // 0000 1111 (Table 19, Pg. 22 PCF8523 Datasheet)
+ 821              		.loc 1 140 0
+ 822 0014 3B1C     		mov	r3, r7
+ 823 0016 0E33     		add	r3, r3, #14
+ 824 0018 0F22     		mov	r2, #15
+ 825 001a 1A70     		strb	r2, [r3]
+ 141:.\TimeFunctions.c ****     
+ 142:.\TimeFunctions.c ****     uint8 tens = (month & tensMask)>> 4;
+ 826              		.loc 1 142 0
+ 827 001c FB1D     		add	r3, r7, #7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 18
+
+
+ 828 001e 3A1C     		mov	r2, r7
+ 829 0020 0F32     		add	r2, r2, #15
+ 830 0022 1B78     		ldrb	r3, [r3]
+ 831 0024 1278     		ldrb	r2, [r2]
+ 832 0026 1340     		and	r3, r2
+ 833 0028 DAB2     		uxtb	r2, r3
+ 834 002a 3B1C     		mov	r3, r7
+ 835 002c 0D33     		add	r3, r3, #13
+ 836 002e 1209     		lsr	r2, r2, #4
+ 837 0030 1A70     		strb	r2, [r3]
+ 143:.\TimeFunctions.c ****     tens = tens * 10;
+ 838              		.loc 1 143 0
+ 839 0032 3A1C     		mov	r2, r7
+ 840 0034 0D32     		add	r2, r2, #13
+ 841 0036 3B1C     		mov	r3, r7
+ 842 0038 0D33     		add	r3, r3, #13
+ 843 003a 1B78     		ldrb	r3, [r3]
+ 844 003c 191C     		add	r1, r3, #0
+ 845 003e 8900     		lsl	r1, r1, #2
+ 846 0040 CB18     		add	r3, r1, r3
+ 847 0042 DB18     		add	r3, r3, r3
+ 848 0044 1370     		strb	r3, [r2]
+ 144:.\TimeFunctions.c ****     uint8 ones = (month & onesMask);
+ 849              		.loc 1 144 0
+ 850 0046 3B1C     		mov	r3, r7
+ 851 0048 0C33     		add	r3, r3, #12
+ 852 004a FA1D     		add	r2, r7, #7
+ 853 004c 391C     		mov	r1, r7
+ 854 004e 0E31     		add	r1, r1, #14
+ 855 0050 1278     		ldrb	r2, [r2]
+ 856 0052 0978     		ldrb	r1, [r1]
+ 857 0054 0A40     		and	r2, r1
+ 858 0056 1A70     		strb	r2, [r3]
+ 145:.\TimeFunctions.c **** 
+ 146:.\TimeFunctions.c ****     return tens  + ones;
+ 859              		.loc 1 146 0
+ 860 0058 3A1C     		mov	r2, r7
+ 861 005a 0D32     		add	r2, r2, #13
+ 862 005c 3B1C     		mov	r3, r7
+ 863 005e 0C33     		add	r3, r3, #12
+ 864 0060 1278     		ldrb	r2, [r2]
+ 865 0062 1B78     		ldrb	r3, [r3]
+ 866 0064 D318     		add	r3, r2, r3
+ 867 0066 DBB2     		uxtb	r3, r3
+ 147:.\TimeFunctions.c **** 
+ 148:.\TimeFunctions.c **** }
+ 868              		.loc 1 148 0
+ 869 0068 181C     		mov	r0, r3
+ 870 006a BD46     		mov	sp, r7
+ 871 006c 04B0     		add	sp, sp, #16
+ 872              		@ sp needed
+ 873 006e 80BD     		pop	{r7, pc}
+ 874              		.cfi_endproc
+ 875              	.LFE44:
+ 876              		.size	decodeMonth, .-decodeMonth
+ 877              		.section	.text.encodeMonth,"ax",%progbits
+ 878              		.align	2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 19
+
+
+ 879              		.global	encodeMonth
+ 880              		.code	16
+ 881              		.thumb_func
+ 882              		.type	encodeMonth, %function
+ 883              	encodeMonth:
+ 884              	.LFB45:
+ 149:.\TimeFunctions.c **** uint8 encodeMonth(uint8 month){
+ 885              		.loc 1 149 0
+ 886              		.cfi_startproc
+ 887 0000 90B5     		push	{r4, r7, lr}
+ 888              		.cfi_def_cfa_offset 12
+ 889              		.cfi_offset 4, -12
+ 890              		.cfi_offset 7, -8
+ 891              		.cfi_offset 14, -4
+ 892 0002 85B0     		sub	sp, sp, #20
+ 893              		.cfi_def_cfa_offset 32
+ 894 0004 00AF     		add	r7, sp, #0
+ 895              		.cfi_def_cfa_register 7
+ 896 0006 021C     		mov	r2, r0
+ 897 0008 FB1D     		add	r3, r7, #7
+ 898 000a 1A70     		strb	r2, [r3]
+ 150:.\TimeFunctions.c **** 
+ 151:.\TimeFunctions.c ****     uint8 tens = month / 10;
+ 899              		.loc 1 151 0
+ 900 000c 3C1C     		mov	r4, r7
+ 901 000e 0F34     		add	r4, r4, #15
+ 902 0010 FB1D     		add	r3, r7, #7
+ 903 0012 1B78     		ldrb	r3, [r3]
+ 904 0014 181C     		mov	r0, r3
+ 905 0016 0A21     		mov	r1, #10
+ 906 0018 FFF7FEFF 		bl	__aeabi_uidiv
+ 907 001c 031C     		mov	r3, r0
+ 908 001e 2370     		strb	r3, [r4]
+ 152:.\TimeFunctions.c ****     uint8 ones = month - (tens * 10);
+ 909              		.loc 1 152 0
+ 910 0020 3B1C     		mov	r3, r7
+ 911 0022 0F33     		add	r3, r3, #15
+ 912 0024 1B78     		ldrb	r3, [r3]
+ 913 0026 0A22     		mov	r2, #10
+ 914 0028 5242     		neg	r2, r2
+ 915 002a 5343     		mul	r3, r2
+ 916 002c D9B2     		uxtb	r1, r3
+ 917 002e 3B1C     		mov	r3, r7
+ 918 0030 0E33     		add	r3, r3, #14
+ 919 0032 FA1D     		add	r2, r7, #7
+ 920 0034 1278     		ldrb	r2, [r2]
+ 921 0036 8A18     		add	r2, r1, r2
+ 922 0038 1A70     		strb	r2, [r3]
+ 153:.\TimeFunctions.c ****     
+ 154:.\TimeFunctions.c ****     return (tens << 4) | ones;
+ 923              		.loc 1 154 0
+ 924 003a 3B1C     		mov	r3, r7
+ 925 003c 0F33     		add	r3, r3, #15
+ 926 003e 1B78     		ldrb	r3, [r3]
+ 927 0040 1B01     		lsl	r3, r3, #4
+ 928 0042 DAB2     		uxtb	r2, r3
+ 929 0044 3B1C     		mov	r3, r7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 20
+
+
+ 930 0046 0E33     		add	r3, r3, #14
+ 931 0048 1B78     		ldrb	r3, [r3]
+ 932 004a 1343     		orr	r3, r2
+ 933 004c DBB2     		uxtb	r3, r3
+ 934 004e DBB2     		uxtb	r3, r3
+ 155:.\TimeFunctions.c **** 
+ 156:.\TimeFunctions.c **** }
+ 935              		.loc 1 156 0
+ 936 0050 181C     		mov	r0, r3
+ 937 0052 BD46     		mov	sp, r7
+ 938 0054 05B0     		add	sp, sp, #20
+ 939              		@ sp needed
+ 940 0056 90BD     		pop	{r4, r7, pc}
+ 941              		.cfi_endproc
+ 942              	.LFE45:
+ 943              		.size	encodeMonth, .-encodeMonth
+ 944              		.section	.text.decodeYear,"ax",%progbits
+ 945              		.align	2
+ 946              		.global	decodeYear
+ 947              		.code	16
+ 948              		.thumb_func
+ 949              		.type	decodeYear, %function
+ 950              	decodeYear:
+ 951              	.LFB46:
+ 157:.\TimeFunctions.c **** 
+ 158:.\TimeFunctions.c **** uint8 decodeYear(uint8 year){
+ 952              		.loc 1 158 0
+ 953              		.cfi_startproc
+ 954 0000 80B5     		push	{r7, lr}
+ 955              		.cfi_def_cfa_offset 8
+ 956              		.cfi_offset 7, -8
+ 957              		.cfi_offset 14, -4
+ 958 0002 84B0     		sub	sp, sp, #16
+ 959              		.cfi_def_cfa_offset 24
+ 960 0004 00AF     		add	r7, sp, #0
+ 961              		.cfi_def_cfa_register 7
+ 962 0006 021C     		mov	r2, r0
+ 963 0008 FB1D     		add	r3, r7, #7
+ 964 000a 1A70     		strb	r2, [r3]
+ 159:.\TimeFunctions.c **** 
+ 160:.\TimeFunctions.c ****     uint8 tensMask = 0xF0;  // 1111 0000 (Table 21, Pg. 23 PCF8523 Datasheet)
+ 965              		.loc 1 160 0
+ 966 000c 3B1C     		mov	r3, r7
+ 967 000e 0F33     		add	r3, r3, #15
+ 968 0010 F022     		mov	r2, #240
+ 969 0012 1A70     		strb	r2, [r3]
+ 161:.\TimeFunctions.c ****     uint8 onesMask = 0x0F;  // 0000 1111 (Table 21, Pg. 23 PCF8523 Datasheet)
+ 970              		.loc 1 161 0
+ 971 0014 3B1C     		mov	r3, r7
+ 972 0016 0E33     		add	r3, r3, #14
+ 973 0018 0F22     		mov	r2, #15
+ 974 001a 1A70     		strb	r2, [r3]
+ 162:.\TimeFunctions.c ****     
+ 163:.\TimeFunctions.c ****     uint8 tens = (year & tensMask)>> 4;
+ 975              		.loc 1 163 0
+ 976 001c FB1D     		add	r3, r7, #7
+ 977 001e 3A1C     		mov	r2, r7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 21
+
+
+ 978 0020 0F32     		add	r2, r2, #15
+ 979 0022 1B78     		ldrb	r3, [r3]
+ 980 0024 1278     		ldrb	r2, [r2]
+ 981 0026 1340     		and	r3, r2
+ 982 0028 DAB2     		uxtb	r2, r3
+ 983 002a 3B1C     		mov	r3, r7
+ 984 002c 0D33     		add	r3, r3, #13
+ 985 002e 1209     		lsr	r2, r2, #4
+ 986 0030 1A70     		strb	r2, [r3]
+ 164:.\TimeFunctions.c ****     tens = tens * 10;
+ 987              		.loc 1 164 0
+ 988 0032 3A1C     		mov	r2, r7
+ 989 0034 0D32     		add	r2, r2, #13
+ 990 0036 3B1C     		mov	r3, r7
+ 991 0038 0D33     		add	r3, r3, #13
+ 992 003a 1B78     		ldrb	r3, [r3]
+ 993 003c 191C     		add	r1, r3, #0
+ 994 003e 8900     		lsl	r1, r1, #2
+ 995 0040 CB18     		add	r3, r1, r3
+ 996 0042 DB18     		add	r3, r3, r3
+ 997 0044 1370     		strb	r3, [r2]
+ 165:.\TimeFunctions.c ****     uint8 ones = (year & onesMask);
+ 998              		.loc 1 165 0
+ 999 0046 3B1C     		mov	r3, r7
+ 1000 0048 0C33     		add	r3, r3, #12
+ 1001 004a FA1D     		add	r2, r7, #7
+ 1002 004c 391C     		mov	r1, r7
+ 1003 004e 0E31     		add	r1, r1, #14
+ 1004 0050 1278     		ldrb	r2, [r2]
+ 1005 0052 0978     		ldrb	r1, [r1]
+ 1006 0054 0A40     		and	r2, r1
+ 1007 0056 1A70     		strb	r2, [r3]
+ 166:.\TimeFunctions.c **** 
+ 167:.\TimeFunctions.c ****     return tens  + ones;
+ 1008              		.loc 1 167 0
+ 1009 0058 3A1C     		mov	r2, r7
+ 1010 005a 0D32     		add	r2, r2, #13
+ 1011 005c 3B1C     		mov	r3, r7
+ 1012 005e 0C33     		add	r3, r3, #12
+ 1013 0060 1278     		ldrb	r2, [r2]
+ 1014 0062 1B78     		ldrb	r3, [r3]
+ 1015 0064 D318     		add	r3, r2, r3
+ 1016 0066 DBB2     		uxtb	r3, r3
+ 168:.\TimeFunctions.c **** }
+ 1017              		.loc 1 168 0
+ 1018 0068 181C     		mov	r0, r3
+ 1019 006a BD46     		mov	sp, r7
+ 1020 006c 04B0     		add	sp, sp, #16
+ 1021              		@ sp needed
+ 1022 006e 80BD     		pop	{r7, pc}
+ 1023              		.cfi_endproc
+ 1024              	.LFE46:
+ 1025              		.size	decodeYear, .-decodeYear
+ 1026              		.section	.text.encodeYear,"ax",%progbits
+ 1027              		.align	2
+ 1028              		.global	encodeYear
+ 1029              		.code	16
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 22
+
+
+ 1030              		.thumb_func
+ 1031              		.type	encodeYear, %function
+ 1032              	encodeYear:
+ 1033              	.LFB47:
+ 169:.\TimeFunctions.c **** uint8 encodeYear(uint8 year){
+ 1034              		.loc 1 169 0
+ 1035              		.cfi_startproc
+ 1036 0000 90B5     		push	{r4, r7, lr}
+ 1037              		.cfi_def_cfa_offset 12
+ 1038              		.cfi_offset 4, -12
+ 1039              		.cfi_offset 7, -8
+ 1040              		.cfi_offset 14, -4
+ 1041 0002 85B0     		sub	sp, sp, #20
+ 1042              		.cfi_def_cfa_offset 32
+ 1043 0004 00AF     		add	r7, sp, #0
+ 1044              		.cfi_def_cfa_register 7
+ 1045 0006 021C     		mov	r2, r0
+ 1046 0008 FB1D     		add	r3, r7, #7
+ 1047 000a 1A70     		strb	r2, [r3]
+ 170:.\TimeFunctions.c **** 
+ 171:.\TimeFunctions.c ****     uint8 tens = year / 10;
+ 1048              		.loc 1 171 0
+ 1049 000c 3C1C     		mov	r4, r7
+ 1050 000e 0F34     		add	r4, r4, #15
+ 1051 0010 FB1D     		add	r3, r7, #7
+ 1052 0012 1B78     		ldrb	r3, [r3]
+ 1053 0014 181C     		mov	r0, r3
+ 1054 0016 0A21     		mov	r1, #10
+ 1055 0018 FFF7FEFF 		bl	__aeabi_uidiv
+ 1056 001c 031C     		mov	r3, r0
+ 1057 001e 2370     		strb	r3, [r4]
+ 172:.\TimeFunctions.c ****     uint8 ones = year - (tens * 10);
+ 1058              		.loc 1 172 0
+ 1059 0020 3B1C     		mov	r3, r7
+ 1060 0022 0F33     		add	r3, r3, #15
+ 1061 0024 1B78     		ldrb	r3, [r3]
+ 1062 0026 0A22     		mov	r2, #10
+ 1063 0028 5242     		neg	r2, r2
+ 1064 002a 5343     		mul	r3, r2
+ 1065 002c D9B2     		uxtb	r1, r3
+ 1066 002e 3B1C     		mov	r3, r7
+ 1067 0030 0E33     		add	r3, r3, #14
+ 1068 0032 FA1D     		add	r2, r7, #7
+ 1069 0034 1278     		ldrb	r2, [r2]
+ 1070 0036 8A18     		add	r2, r1, r2
+ 1071 0038 1A70     		strb	r2, [r3]
+ 173:.\TimeFunctions.c ****     
+ 174:.\TimeFunctions.c ****     return (tens << 4) | ones;
+ 1072              		.loc 1 174 0
+ 1073 003a 3B1C     		mov	r3, r7
+ 1074 003c 0F33     		add	r3, r3, #15
+ 1075 003e 1B78     		ldrb	r3, [r3]
+ 1076 0040 1B01     		lsl	r3, r3, #4
+ 1077 0042 DAB2     		uxtb	r2, r3
+ 1078 0044 3B1C     		mov	r3, r7
+ 1079 0046 0E33     		add	r3, r3, #14
+ 1080 0048 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 23
+
+
+ 1081 004a 1343     		orr	r3, r2
+ 1082 004c DBB2     		uxtb	r3, r3
+ 1083 004e DBB2     		uxtb	r3, r3
+ 175:.\TimeFunctions.c ****     
+ 176:.\TimeFunctions.c **** }
+ 1084              		.loc 1 176 0
+ 1085 0050 181C     		mov	r0, r3
+ 1086 0052 BD46     		mov	sp, r7
+ 1087 0054 05B0     		add	sp, sp, #20
+ 1088              		@ sp needed
+ 1089 0056 90BD     		pop	{r4, r7, pc}
+ 1090              		.cfi_endproc
+ 1091              	.LFE47:
+ 1092              		.size	encodeYear, .-encodeYear
+ 1093              		.text
+ 1094              	.Letext0:
+ 1095              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 1096              		.section	.debug_info,"",%progbits
+ 1097              	.Ldebug_info0:
+ 1098 0000 4B050000 		.4byte	0x54b
+ 1099 0004 0400     		.2byte	0x4
+ 1100 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1101 000a 04       		.byte	0x4
+ 1102 000b 01       		.uleb128 0x1
+ 1103 000c 82000000 		.4byte	.LASF40
+ 1104 0010 01       		.byte	0x1
+ 1105 0011 5A010000 		.4byte	.LASF41
+ 1106 0015 9E010000 		.4byte	.LASF42
+ 1107 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1108 001d 00000000 		.4byte	0
+ 1109 0021 00000000 		.4byte	.Ldebug_line0
+ 1110 0025 02       		.uleb128 0x2
+ 1111 0026 01       		.byte	0x1
+ 1112 0027 06       		.byte	0x6
+ 1113 0028 74020000 		.4byte	.LASF0
+ 1114 002c 02       		.uleb128 0x2
+ 1115 002d 01       		.byte	0x1
+ 1116 002e 08       		.byte	0x8
+ 1117 002f FE000000 		.4byte	.LASF1
+ 1118 0033 02       		.uleb128 0x2
+ 1119 0034 02       		.byte	0x2
+ 1120 0035 05       		.byte	0x5
+ 1121 0036 42020000 		.4byte	.LASF2
+ 1122 003a 02       		.uleb128 0x2
+ 1123 003b 02       		.byte	0x2
+ 1124 003c 07       		.byte	0x7
+ 1125 003d 2C000000 		.4byte	.LASF3
+ 1126 0041 02       		.uleb128 0x2
+ 1127 0042 04       		.byte	0x4
+ 1128 0043 05       		.byte	0x5
+ 1129 0044 66020000 		.4byte	.LASF4
+ 1130 0048 02       		.uleb128 0x2
+ 1131 0049 04       		.byte	0x4
+ 1132 004a 07       		.byte	0x7
+ 1133 004b 11010000 		.4byte	.LASF5
+ 1134 004f 02       		.uleb128 0x2
+ 1135 0050 08       		.byte	0x8
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 24
+
+
+ 1136 0051 05       		.byte	0x5
+ 1137 0052 02020000 		.4byte	.LASF6
+ 1138 0056 02       		.uleb128 0x2
+ 1139 0057 08       		.byte	0x8
+ 1140 0058 07       		.byte	0x7
+ 1141 0059 79010000 		.4byte	.LASF7
+ 1142 005d 03       		.uleb128 0x3
+ 1143 005e 04       		.byte	0x4
+ 1144 005f 05       		.byte	0x5
+ 1145 0060 696E7400 		.ascii	"int\000"
+ 1146 0064 02       		.uleb128 0x2
+ 1147 0065 04       		.byte	0x4
+ 1148 0066 07       		.byte	0x7
+ 1149 0067 6C010000 		.4byte	.LASF8
+ 1150 006b 04       		.uleb128 0x4
+ 1151 006c 23010000 		.4byte	.LASF43
+ 1152 0070 02       		.byte	0x2
+ 1153 0071 A1       		.byte	0xa1
+ 1154 0072 2C000000 		.4byte	0x2c
+ 1155 0076 02       		.uleb128 0x2
+ 1156 0077 04       		.byte	0x4
+ 1157 0078 04       		.byte	0x4
+ 1158 0079 7C000000 		.4byte	.LASF9
+ 1159 007d 02       		.uleb128 0x2
+ 1160 007e 08       		.byte	0x8
+ 1161 007f 04       		.byte	0x4
+ 1162 0080 3D010000 		.4byte	.LASF10
+ 1163 0084 02       		.uleb128 0x2
+ 1164 0085 01       		.byte	0x1
+ 1165 0086 08       		.byte	0x8
+ 1166 0087 6F020000 		.4byte	.LASF11
+ 1167 008b 02       		.uleb128 0x2
+ 1168 008c 04       		.byte	0x4
+ 1169 008d 07       		.byte	0x7
+ 1170 008e F9010000 		.4byte	.LASF12
+ 1171 0092 05       		.uleb128 0x5
+ 1172 0093 5C020000 		.4byte	.LASF17
+ 1173 0097 01       		.byte	0x1
+ 1174 0098 0F       		.byte	0xf
+ 1175 0099 6B000000 		.4byte	0x6b
+ 1176 009d 00000000 		.4byte	.LFB33
+ 1177 00a1 70000000 		.4byte	.LFE33-.LFB33
+ 1178 00a5 01       		.uleb128 0x1
+ 1179 00a6 9C       		.byte	0x9c
+ 1180 00a7 F2000000 		.4byte	0xf2
+ 1181 00ab 06       		.uleb128 0x6
+ 1182 00ac 10020000 		.4byte	.LASF19
+ 1183 00b0 01       		.byte	0x1
+ 1184 00b1 0F       		.byte	0xf
+ 1185 00b2 6B000000 		.4byte	0x6b
+ 1186 00b6 02       		.uleb128 0x2
+ 1187 00b7 91       		.byte	0x91
+ 1188 00b8 6F       		.sleb128 -17
+ 1189 00b9 07       		.uleb128 0x7
+ 1190 00ba 53020000 		.4byte	.LASF13
+ 1191 00be 01       		.byte	0x1
+ 1192 00bf 11       		.byte	0x11
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 25
+
+
+ 1193 00c0 6B000000 		.4byte	0x6b
+ 1194 00c4 02       		.uleb128 0x2
+ 1195 00c5 91       		.byte	0x91
+ 1196 00c6 77       		.sleb128 -9
+ 1197 00c7 07       		.uleb128 0x7
+ 1198 00c8 20020000 		.4byte	.LASF14
+ 1199 00cc 01       		.byte	0x1
+ 1200 00cd 12       		.byte	0x12
+ 1201 00ce 6B000000 		.4byte	0x6b
+ 1202 00d2 02       		.uleb128 0x2
+ 1203 00d3 91       		.byte	0x91
+ 1204 00d4 76       		.sleb128 -10
+ 1205 00d5 07       		.uleb128 0x7
+ 1206 00d6 F4010000 		.4byte	.LASF15
+ 1207 00da 01       		.byte	0x1
+ 1208 00db 14       		.byte	0x14
+ 1209 00dc 6B000000 		.4byte	0x6b
+ 1210 00e0 02       		.uleb128 0x2
+ 1211 00e1 91       		.byte	0x91
+ 1212 00e2 75       		.sleb128 -11
+ 1213 00e3 07       		.uleb128 0x7
+ 1214 00e4 0C010000 		.4byte	.LASF16
+ 1215 00e8 01       		.byte	0x1
+ 1216 00e9 16       		.byte	0x16
+ 1217 00ea 6B000000 		.4byte	0x6b
+ 1218 00ee 02       		.uleb128 0x2
+ 1219 00ef 91       		.byte	0x91
+ 1220 00f0 74       		.sleb128 -12
+ 1221 00f1 00       		.byte	0
+ 1222 00f2 08       		.uleb128 0x8
+ 1223 00f3 50010000 		.4byte	.LASF18
+ 1224 00f7 01       		.byte	0x1
+ 1225 00f8 1A       		.byte	0x1a
+ 1226 00f9 6B000000 		.4byte	0x6b
+ 1227 00fd 00000000 		.4byte	.LFB34
+ 1228 0101 58000000 		.4byte	.LFE34-.LFB34
+ 1229 0105 01       		.uleb128 0x1
+ 1230 0106 9C       		.byte	0x9c
+ 1231 0107 36010000 		.4byte	0x136
+ 1232 010b 06       		.uleb128 0x6
+ 1233 010c 10020000 		.4byte	.LASF19
+ 1234 0110 01       		.byte	0x1
+ 1235 0111 1A       		.byte	0x1a
+ 1236 0112 6B000000 		.4byte	0x6b
+ 1237 0116 02       		.uleb128 0x2
+ 1238 0117 91       		.byte	0x91
+ 1239 0118 67       		.sleb128 -25
+ 1240 0119 07       		.uleb128 0x7
+ 1241 011a F4010000 		.4byte	.LASF15
+ 1242 011e 01       		.byte	0x1
+ 1243 011f 1C       		.byte	0x1c
+ 1244 0120 6B000000 		.4byte	0x6b
+ 1245 0124 02       		.uleb128 0x2
+ 1246 0125 91       		.byte	0x91
+ 1247 0126 6F       		.sleb128 -17
+ 1248 0127 07       		.uleb128 0x7
+ 1249 0128 0C010000 		.4byte	.LASF16
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 26
+
+
+ 1250 012c 01       		.byte	0x1
+ 1251 012d 1D       		.byte	0x1d
+ 1252 012e 6B000000 		.4byte	0x6b
+ 1253 0132 02       		.uleb128 0x2
+ 1254 0133 91       		.byte	0x91
+ 1255 0134 6E       		.sleb128 -18
+ 1256 0135 00       		.byte	0
+ 1257 0136 05       		.uleb128 0x5
+ 1258 0137 8B020000 		.4byte	.LASF20
+ 1259 013b 01       		.byte	0x1
+ 1260 013c 23       		.byte	0x23
+ 1261 013d 6B000000 		.4byte	0x6b
+ 1262 0141 00000000 		.4byte	.LFB35
+ 1263 0145 70000000 		.4byte	.LFE35-.LFB35
+ 1264 0149 01       		.uleb128 0x1
+ 1265 014a 9C       		.byte	0x9c
+ 1266 014b 96010000 		.4byte	0x196
+ 1267 014f 06       		.uleb128 0x6
+ 1268 0150 65000000 		.4byte	.LASF21
+ 1269 0154 01       		.byte	0x1
+ 1270 0155 23       		.byte	0x23
+ 1271 0156 6B000000 		.4byte	0x6b
+ 1272 015a 02       		.uleb128 0x2
+ 1273 015b 91       		.byte	0x91
+ 1274 015c 6F       		.sleb128 -17
+ 1275 015d 07       		.uleb128 0x7
+ 1276 015e 53020000 		.4byte	.LASF13
+ 1277 0162 01       		.byte	0x1
+ 1278 0163 25       		.byte	0x25
+ 1279 0164 6B000000 		.4byte	0x6b
+ 1280 0168 02       		.uleb128 0x2
+ 1281 0169 91       		.byte	0x91
+ 1282 016a 77       		.sleb128 -9
+ 1283 016b 07       		.uleb128 0x7
+ 1284 016c 20020000 		.4byte	.LASF14
+ 1285 0170 01       		.byte	0x1
+ 1286 0171 26       		.byte	0x26
+ 1287 0172 6B000000 		.4byte	0x6b
+ 1288 0176 02       		.uleb128 0x2
+ 1289 0177 91       		.byte	0x91
+ 1290 0178 76       		.sleb128 -10
+ 1291 0179 07       		.uleb128 0x7
+ 1292 017a F4010000 		.4byte	.LASF15
+ 1293 017e 01       		.byte	0x1
+ 1294 017f 28       		.byte	0x28
+ 1295 0180 6B000000 		.4byte	0x6b
+ 1296 0184 02       		.uleb128 0x2
+ 1297 0185 91       		.byte	0x91
+ 1298 0186 75       		.sleb128 -11
+ 1299 0187 07       		.uleb128 0x7
+ 1300 0188 0C010000 		.4byte	.LASF16
+ 1301 018c 01       		.byte	0x1
+ 1302 018d 2A       		.byte	0x2a
+ 1303 018e 6B000000 		.4byte	0x6b
+ 1304 0192 02       		.uleb128 0x2
+ 1305 0193 91       		.byte	0x91
+ 1306 0194 74       		.sleb128 -12
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 27
+
+
+ 1307 0195 00       		.byte	0
+ 1308 0196 08       		.uleb128 0x8
+ 1309 0197 3F000000 		.4byte	.LASF22
+ 1310 019b 01       		.byte	0x1
+ 1311 019c 2E       		.byte	0x2e
+ 1312 019d 6B000000 		.4byte	0x6b
+ 1313 01a1 00000000 		.4byte	.LFB36
+ 1314 01a5 58000000 		.4byte	.LFE36-.LFB36
+ 1315 01a9 01       		.uleb128 0x1
+ 1316 01aa 9C       		.byte	0x9c
+ 1317 01ab DA010000 		.4byte	0x1da
+ 1318 01af 06       		.uleb128 0x6
+ 1319 01b0 65000000 		.4byte	.LASF21
+ 1320 01b4 01       		.byte	0x1
+ 1321 01b5 2E       		.byte	0x2e
+ 1322 01b6 6B000000 		.4byte	0x6b
+ 1323 01ba 02       		.uleb128 0x2
+ 1324 01bb 91       		.byte	0x91
+ 1325 01bc 67       		.sleb128 -25
+ 1326 01bd 07       		.uleb128 0x7
+ 1327 01be F4010000 		.4byte	.LASF15
+ 1328 01c2 01       		.byte	0x1
+ 1329 01c3 30       		.byte	0x30
+ 1330 01c4 6B000000 		.4byte	0x6b
+ 1331 01c8 02       		.uleb128 0x2
+ 1332 01c9 91       		.byte	0x91
+ 1333 01ca 6F       		.sleb128 -17
+ 1334 01cb 07       		.uleb128 0x7
+ 1335 01cc 0C010000 		.4byte	.LASF16
+ 1336 01d0 01       		.byte	0x1
+ 1337 01d1 31       		.byte	0x31
+ 1338 01d2 6B000000 		.4byte	0x6b
+ 1339 01d6 02       		.uleb128 0x2
+ 1340 01d7 91       		.byte	0x91
+ 1341 01d8 6E       		.sleb128 -18
+ 1342 01d9 00       		.byte	0
+ 1343 01da 05       		.uleb128 0x5
+ 1344 01db 57000000 		.4byte	.LASF23
+ 1345 01df 01       		.byte	0x1
+ 1346 01e0 37       		.byte	0x37
+ 1347 01e1 6B000000 		.4byte	0x6b
+ 1348 01e5 00000000 		.4byte	.LFB37
+ 1349 01e9 78000000 		.4byte	.LFE37-.LFB37
+ 1350 01ed 01       		.uleb128 0x1
+ 1351 01ee 9C       		.byte	0x9c
+ 1352 01ef 48020000 		.4byte	0x248
+ 1353 01f3 06       		.uleb128 0x6
+ 1354 01f4 37010000 		.4byte	.LASF24
+ 1355 01f8 01       		.byte	0x1
+ 1356 01f9 37       		.byte	0x37
+ 1357 01fa 6B000000 		.4byte	0x6b
+ 1358 01fe 02       		.uleb128 0x2
+ 1359 01ff 91       		.byte	0x91
+ 1360 0200 6F       		.sleb128 -17
+ 1361 0201 07       		.uleb128 0x7
+ 1362 0202 73000000 		.4byte	.LASF25
+ 1363 0206 01       		.byte	0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 28
+
+
+ 1364 0207 39       		.byte	0x39
+ 1365 0208 6B000000 		.4byte	0x6b
+ 1366 020c 02       		.uleb128 0x2
+ 1367 020d 91       		.byte	0x91
+ 1368 020e 77       		.sleb128 -9
+ 1369 020f 07       		.uleb128 0x7
+ 1370 0210 53020000 		.4byte	.LASF13
+ 1371 0214 01       		.byte	0x1
+ 1372 0215 3A       		.byte	0x3a
+ 1373 0216 6B000000 		.4byte	0x6b
+ 1374 021a 02       		.uleb128 0x2
+ 1375 021b 91       		.byte	0x91
+ 1376 021c 76       		.sleb128 -10
+ 1377 021d 07       		.uleb128 0x7
+ 1378 021e 20020000 		.4byte	.LASF14
+ 1379 0222 01       		.byte	0x1
+ 1380 0223 3B       		.byte	0x3b
+ 1381 0224 6B000000 		.4byte	0x6b
+ 1382 0228 02       		.uleb128 0x2
+ 1383 0229 91       		.byte	0x91
+ 1384 022a 75       		.sleb128 -11
+ 1385 022b 07       		.uleb128 0x7
+ 1386 022c F4010000 		.4byte	.LASF15
+ 1387 0230 01       		.byte	0x1
+ 1388 0231 3D       		.byte	0x3d
+ 1389 0232 6B000000 		.4byte	0x6b
+ 1390 0236 02       		.uleb128 0x2
+ 1391 0237 91       		.byte	0x91
+ 1392 0238 74       		.sleb128 -12
+ 1393 0239 07       		.uleb128 0x7
+ 1394 023a 0C010000 		.4byte	.LASF16
+ 1395 023e 01       		.byte	0x1
+ 1396 023f 3F       		.byte	0x3f
+ 1397 0240 6B000000 		.4byte	0x6b
+ 1398 0244 02       		.uleb128 0x2
+ 1399 0245 91       		.byte	0x91
+ 1400 0246 73       		.sleb128 -13
+ 1401 0247 00       		.byte	0
+ 1402 0248 05       		.uleb128 0x5
+ 1403 0249 90010000 		.4byte	.LASF26
+ 1404 024d 01       		.byte	0x1
+ 1405 024e 4C       		.byte	0x4c
+ 1406 024f 6B000000 		.4byte	0x6b
+ 1407 0253 00000000 		.4byte	.LFB38
+ 1408 0257 70000000 		.4byte	.LFE38-.LFB38
+ 1409 025b 01       		.uleb128 0x1
+ 1410 025c 9C       		.byte	0x9c
+ 1411 025d A8020000 		.4byte	0x2a8
+ 1412 0261 06       		.uleb128 0x6
+ 1413 0262 37010000 		.4byte	.LASF24
+ 1414 0266 01       		.byte	0x1
+ 1415 0267 4C       		.byte	0x4c
+ 1416 0268 6B000000 		.4byte	0x6b
+ 1417 026c 02       		.uleb128 0x2
+ 1418 026d 91       		.byte	0x91
+ 1419 026e 6F       		.sleb128 -17
+ 1420 026f 07       		.uleb128 0x7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 29
+
+
+ 1421 0270 53020000 		.4byte	.LASF13
+ 1422 0274 01       		.byte	0x1
+ 1423 0275 4E       		.byte	0x4e
+ 1424 0276 6B000000 		.4byte	0x6b
+ 1425 027a 02       		.uleb128 0x2
+ 1426 027b 91       		.byte	0x91
+ 1427 027c 77       		.sleb128 -9
+ 1428 027d 07       		.uleb128 0x7
+ 1429 027e 20020000 		.4byte	.LASF14
+ 1430 0282 01       		.byte	0x1
+ 1431 0283 4F       		.byte	0x4f
+ 1432 0284 6B000000 		.4byte	0x6b
+ 1433 0288 02       		.uleb128 0x2
+ 1434 0289 91       		.byte	0x91
+ 1435 028a 76       		.sleb128 -10
+ 1436 028b 07       		.uleb128 0x7
+ 1437 028c F4010000 		.4byte	.LASF15
+ 1438 0290 01       		.byte	0x1
+ 1439 0291 51       		.byte	0x51
+ 1440 0292 6B000000 		.4byte	0x6b
+ 1441 0296 02       		.uleb128 0x2
+ 1442 0297 91       		.byte	0x91
+ 1443 0298 75       		.sleb128 -11
+ 1444 0299 07       		.uleb128 0x7
+ 1445 029a 0C010000 		.4byte	.LASF16
+ 1446 029e 01       		.byte	0x1
+ 1447 029f 53       		.byte	0x53
+ 1448 02a0 6B000000 		.4byte	0x6b
+ 1449 02a4 02       		.uleb128 0x2
+ 1450 02a5 91       		.byte	0x91
+ 1451 02a6 74       		.sleb128 -12
+ 1452 02a7 00       		.byte	0
+ 1453 02a8 08       		.uleb128 0x8
+ 1454 02a9 29010000 		.4byte	.LASF27
+ 1455 02ad 01       		.byte	0x1
+ 1456 02ae 58       		.byte	0x58
+ 1457 02af 6B000000 		.4byte	0x6b
+ 1458 02b3 00000000 		.4byte	.LFB39
+ 1459 02b7 6A000000 		.4byte	.LFE39-.LFB39
+ 1460 02bb 01       		.uleb128 0x1
+ 1461 02bc 9C       		.byte	0x9c
+ 1462 02bd FA020000 		.4byte	0x2fa
+ 1463 02c1 06       		.uleb128 0x6
+ 1464 02c2 37010000 		.4byte	.LASF24
+ 1465 02c6 01       		.byte	0x1
+ 1466 02c7 58       		.byte	0x58
+ 1467 02c8 6B000000 		.4byte	0x6b
+ 1468 02cc 02       		.uleb128 0x2
+ 1469 02cd 91       		.byte	0x91
+ 1470 02ce 67       		.sleb128 -25
+ 1471 02cf 07       		.uleb128 0x7
+ 1472 02d0 F4010000 		.4byte	.LASF15
+ 1473 02d4 01       		.byte	0x1
+ 1474 02d5 5A       		.byte	0x5a
+ 1475 02d6 6B000000 		.4byte	0x6b
+ 1476 02da 02       		.uleb128 0x2
+ 1477 02db 91       		.byte	0x91
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 30
+
+
+ 1478 02dc 6F       		.sleb128 -17
+ 1479 02dd 07       		.uleb128 0x7
+ 1480 02de 0C010000 		.4byte	.LASF16
+ 1481 02e2 01       		.byte	0x1
+ 1482 02e3 5B       		.byte	0x5b
+ 1483 02e4 6B000000 		.4byte	0x6b
+ 1484 02e8 02       		.uleb128 0x2
+ 1485 02e9 91       		.byte	0x91
+ 1486 02ea 6E       		.sleb128 -18
+ 1487 02eb 07       		.uleb128 0x7
+ 1488 02ec 4C020000 		.4byte	.LASF28
+ 1489 02f0 01       		.byte	0x1
+ 1490 02f1 5F       		.byte	0x5f
+ 1491 02f2 6B000000 		.4byte	0x6b
+ 1492 02f6 02       		.uleb128 0x2
+ 1493 02f7 91       		.byte	0x91
+ 1494 02f8 6D       		.sleb128 -19
+ 1495 02f9 00       		.byte	0
+ 1496 02fa 05       		.uleb128 0x5
+ 1497 02fb 37020000 		.4byte	.LASF29
+ 1498 02ff 01       		.byte	0x1
+ 1499 0300 65       		.byte	0x65
+ 1500 0301 6B000000 		.4byte	0x6b
+ 1501 0305 00000000 		.4byte	.LFB40
+ 1502 0309 70000000 		.4byte	.LFE40-.LFB40
+ 1503 030d 01       		.uleb128 0x1
+ 1504 030e 9C       		.byte	0x9c
+ 1505 030f 5A030000 		.4byte	0x35a
+ 1506 0313 06       		.uleb128 0x6
+ 1507 0314 17000000 		.4byte	.LASF30
+ 1508 0318 01       		.byte	0x1
+ 1509 0319 65       		.byte	0x65
+ 1510 031a 6B000000 		.4byte	0x6b
+ 1511 031e 02       		.uleb128 0x2
+ 1512 031f 91       		.byte	0x91
+ 1513 0320 6F       		.sleb128 -17
+ 1514 0321 07       		.uleb128 0x7
+ 1515 0322 53020000 		.4byte	.LASF13
+ 1516 0326 01       		.byte	0x1
+ 1517 0327 67       		.byte	0x67
+ 1518 0328 6B000000 		.4byte	0x6b
+ 1519 032c 02       		.uleb128 0x2
+ 1520 032d 91       		.byte	0x91
+ 1521 032e 77       		.sleb128 -9
+ 1522 032f 07       		.uleb128 0x7
+ 1523 0330 20020000 		.4byte	.LASF14
+ 1524 0334 01       		.byte	0x1
+ 1525 0335 68       		.byte	0x68
+ 1526 0336 6B000000 		.4byte	0x6b
+ 1527 033a 02       		.uleb128 0x2
+ 1528 033b 91       		.byte	0x91
+ 1529 033c 76       		.sleb128 -10
+ 1530 033d 07       		.uleb128 0x7
+ 1531 033e F4010000 		.4byte	.LASF15
+ 1532 0342 01       		.byte	0x1
+ 1533 0343 6A       		.byte	0x6a
+ 1534 0344 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 31
+
+
+ 1535 0348 02       		.uleb128 0x2
+ 1536 0349 91       		.byte	0x91
+ 1537 034a 75       		.sleb128 -11
+ 1538 034b 07       		.uleb128 0x7
+ 1539 034c 0C010000 		.4byte	.LASF16
+ 1540 0350 01       		.byte	0x1
+ 1541 0351 6C       		.byte	0x6c
+ 1542 0352 6B000000 		.4byte	0x6b
+ 1543 0356 02       		.uleb128 0x2
+ 1544 0357 91       		.byte	0x91
+ 1545 0358 74       		.sleb128 -12
+ 1546 0359 00       		.byte	0
+ 1547 035a 08       		.uleb128 0x8
+ 1548 035b 1C000000 		.4byte	.LASF31
+ 1549 035f 01       		.byte	0x1
+ 1550 0360 71       		.byte	0x71
+ 1551 0361 6B000000 		.4byte	0x6b
+ 1552 0365 00000000 		.4byte	.LFB41
+ 1553 0369 58000000 		.4byte	.LFE41-.LFB41
+ 1554 036d 01       		.uleb128 0x1
+ 1555 036e 9C       		.byte	0x9c
+ 1556 036f 9E030000 		.4byte	0x39e
+ 1557 0373 06       		.uleb128 0x6
+ 1558 0374 17000000 		.4byte	.LASF30
+ 1559 0378 01       		.byte	0x1
+ 1560 0379 71       		.byte	0x71
+ 1561 037a 6B000000 		.4byte	0x6b
+ 1562 037e 02       		.uleb128 0x2
+ 1563 037f 91       		.byte	0x91
+ 1564 0380 67       		.sleb128 -25
+ 1565 0381 07       		.uleb128 0x7
+ 1566 0382 F4010000 		.4byte	.LASF15
+ 1567 0386 01       		.byte	0x1
+ 1568 0387 73       		.byte	0x73
+ 1569 0388 6B000000 		.4byte	0x6b
+ 1570 038c 02       		.uleb128 0x2
+ 1571 038d 91       		.byte	0x91
+ 1572 038e 6F       		.sleb128 -17
+ 1573 038f 07       		.uleb128 0x7
+ 1574 0390 0C010000 		.4byte	.LASF16
+ 1575 0394 01       		.byte	0x1
+ 1576 0395 74       		.byte	0x74
+ 1577 0396 6B000000 		.4byte	0x6b
+ 1578 039a 02       		.uleb128 0x2
+ 1579 039b 91       		.byte	0x91
+ 1580 039c 6E       		.sleb128 -18
+ 1581 039d 00       		.byte	0
+ 1582 039e 05       		.uleb128 0x5
+ 1583 039f 29020000 		.4byte	.LASF32
+ 1584 03a3 01       		.byte	0x1
+ 1585 03a4 7A       		.byte	0x7a
+ 1586 03a5 6B000000 		.4byte	0x6b
+ 1587 03a9 00000000 		.4byte	.LFB42
+ 1588 03ad 34000000 		.4byte	.LFE42-.LFB42
+ 1589 03b1 01       		.uleb128 0x1
+ 1590 03b2 9C       		.byte	0x9c
+ 1591 03b3 E2030000 		.4byte	0x3e2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 32
+
+
+ 1592 03b7 06       		.uleb128 0x6
+ 1593 03b8 18020000 		.4byte	.LASF33
+ 1594 03bc 01       		.byte	0x1
+ 1595 03bd 7A       		.byte	0x7a
+ 1596 03be 6B000000 		.4byte	0x6b
+ 1597 03c2 02       		.uleb128 0x2
+ 1598 03c3 91       		.byte	0x91
+ 1599 03c4 6F       		.sleb128 -17
+ 1600 03c5 07       		.uleb128 0x7
+ 1601 03c6 20020000 		.4byte	.LASF14
+ 1602 03ca 01       		.byte	0x1
+ 1603 03cb 7C       		.byte	0x7c
+ 1604 03cc 6B000000 		.4byte	0x6b
+ 1605 03d0 02       		.uleb128 0x2
+ 1606 03d1 91       		.byte	0x91
+ 1607 03d2 77       		.sleb128 -9
+ 1608 03d3 07       		.uleb128 0x7
+ 1609 03d4 0C010000 		.4byte	.LASF16
+ 1610 03d8 01       		.byte	0x1
+ 1611 03d9 7E       		.byte	0x7e
+ 1612 03da 6B000000 		.4byte	0x6b
+ 1613 03de 02       		.uleb128 0x2
+ 1614 03df 91       		.byte	0x91
+ 1615 03e0 76       		.sleb128 -10
+ 1616 03e1 00       		.byte	0
+ 1617 03e2 05       		.uleb128 0x5
+ 1618 03e3 49000000 		.4byte	.LASF34
+ 1619 03e7 01       		.byte	0x1
+ 1620 03e8 83       		.byte	0x83
+ 1621 03e9 6B000000 		.4byte	0x6b
+ 1622 03ed 00000000 		.4byte	.LFB43
+ 1623 03f1 18000000 		.4byte	.LFE43-.LFB43
+ 1624 03f5 01       		.uleb128 0x1
+ 1625 03f6 9C       		.byte	0x9c
+ 1626 03f7 0A040000 		.4byte	0x40a
+ 1627 03fb 06       		.uleb128 0x6
+ 1628 03fc 18020000 		.4byte	.LASF33
+ 1629 0400 01       		.byte	0x1
+ 1630 0401 83       		.byte	0x83
+ 1631 0402 6B000000 		.4byte	0x6b
+ 1632 0406 02       		.uleb128 0x2
+ 1633 0407 91       		.byte	0x91
+ 1634 0408 77       		.sleb128 -9
+ 1635 0409 00       		.byte	0
+ 1636 040a 05       		.uleb128 0x5
+ 1637 040b 00000000 		.4byte	.LASF35
+ 1638 040f 01       		.byte	0x1
+ 1639 0410 89       		.byte	0x89
+ 1640 0411 6B000000 		.4byte	0x6b
+ 1641 0415 00000000 		.4byte	.LFB44
+ 1642 0419 70000000 		.4byte	.LFE44-.LFB44
+ 1643 041d 01       		.uleb128 0x1
+ 1644 041e 9C       		.byte	0x9c
+ 1645 041f 6A040000 		.4byte	0x46a
+ 1646 0423 06       		.uleb128 0x6
+ 1647 0424 6D000000 		.4byte	.LASF36
+ 1648 0428 01       		.byte	0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 33
+
+
+ 1649 0429 89       		.byte	0x89
+ 1650 042a 6B000000 		.4byte	0x6b
+ 1651 042e 02       		.uleb128 0x2
+ 1652 042f 91       		.byte	0x91
+ 1653 0430 6F       		.sleb128 -17
+ 1654 0431 07       		.uleb128 0x7
+ 1655 0432 53020000 		.4byte	.LASF13
+ 1656 0436 01       		.byte	0x1
+ 1657 0437 8B       		.byte	0x8b
+ 1658 0438 6B000000 		.4byte	0x6b
+ 1659 043c 02       		.uleb128 0x2
+ 1660 043d 91       		.byte	0x91
+ 1661 043e 77       		.sleb128 -9
+ 1662 043f 07       		.uleb128 0x7
+ 1663 0440 20020000 		.4byte	.LASF14
+ 1664 0444 01       		.byte	0x1
+ 1665 0445 8C       		.byte	0x8c
+ 1666 0446 6B000000 		.4byte	0x6b
+ 1667 044a 02       		.uleb128 0x2
+ 1668 044b 91       		.byte	0x91
+ 1669 044c 76       		.sleb128 -10
+ 1670 044d 07       		.uleb128 0x7
+ 1671 044e F4010000 		.4byte	.LASF15
+ 1672 0452 01       		.byte	0x1
+ 1673 0453 8E       		.byte	0x8e
+ 1674 0454 6B000000 		.4byte	0x6b
+ 1675 0458 02       		.uleb128 0x2
+ 1676 0459 91       		.byte	0x91
+ 1677 045a 75       		.sleb128 -11
+ 1678 045b 07       		.uleb128 0x7
+ 1679 045c 0C010000 		.4byte	.LASF16
+ 1680 0460 01       		.byte	0x1
+ 1681 0461 90       		.byte	0x90
+ 1682 0462 6B000000 		.4byte	0x6b
+ 1683 0466 02       		.uleb128 0x2
+ 1684 0467 91       		.byte	0x91
+ 1685 0468 74       		.sleb128 -12
+ 1686 0469 00       		.byte	0
+ 1687 046a 08       		.uleb128 0x8
+ 1688 046b 44010000 		.4byte	.LASF37
+ 1689 046f 01       		.byte	0x1
+ 1690 0470 95       		.byte	0x95
+ 1691 0471 6B000000 		.4byte	0x6b
+ 1692 0475 00000000 		.4byte	.LFB45
+ 1693 0479 58000000 		.4byte	.LFE45-.LFB45
+ 1694 047d 01       		.uleb128 0x1
+ 1695 047e 9C       		.byte	0x9c
+ 1696 047f AE040000 		.4byte	0x4ae
+ 1697 0483 06       		.uleb128 0x6
+ 1698 0484 6D000000 		.4byte	.LASF36
+ 1699 0488 01       		.byte	0x1
+ 1700 0489 95       		.byte	0x95
+ 1701 048a 6B000000 		.4byte	0x6b
+ 1702 048e 02       		.uleb128 0x2
+ 1703 048f 91       		.byte	0x91
+ 1704 0490 67       		.sleb128 -25
+ 1705 0491 07       		.uleb128 0x7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 34
+
+
+ 1706 0492 F4010000 		.4byte	.LASF15
+ 1707 0496 01       		.byte	0x1
+ 1708 0497 97       		.byte	0x97
+ 1709 0498 6B000000 		.4byte	0x6b
+ 1710 049c 02       		.uleb128 0x2
+ 1711 049d 91       		.byte	0x91
+ 1712 049e 6F       		.sleb128 -17
+ 1713 049f 07       		.uleb128 0x7
+ 1714 04a0 0C010000 		.4byte	.LASF16
+ 1715 04a4 01       		.byte	0x1
+ 1716 04a5 98       		.byte	0x98
+ 1717 04a6 6B000000 		.4byte	0x6b
+ 1718 04aa 02       		.uleb128 0x2
+ 1719 04ab 91       		.byte	0x91
+ 1720 04ac 6E       		.sleb128 -18
+ 1721 04ad 00       		.byte	0
+ 1722 04ae 05       		.uleb128 0x5
+ 1723 04af 80020000 		.4byte	.LASF38
+ 1724 04b3 01       		.byte	0x1
+ 1725 04b4 9E       		.byte	0x9e
+ 1726 04b5 6B000000 		.4byte	0x6b
+ 1727 04b9 00000000 		.4byte	.LFB46
+ 1728 04bd 70000000 		.4byte	.LFE46-.LFB46
+ 1729 04c1 01       		.uleb128 0x1
+ 1730 04c2 9C       		.byte	0x9c
+ 1731 04c3 0E050000 		.4byte	0x50e
+ 1732 04c7 06       		.uleb128 0x6
+ 1733 04c8 27000000 		.4byte	.LASF39
+ 1734 04cc 01       		.byte	0x1
+ 1735 04cd 9E       		.byte	0x9e
+ 1736 04ce 6B000000 		.4byte	0x6b
+ 1737 04d2 02       		.uleb128 0x2
+ 1738 04d3 91       		.byte	0x91
+ 1739 04d4 6F       		.sleb128 -17
+ 1740 04d5 07       		.uleb128 0x7
+ 1741 04d6 53020000 		.4byte	.LASF13
+ 1742 04da 01       		.byte	0x1
+ 1743 04db A0       		.byte	0xa0
+ 1744 04dc 6B000000 		.4byte	0x6b
+ 1745 04e0 02       		.uleb128 0x2
+ 1746 04e1 91       		.byte	0x91
+ 1747 04e2 77       		.sleb128 -9
+ 1748 04e3 07       		.uleb128 0x7
+ 1749 04e4 20020000 		.4byte	.LASF14
+ 1750 04e8 01       		.byte	0x1
+ 1751 04e9 A1       		.byte	0xa1
+ 1752 04ea 6B000000 		.4byte	0x6b
+ 1753 04ee 02       		.uleb128 0x2
+ 1754 04ef 91       		.byte	0x91
+ 1755 04f0 76       		.sleb128 -10
+ 1756 04f1 07       		.uleb128 0x7
+ 1757 04f2 F4010000 		.4byte	.LASF15
+ 1758 04f6 01       		.byte	0x1
+ 1759 04f7 A3       		.byte	0xa3
+ 1760 04f8 6B000000 		.4byte	0x6b
+ 1761 04fc 02       		.uleb128 0x2
+ 1762 04fd 91       		.byte	0x91
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 35
+
+
+ 1763 04fe 75       		.sleb128 -11
+ 1764 04ff 07       		.uleb128 0x7
+ 1765 0500 0C010000 		.4byte	.LASF16
+ 1766 0504 01       		.byte	0x1
+ 1767 0505 A5       		.byte	0xa5
+ 1768 0506 6B000000 		.4byte	0x6b
+ 1769 050a 02       		.uleb128 0x2
+ 1770 050b 91       		.byte	0x91
+ 1771 050c 74       		.sleb128 -12
+ 1772 050d 00       		.byte	0
+ 1773 050e 09       		.uleb128 0x9
+ 1774 050f 0C000000 		.4byte	.LASF44
+ 1775 0513 01       		.byte	0x1
+ 1776 0514 A9       		.byte	0xa9
+ 1777 0515 6B000000 		.4byte	0x6b
+ 1778 0519 00000000 		.4byte	.LFB47
+ 1779 051d 58000000 		.4byte	.LFE47-.LFB47
+ 1780 0521 01       		.uleb128 0x1
+ 1781 0522 9C       		.byte	0x9c
+ 1782 0523 06       		.uleb128 0x6
+ 1783 0524 27000000 		.4byte	.LASF39
+ 1784 0528 01       		.byte	0x1
+ 1785 0529 A9       		.byte	0xa9
+ 1786 052a 6B000000 		.4byte	0x6b
+ 1787 052e 02       		.uleb128 0x2
+ 1788 052f 91       		.byte	0x91
+ 1789 0530 67       		.sleb128 -25
+ 1790 0531 07       		.uleb128 0x7
+ 1791 0532 F4010000 		.4byte	.LASF15
+ 1792 0536 01       		.byte	0x1
+ 1793 0537 AB       		.byte	0xab
+ 1794 0538 6B000000 		.4byte	0x6b
+ 1795 053c 02       		.uleb128 0x2
+ 1796 053d 91       		.byte	0x91
+ 1797 053e 6F       		.sleb128 -17
+ 1798 053f 07       		.uleb128 0x7
+ 1799 0540 0C010000 		.4byte	.LASF16
+ 1800 0544 01       		.byte	0x1
+ 1801 0545 AC       		.byte	0xac
+ 1802 0546 6B000000 		.4byte	0x6b
+ 1803 054a 02       		.uleb128 0x2
+ 1804 054b 91       		.byte	0x91
+ 1805 054c 6E       		.sleb128 -18
+ 1806 054d 00       		.byte	0
+ 1807 054e 00       		.byte	0
+ 1808              		.section	.debug_abbrev,"",%progbits
+ 1809              	.Ldebug_abbrev0:
+ 1810 0000 01       		.uleb128 0x1
+ 1811 0001 11       		.uleb128 0x11
+ 1812 0002 01       		.byte	0x1
+ 1813 0003 25       		.uleb128 0x25
+ 1814 0004 0E       		.uleb128 0xe
+ 1815 0005 13       		.uleb128 0x13
+ 1816 0006 0B       		.uleb128 0xb
+ 1817 0007 03       		.uleb128 0x3
+ 1818 0008 0E       		.uleb128 0xe
+ 1819 0009 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 36
+
+
+ 1820 000a 0E       		.uleb128 0xe
+ 1821 000b 55       		.uleb128 0x55
+ 1822 000c 17       		.uleb128 0x17
+ 1823 000d 11       		.uleb128 0x11
+ 1824 000e 01       		.uleb128 0x1
+ 1825 000f 10       		.uleb128 0x10
+ 1826 0010 17       		.uleb128 0x17
+ 1827 0011 00       		.byte	0
+ 1828 0012 00       		.byte	0
+ 1829 0013 02       		.uleb128 0x2
+ 1830 0014 24       		.uleb128 0x24
+ 1831 0015 00       		.byte	0
+ 1832 0016 0B       		.uleb128 0xb
+ 1833 0017 0B       		.uleb128 0xb
+ 1834 0018 3E       		.uleb128 0x3e
+ 1835 0019 0B       		.uleb128 0xb
+ 1836 001a 03       		.uleb128 0x3
+ 1837 001b 0E       		.uleb128 0xe
+ 1838 001c 00       		.byte	0
+ 1839 001d 00       		.byte	0
+ 1840 001e 03       		.uleb128 0x3
+ 1841 001f 24       		.uleb128 0x24
+ 1842 0020 00       		.byte	0
+ 1843 0021 0B       		.uleb128 0xb
+ 1844 0022 0B       		.uleb128 0xb
+ 1845 0023 3E       		.uleb128 0x3e
+ 1846 0024 0B       		.uleb128 0xb
+ 1847 0025 03       		.uleb128 0x3
+ 1848 0026 08       		.uleb128 0x8
+ 1849 0027 00       		.byte	0
+ 1850 0028 00       		.byte	0
+ 1851 0029 04       		.uleb128 0x4
+ 1852 002a 16       		.uleb128 0x16
+ 1853 002b 00       		.byte	0
+ 1854 002c 03       		.uleb128 0x3
+ 1855 002d 0E       		.uleb128 0xe
+ 1856 002e 3A       		.uleb128 0x3a
+ 1857 002f 0B       		.uleb128 0xb
+ 1858 0030 3B       		.uleb128 0x3b
+ 1859 0031 0B       		.uleb128 0xb
+ 1860 0032 49       		.uleb128 0x49
+ 1861 0033 13       		.uleb128 0x13
+ 1862 0034 00       		.byte	0
+ 1863 0035 00       		.byte	0
+ 1864 0036 05       		.uleb128 0x5
+ 1865 0037 2E       		.uleb128 0x2e
+ 1866 0038 01       		.byte	0x1
+ 1867 0039 3F       		.uleb128 0x3f
+ 1868 003a 19       		.uleb128 0x19
+ 1869 003b 03       		.uleb128 0x3
+ 1870 003c 0E       		.uleb128 0xe
+ 1871 003d 3A       		.uleb128 0x3a
+ 1872 003e 0B       		.uleb128 0xb
+ 1873 003f 3B       		.uleb128 0x3b
+ 1874 0040 0B       		.uleb128 0xb
+ 1875 0041 27       		.uleb128 0x27
+ 1876 0042 19       		.uleb128 0x19
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 37
+
+
+ 1877 0043 49       		.uleb128 0x49
+ 1878 0044 13       		.uleb128 0x13
+ 1879 0045 11       		.uleb128 0x11
+ 1880 0046 01       		.uleb128 0x1
+ 1881 0047 12       		.uleb128 0x12
+ 1882 0048 06       		.uleb128 0x6
+ 1883 0049 40       		.uleb128 0x40
+ 1884 004a 18       		.uleb128 0x18
+ 1885 004b 9742     		.uleb128 0x2117
+ 1886 004d 19       		.uleb128 0x19
+ 1887 004e 01       		.uleb128 0x1
+ 1888 004f 13       		.uleb128 0x13
+ 1889 0050 00       		.byte	0
+ 1890 0051 00       		.byte	0
+ 1891 0052 06       		.uleb128 0x6
+ 1892 0053 05       		.uleb128 0x5
+ 1893 0054 00       		.byte	0
+ 1894 0055 03       		.uleb128 0x3
+ 1895 0056 0E       		.uleb128 0xe
+ 1896 0057 3A       		.uleb128 0x3a
+ 1897 0058 0B       		.uleb128 0xb
+ 1898 0059 3B       		.uleb128 0x3b
+ 1899 005a 0B       		.uleb128 0xb
+ 1900 005b 49       		.uleb128 0x49
+ 1901 005c 13       		.uleb128 0x13
+ 1902 005d 02       		.uleb128 0x2
+ 1903 005e 18       		.uleb128 0x18
+ 1904 005f 00       		.byte	0
+ 1905 0060 00       		.byte	0
+ 1906 0061 07       		.uleb128 0x7
+ 1907 0062 34       		.uleb128 0x34
+ 1908 0063 00       		.byte	0
+ 1909 0064 03       		.uleb128 0x3
+ 1910 0065 0E       		.uleb128 0xe
+ 1911 0066 3A       		.uleb128 0x3a
+ 1912 0067 0B       		.uleb128 0xb
+ 1913 0068 3B       		.uleb128 0x3b
+ 1914 0069 0B       		.uleb128 0xb
+ 1915 006a 49       		.uleb128 0x49
+ 1916 006b 13       		.uleb128 0x13
+ 1917 006c 02       		.uleb128 0x2
+ 1918 006d 18       		.uleb128 0x18
+ 1919 006e 00       		.byte	0
+ 1920 006f 00       		.byte	0
+ 1921 0070 08       		.uleb128 0x8
+ 1922 0071 2E       		.uleb128 0x2e
+ 1923 0072 01       		.byte	0x1
+ 1924 0073 3F       		.uleb128 0x3f
+ 1925 0074 19       		.uleb128 0x19
+ 1926 0075 03       		.uleb128 0x3
+ 1927 0076 0E       		.uleb128 0xe
+ 1928 0077 3A       		.uleb128 0x3a
+ 1929 0078 0B       		.uleb128 0xb
+ 1930 0079 3B       		.uleb128 0x3b
+ 1931 007a 0B       		.uleb128 0xb
+ 1932 007b 27       		.uleb128 0x27
+ 1933 007c 19       		.uleb128 0x19
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 38
+
+
+ 1934 007d 49       		.uleb128 0x49
+ 1935 007e 13       		.uleb128 0x13
+ 1936 007f 11       		.uleb128 0x11
+ 1937 0080 01       		.uleb128 0x1
+ 1938 0081 12       		.uleb128 0x12
+ 1939 0082 06       		.uleb128 0x6
+ 1940 0083 40       		.uleb128 0x40
+ 1941 0084 18       		.uleb128 0x18
+ 1942 0085 9642     		.uleb128 0x2116
+ 1943 0087 19       		.uleb128 0x19
+ 1944 0088 01       		.uleb128 0x1
+ 1945 0089 13       		.uleb128 0x13
+ 1946 008a 00       		.byte	0
+ 1947 008b 00       		.byte	0
+ 1948 008c 09       		.uleb128 0x9
+ 1949 008d 2E       		.uleb128 0x2e
+ 1950 008e 01       		.byte	0x1
+ 1951 008f 3F       		.uleb128 0x3f
+ 1952 0090 19       		.uleb128 0x19
+ 1953 0091 03       		.uleb128 0x3
+ 1954 0092 0E       		.uleb128 0xe
+ 1955 0093 3A       		.uleb128 0x3a
+ 1956 0094 0B       		.uleb128 0xb
+ 1957 0095 3B       		.uleb128 0x3b
+ 1958 0096 0B       		.uleb128 0xb
+ 1959 0097 27       		.uleb128 0x27
+ 1960 0098 19       		.uleb128 0x19
+ 1961 0099 49       		.uleb128 0x49
+ 1962 009a 13       		.uleb128 0x13
+ 1963 009b 11       		.uleb128 0x11
+ 1964 009c 01       		.uleb128 0x1
+ 1965 009d 12       		.uleb128 0x12
+ 1966 009e 06       		.uleb128 0x6
+ 1967 009f 40       		.uleb128 0x40
+ 1968 00a0 18       		.uleb128 0x18
+ 1969 00a1 9642     		.uleb128 0x2116
+ 1970 00a3 19       		.uleb128 0x19
+ 1971 00a4 00       		.byte	0
+ 1972 00a5 00       		.byte	0
+ 1973 00a6 00       		.byte	0
+ 1974              		.section	.debug_aranges,"",%progbits
+ 1975 0000 8C000000 		.4byte	0x8c
+ 1976 0004 0200     		.2byte	0x2
+ 1977 0006 00000000 		.4byte	.Ldebug_info0
+ 1978 000a 04       		.byte	0x4
+ 1979 000b 00       		.byte	0
+ 1980 000c 0000     		.2byte	0
+ 1981 000e 0000     		.2byte	0
+ 1982 0010 00000000 		.4byte	.LFB33
+ 1983 0014 70000000 		.4byte	.LFE33-.LFB33
+ 1984 0018 00000000 		.4byte	.LFB34
+ 1985 001c 58000000 		.4byte	.LFE34-.LFB34
+ 1986 0020 00000000 		.4byte	.LFB35
+ 1987 0024 70000000 		.4byte	.LFE35-.LFB35
+ 1988 0028 00000000 		.4byte	.LFB36
+ 1989 002c 58000000 		.4byte	.LFE36-.LFB36
+ 1990 0030 00000000 		.4byte	.LFB37
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 39
+
+
+ 1991 0034 78000000 		.4byte	.LFE37-.LFB37
+ 1992 0038 00000000 		.4byte	.LFB38
+ 1993 003c 70000000 		.4byte	.LFE38-.LFB38
+ 1994 0040 00000000 		.4byte	.LFB39
+ 1995 0044 6A000000 		.4byte	.LFE39-.LFB39
+ 1996 0048 00000000 		.4byte	.LFB40
+ 1997 004c 70000000 		.4byte	.LFE40-.LFB40
+ 1998 0050 00000000 		.4byte	.LFB41
+ 1999 0054 58000000 		.4byte	.LFE41-.LFB41
+ 2000 0058 00000000 		.4byte	.LFB42
+ 2001 005c 34000000 		.4byte	.LFE42-.LFB42
+ 2002 0060 00000000 		.4byte	.LFB43
+ 2003 0064 18000000 		.4byte	.LFE43-.LFB43
+ 2004 0068 00000000 		.4byte	.LFB44
+ 2005 006c 70000000 		.4byte	.LFE44-.LFB44
+ 2006 0070 00000000 		.4byte	.LFB45
+ 2007 0074 58000000 		.4byte	.LFE45-.LFB45
+ 2008 0078 00000000 		.4byte	.LFB46
+ 2009 007c 70000000 		.4byte	.LFE46-.LFB46
+ 2010 0080 00000000 		.4byte	.LFB47
+ 2011 0084 58000000 		.4byte	.LFE47-.LFB47
+ 2012 0088 00000000 		.4byte	0
+ 2013 008c 00000000 		.4byte	0
+ 2014              		.section	.debug_ranges,"",%progbits
+ 2015              	.Ldebug_ranges0:
+ 2016 0000 00000000 		.4byte	.LFB33
+ 2017 0004 70000000 		.4byte	.LFE33
+ 2018 0008 00000000 		.4byte	.LFB34
+ 2019 000c 58000000 		.4byte	.LFE34
+ 2020 0010 00000000 		.4byte	.LFB35
+ 2021 0014 70000000 		.4byte	.LFE35
+ 2022 0018 00000000 		.4byte	.LFB36
+ 2023 001c 58000000 		.4byte	.LFE36
+ 2024 0020 00000000 		.4byte	.LFB37
+ 2025 0024 78000000 		.4byte	.LFE37
+ 2026 0028 00000000 		.4byte	.LFB38
+ 2027 002c 70000000 		.4byte	.LFE38
+ 2028 0030 00000000 		.4byte	.LFB39
+ 2029 0034 6A000000 		.4byte	.LFE39
+ 2030 0038 00000000 		.4byte	.LFB40
+ 2031 003c 70000000 		.4byte	.LFE40
+ 2032 0040 00000000 		.4byte	.LFB41
+ 2033 0044 58000000 		.4byte	.LFE41
+ 2034 0048 00000000 		.4byte	.LFB42
+ 2035 004c 34000000 		.4byte	.LFE42
+ 2036 0050 00000000 		.4byte	.LFB43
+ 2037 0054 18000000 		.4byte	.LFE43
+ 2038 0058 00000000 		.4byte	.LFB44
+ 2039 005c 70000000 		.4byte	.LFE44
+ 2040 0060 00000000 		.4byte	.LFB45
+ 2041 0064 58000000 		.4byte	.LFE45
+ 2042 0068 00000000 		.4byte	.LFB46
+ 2043 006c 70000000 		.4byte	.LFE46
+ 2044 0070 00000000 		.4byte	.LFB47
+ 2045 0074 58000000 		.4byte	.LFE47
+ 2046 0078 00000000 		.4byte	0
+ 2047 007c 00000000 		.4byte	0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 40
+
+
+ 2048              		.section	.debug_line,"",%progbits
+ 2049              	.Ldebug_line0:
+ 2050 0000 93010000 		.section	.debug_str,"MS",%progbits,1
+ 2050      02004E00 
+ 2050      00000201 
+ 2050      FB0E0D00 
+ 2050      01010101 
+ 2051              	.LASF35:
+ 2052 0000 6465636F 		.ascii	"decodeMonth\000"
+ 2052      64654D6F 
+ 2052      6E746800 
+ 2053              	.LASF44:
+ 2054 000c 656E636F 		.ascii	"encodeYear\000"
+ 2054      64655965 
+ 2054      617200
+ 2055              	.LASF30:
+ 2056 0017 64617973 		.ascii	"days\000"
+ 2056      00
+ 2057              	.LASF31:
+ 2058 001c 656E636F 		.ascii	"encodeDays\000"
+ 2058      64654461 
+ 2058      797300
+ 2059              	.LASF39:
+ 2060 0027 79656172 		.ascii	"year\000"
+ 2060      00
+ 2061              	.LASF3:
+ 2062 002c 73686F72 		.ascii	"short unsigned int\000"
+ 2062      7420756E 
+ 2062      7369676E 
+ 2062      65642069 
+ 2062      6E7400
+ 2063              	.LASF22:
+ 2064 003f 656E636F 		.ascii	"encodeMin\000"
+ 2064      64654D69 
+ 2064      6E00
+ 2065              	.LASF34:
+ 2066 0049 656E636F 		.ascii	"encodeWeekDay\000"
+ 2066      64655765 
+ 2066      656B4461 
+ 2066      7900
+ 2067              	.LASF23:
+ 2068 0057 6465636F 		.ascii	"decodeHours12\000"
+ 2068      6465486F 
+ 2068      75727331 
+ 2068      3200
+ 2069              	.LASF21:
+ 2070 0065 6D696E75 		.ascii	"minutes\000"
+ 2070      74657300 
+ 2071              	.LASF36:
+ 2072 006d 6D6F6E74 		.ascii	"month\000"
+ 2072      6800
+ 2073              	.LASF25:
+ 2074 0073 416D506D 		.ascii	"AmPmMask\000"
+ 2074      4D61736B 
+ 2074      00
+ 2075              	.LASF9:
+ 2076 007c 666C6F61 		.ascii	"float\000"
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 41
+
+
+ 2076      7400
+ 2077              	.LASF40:
+ 2078 0082 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 2078      4320342E 
+ 2078      382E3420 
+ 2078      32303134 
+ 2078      30353236 
+ 2079 00b5 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 2079      20726576 
+ 2079      6973696F 
+ 2079      6E203231 
+ 2079      31333538 
+ 2080 00e8 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 2080      66756E63 
+ 2080      74696F6E 
+ 2080      2D736563 
+ 2080      74696F6E 
+ 2081              	.LASF1:
+ 2082 00fe 756E7369 		.ascii	"unsigned char\000"
+ 2082      676E6564 
+ 2082      20636861 
+ 2082      7200
+ 2083              	.LASF16:
+ 2084 010c 6F6E6573 		.ascii	"ones\000"
+ 2084      00
+ 2085              	.LASF5:
+ 2086 0111 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2086      20756E73 
+ 2086      69676E65 
+ 2086      6420696E 
+ 2086      7400
+ 2087              	.LASF43:
+ 2088 0123 75696E74 		.ascii	"uint8\000"
+ 2088      3800
+ 2089              	.LASF27:
+ 2090 0129 656E636F 		.ascii	"encodeHours24\000"
+ 2090      6465486F 
+ 2090      75727332 
+ 2090      3400
+ 2091              	.LASF24:
+ 2092 0137 686F7572 		.ascii	"hours\000"
+ 2092      7300
+ 2093              	.LASF10:
+ 2094 013d 646F7562 		.ascii	"double\000"
+ 2094      6C6500
+ 2095              	.LASF37:
+ 2096 0144 656E636F 		.ascii	"encodeMonth\000"
+ 2096      64654D6F 
+ 2096      6E746800 
+ 2097              	.LASF18:
+ 2098 0150 656E636F 		.ascii	"encodeSec\000"
+ 2098      64655365 
+ 2098      6300
+ 2099              	.LASF41:
+ 2100 015a 2E5C5469 		.ascii	".\\TimeFunctions.c\000"
+ 2100      6D654675 
+ 2100      6E637469 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 42
+
+
+ 2100      6F6E732E 
+ 2100      6300
+ 2101              	.LASF8:
+ 2102 016c 756E7369 		.ascii	"unsigned int\000"
+ 2102      676E6564 
+ 2102      20696E74 
+ 2102      00
+ 2103              	.LASF7:
+ 2104 0179 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2104      206C6F6E 
+ 2104      6720756E 
+ 2104      7369676E 
+ 2104      65642069 
+ 2105              	.LASF26:
+ 2106 0190 6465636F 		.ascii	"decodeHours24\000"
+ 2106      6465486F 
+ 2106      75727332 
+ 2106      3400
+ 2107              	.LASF42:
+ 2108 019e 433A5C55 		.ascii	"C:\\Users\\Joseph\\Documents\\CY8CKIT-049-42xx\\1.0"
+ 2108      73657273 
+ 2108      5C4A6F73 
+ 2108      6570685C 
+ 2108      446F6375 
+ 2109 01cc 5C466972 		.ascii	"\\Firmware\\SCB_Bootloader\\Design02.cydsn\000"
+ 2109      6D776172 
+ 2109      655C5343 
+ 2109      425F426F 
+ 2109      6F746C6F 
+ 2110              	.LASF15:
+ 2111 01f4 74656E73 		.ascii	"tens\000"
+ 2111      00
+ 2112              	.LASF12:
+ 2113 01f9 73697A65 		.ascii	"sizetype\000"
+ 2113      74797065 
+ 2113      00
+ 2114              	.LASF6:
+ 2115 0202 6C6F6E67 		.ascii	"long long int\000"
+ 2115      206C6F6E 
+ 2115      6720696E 
+ 2115      7400
+ 2116              	.LASF19:
+ 2117 0210 7365636F 		.ascii	"seconds\000"
+ 2117      6E647300 
+ 2118              	.LASF33:
+ 2119 0218 7765656B 		.ascii	"weekday\000"
+ 2119      64617900 
+ 2120              	.LASF14:
+ 2121 0220 6F6E6573 		.ascii	"onesMask\000"
+ 2121      4D61736B 
+ 2121      00
+ 2122              	.LASF32:
+ 2123 0229 6465636F 		.ascii	"decodeWeekDay\000"
+ 2123      64655765 
+ 2123      656B4461 
+ 2123      7900
+ 2124              	.LASF29:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccQDYO6i.s 			page 43
+
+
+ 2125 0237 6465636F 		.ascii	"decodeDays\000"
+ 2125      64654461 
+ 2125      797300
+ 2126              	.LASF2:
+ 2127 0242 73686F72 		.ascii	"short int\000"
+ 2127      7420696E 
+ 2127      7400
+ 2128              	.LASF28:
+ 2129 024c 6F757470 		.ascii	"output\000"
+ 2129      757400
+ 2130              	.LASF13:
+ 2131 0253 74656E73 		.ascii	"tensMask\000"
+ 2131      4D61736B 
+ 2131      00
+ 2132              	.LASF17:
+ 2133 025c 6465636F 		.ascii	"decodeSec\000"
+ 2133      64655365 
+ 2133      6300
+ 2134              	.LASF4:
+ 2135 0266 6C6F6E67 		.ascii	"long int\000"
+ 2135      20696E74 
+ 2135      00
+ 2136              	.LASF11:
+ 2137 026f 63686172 		.ascii	"char\000"
+ 2137      00
+ 2138              	.LASF0:
+ 2139 0274 7369676E 		.ascii	"signed char\000"
+ 2139      65642063 
+ 2139      68617200 
+ 2140              	.LASF38:
+ 2141 0280 6465636F 		.ascii	"decodeYear\000"
+ 2141      64655965 
+ 2141      617200
+ 2142              	.LASF20:
+ 2143 028b 6465636F 		.ascii	"decodeMin\000"
+ 2143      64654D69 
+ 2143      6E00
+ 2144              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

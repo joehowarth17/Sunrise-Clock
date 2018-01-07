@@ -1,0 +1,1376 @@
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"RTC.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.changeHourMode,"ax",%progbits
+  18              		.align	2
+  19              		.global	changeHourMode
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	changeHourMode, %function
+  23              	changeHourMode:
+  24              	.LFB33:
+  25              		.file 1 ".\\RTC.c"
+   1:.\RTC.c       **** /* ========================================
+   2:.\RTC.c       ****  *
+   3:.\RTC.c       ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\RTC.c       ****  * All Rights Reserved
+   5:.\RTC.c       ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\RTC.c       ****  *
+   7:.\RTC.c       ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\RTC.c       ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\RTC.c       ****  *
+  10:.\RTC.c       ****  * ========================================
+  11:.\RTC.c       **** */
+  12:.\RTC.c       **** 
+  13:.\RTC.c       **** #include <RTC.h>
+  14:.\RTC.c       **** 
+  15:.\RTC.c       **** void changeHourMode(uint8 mode){
+  26              		.loc 1 15 0
+  27              		.cfi_startproc
+  28 0000 90B5     		push	{r4, r7, lr}
+  29              		.cfi_def_cfa_offset 12
+  30              		.cfi_offset 4, -12
+  31              		.cfi_offset 7, -8
+  32              		.cfi_offset 14, -4
+  33 0002 85B0     		sub	sp, sp, #20
+  34              		.cfi_def_cfa_offset 32
+  35 0004 00AF     		add	r7, sp, #0
+  36              		.cfi_def_cfa_register 7
+  37 0006 021C     		mov	r2, r0
+  38 0008 FB1D     		add	r3, r7, #7
+  39 000a 1A70     		strb	r2, [r3]
+  16:.\RTC.c       ****     
+  17:.\RTC.c       ****     uint8 controlReg = readReg(CONTROL_REG_1);
+  40              		.loc 1 17 0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 2
+
+
+  41 000c 3C1C     		mov	r4, r7
+  42 000e 0E34     		add	r4, r4, #14
+  43 0010 0020     		mov	r0, #0
+  44 0012 FFF7FEFF 		bl	readReg
+  45 0016 031C     		mov	r3, r0
+  46 0018 2370     		strb	r3, [r4]
+  18:.\RTC.c       ****     uint8 value;
+  19:.\RTC.c       **** 
+  20:.\RTC.c       ****     if(mode == HOURMODE_12){
+  47              		.loc 1 20 0
+  48 001a FB1D     		add	r3, r7, #7
+  49 001c 1B78     		ldrb	r3, [r3]
+  50 001e 082B     		cmp	r3, #8
+  51 0020 08D1     		bne	.L2
+  21:.\RTC.c       ****         
+  22:.\RTC.c       ****         value = controlReg | HOURMODE_12;
+  52              		.loc 1 22 0
+  53 0022 3B1C     		mov	r3, r7
+  54 0024 0F33     		add	r3, r3, #15
+  55 0026 3A1C     		mov	r2, r7
+  56 0028 0E32     		add	r2, r2, #14
+  57 002a 1278     		ldrb	r2, [r2]
+  58 002c 0821     		mov	r1, #8
+  59 002e 0A43     		orr	r2, r1
+  60 0030 1A70     		strb	r2, [r3]
+  61 0032 0BE0     		b	.L3
+  62              	.L2:
+  23:.\RTC.c       ****     }
+  24:.\RTC.c       ****     else if(mode == HOURMODE_24){
+  63              		.loc 1 24 0
+  64 0034 FB1D     		add	r3, r7, #7
+  65 0036 1B78     		ldrb	r3, [r3]
+  66 0038 F72B     		cmp	r3, #247
+  67 003a 07D1     		bne	.L3
+  25:.\RTC.c       ****         
+  26:.\RTC.c       ****         value = controlReg & HOURMODE_24; 
+  68              		.loc 1 26 0
+  69 003c 3B1C     		mov	r3, r7
+  70 003e 0F33     		add	r3, r3, #15
+  71 0040 3A1C     		mov	r2, r7
+  72 0042 0E32     		add	r2, r2, #14
+  73 0044 1278     		ldrb	r2, [r2]
+  74 0046 0821     		mov	r1, #8
+  75 0048 8A43     		bic	r2, r1
+  76 004a 1A70     		strb	r2, [r3]
+  77              	.L3:
+  27:.\RTC.c       ****     }
+  28:.\RTC.c       ****     
+  29:.\RTC.c       ****     writeReg(CONTROL_REG_1, value);
+  78              		.loc 1 29 0
+  79 004c 3B1C     		mov	r3, r7
+  80 004e 0F33     		add	r3, r3, #15
+  81 0050 1B78     		ldrb	r3, [r3]
+  82 0052 0020     		mov	r0, #0
+  83 0054 191C     		mov	r1, r3
+  84 0056 FFF7FEFF 		bl	writeReg
+  30:.\RTC.c       **** 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 3
+
+
+  31:.\RTC.c       **** }
+  85              		.loc 1 31 0
+  86 005a BD46     		mov	sp, r7
+  87 005c 05B0     		add	sp, sp, #20
+  88              		@ sp needed
+  89 005e 90BD     		pop	{r4, r7, pc}
+  90              		.cfi_endproc
+  91              	.LFE33:
+  92              		.size	changeHourMode, .-changeHourMode
+  93              		.section	.text.changePowerMode,"ax",%progbits
+  94              		.align	2
+  95              		.global	changePowerMode
+  96              		.code	16
+  97              		.thumb_func
+  98              		.type	changePowerMode, %function
+  99              	changePowerMode:
+ 100              	.LFB34:
+  32:.\RTC.c       **** 
+  33:.\RTC.c       **** void changePowerMode(uint8 mode){
+ 101              		.loc 1 33 0
+ 102              		.cfi_startproc
+ 103 0000 80B5     		push	{r7, lr}
+ 104              		.cfi_def_cfa_offset 8
+ 105              		.cfi_offset 7, -8
+ 106              		.cfi_offset 14, -4
+ 107 0002 82B0     		sub	sp, sp, #8
+ 108              		.cfi_def_cfa_offset 16
+ 109 0004 00AF     		add	r7, sp, #0
+ 110              		.cfi_def_cfa_register 7
+ 111 0006 021C     		mov	r2, r0
+ 112 0008 FB1D     		add	r3, r7, #7
+ 113 000a 1A70     		strb	r2, [r3]
+  34:.\RTC.c       ****     
+  35:.\RTC.c       ****     writeReg(CONTROL_REG_3, mode);
+ 114              		.loc 1 35 0
+ 115 000c FB1D     		add	r3, r7, #7
+ 116 000e 1B78     		ldrb	r3, [r3]
+ 117 0010 0220     		mov	r0, #2
+ 118 0012 191C     		mov	r1, r3
+ 119 0014 FFF7FEFF 		bl	writeReg
+  36:.\RTC.c       **** 
+  37:.\RTC.c       **** }
+ 120              		.loc 1 37 0
+ 121 0018 BD46     		mov	sp, r7
+ 122 001a 02B0     		add	sp, sp, #8
+ 123              		@ sp needed
+ 124 001c 80BD     		pop	{r7, pc}
+ 125              		.cfi_endproc
+ 126              	.LFE34:
+ 127              		.size	changePowerMode, .-changePowerMode
+ 128 001e C046     		.section	.text.setSec,"ax",%progbits
+ 129              		.align	2
+ 130              		.global	setSec
+ 131              		.code	16
+ 132              		.thumb_func
+ 133              		.type	setSec, %function
+ 134              	setSec:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 4
+
+
+ 135              	.LFB35:
+  38:.\RTC.c       **** 
+  39:.\RTC.c       **** 
+  40:.\RTC.c       **** void setSec(uint8 sec){
+ 136              		.loc 1 40 0
+ 137              		.cfi_startproc
+ 138 0000 90B5     		push	{r4, r7, lr}
+ 139              		.cfi_def_cfa_offset 12
+ 140              		.cfi_offset 4, -12
+ 141              		.cfi_offset 7, -8
+ 142              		.cfi_offset 14, -4
+ 143 0002 85B0     		sub	sp, sp, #20
+ 144              		.cfi_def_cfa_offset 32
+ 145 0004 00AF     		add	r7, sp, #0
+ 146              		.cfi_def_cfa_register 7
+ 147 0006 021C     		mov	r2, r0
+ 148 0008 FB1D     		add	r3, r7, #7
+ 149 000a 1A70     		strb	r2, [r3]
+  41:.\RTC.c       **** 
+  42:.\RTC.c       ****     uint8 secondsBCD = encodeSec(sec);
+ 150              		.loc 1 42 0
+ 151 000c 3C1C     		mov	r4, r7
+ 152 000e 0F34     		add	r4, r4, #15
+ 153 0010 FB1D     		add	r3, r7, #7
+ 154 0012 1B78     		ldrb	r3, [r3]
+ 155 0014 181C     		mov	r0, r3
+ 156 0016 FFF7FEFF 		bl	encodeSec
+ 157 001a 031C     		mov	r3, r0
+ 158 001c 2370     		strb	r3, [r4]
+  43:.\RTC.c       ****     
+  44:.\RTC.c       ****     writeReg(SECONDS_REG, secondsBCD);
+ 159              		.loc 1 44 0
+ 160 001e 3B1C     		mov	r3, r7
+ 161 0020 0F33     		add	r3, r3, #15
+ 162 0022 1B78     		ldrb	r3, [r3]
+ 163 0024 0320     		mov	r0, #3
+ 164 0026 191C     		mov	r1, r3
+ 165 0028 FFF7FEFF 		bl	writeReg
+  45:.\RTC.c       **** }
+ 166              		.loc 1 45 0
+ 167 002c BD46     		mov	sp, r7
+ 168 002e 05B0     		add	sp, sp, #20
+ 169              		@ sp needed
+ 170 0030 90BD     		pop	{r4, r7, pc}
+ 171              		.cfi_endproc
+ 172              	.LFE35:
+ 173              		.size	setSec, .-setSec
+ 174 0032 C046     		.section	.text.getSec,"ax",%progbits
+ 175              		.align	2
+ 176              		.global	getSec
+ 177              		.code	16
+ 178              		.thumb_func
+ 179              		.type	getSec, %function
+ 180              	getSec:
+ 181              	.LFB36:
+  46:.\RTC.c       **** uint8 getSec(){
+ 182              		.loc 1 46 0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 5
+
+
+ 183              		.cfi_startproc
+ 184 0000 80B5     		push	{r7, lr}
+ 185              		.cfi_def_cfa_offset 8
+ 186              		.cfi_offset 7, -8
+ 187              		.cfi_offset 14, -4
+ 188 0002 00AF     		add	r7, sp, #0
+ 189              		.cfi_def_cfa_register 7
+  47:.\RTC.c       **** 
+  48:.\RTC.c       ****     return decodeSec(readReg(SECONDS_REG));
+ 190              		.loc 1 48 0
+ 191 0004 0320     		mov	r0, #3
+ 192 0006 FFF7FEFF 		bl	readReg
+ 193 000a 031C     		mov	r3, r0
+ 194 000c 181C     		mov	r0, r3
+ 195 000e FFF7FEFF 		bl	decodeSec
+ 196 0012 031C     		mov	r3, r0
+  49:.\RTC.c       **** }
+ 197              		.loc 1 49 0
+ 198 0014 181C     		mov	r0, r3
+ 199 0016 BD46     		mov	sp, r7
+ 200              		@ sp needed
+ 201 0018 80BD     		pop	{r7, pc}
+ 202              		.cfi_endproc
+ 203              	.LFE36:
+ 204              		.size	getSec, .-getSec
+ 205 001a C046     		.section	.text.setMin,"ax",%progbits
+ 206              		.align	2
+ 207              		.global	setMin
+ 208              		.code	16
+ 209              		.thumb_func
+ 210              		.type	setMin, %function
+ 211              	setMin:
+ 212              	.LFB37:
+  50:.\RTC.c       **** 
+  51:.\RTC.c       **** 
+  52:.\RTC.c       **** void setMin(uint8 minutes){
+ 213              		.loc 1 52 0
+ 214              		.cfi_startproc
+ 215 0000 90B5     		push	{r4, r7, lr}
+ 216              		.cfi_def_cfa_offset 12
+ 217              		.cfi_offset 4, -12
+ 218              		.cfi_offset 7, -8
+ 219              		.cfi_offset 14, -4
+ 220 0002 85B0     		sub	sp, sp, #20
+ 221              		.cfi_def_cfa_offset 32
+ 222 0004 00AF     		add	r7, sp, #0
+ 223              		.cfi_def_cfa_register 7
+ 224 0006 021C     		mov	r2, r0
+ 225 0008 FB1D     		add	r3, r7, #7
+ 226 000a 1A70     		strb	r2, [r3]
+  53:.\RTC.c       **** 
+  54:.\RTC.c       ****     uint8 minutesBCD = encodeMin(minutes);
+ 227              		.loc 1 54 0
+ 228 000c 3C1C     		mov	r4, r7
+ 229 000e 0F34     		add	r4, r4, #15
+ 230 0010 FB1D     		add	r3, r7, #7
+ 231 0012 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 6
+
+
+ 232 0014 181C     		mov	r0, r3
+ 233 0016 FFF7FEFF 		bl	encodeMin
+ 234 001a 031C     		mov	r3, r0
+ 235 001c 2370     		strb	r3, [r4]
+  55:.\RTC.c       ****     writeReg(MINUTES_REG,minutesBCD);
+ 236              		.loc 1 55 0
+ 237 001e 3B1C     		mov	r3, r7
+ 238 0020 0F33     		add	r3, r3, #15
+ 239 0022 1B78     		ldrb	r3, [r3]
+ 240 0024 0420     		mov	r0, #4
+ 241 0026 191C     		mov	r1, r3
+ 242 0028 FFF7FEFF 		bl	writeReg
+  56:.\RTC.c       **** 
+  57:.\RTC.c       **** }
+ 243              		.loc 1 57 0
+ 244 002c BD46     		mov	sp, r7
+ 245 002e 05B0     		add	sp, sp, #20
+ 246              		@ sp needed
+ 247 0030 90BD     		pop	{r4, r7, pc}
+ 248              		.cfi_endproc
+ 249              	.LFE37:
+ 250              		.size	setMin, .-setMin
+ 251 0032 C046     		.section	.text.getMin,"ax",%progbits
+ 252              		.align	2
+ 253              		.global	getMin
+ 254              		.code	16
+ 255              		.thumb_func
+ 256              		.type	getMin, %function
+ 257              	getMin:
+ 258              	.LFB38:
+  58:.\RTC.c       **** uint8 getMin(){
+ 259              		.loc 1 58 0
+ 260              		.cfi_startproc
+ 261 0000 80B5     		push	{r7, lr}
+ 262              		.cfi_def_cfa_offset 8
+ 263              		.cfi_offset 7, -8
+ 264              		.cfi_offset 14, -4
+ 265 0002 00AF     		add	r7, sp, #0
+ 266              		.cfi_def_cfa_register 7
+  59:.\RTC.c       **** 
+  60:.\RTC.c       ****     return decodeMin(readReg(MINUTES_REG));
+ 267              		.loc 1 60 0
+ 268 0004 0420     		mov	r0, #4
+ 269 0006 FFF7FEFF 		bl	readReg
+ 270 000a 031C     		mov	r3, r0
+ 271 000c 181C     		mov	r0, r3
+ 272 000e FFF7FEFF 		bl	decodeMin
+ 273 0012 031C     		mov	r3, r0
+  61:.\RTC.c       **** 
+  62:.\RTC.c       **** }
+ 274              		.loc 1 62 0
+ 275 0014 181C     		mov	r0, r3
+ 276 0016 BD46     		mov	sp, r7
+ 277              		@ sp needed
+ 278 0018 80BD     		pop	{r7, pc}
+ 279              		.cfi_endproc
+ 280              	.LFE38:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 7
+
+
+ 281              		.size	getMin, .-getMin
+ 282 001a C046     		.section	.text.setHours,"ax",%progbits
+ 283              		.align	2
+ 284              		.global	setHours
+ 285              		.code	16
+ 286              		.thumb_func
+ 287              		.type	setHours, %function
+ 288              	setHours:
+ 289              	.LFB39:
+  63:.\RTC.c       **** 
+  64:.\RTC.c       **** 
+  65:.\RTC.c       **** void setHours(uint8 hour){
+ 290              		.loc 1 65 0
+ 291              		.cfi_startproc
+ 292 0000 90B5     		push	{r4, r7, lr}
+ 293              		.cfi_def_cfa_offset 12
+ 294              		.cfi_offset 4, -12
+ 295              		.cfi_offset 7, -8
+ 296              		.cfi_offset 14, -4
+ 297 0002 85B0     		sub	sp, sp, #20
+ 298              		.cfi_def_cfa_offset 32
+ 299 0004 00AF     		add	r7, sp, #0
+ 300              		.cfi_def_cfa_register 7
+ 301 0006 021C     		mov	r2, r0
+ 302 0008 FB1D     		add	r3, r7, #7
+ 303 000a 1A70     		strb	r2, [r3]
+  66:.\RTC.c       **** 
+  67:.\RTC.c       ****     uint8 bcdHour = encodeHours24(hour);
+ 304              		.loc 1 67 0
+ 305 000c 3C1C     		mov	r4, r7
+ 306 000e 0F34     		add	r4, r4, #15
+ 307 0010 FB1D     		add	r3, r7, #7
+ 308 0012 1B78     		ldrb	r3, [r3]
+ 309 0014 181C     		mov	r0, r3
+ 310 0016 FFF7FEFF 		bl	encodeHours24
+ 311 001a 031C     		mov	r3, r0
+ 312 001c 2370     		strb	r3, [r4]
+  68:.\RTC.c       ****     
+  69:.\RTC.c       ****     writeReg(HOURS_REG,bcdHour);
+ 313              		.loc 1 69 0
+ 314 001e 3B1C     		mov	r3, r7
+ 315 0020 0F33     		add	r3, r3, #15
+ 316 0022 1B78     		ldrb	r3, [r3]
+ 317 0024 0520     		mov	r0, #5
+ 318 0026 191C     		mov	r1, r3
+ 319 0028 FFF7FEFF 		bl	writeReg
+  70:.\RTC.c       **** 
+  71:.\RTC.c       **** }
+ 320              		.loc 1 71 0
+ 321 002c BD46     		mov	sp, r7
+ 322 002e 05B0     		add	sp, sp, #20
+ 323              		@ sp needed
+ 324 0030 90BD     		pop	{r4, r7, pc}
+ 325              		.cfi_endproc
+ 326              	.LFE39:
+ 327              		.size	setHours, .-setHours
+ 328 0032 C046     		.section	.text.getHours,"ax",%progbits
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 8
+
+
+ 329              		.align	2
+ 330              		.global	getHours
+ 331              		.code	16
+ 332              		.thumb_func
+ 333              		.type	getHours, %function
+ 334              	getHours:
+ 335              	.LFB40:
+  72:.\RTC.c       **** uint8 getHours(){
+ 336              		.loc 1 72 0
+ 337              		.cfi_startproc
+ 338 0000 90B5     		push	{r4, r7, lr}
+ 339              		.cfi_def_cfa_offset 12
+ 340              		.cfi_offset 4, -12
+ 341              		.cfi_offset 7, -8
+ 342              		.cfi_offset 14, -4
+ 343 0002 83B0     		sub	sp, sp, #12
+ 344              		.cfi_def_cfa_offset 24
+ 345 0004 00AF     		add	r7, sp, #0
+ 346              		.cfi_def_cfa_register 7
+  73:.\RTC.c       **** 
+  74:.\RTC.c       ****     uint8 hourBCD = readReg(HOURS_REG);
+ 347              		.loc 1 74 0
+ 348 0006 FC1D     		add	r4, r7, #7
+ 349 0008 0520     		mov	r0, #5
+ 350 000a FFF7FEFF 		bl	readReg
+ 351 000e 031C     		mov	r3, r0
+ 352 0010 2370     		strb	r3, [r4]
+  75:.\RTC.c       ****     
+  76:.\RTC.c       ****     return decodeHours24(hourBCD);
+ 353              		.loc 1 76 0
+ 354 0012 FB1D     		add	r3, r7, #7
+ 355 0014 1B78     		ldrb	r3, [r3]
+ 356 0016 181C     		mov	r0, r3
+ 357 0018 FFF7FEFF 		bl	decodeHours24
+ 358 001c 031C     		mov	r3, r0
+  77:.\RTC.c       **** 
+  78:.\RTC.c       **** }
+ 359              		.loc 1 78 0
+ 360 001e 181C     		mov	r0, r3
+ 361 0020 BD46     		mov	sp, r7
+ 362 0022 03B0     		add	sp, sp, #12
+ 363              		@ sp needed
+ 364 0024 90BD     		pop	{r4, r7, pc}
+ 365              		.cfi_endproc
+ 366              	.LFE40:
+ 367              		.size	getHours, .-getHours
+ 368 0026 C046     		.section	.text.setDay,"ax",%progbits
+ 369              		.align	2
+ 370              		.global	setDay
+ 371              		.code	16
+ 372              		.thumb_func
+ 373              		.type	setDay, %function
+ 374              	setDay:
+ 375              	.LFB41:
+  79:.\RTC.c       **** 
+  80:.\RTC.c       **** void setDay(uint8 day){
+ 376              		.loc 1 80 0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 9
+
+
+ 377              		.cfi_startproc
+ 378 0000 90B5     		push	{r4, r7, lr}
+ 379              		.cfi_def_cfa_offset 12
+ 380              		.cfi_offset 4, -12
+ 381              		.cfi_offset 7, -8
+ 382              		.cfi_offset 14, -4
+ 383 0002 85B0     		sub	sp, sp, #20
+ 384              		.cfi_def_cfa_offset 32
+ 385 0004 00AF     		add	r7, sp, #0
+ 386              		.cfi_def_cfa_register 7
+ 387 0006 021C     		mov	r2, r0
+ 388 0008 FB1D     		add	r3, r7, #7
+ 389 000a 1A70     		strb	r2, [r3]
+  81:.\RTC.c       **** 
+  82:.\RTC.c       ****     uint8 bcdDay = encodeDays(day);
+ 390              		.loc 1 82 0
+ 391 000c 3C1C     		mov	r4, r7
+ 392 000e 0F34     		add	r4, r4, #15
+ 393 0010 FB1D     		add	r3, r7, #7
+ 394 0012 1B78     		ldrb	r3, [r3]
+ 395 0014 181C     		mov	r0, r3
+ 396 0016 FFF7FEFF 		bl	encodeDays
+ 397 001a 031C     		mov	r3, r0
+ 398 001c 2370     		strb	r3, [r4]
+  83:.\RTC.c       ****     
+  84:.\RTC.c       ****     writeReg(DAYS_REG,bcdDay);
+ 399              		.loc 1 84 0
+ 400 001e 3B1C     		mov	r3, r7
+ 401 0020 0F33     		add	r3, r3, #15
+ 402 0022 1B78     		ldrb	r3, [r3]
+ 403 0024 0620     		mov	r0, #6
+ 404 0026 191C     		mov	r1, r3
+ 405 0028 FFF7FEFF 		bl	writeReg
+  85:.\RTC.c       **** 
+  86:.\RTC.c       **** }
+ 406              		.loc 1 86 0
+ 407 002c BD46     		mov	sp, r7
+ 408 002e 05B0     		add	sp, sp, #20
+ 409              		@ sp needed
+ 410 0030 90BD     		pop	{r4, r7, pc}
+ 411              		.cfi_endproc
+ 412              	.LFE41:
+ 413              		.size	setDay, .-setDay
+ 414 0032 C046     		.section	.text.getDay,"ax",%progbits
+ 415              		.align	2
+ 416              		.global	getDay
+ 417              		.code	16
+ 418              		.thumb_func
+ 419              		.type	getDay, %function
+ 420              	getDay:
+ 421              	.LFB42:
+  87:.\RTC.c       **** uint8 getDay(){
+ 422              		.loc 1 87 0
+ 423              		.cfi_startproc
+ 424 0000 90B5     		push	{r4, r7, lr}
+ 425              		.cfi_def_cfa_offset 12
+ 426              		.cfi_offset 4, -12
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 10
+
+
+ 427              		.cfi_offset 7, -8
+ 428              		.cfi_offset 14, -4
+ 429 0002 83B0     		sub	sp, sp, #12
+ 430              		.cfi_def_cfa_offset 24
+ 431 0004 00AF     		add	r7, sp, #0
+ 432              		.cfi_def_cfa_register 7
+  88:.\RTC.c       **** 
+  89:.\RTC.c       ****     uint8 dayBCD = readReg(DAYS_REG);
+ 433              		.loc 1 89 0
+ 434 0006 FC1D     		add	r4, r7, #7
+ 435 0008 0620     		mov	r0, #6
+ 436 000a FFF7FEFF 		bl	readReg
+ 437 000e 031C     		mov	r3, r0
+ 438 0010 2370     		strb	r3, [r4]
+  90:.\RTC.c       ****     
+  91:.\RTC.c       ****     return decodeHours24(dayBCD);
+ 439              		.loc 1 91 0
+ 440 0012 FB1D     		add	r3, r7, #7
+ 441 0014 1B78     		ldrb	r3, [r3]
+ 442 0016 181C     		mov	r0, r3
+ 443 0018 FFF7FEFF 		bl	decodeHours24
+ 444 001c 031C     		mov	r3, r0
+  92:.\RTC.c       **** 
+  93:.\RTC.c       **** }
+ 445              		.loc 1 93 0
+ 446 001e 181C     		mov	r0, r3
+ 447 0020 BD46     		mov	sp, r7
+ 448 0022 03B0     		add	sp, sp, #12
+ 449              		@ sp needed
+ 450 0024 90BD     		pop	{r4, r7, pc}
+ 451              		.cfi_endproc
+ 452              	.LFE42:
+ 453              		.size	getDay, .-getDay
+ 454 0026 C046     		.section	.text.softReset,"ax",%progbits
+ 455              		.align	2
+ 456              		.global	softReset
+ 457              		.code	16
+ 458              		.thumb_func
+ 459              		.type	softReset, %function
+ 460              	softReset:
+ 461              	.LFB43:
+  94:.\RTC.c       **** 
+  95:.\RTC.c       **** void softReset(){
+ 462              		.loc 1 95 0
+ 463              		.cfi_startproc
+ 464 0000 80B5     		push	{r7, lr}
+ 465              		.cfi_def_cfa_offset 8
+ 466              		.cfi_offset 7, -8
+ 467              		.cfi_offset 14, -4
+ 468 0002 00AF     		add	r7, sp, #0
+ 469              		.cfi_def_cfa_register 7
+  96:.\RTC.c       **** 
+  97:.\RTC.c       **** writeReg(CONTROL_REG_1, RESET_VALUE);
+ 470              		.loc 1 97 0
+ 471 0004 0020     		mov	r0, #0
+ 472 0006 5821     		mov	r1, #88
+ 473 0008 FFF7FEFF 		bl	writeReg
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 11
+
+
+  98:.\RTC.c       ****     
+  99:.\RTC.c       **** }
+ 474              		.loc 1 99 0
+ 475 000c BD46     		mov	sp, r7
+ 476              		@ sp needed
+ 477 000e 80BD     		pop	{r7, pc}
+ 478              		.cfi_endproc
+ 479              	.LFE43:
+ 480              		.size	softReset, .-softReset
+ 481              		.text
+ 482              	.Letext0:
+ 483              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 484              		.section	.debug_info,"",%progbits
+ 485              	.Ldebug_info0:
+ 486 0000 46020000 		.4byte	0x246
+ 487 0004 0400     		.2byte	0x4
+ 488 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 489 000a 04       		.byte	0x4
+ 490 000b 01       		.uleb128 0x1
+ 491 000c 5D000000 		.4byte	.LASF34
+ 492 0010 01       		.byte	0x1
+ 493 0011 16010000 		.4byte	.LASF35
+ 494 0015 68010000 		.4byte	.LASF36
+ 495 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 496 001d 00000000 		.4byte	0
+ 497 0021 00000000 		.4byte	.Ldebug_line0
+ 498 0025 02       		.uleb128 0x2
+ 499 0026 01       		.byte	0x1
+ 500 0027 06       		.byte	0x6
+ 501 0028 0A020000 		.4byte	.LASF0
+ 502 002c 02       		.uleb128 0x2
+ 503 002d 01       		.byte	0x1
+ 504 002e 08       		.byte	0x8
+ 505 002f D9000000 		.4byte	.LASF1
+ 506 0033 02       		.uleb128 0x2
+ 507 0034 02       		.byte	0x2
+ 508 0035 05       		.byte	0x5
+ 509 0036 F0010000 		.4byte	.LASF2
+ 510 003a 02       		.uleb128 0x2
+ 511 003b 02       		.byte	0x2
+ 512 003c 07       		.byte	0x7
+ 513 003d 2E000000 		.4byte	.LASF3
+ 514 0041 02       		.uleb128 0x2
+ 515 0042 04       		.byte	0x4
+ 516 0043 05       		.byte	0x5
+ 517 0044 01020000 		.4byte	.LASF4
+ 518 0048 02       		.uleb128 0x2
+ 519 0049 04       		.byte	0x4
+ 520 004a 07       		.byte	0x7
+ 521 004b E7000000 		.4byte	.LASF5
+ 522 004f 02       		.uleb128 0x2
+ 523 0050 08       		.byte	0x8
+ 524 0051 05       		.byte	0x5
+ 525 0052 DD010000 		.4byte	.LASF6
+ 526 0056 02       		.uleb128 0x2
+ 527 0057 08       		.byte	0x8
+ 528 0058 07       		.byte	0x7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 12
+
+
+ 529 0059 3C010000 		.4byte	.LASF7
+ 530 005d 03       		.uleb128 0x3
+ 531 005e 04       		.byte	0x4
+ 532 005f 05       		.byte	0x5
+ 533 0060 696E7400 		.ascii	"int\000"
+ 534 0064 02       		.uleb128 0x2
+ 535 0065 04       		.byte	0x4
+ 536 0066 07       		.byte	0x7
+ 537 0067 28010000 		.4byte	.LASF8
+ 538 006b 04       		.uleb128 0x4
+ 539 006c F9000000 		.4byte	.LASF37
+ 540 0070 02       		.byte	0x2
+ 541 0071 A1       		.byte	0xa1
+ 542 0072 2C000000 		.4byte	0x2c
+ 543 0076 02       		.uleb128 0x2
+ 544 0077 04       		.byte	0x4
+ 545 0078 04       		.byte	0x4
+ 546 0079 57000000 		.4byte	.LASF9
+ 547 007d 02       		.uleb128 0x2
+ 548 007e 08       		.byte	0x8
+ 549 007f 04       		.byte	0x4
+ 550 0080 0F010000 		.4byte	.LASF10
+ 551 0084 02       		.uleb128 0x2
+ 552 0085 01       		.byte	0x1
+ 553 0086 08       		.byte	0x8
+ 554 0087 EB010000 		.4byte	.LASF11
+ 555 008b 02       		.uleb128 0x2
+ 556 008c 04       		.byte	0x4
+ 557 008d 07       		.byte	0x7
+ 558 008e BE010000 		.4byte	.LASF12
+ 559 0092 05       		.uleb128 0x5
+ 560 0093 CE010000 		.4byte	.LASF15
+ 561 0097 01       		.byte	0x1
+ 562 0098 0F       		.byte	0xf
+ 563 0099 00000000 		.4byte	.LFB33
+ 564 009d 60000000 		.4byte	.LFE33-.LFB33
+ 565 00a1 01       		.uleb128 0x1
+ 566 00a2 9C       		.byte	0x9c
+ 567 00a3 D2000000 		.4byte	0xd2
+ 568 00a7 06       		.uleb128 0x6
+ 569 00a8 53010000 		.4byte	.LASF17
+ 570 00ac 01       		.byte	0x1
+ 571 00ad 0F       		.byte	0xf
+ 572 00ae 6B000000 		.4byte	0x6b
+ 573 00b2 02       		.uleb128 0x2
+ 574 00b3 91       		.byte	0x91
+ 575 00b4 67       		.sleb128 -25
+ 576 00b5 07       		.uleb128 0x7
+ 577 00b6 5D010000 		.4byte	.LASF13
+ 578 00ba 01       		.byte	0x1
+ 579 00bb 11       		.byte	0x11
+ 580 00bc 6B000000 		.4byte	0x6b
+ 581 00c0 02       		.uleb128 0x2
+ 582 00c1 91       		.byte	0x91
+ 583 00c2 6E       		.sleb128 -18
+ 584 00c3 07       		.uleb128 0x7
+ 585 00c4 28000000 		.4byte	.LASF14
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 13
+
+
+ 586 00c8 01       		.byte	0x1
+ 587 00c9 12       		.byte	0x12
+ 588 00ca 6B000000 		.4byte	0x6b
+ 589 00ce 02       		.uleb128 0x2
+ 590 00cf 91       		.byte	0x91
+ 591 00d0 6F       		.sleb128 -17
+ 592 00d1 00       		.byte	0
+ 593 00d2 05       		.uleb128 0x5
+ 594 00d3 08000000 		.4byte	.LASF16
+ 595 00d7 01       		.byte	0x1
+ 596 00d8 21       		.byte	0x21
+ 597 00d9 00000000 		.4byte	.LFB34
+ 598 00dd 1E000000 		.4byte	.LFE34-.LFB34
+ 599 00e1 01       		.uleb128 0x1
+ 600 00e2 9C       		.byte	0x9c
+ 601 00e3 F6000000 		.4byte	0xf6
+ 602 00e7 06       		.uleb128 0x6
+ 603 00e8 53010000 		.4byte	.LASF17
+ 604 00ec 01       		.byte	0x1
+ 605 00ed 21       		.byte	0x21
+ 606 00ee 6B000000 		.4byte	0x6b
+ 607 00f2 02       		.uleb128 0x2
+ 608 00f3 91       		.byte	0x91
+ 609 00f4 77       		.sleb128 -9
+ 610 00f5 00       		.byte	0
+ 611 00f6 05       		.uleb128 0x5
+ 612 00f7 35010000 		.4byte	.LASF18
+ 613 00fb 01       		.byte	0x1
+ 614 00fc 28       		.byte	0x28
+ 615 00fd 00000000 		.4byte	.LFB35
+ 616 0101 32000000 		.4byte	.LFE35-.LFB35
+ 617 0105 01       		.uleb128 0x1
+ 618 0106 9C       		.byte	0x9c
+ 619 0107 28010000 		.4byte	0x128
+ 620 010b 08       		.uleb128 0x8
+ 621 010c 73656300 		.ascii	"sec\000"
+ 622 0110 01       		.byte	0x1
+ 623 0111 28       		.byte	0x28
+ 624 0112 6B000000 		.4byte	0x6b
+ 625 0116 02       		.uleb128 0x2
+ 626 0117 91       		.byte	0x91
+ 627 0118 67       		.sleb128 -25
+ 628 0119 07       		.uleb128 0x7
+ 629 011a 28020000 		.4byte	.LASF19
+ 630 011e 01       		.byte	0x1
+ 631 011f 2A       		.byte	0x2a
+ 632 0120 6B000000 		.4byte	0x6b
+ 633 0124 02       		.uleb128 0x2
+ 634 0125 91       		.byte	0x91
+ 635 0126 6F       		.sleb128 -17
+ 636 0127 00       		.byte	0
+ 637 0128 09       		.uleb128 0x9
+ 638 0129 FA010000 		.4byte	.LASF23
+ 639 012d 01       		.byte	0x1
+ 640 012e 2E       		.byte	0x2e
+ 641 012f 6B000000 		.4byte	0x6b
+ 642 0133 00000000 		.4byte	.LFB36
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 14
+
+
+ 643 0137 1A000000 		.4byte	.LFE36-.LFB36
+ 644 013b 01       		.uleb128 0x1
+ 645 013c 9C       		.byte	0x9c
+ 646 013d 05       		.uleb128 0x5
+ 647 013e 48000000 		.4byte	.LASF20
+ 648 0142 01       		.byte	0x1
+ 649 0143 34       		.byte	0x34
+ 650 0144 00000000 		.4byte	.LFB37
+ 651 0148 32000000 		.4byte	.LFE37-.LFB37
+ 652 014c 01       		.uleb128 0x1
+ 653 014d 9C       		.byte	0x9c
+ 654 014e 6F010000 		.4byte	0x16f
+ 655 0152 06       		.uleb128 0x6
+ 656 0153 00000000 		.4byte	.LASF21
+ 657 0157 01       		.byte	0x1
+ 658 0158 34       		.byte	0x34
+ 659 0159 6B000000 		.4byte	0x6b
+ 660 015d 02       		.uleb128 0x2
+ 661 015e 91       		.byte	0x91
+ 662 015f 67       		.sleb128 -25
+ 663 0160 07       		.uleb128 0x7
+ 664 0161 16020000 		.4byte	.LASF22
+ 665 0165 01       		.byte	0x1
+ 666 0166 36       		.byte	0x36
+ 667 0167 6B000000 		.4byte	0x6b
+ 668 016b 02       		.uleb128 0x2
+ 669 016c 91       		.byte	0x91
+ 670 016d 6F       		.sleb128 -17
+ 671 016e 00       		.byte	0
+ 672 016f 09       		.uleb128 0x9
+ 673 0170 21020000 		.4byte	.LASF24
+ 674 0174 01       		.byte	0x1
+ 675 0175 3A       		.byte	0x3a
+ 676 0176 6B000000 		.4byte	0x6b
+ 677 017a 00000000 		.4byte	.LFB38
+ 678 017e 1A000000 		.4byte	.LFE38-.LFB38
+ 679 0182 01       		.uleb128 0x1
+ 680 0183 9C       		.byte	0x9c
+ 681 0184 05       		.uleb128 0x5
+ 682 0185 18000000 		.4byte	.LASF25
+ 683 0189 01       		.byte	0x1
+ 684 018a 41       		.byte	0x41
+ 685 018b 00000000 		.4byte	.LFB39
+ 686 018f 32000000 		.4byte	.LFE39-.LFB39
+ 687 0193 01       		.uleb128 0x1
+ 688 0194 9C       		.byte	0x9c
+ 689 0195 B6010000 		.4byte	0x1b6
+ 690 0199 06       		.uleb128 0x6
+ 691 019a 58010000 		.4byte	.LASF26
+ 692 019e 01       		.byte	0x1
+ 693 019f 41       		.byte	0x41
+ 694 01a0 6B000000 		.4byte	0x6b
+ 695 01a4 02       		.uleb128 0x2
+ 696 01a5 91       		.byte	0x91
+ 697 01a6 67       		.sleb128 -25
+ 698 01a7 07       		.uleb128 0x7
+ 699 01a8 4F000000 		.4byte	.LASF27
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 15
+
+
+ 700 01ac 01       		.byte	0x1
+ 701 01ad 43       		.byte	0x43
+ 702 01ae 6B000000 		.4byte	0x6b
+ 703 01b2 02       		.uleb128 0x2
+ 704 01b3 91       		.byte	0x91
+ 705 01b4 6F       		.sleb128 -17
+ 706 01b5 00       		.byte	0
+ 707 01b6 0A       		.uleb128 0xa
+ 708 01b7 FF000000 		.4byte	.LASF28
+ 709 01bb 01       		.byte	0x1
+ 710 01bc 48       		.byte	0x48
+ 711 01bd 6B000000 		.4byte	0x6b
+ 712 01c1 00000000 		.4byte	.LFB40
+ 713 01c5 26000000 		.4byte	.LFE40-.LFB40
+ 714 01c9 01       		.uleb128 0x1
+ 715 01ca 9C       		.byte	0x9c
+ 716 01cb DE010000 		.4byte	0x1de
+ 717 01cf 07       		.uleb128 0x7
+ 718 01d0 33020000 		.4byte	.LASF29
+ 719 01d4 01       		.byte	0x1
+ 720 01d5 4A       		.byte	0x4a
+ 721 01d6 6B000000 		.4byte	0x6b
+ 722 01da 02       		.uleb128 0x2
+ 723 01db 91       		.byte	0x91
+ 724 01dc 6F       		.sleb128 -17
+ 725 01dd 00       		.byte	0
+ 726 01de 05       		.uleb128 0x5
+ 727 01df 08010000 		.4byte	.LASF30
+ 728 01e3 01       		.byte	0x1
+ 729 01e4 50       		.byte	0x50
+ 730 01e5 00000000 		.4byte	.LFB41
+ 731 01e9 32000000 		.4byte	.LFE41-.LFB41
+ 732 01ed 01       		.uleb128 0x1
+ 733 01ee 9C       		.byte	0x9c
+ 734 01ef 10020000 		.4byte	0x210
+ 735 01f3 08       		.uleb128 0x8
+ 736 01f4 64617900 		.ascii	"day\000"
+ 737 01f8 01       		.byte	0x1
+ 738 01f9 50       		.byte	0x50
+ 739 01fa 6B000000 		.4byte	0x6b
+ 740 01fe 02       		.uleb128 0x2
+ 741 01ff 91       		.byte	0x91
+ 742 0200 67       		.sleb128 -25
+ 743 0201 07       		.uleb128 0x7
+ 744 0202 41000000 		.4byte	.LASF31
+ 745 0206 01       		.byte	0x1
+ 746 0207 52       		.byte	0x52
+ 747 0208 6B000000 		.4byte	0x6b
+ 748 020c 02       		.uleb128 0x2
+ 749 020d 91       		.byte	0x91
+ 750 020e 6F       		.sleb128 -17
+ 751 020f 00       		.byte	0
+ 752 0210 0A       		.uleb128 0xa
+ 753 0211 C7010000 		.4byte	.LASF32
+ 754 0215 01       		.byte	0x1
+ 755 0216 57       		.byte	0x57
+ 756 0217 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 16
+
+
+ 757 021b 00000000 		.4byte	.LFB42
+ 758 021f 26000000 		.4byte	.LFE42-.LFB42
+ 759 0223 01       		.uleb128 0x1
+ 760 0224 9C       		.byte	0x9c
+ 761 0225 38020000 		.4byte	0x238
+ 762 0229 07       		.uleb128 0x7
+ 763 022a 21000000 		.4byte	.LASF33
+ 764 022e 01       		.byte	0x1
+ 765 022f 59       		.byte	0x59
+ 766 0230 6B000000 		.4byte	0x6b
+ 767 0234 02       		.uleb128 0x2
+ 768 0235 91       		.byte	0x91
+ 769 0236 6F       		.sleb128 -17
+ 770 0237 00       		.byte	0
+ 771 0238 0B       		.uleb128 0xb
+ 772 0239 1E010000 		.4byte	.LASF38
+ 773 023d 01       		.byte	0x1
+ 774 023e 5F       		.byte	0x5f
+ 775 023f 00000000 		.4byte	.LFB43
+ 776 0243 10000000 		.4byte	.LFE43-.LFB43
+ 777 0247 01       		.uleb128 0x1
+ 778 0248 9C       		.byte	0x9c
+ 779 0249 00       		.byte	0
+ 780              		.section	.debug_abbrev,"",%progbits
+ 781              	.Ldebug_abbrev0:
+ 782 0000 01       		.uleb128 0x1
+ 783 0001 11       		.uleb128 0x11
+ 784 0002 01       		.byte	0x1
+ 785 0003 25       		.uleb128 0x25
+ 786 0004 0E       		.uleb128 0xe
+ 787 0005 13       		.uleb128 0x13
+ 788 0006 0B       		.uleb128 0xb
+ 789 0007 03       		.uleb128 0x3
+ 790 0008 0E       		.uleb128 0xe
+ 791 0009 1B       		.uleb128 0x1b
+ 792 000a 0E       		.uleb128 0xe
+ 793 000b 55       		.uleb128 0x55
+ 794 000c 17       		.uleb128 0x17
+ 795 000d 11       		.uleb128 0x11
+ 796 000e 01       		.uleb128 0x1
+ 797 000f 10       		.uleb128 0x10
+ 798 0010 17       		.uleb128 0x17
+ 799 0011 00       		.byte	0
+ 800 0012 00       		.byte	0
+ 801 0013 02       		.uleb128 0x2
+ 802 0014 24       		.uleb128 0x24
+ 803 0015 00       		.byte	0
+ 804 0016 0B       		.uleb128 0xb
+ 805 0017 0B       		.uleb128 0xb
+ 806 0018 3E       		.uleb128 0x3e
+ 807 0019 0B       		.uleb128 0xb
+ 808 001a 03       		.uleb128 0x3
+ 809 001b 0E       		.uleb128 0xe
+ 810 001c 00       		.byte	0
+ 811 001d 00       		.byte	0
+ 812 001e 03       		.uleb128 0x3
+ 813 001f 24       		.uleb128 0x24
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 17
+
+
+ 814 0020 00       		.byte	0
+ 815 0021 0B       		.uleb128 0xb
+ 816 0022 0B       		.uleb128 0xb
+ 817 0023 3E       		.uleb128 0x3e
+ 818 0024 0B       		.uleb128 0xb
+ 819 0025 03       		.uleb128 0x3
+ 820 0026 08       		.uleb128 0x8
+ 821 0027 00       		.byte	0
+ 822 0028 00       		.byte	0
+ 823 0029 04       		.uleb128 0x4
+ 824 002a 16       		.uleb128 0x16
+ 825 002b 00       		.byte	0
+ 826 002c 03       		.uleb128 0x3
+ 827 002d 0E       		.uleb128 0xe
+ 828 002e 3A       		.uleb128 0x3a
+ 829 002f 0B       		.uleb128 0xb
+ 830 0030 3B       		.uleb128 0x3b
+ 831 0031 0B       		.uleb128 0xb
+ 832 0032 49       		.uleb128 0x49
+ 833 0033 13       		.uleb128 0x13
+ 834 0034 00       		.byte	0
+ 835 0035 00       		.byte	0
+ 836 0036 05       		.uleb128 0x5
+ 837 0037 2E       		.uleb128 0x2e
+ 838 0038 01       		.byte	0x1
+ 839 0039 3F       		.uleb128 0x3f
+ 840 003a 19       		.uleb128 0x19
+ 841 003b 03       		.uleb128 0x3
+ 842 003c 0E       		.uleb128 0xe
+ 843 003d 3A       		.uleb128 0x3a
+ 844 003e 0B       		.uleb128 0xb
+ 845 003f 3B       		.uleb128 0x3b
+ 846 0040 0B       		.uleb128 0xb
+ 847 0041 27       		.uleb128 0x27
+ 848 0042 19       		.uleb128 0x19
+ 849 0043 11       		.uleb128 0x11
+ 850 0044 01       		.uleb128 0x1
+ 851 0045 12       		.uleb128 0x12
+ 852 0046 06       		.uleb128 0x6
+ 853 0047 40       		.uleb128 0x40
+ 854 0048 18       		.uleb128 0x18
+ 855 0049 9642     		.uleb128 0x2116
+ 856 004b 19       		.uleb128 0x19
+ 857 004c 01       		.uleb128 0x1
+ 858 004d 13       		.uleb128 0x13
+ 859 004e 00       		.byte	0
+ 860 004f 00       		.byte	0
+ 861 0050 06       		.uleb128 0x6
+ 862 0051 05       		.uleb128 0x5
+ 863 0052 00       		.byte	0
+ 864 0053 03       		.uleb128 0x3
+ 865 0054 0E       		.uleb128 0xe
+ 866 0055 3A       		.uleb128 0x3a
+ 867 0056 0B       		.uleb128 0xb
+ 868 0057 3B       		.uleb128 0x3b
+ 869 0058 0B       		.uleb128 0xb
+ 870 0059 49       		.uleb128 0x49
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 18
+
+
+ 871 005a 13       		.uleb128 0x13
+ 872 005b 02       		.uleb128 0x2
+ 873 005c 18       		.uleb128 0x18
+ 874 005d 00       		.byte	0
+ 875 005e 00       		.byte	0
+ 876 005f 07       		.uleb128 0x7
+ 877 0060 34       		.uleb128 0x34
+ 878 0061 00       		.byte	0
+ 879 0062 03       		.uleb128 0x3
+ 880 0063 0E       		.uleb128 0xe
+ 881 0064 3A       		.uleb128 0x3a
+ 882 0065 0B       		.uleb128 0xb
+ 883 0066 3B       		.uleb128 0x3b
+ 884 0067 0B       		.uleb128 0xb
+ 885 0068 49       		.uleb128 0x49
+ 886 0069 13       		.uleb128 0x13
+ 887 006a 02       		.uleb128 0x2
+ 888 006b 18       		.uleb128 0x18
+ 889 006c 00       		.byte	0
+ 890 006d 00       		.byte	0
+ 891 006e 08       		.uleb128 0x8
+ 892 006f 05       		.uleb128 0x5
+ 893 0070 00       		.byte	0
+ 894 0071 03       		.uleb128 0x3
+ 895 0072 08       		.uleb128 0x8
+ 896 0073 3A       		.uleb128 0x3a
+ 897 0074 0B       		.uleb128 0xb
+ 898 0075 3B       		.uleb128 0x3b
+ 899 0076 0B       		.uleb128 0xb
+ 900 0077 49       		.uleb128 0x49
+ 901 0078 13       		.uleb128 0x13
+ 902 0079 02       		.uleb128 0x2
+ 903 007a 18       		.uleb128 0x18
+ 904 007b 00       		.byte	0
+ 905 007c 00       		.byte	0
+ 906 007d 09       		.uleb128 0x9
+ 907 007e 2E       		.uleb128 0x2e
+ 908 007f 00       		.byte	0
+ 909 0080 3F       		.uleb128 0x3f
+ 910 0081 19       		.uleb128 0x19
+ 911 0082 03       		.uleb128 0x3
+ 912 0083 0E       		.uleb128 0xe
+ 913 0084 3A       		.uleb128 0x3a
+ 914 0085 0B       		.uleb128 0xb
+ 915 0086 3B       		.uleb128 0x3b
+ 916 0087 0B       		.uleb128 0xb
+ 917 0088 49       		.uleb128 0x49
+ 918 0089 13       		.uleb128 0x13
+ 919 008a 11       		.uleb128 0x11
+ 920 008b 01       		.uleb128 0x1
+ 921 008c 12       		.uleb128 0x12
+ 922 008d 06       		.uleb128 0x6
+ 923 008e 40       		.uleb128 0x40
+ 924 008f 18       		.uleb128 0x18
+ 925 0090 9642     		.uleb128 0x2116
+ 926 0092 19       		.uleb128 0x19
+ 927 0093 00       		.byte	0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 19
+
+
+ 928 0094 00       		.byte	0
+ 929 0095 0A       		.uleb128 0xa
+ 930 0096 2E       		.uleb128 0x2e
+ 931 0097 01       		.byte	0x1
+ 932 0098 3F       		.uleb128 0x3f
+ 933 0099 19       		.uleb128 0x19
+ 934 009a 03       		.uleb128 0x3
+ 935 009b 0E       		.uleb128 0xe
+ 936 009c 3A       		.uleb128 0x3a
+ 937 009d 0B       		.uleb128 0xb
+ 938 009e 3B       		.uleb128 0x3b
+ 939 009f 0B       		.uleb128 0xb
+ 940 00a0 49       		.uleb128 0x49
+ 941 00a1 13       		.uleb128 0x13
+ 942 00a2 11       		.uleb128 0x11
+ 943 00a3 01       		.uleb128 0x1
+ 944 00a4 12       		.uleb128 0x12
+ 945 00a5 06       		.uleb128 0x6
+ 946 00a6 40       		.uleb128 0x40
+ 947 00a7 18       		.uleb128 0x18
+ 948 00a8 9642     		.uleb128 0x2116
+ 949 00aa 19       		.uleb128 0x19
+ 950 00ab 01       		.uleb128 0x1
+ 951 00ac 13       		.uleb128 0x13
+ 952 00ad 00       		.byte	0
+ 953 00ae 00       		.byte	0
+ 954 00af 0B       		.uleb128 0xb
+ 955 00b0 2E       		.uleb128 0x2e
+ 956 00b1 00       		.byte	0
+ 957 00b2 3F       		.uleb128 0x3f
+ 958 00b3 19       		.uleb128 0x19
+ 959 00b4 03       		.uleb128 0x3
+ 960 00b5 0E       		.uleb128 0xe
+ 961 00b6 3A       		.uleb128 0x3a
+ 962 00b7 0B       		.uleb128 0xb
+ 963 00b8 3B       		.uleb128 0x3b
+ 964 00b9 0B       		.uleb128 0xb
+ 965 00ba 11       		.uleb128 0x11
+ 966 00bb 01       		.uleb128 0x1
+ 967 00bc 12       		.uleb128 0x12
+ 968 00bd 06       		.uleb128 0x6
+ 969 00be 40       		.uleb128 0x40
+ 970 00bf 18       		.uleb128 0x18
+ 971 00c0 9642     		.uleb128 0x2116
+ 972 00c2 19       		.uleb128 0x19
+ 973 00c3 00       		.byte	0
+ 974 00c4 00       		.byte	0
+ 975 00c5 00       		.byte	0
+ 976              		.section	.debug_aranges,"",%progbits
+ 977 0000 6C000000 		.4byte	0x6c
+ 978 0004 0200     		.2byte	0x2
+ 979 0006 00000000 		.4byte	.Ldebug_info0
+ 980 000a 04       		.byte	0x4
+ 981 000b 00       		.byte	0
+ 982 000c 0000     		.2byte	0
+ 983 000e 0000     		.2byte	0
+ 984 0010 00000000 		.4byte	.LFB33
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 20
+
+
+ 985 0014 60000000 		.4byte	.LFE33-.LFB33
+ 986 0018 00000000 		.4byte	.LFB34
+ 987 001c 1E000000 		.4byte	.LFE34-.LFB34
+ 988 0020 00000000 		.4byte	.LFB35
+ 989 0024 32000000 		.4byte	.LFE35-.LFB35
+ 990 0028 00000000 		.4byte	.LFB36
+ 991 002c 1A000000 		.4byte	.LFE36-.LFB36
+ 992 0030 00000000 		.4byte	.LFB37
+ 993 0034 32000000 		.4byte	.LFE37-.LFB37
+ 994 0038 00000000 		.4byte	.LFB38
+ 995 003c 1A000000 		.4byte	.LFE38-.LFB38
+ 996 0040 00000000 		.4byte	.LFB39
+ 997 0044 32000000 		.4byte	.LFE39-.LFB39
+ 998 0048 00000000 		.4byte	.LFB40
+ 999 004c 26000000 		.4byte	.LFE40-.LFB40
+ 1000 0050 00000000 		.4byte	.LFB41
+ 1001 0054 32000000 		.4byte	.LFE41-.LFB41
+ 1002 0058 00000000 		.4byte	.LFB42
+ 1003 005c 26000000 		.4byte	.LFE42-.LFB42
+ 1004 0060 00000000 		.4byte	.LFB43
+ 1005 0064 10000000 		.4byte	.LFE43-.LFB43
+ 1006 0068 00000000 		.4byte	0
+ 1007 006c 00000000 		.4byte	0
+ 1008              		.section	.debug_ranges,"",%progbits
+ 1009              	.Ldebug_ranges0:
+ 1010 0000 00000000 		.4byte	.LFB33
+ 1011 0004 60000000 		.4byte	.LFE33
+ 1012 0008 00000000 		.4byte	.LFB34
+ 1013 000c 1E000000 		.4byte	.LFE34
+ 1014 0010 00000000 		.4byte	.LFB35
+ 1015 0014 32000000 		.4byte	.LFE35
+ 1016 0018 00000000 		.4byte	.LFB36
+ 1017 001c 1A000000 		.4byte	.LFE36
+ 1018 0020 00000000 		.4byte	.LFB37
+ 1019 0024 32000000 		.4byte	.LFE37
+ 1020 0028 00000000 		.4byte	.LFB38
+ 1021 002c 1A000000 		.4byte	.LFE38
+ 1022 0030 00000000 		.4byte	.LFB39
+ 1023 0034 32000000 		.4byte	.LFE39
+ 1024 0038 00000000 		.4byte	.LFB40
+ 1025 003c 26000000 		.4byte	.LFE40
+ 1026 0040 00000000 		.4byte	.LFB41
+ 1027 0044 32000000 		.4byte	.LFE41
+ 1028 0048 00000000 		.4byte	.LFB42
+ 1029 004c 26000000 		.4byte	.LFE42
+ 1030 0050 00000000 		.4byte	.LFB43
+ 1031 0054 10000000 		.4byte	.LFE43
+ 1032 0058 00000000 		.4byte	0
+ 1033 005c 00000000 		.4byte	0
+ 1034              		.section	.debug_line,"",%progbits
+ 1035              	.Ldebug_line0:
+ 1036 0000 15010000 		.section	.debug_str,"MS",%progbits,1
+ 1036      02004400 
+ 1036      00000201 
+ 1036      FB0E0D00 
+ 1036      01010101 
+ 1037              	.LASF21:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 21
+
+
+ 1038 0000 6D696E75 		.ascii	"minutes\000"
+ 1038      74657300 
+ 1039              	.LASF16:
+ 1040 0008 6368616E 		.ascii	"changePowerMode\000"
+ 1040      6765506F 
+ 1040      7765724D 
+ 1040      6F646500 
+ 1041              	.LASF25:
+ 1042 0018 73657448 		.ascii	"setHours\000"
+ 1042      6F757273 
+ 1042      00
+ 1043              	.LASF33:
+ 1044 0021 64617942 		.ascii	"dayBCD\000"
+ 1044      434400
+ 1045              	.LASF14:
+ 1046 0028 76616C75 		.ascii	"value\000"
+ 1046      6500
+ 1047              	.LASF3:
+ 1048 002e 73686F72 		.ascii	"short unsigned int\000"
+ 1048      7420756E 
+ 1048      7369676E 
+ 1048      65642069 
+ 1048      6E7400
+ 1049              	.LASF31:
+ 1050 0041 62636444 		.ascii	"bcdDay\000"
+ 1050      617900
+ 1051              	.LASF20:
+ 1052 0048 7365744D 		.ascii	"setMin\000"
+ 1052      696E00
+ 1053              	.LASF27:
+ 1054 004f 62636448 		.ascii	"bcdHour\000"
+ 1054      6F757200 
+ 1055              	.LASF9:
+ 1056 0057 666C6F61 		.ascii	"float\000"
+ 1056      7400
+ 1057              	.LASF34:
+ 1058 005d 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1058      4320342E 
+ 1058      382E3420 
+ 1058      32303134 
+ 1058      30353236 
+ 1059 0090 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1059      20726576 
+ 1059      6973696F 
+ 1059      6E203231 
+ 1059      31333538 
+ 1060 00c3 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1060      66756E63 
+ 1060      74696F6E 
+ 1060      2D736563 
+ 1060      74696F6E 
+ 1061              	.LASF1:
+ 1062 00d9 756E7369 		.ascii	"unsigned char\000"
+ 1062      676E6564 
+ 1062      20636861 
+ 1062      7200
+ 1063              	.LASF5:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 22
+
+
+ 1064 00e7 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1064      20756E73 
+ 1064      69676E65 
+ 1064      6420696E 
+ 1064      7400
+ 1065              	.LASF37:
+ 1066 00f9 75696E74 		.ascii	"uint8\000"
+ 1066      3800
+ 1067              	.LASF28:
+ 1068 00ff 67657448 		.ascii	"getHours\000"
+ 1068      6F757273 
+ 1068      00
+ 1069              	.LASF30:
+ 1070 0108 73657444 		.ascii	"setDay\000"
+ 1070      617900
+ 1071              	.LASF10:
+ 1072 010f 646F7562 		.ascii	"double\000"
+ 1072      6C6500
+ 1073              	.LASF35:
+ 1074 0116 2E5C5254 		.ascii	".\\RTC.c\000"
+ 1074      432E6300 
+ 1075              	.LASF38:
+ 1076 011e 736F6674 		.ascii	"softReset\000"
+ 1076      52657365 
+ 1076      7400
+ 1077              	.LASF8:
+ 1078 0128 756E7369 		.ascii	"unsigned int\000"
+ 1078      676E6564 
+ 1078      20696E74 
+ 1078      00
+ 1079              	.LASF18:
+ 1080 0135 73657453 		.ascii	"setSec\000"
+ 1080      656300
+ 1081              	.LASF7:
+ 1082 013c 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1082      206C6F6E 
+ 1082      6720756E 
+ 1082      7369676E 
+ 1082      65642069 
+ 1083              	.LASF17:
+ 1084 0153 6D6F6465 		.ascii	"mode\000"
+ 1084      00
+ 1085              	.LASF26:
+ 1086 0158 686F7572 		.ascii	"hour\000"
+ 1086      00
+ 1087              	.LASF13:
+ 1088 015d 636F6E74 		.ascii	"controlReg\000"
+ 1088      726F6C52 
+ 1088      656700
+ 1089              	.LASF36:
+ 1090 0168 433A5C55 		.ascii	"C:\\Users\\Joseph\\Documents\\CY8CKIT-049-42xx\\1.0"
+ 1090      73657273 
+ 1090      5C4A6F73 
+ 1090      6570685C 
+ 1090      446F6375 
+ 1091 0196 5C466972 		.ascii	"\\Firmware\\SCB_Bootloader\\Design02.cydsn\000"
+ 1091      6D776172 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccph2e6o.s 			page 23
+
+
+ 1091      655C5343 
+ 1091      425F426F 
+ 1091      6F746C6F 
+ 1092              	.LASF12:
+ 1093 01be 73697A65 		.ascii	"sizetype\000"
+ 1093      74797065 
+ 1093      00
+ 1094              	.LASF32:
+ 1095 01c7 67657444 		.ascii	"getDay\000"
+ 1095      617900
+ 1096              	.LASF15:
+ 1097 01ce 6368616E 		.ascii	"changeHourMode\000"
+ 1097      6765486F 
+ 1097      75724D6F 
+ 1097      646500
+ 1098              	.LASF6:
+ 1099 01dd 6C6F6E67 		.ascii	"long long int\000"
+ 1099      206C6F6E 
+ 1099      6720696E 
+ 1099      7400
+ 1100              	.LASF11:
+ 1101 01eb 63686172 		.ascii	"char\000"
+ 1101      00
+ 1102              	.LASF2:
+ 1103 01f0 73686F72 		.ascii	"short int\000"
+ 1103      7420696E 
+ 1103      7400
+ 1104              	.LASF23:
+ 1105 01fa 67657453 		.ascii	"getSec\000"
+ 1105      656300
+ 1106              	.LASF4:
+ 1107 0201 6C6F6E67 		.ascii	"long int\000"
+ 1107      20696E74 
+ 1107      00
+ 1108              	.LASF0:
+ 1109 020a 7369676E 		.ascii	"signed char\000"
+ 1109      65642063 
+ 1109      68617200 
+ 1110              	.LASF22:
+ 1111 0216 6D696E75 		.ascii	"minutesBCD\000"
+ 1111      74657342 
+ 1111      434400
+ 1112              	.LASF24:
+ 1113 0221 6765744D 		.ascii	"getMin\000"
+ 1113      696E00
+ 1114              	.LASF19:
+ 1115 0228 7365636F 		.ascii	"secondsBCD\000"
+ 1115      6E647342 
+ 1115      434400
+ 1116              	.LASF29:
+ 1117 0233 686F7572 		.ascii	"hourBCD\000"
+ 1117      42434400 
+ 1118              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

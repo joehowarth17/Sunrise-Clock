@@ -1,0 +1,3669 @@
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"SPIM_1.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	SPIM_1_initVar
+  18              		.bss
+  19              		.type	SPIM_1_initVar, %object
+  20              		.size	SPIM_1_initVar, 1
+  21              	SPIM_1_initVar:
+  22 0000 00       		.space	1
+  23              		.comm	SPIM_1_swStatusTx,1,1
+  24              		.comm	SPIM_1_swStatusRx,1,1
+  25              		.section	.text.SPIM_1_Init,"ax",%progbits
+  26              		.align	2
+  27              		.global	SPIM_1_Init
+  28              		.code	16
+  29              		.thumb_func
+  30              		.type	SPIM_1_Init, %function
+  31              	SPIM_1_Init:
+  32              	.LFB0:
+  33              		.file 1 "Generated_Source\\PSoC4\\SPIM_1.c"
+   1:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/SPIM_1.c **** * File Name: SPIM_1.c
+   3:Generated_Source\PSoC4/SPIM_1.c **** * Version 2.50
+   4:Generated_Source\PSoC4/SPIM_1.c **** *
+   5:Generated_Source\PSoC4/SPIM_1.c **** * Description:
+   6:Generated_Source\PSoC4/SPIM_1.c **** *  This file provides all API functionality of the SPI Master component.
+   7:Generated_Source\PSoC4/SPIM_1.c **** *
+   8:Generated_Source\PSoC4/SPIM_1.c **** * Note:
+   9:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+  10:Generated_Source\PSoC4/SPIM_1.c **** *
+  11:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+  12:Generated_Source\PSoC4/SPIM_1.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC4/SPIM_1.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:Generated_Source\PSoC4/SPIM_1.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:Generated_Source\PSoC4/SPIM_1.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+  17:Generated_Source\PSoC4/SPIM_1.c **** 
+  18:Generated_Source\PSoC4/SPIM_1.c **** #include "SPIM_1_PVT.h"
+  19:Generated_Source\PSoC4/SPIM_1.c **** 
+  20:Generated_Source\PSoC4/SPIM_1.c **** #if(SPIM_1_TX_SOFTWARE_BUF_ENABLED)
+  21:Generated_Source\PSoC4/SPIM_1.c ****     volatile uint8 SPIM_1_txBuffer[SPIM_1_TX_BUFFER_SIZE];
+  22:Generated_Source\PSoC4/SPIM_1.c ****     volatile uint8 SPIM_1_txBufferFull;
+  23:Generated_Source\PSoC4/SPIM_1.c ****     volatile uint8 SPIM_1_txBufferRead;
+  24:Generated_Source\PSoC4/SPIM_1.c ****     volatile uint8 SPIM_1_txBufferWrite;
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 2
+
+
+  25:Generated_Source\PSoC4/SPIM_1.c **** #endif /* (SPIM_1_TX_SOFTWARE_BUF_ENABLED) */
+  26:Generated_Source\PSoC4/SPIM_1.c **** 
+  27:Generated_Source\PSoC4/SPIM_1.c **** #if(SPIM_1_RX_SOFTWARE_BUF_ENABLED)
+  28:Generated_Source\PSoC4/SPIM_1.c ****     volatile uint8 SPIM_1_rxBuffer[SPIM_1_RX_BUFFER_SIZE];
+  29:Generated_Source\PSoC4/SPIM_1.c ****     volatile uint8 SPIM_1_rxBufferFull;
+  30:Generated_Source\PSoC4/SPIM_1.c ****     volatile uint8 SPIM_1_rxBufferRead;
+  31:Generated_Source\PSoC4/SPIM_1.c ****     volatile uint8 SPIM_1_rxBufferWrite;
+  32:Generated_Source\PSoC4/SPIM_1.c **** #endif /* (SPIM_1_RX_SOFTWARE_BUF_ENABLED) */
+  33:Generated_Source\PSoC4/SPIM_1.c **** 
+  34:Generated_Source\PSoC4/SPIM_1.c **** uint8 SPIM_1_initVar = 0u;
+  35:Generated_Source\PSoC4/SPIM_1.c **** 
+  36:Generated_Source\PSoC4/SPIM_1.c **** volatile uint8 SPIM_1_swStatusTx;
+  37:Generated_Source\PSoC4/SPIM_1.c **** volatile uint8 SPIM_1_swStatusRx;
+  38:Generated_Source\PSoC4/SPIM_1.c **** 
+  39:Generated_Source\PSoC4/SPIM_1.c **** 
+  40:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+  41:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_Init
+  42:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+  43:Generated_Source\PSoC4/SPIM_1.c **** *
+  44:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+  45:Generated_Source\PSoC4/SPIM_1.c **** *  Inits/Restores default SPIM configuration provided with customizer.
+  46:Generated_Source\PSoC4/SPIM_1.c **** *
+  47:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+  48:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+  49:Generated_Source\PSoC4/SPIM_1.c **** *
+  50:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+  51:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+  52:Generated_Source\PSoC4/SPIM_1.c **** *
+  53:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+  54:Generated_Source\PSoC4/SPIM_1.c **** *  When this function is called it initializes all of the necessary parameters
+  55:Generated_Source\PSoC4/SPIM_1.c **** *  for execution. i.e. setting the initial interrupt mask, configuring the
+  56:Generated_Source\PSoC4/SPIM_1.c **** *  interrupt service routine, configuring the bit-counter parameters and
+  57:Generated_Source\PSoC4/SPIM_1.c **** *  clearing the FIFO and Status Register.
+  58:Generated_Source\PSoC4/SPIM_1.c **** *
+  59:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+  60:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+  61:Generated_Source\PSoC4/SPIM_1.c **** *
+  62:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+  63:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_Init(void) 
+  64:Generated_Source\PSoC4/SPIM_1.c **** {
+  34              		.loc 1 64 0
+  35              		.cfi_startproc
+  36 0000 80B5     		push	{r7, lr}
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 7, -8
+  39              		.cfi_offset 14, -4
+  40 0002 00AF     		add	r7, sp, #0
+  41              		.cfi_def_cfa_register 7
+  65:Generated_Source\PSoC4/SPIM_1.c ****     /* Initialize the Bit counter */
+  66:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_COUNTER_PERIOD_REG = SPIM_1_BITCTR_INIT;
+  42              		.loc 1 66 0
+  43 0004 084B     		ldr	r3, .L2
+  44 0006 0F22     		mov	r2, #15
+  45 0008 1A70     		strb	r2, [r3]
+  67:Generated_Source\PSoC4/SPIM_1.c **** 
+  68:Generated_Source\PSoC4/SPIM_1.c ****     /* Init TX ISR  */
+  69:Generated_Source\PSoC4/SPIM_1.c ****     #if(0u != SPIM_1_INTERNAL_TX_INT_ENABLED)
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 3
+
+
+  70:Generated_Source\PSoC4/SPIM_1.c ****         CyIntDisable         (SPIM_1_TX_ISR_NUMBER);
+  71:Generated_Source\PSoC4/SPIM_1.c ****         CyIntSetPriority     (SPIM_1_TX_ISR_NUMBER,  SPIM_1_TX_ISR_PRIORITY);
+  72:Generated_Source\PSoC4/SPIM_1.c ****         (void) CyIntSetVector(SPIM_1_TX_ISR_NUMBER, &SPIM_1_TX_ISR);
+  73:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (0u != SPIM_1_INTERNAL_TX_INT_ENABLED) */
+  74:Generated_Source\PSoC4/SPIM_1.c **** 
+  75:Generated_Source\PSoC4/SPIM_1.c ****     /* Init RX ISR  */
+  76:Generated_Source\PSoC4/SPIM_1.c ****     #if(0u != SPIM_1_INTERNAL_RX_INT_ENABLED)
+  77:Generated_Source\PSoC4/SPIM_1.c ****         CyIntDisable         (SPIM_1_RX_ISR_NUMBER);
+  78:Generated_Source\PSoC4/SPIM_1.c ****         CyIntSetPriority     (SPIM_1_RX_ISR_NUMBER,  SPIM_1_RX_ISR_PRIORITY);
+  79:Generated_Source\PSoC4/SPIM_1.c ****         (void) CyIntSetVector(SPIM_1_RX_ISR_NUMBER, &SPIM_1_RX_ISR);
+  80:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (0u != SPIM_1_INTERNAL_RX_INT_ENABLED) */
+  81:Generated_Source\PSoC4/SPIM_1.c **** 
+  82:Generated_Source\PSoC4/SPIM_1.c ****     /* Clear any stray data from the RX and TX FIFO */
+  83:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_ClearFIFO();
+  46              		.loc 1 83 0
+  47 000a FFF7FEFF 		bl	SPIM_1_ClearFIFO
+  84:Generated_Source\PSoC4/SPIM_1.c **** 
+  85:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_RX_SOFTWARE_BUF_ENABLED)
+  86:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_rxBufferFull  = 0u;
+  87:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_rxBufferRead  = 0u;
+  88:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_rxBufferWrite = 0u;
+  89:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_RX_SOFTWARE_BUF_ENABLED) */
+  90:Generated_Source\PSoC4/SPIM_1.c **** 
+  91:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_TX_SOFTWARE_BUF_ENABLED)
+  92:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_txBufferFull  = 0u;
+  93:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_txBufferRead  = 0u;
+  94:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_txBufferWrite = 0u;
+  95:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_TX_SOFTWARE_BUF_ENABLED) */
+  96:Generated_Source\PSoC4/SPIM_1.c **** 
+  97:Generated_Source\PSoC4/SPIM_1.c ****     (void) SPIM_1_ReadTxStatus(); /* Clear Tx status and swStatusTx */
+  48              		.loc 1 97 0
+  49 000e FFF7FEFF 		bl	SPIM_1_ReadTxStatus
+  98:Generated_Source\PSoC4/SPIM_1.c ****     (void) SPIM_1_ReadRxStatus(); /* Clear Rx status and swStatusRx */
+  50              		.loc 1 98 0
+  51 0012 FFF7FEFF 		bl	SPIM_1_ReadRxStatus
+  99:Generated_Source\PSoC4/SPIM_1.c **** 
+ 100:Generated_Source\PSoC4/SPIM_1.c ****     /* Configure TX and RX interrupt mask */
+ 101:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_TX_STATUS_MASK_REG = SPIM_1_TX_INIT_INTERRUPTS_MASK;
+  52              		.loc 1 101 0
+  53 0016 054B     		ldr	r3, .L2+4
+  54 0018 0022     		mov	r2, #0
+  55 001a 1A70     		strb	r2, [r3]
+ 102:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_RX_STATUS_MASK_REG = SPIM_1_RX_INIT_INTERRUPTS_MASK;
+  56              		.loc 1 102 0
+  57 001c 044B     		ldr	r3, .L2+8
+  58 001e 0022     		mov	r2, #0
+  59 0020 1A70     		strb	r2, [r3]
+ 103:Generated_Source\PSoC4/SPIM_1.c **** }
+  60              		.loc 1 103 0
+  61 0022 BD46     		mov	sp, r7
+  62              		@ sp needed
+  63 0024 80BD     		pop	{r7, pc}
+  64              	.L3:
+  65 0026 C046     		.align	2
+  66              	.L2:
+  67 0028 80000F40 		.word	1074724992
+  68 002c 81000F40 		.word	1074724993
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 4
+
+
+  69 0030 83000F40 		.word	1074724995
+  70              		.cfi_endproc
+  71              	.LFE0:
+  72              		.size	SPIM_1_Init, .-SPIM_1_Init
+  73              		.section	.text.SPIM_1_Enable,"ax",%progbits
+  74              		.align	2
+  75              		.global	SPIM_1_Enable
+  76              		.code	16
+  77              		.thumb_func
+  78              		.type	SPIM_1_Enable, %function
+  79              	SPIM_1_Enable:
+  80              	.LFB1:
+ 104:Generated_Source\PSoC4/SPIM_1.c **** 
+ 105:Generated_Source\PSoC4/SPIM_1.c **** 
+ 106:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 107:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_Enable
+ 108:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 109:Generated_Source\PSoC4/SPIM_1.c **** *
+ 110:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 111:Generated_Source\PSoC4/SPIM_1.c **** *  Enable SPIM component.
+ 112:Generated_Source\PSoC4/SPIM_1.c **** *
+ 113:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 114:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 115:Generated_Source\PSoC4/SPIM_1.c **** *
+ 116:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 117:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 118:Generated_Source\PSoC4/SPIM_1.c **** *
+ 119:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 120:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_Enable(void) 
+ 121:Generated_Source\PSoC4/SPIM_1.c **** {
+  81              		.loc 1 121 0
+  82              		.cfi_startproc
+  83 0000 90B5     		push	{r4, r7, lr}
+  84              		.cfi_def_cfa_offset 12
+  85              		.cfi_offset 4, -12
+  86              		.cfi_offset 7, -8
+  87              		.cfi_offset 14, -4
+  88 0002 83B0     		sub	sp, sp, #12
+  89              		.cfi_def_cfa_offset 24
+  90 0004 00AF     		add	r7, sp, #0
+  91              		.cfi_def_cfa_register 7
+ 122:Generated_Source\PSoC4/SPIM_1.c ****     uint8 enableInterrupts;
+ 123:Generated_Source\PSoC4/SPIM_1.c **** 
+ 124:Generated_Source\PSoC4/SPIM_1.c ****     enableInterrupts = CyEnterCriticalSection();
+  92              		.loc 1 124 0
+  93 0006 FC1D     		add	r4, r7, #7
+  94 0008 FFF7FEFF 		bl	CyEnterCriticalSection
+  95 000c 031C     		mov	r3, r0
+  96 000e 2370     		strb	r3, [r4]
+ 125:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_COUNTER_CONTROL_REG |= SPIM_1_CNTR_ENABLE;
+  97              		.loc 1 125 0
+  98 0010 124A     		ldr	r2, .L5
+  99 0012 124B     		ldr	r3, .L5
+ 100 0014 1B78     		ldrb	r3, [r3]
+ 101 0016 DBB2     		uxtb	r3, r3
+ 102 0018 2021     		mov	r1, #32
+ 103 001a 0B43     		orr	r3, r1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 5
+
+
+ 104 001c DBB2     		uxtb	r3, r3
+ 105 001e 1370     		strb	r3, [r2]
+ 126:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_TX_STATUS_ACTL_REG  |= SPIM_1_INT_ENABLE;
+ 106              		.loc 1 126 0
+ 107 0020 0F4A     		ldr	r2, .L5+4
+ 108 0022 0F4B     		ldr	r3, .L5+4
+ 109 0024 1B78     		ldrb	r3, [r3]
+ 110 0026 DBB2     		uxtb	r3, r3
+ 111 0028 1021     		mov	r1, #16
+ 112 002a 0B43     		orr	r3, r1
+ 113 002c DBB2     		uxtb	r3, r3
+ 114 002e 1370     		strb	r3, [r2]
+ 127:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_RX_STATUS_ACTL_REG  |= SPIM_1_INT_ENABLE;
+ 115              		.loc 1 127 0
+ 116 0030 0C4A     		ldr	r2, .L5+8
+ 117 0032 0C4B     		ldr	r3, .L5+8
+ 118 0034 1B78     		ldrb	r3, [r3]
+ 119 0036 DBB2     		uxtb	r3, r3
+ 120 0038 1021     		mov	r1, #16
+ 121 003a 0B43     		orr	r3, r1
+ 122 003c DBB2     		uxtb	r3, r3
+ 123 003e 1370     		strb	r3, [r2]
+ 128:Generated_Source\PSoC4/SPIM_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 124              		.loc 1 128 0
+ 125 0040 FB1D     		add	r3, r7, #7
+ 126 0042 1B78     		ldrb	r3, [r3]
+ 127 0044 181C     		mov	r0, r3
+ 128 0046 FFF7FEFF 		bl	CyExitCriticalSection
+ 129:Generated_Source\PSoC4/SPIM_1.c **** 
+ 130:Generated_Source\PSoC4/SPIM_1.c ****     #if(0u != SPIM_1_INTERNAL_CLOCK)
+ 131:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_IntClock_Enable();
+ 129              		.loc 1 131 0
+ 130 004a FFF7FEFF 		bl	SPIM_1_IntClock_Start
+ 132:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (0u != SPIM_1_INTERNAL_CLOCK) */
+ 133:Generated_Source\PSoC4/SPIM_1.c **** 
+ 134:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_EnableTxInt();
+ 131              		.loc 1 134 0
+ 132 004e FFF7FEFF 		bl	SPIM_1_EnableTxInt
+ 135:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_EnableRxInt();
+ 133              		.loc 1 135 0
+ 134 0052 FFF7FEFF 		bl	SPIM_1_EnableRxInt
+ 136:Generated_Source\PSoC4/SPIM_1.c **** }
+ 135              		.loc 1 136 0
+ 136 0056 BD46     		mov	sp, r7
+ 137 0058 03B0     		add	sp, sp, #12
+ 138              		@ sp needed
+ 139 005a 90BD     		pop	{r4, r7, pc}
+ 140              	.L6:
+ 141              		.align	2
+ 142              	.L5:
+ 143 005c 90000F40 		.word	1074725008
+ 144 0060 91000F40 		.word	1074725009
+ 145 0064 93000F40 		.word	1074725011
+ 146              		.cfi_endproc
+ 147              	.LFE1:
+ 148              		.size	SPIM_1_Enable, .-SPIM_1_Enable
+ 149              		.section	.text.SPIM_1_Start,"ax",%progbits
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 6
+
+
+ 150              		.align	2
+ 151              		.global	SPIM_1_Start
+ 152              		.code	16
+ 153              		.thumb_func
+ 154              		.type	SPIM_1_Start, %function
+ 155              	SPIM_1_Start:
+ 156              	.LFB2:
+ 137:Generated_Source\PSoC4/SPIM_1.c **** 
+ 138:Generated_Source\PSoC4/SPIM_1.c **** 
+ 139:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 140:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_Start
+ 141:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 142:Generated_Source\PSoC4/SPIM_1.c **** *
+ 143:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 144:Generated_Source\PSoC4/SPIM_1.c **** *  Initialize and Enable the SPI Master component.
+ 145:Generated_Source\PSoC4/SPIM_1.c **** *
+ 146:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 147:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 148:Generated_Source\PSoC4/SPIM_1.c **** *
+ 149:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 150:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 151:Generated_Source\PSoC4/SPIM_1.c **** *
+ 152:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+ 153:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_initVar - used to check initial configuration, modified on
+ 154:Generated_Source\PSoC4/SPIM_1.c **** *  first function call.
+ 155:Generated_Source\PSoC4/SPIM_1.c **** *
+ 156:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 157:Generated_Source\PSoC4/SPIM_1.c **** *  Enable the clock input to enable operation.
+ 158:Generated_Source\PSoC4/SPIM_1.c **** *
+ 159:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+ 160:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+ 161:Generated_Source\PSoC4/SPIM_1.c **** *
+ 162:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 163:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_Start(void) 
+ 164:Generated_Source\PSoC4/SPIM_1.c **** {
+ 157              		.loc 1 164 0
+ 158              		.cfi_startproc
+ 159 0000 80B5     		push	{r7, lr}
+ 160              		.cfi_def_cfa_offset 8
+ 161              		.cfi_offset 7, -8
+ 162              		.cfi_offset 14, -4
+ 163 0002 00AF     		add	r7, sp, #0
+ 164              		.cfi_def_cfa_register 7
+ 165:Generated_Source\PSoC4/SPIM_1.c ****     if(0u == SPIM_1_initVar)
+ 165              		.loc 1 165 0
+ 166 0004 064B     		ldr	r3, .L9
+ 167 0006 1B78     		ldrb	r3, [r3]
+ 168 0008 002B     		cmp	r3, #0
+ 169 000a 04D1     		bne	.L8
+ 166:Generated_Source\PSoC4/SPIM_1.c ****     {
+ 167:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_Init();
+ 170              		.loc 1 167 0
+ 171 000c FFF7FEFF 		bl	SPIM_1_Init
+ 168:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_initVar = 1u;
+ 172              		.loc 1 168 0
+ 173 0010 034B     		ldr	r3, .L9
+ 174 0012 0122     		mov	r2, #1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 7
+
+
+ 175 0014 1A70     		strb	r2, [r3]
+ 176              	.L8:
+ 169:Generated_Source\PSoC4/SPIM_1.c ****     }
+ 170:Generated_Source\PSoC4/SPIM_1.c **** 
+ 171:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_Enable();
+ 177              		.loc 1 171 0
+ 178 0016 FFF7FEFF 		bl	SPIM_1_Enable
+ 172:Generated_Source\PSoC4/SPIM_1.c **** }
+ 179              		.loc 1 172 0
+ 180 001a BD46     		mov	sp, r7
+ 181              		@ sp needed
+ 182 001c 80BD     		pop	{r7, pc}
+ 183              	.L10:
+ 184 001e C046     		.align	2
+ 185              	.L9:
+ 186 0020 00000000 		.word	SPIM_1_initVar
+ 187              		.cfi_endproc
+ 188              	.LFE2:
+ 189              		.size	SPIM_1_Start, .-SPIM_1_Start
+ 190              		.section	.text.SPIM_1_Stop,"ax",%progbits
+ 191              		.align	2
+ 192              		.global	SPIM_1_Stop
+ 193              		.code	16
+ 194              		.thumb_func
+ 195              		.type	SPIM_1_Stop, %function
+ 196              	SPIM_1_Stop:
+ 197              	.LFB3:
+ 173:Generated_Source\PSoC4/SPIM_1.c **** 
+ 174:Generated_Source\PSoC4/SPIM_1.c **** 
+ 175:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 176:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_Stop
+ 177:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 178:Generated_Source\PSoC4/SPIM_1.c **** *
+ 179:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 180:Generated_Source\PSoC4/SPIM_1.c **** *  Disable the SPI Master component.
+ 181:Generated_Source\PSoC4/SPIM_1.c **** *
+ 182:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 183:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 184:Generated_Source\PSoC4/SPIM_1.c **** *
+ 185:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 186:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 187:Generated_Source\PSoC4/SPIM_1.c **** *
+ 188:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 189:Generated_Source\PSoC4/SPIM_1.c **** *  Disable the clock input to enable operation.
+ 190:Generated_Source\PSoC4/SPIM_1.c **** *
+ 191:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 192:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_Stop(void) 
+ 193:Generated_Source\PSoC4/SPIM_1.c **** {
+ 198              		.loc 1 193 0
+ 199              		.cfi_startproc
+ 200 0000 90B5     		push	{r4, r7, lr}
+ 201              		.cfi_def_cfa_offset 12
+ 202              		.cfi_offset 4, -12
+ 203              		.cfi_offset 7, -8
+ 204              		.cfi_offset 14, -4
+ 205 0002 83B0     		sub	sp, sp, #12
+ 206              		.cfi_def_cfa_offset 24
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 8
+
+
+ 207 0004 00AF     		add	r7, sp, #0
+ 208              		.cfi_def_cfa_register 7
+ 194:Generated_Source\PSoC4/SPIM_1.c ****     uint8 enableInterrupts;
+ 195:Generated_Source\PSoC4/SPIM_1.c **** 
+ 196:Generated_Source\PSoC4/SPIM_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 209              		.loc 1 196 0
+ 210 0006 FC1D     		add	r4, r7, #7
+ 211 0008 FFF7FEFF 		bl	CyEnterCriticalSection
+ 212 000c 031C     		mov	r3, r0
+ 213 000e 2370     		strb	r3, [r4]
+ 197:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_TX_STATUS_ACTL_REG &= ((uint8) ~SPIM_1_INT_ENABLE);
+ 214              		.loc 1 197 0
+ 215 0010 0E4A     		ldr	r2, .L12
+ 216 0012 0E4B     		ldr	r3, .L12
+ 217 0014 1B78     		ldrb	r3, [r3]
+ 218 0016 DBB2     		uxtb	r3, r3
+ 219 0018 1021     		mov	r1, #16
+ 220 001a 8B43     		bic	r3, r1
+ 221 001c DBB2     		uxtb	r3, r3
+ 222 001e 1370     		strb	r3, [r2]
+ 198:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_RX_STATUS_ACTL_REG &= ((uint8) ~SPIM_1_INT_ENABLE);
+ 223              		.loc 1 198 0
+ 224 0020 0B4A     		ldr	r2, .L12+4
+ 225 0022 0B4B     		ldr	r3, .L12+4
+ 226 0024 1B78     		ldrb	r3, [r3]
+ 227 0026 DBB2     		uxtb	r3, r3
+ 228 0028 1021     		mov	r1, #16
+ 229 002a 8B43     		bic	r3, r1
+ 230 002c DBB2     		uxtb	r3, r3
+ 231 002e 1370     		strb	r3, [r2]
+ 199:Generated_Source\PSoC4/SPIM_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 232              		.loc 1 199 0
+ 233 0030 FB1D     		add	r3, r7, #7
+ 234 0032 1B78     		ldrb	r3, [r3]
+ 235 0034 181C     		mov	r0, r3
+ 236 0036 FFF7FEFF 		bl	CyExitCriticalSection
+ 200:Generated_Source\PSoC4/SPIM_1.c **** 
+ 201:Generated_Source\PSoC4/SPIM_1.c ****     #if(0u != SPIM_1_INTERNAL_CLOCK)
+ 202:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_IntClock_Disable();
+ 237              		.loc 1 202 0
+ 238 003a FFF7FEFF 		bl	SPIM_1_IntClock_Stop
+ 203:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (0u != SPIM_1_INTERNAL_CLOCK) */
+ 204:Generated_Source\PSoC4/SPIM_1.c **** 
+ 205:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_DisableTxInt();
+ 239              		.loc 1 205 0
+ 240 003e FFF7FEFF 		bl	SPIM_1_DisableTxInt
+ 206:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_DisableRxInt();
+ 241              		.loc 1 206 0
+ 242 0042 FFF7FEFF 		bl	SPIM_1_DisableRxInt
+ 207:Generated_Source\PSoC4/SPIM_1.c **** }
+ 243              		.loc 1 207 0
+ 244 0046 BD46     		mov	sp, r7
+ 245 0048 03B0     		add	sp, sp, #12
+ 246              		@ sp needed
+ 247 004a 90BD     		pop	{r4, r7, pc}
+ 248              	.L13:
+ 249              		.align	2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 9
+
+
+ 250              	.L12:
+ 251 004c 91000F40 		.word	1074725009
+ 252 0050 93000F40 		.word	1074725011
+ 253              		.cfi_endproc
+ 254              	.LFE3:
+ 255              		.size	SPIM_1_Stop, .-SPIM_1_Stop
+ 256              		.section	.text.SPIM_1_EnableTxInt,"ax",%progbits
+ 257              		.align	2
+ 258              		.global	SPIM_1_EnableTxInt
+ 259              		.code	16
+ 260              		.thumb_func
+ 261              		.type	SPIM_1_EnableTxInt, %function
+ 262              	SPIM_1_EnableTxInt:
+ 263              	.LFB4:
+ 208:Generated_Source\PSoC4/SPIM_1.c **** 
+ 209:Generated_Source\PSoC4/SPIM_1.c **** 
+ 210:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 211:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_EnableTxInt
+ 212:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 213:Generated_Source\PSoC4/SPIM_1.c **** *
+ 214:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 215:Generated_Source\PSoC4/SPIM_1.c **** *  Enable internal Tx interrupt generation.
+ 216:Generated_Source\PSoC4/SPIM_1.c **** *
+ 217:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 218:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 219:Generated_Source\PSoC4/SPIM_1.c **** *
+ 220:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 221:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 222:Generated_Source\PSoC4/SPIM_1.c **** *
+ 223:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 224:Generated_Source\PSoC4/SPIM_1.c **** *  Enable the internal Tx interrupt output -or- the interrupt component itself.
+ 225:Generated_Source\PSoC4/SPIM_1.c **** *
+ 226:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 227:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_EnableTxInt(void) 
+ 228:Generated_Source\PSoC4/SPIM_1.c **** {
+ 264              		.loc 1 228 0
+ 265              		.cfi_startproc
+ 266 0000 80B5     		push	{r7, lr}
+ 267              		.cfi_def_cfa_offset 8
+ 268              		.cfi_offset 7, -8
+ 269              		.cfi_offset 14, -4
+ 270 0002 00AF     		add	r7, sp, #0
+ 271              		.cfi_def_cfa_register 7
+ 229:Generated_Source\PSoC4/SPIM_1.c ****     #if(0u != SPIM_1_INTERNAL_TX_INT_ENABLED)
+ 230:Generated_Source\PSoC4/SPIM_1.c ****         CyIntEnable(SPIM_1_TX_ISR_NUMBER);
+ 231:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (0u != SPIM_1_INTERNAL_TX_INT_ENABLED) */
+ 232:Generated_Source\PSoC4/SPIM_1.c **** }
+ 272              		.loc 1 232 0
+ 273 0004 BD46     		mov	sp, r7
+ 274              		@ sp needed
+ 275 0006 80BD     		pop	{r7, pc}
+ 276              		.cfi_endproc
+ 277              	.LFE4:
+ 278              		.size	SPIM_1_EnableTxInt, .-SPIM_1_EnableTxInt
+ 279              		.section	.text.SPIM_1_EnableRxInt,"ax",%progbits
+ 280              		.align	2
+ 281              		.global	SPIM_1_EnableRxInt
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 10
+
+
+ 282              		.code	16
+ 283              		.thumb_func
+ 284              		.type	SPIM_1_EnableRxInt, %function
+ 285              	SPIM_1_EnableRxInt:
+ 286              	.LFB5:
+ 233:Generated_Source\PSoC4/SPIM_1.c **** 
+ 234:Generated_Source\PSoC4/SPIM_1.c **** 
+ 235:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 236:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_EnableRxInt
+ 237:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 238:Generated_Source\PSoC4/SPIM_1.c **** *
+ 239:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 240:Generated_Source\PSoC4/SPIM_1.c **** *  Enable internal Rx interrupt generation.
+ 241:Generated_Source\PSoC4/SPIM_1.c **** *
+ 242:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 243:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 244:Generated_Source\PSoC4/SPIM_1.c **** *
+ 245:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 246:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 247:Generated_Source\PSoC4/SPIM_1.c **** *
+ 248:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 249:Generated_Source\PSoC4/SPIM_1.c **** *  Enable the internal Rx interrupt output -or- the interrupt component itself.
+ 250:Generated_Source\PSoC4/SPIM_1.c **** *
+ 251:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 252:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_EnableRxInt(void) 
+ 253:Generated_Source\PSoC4/SPIM_1.c **** {
+ 287              		.loc 1 253 0
+ 288              		.cfi_startproc
+ 289 0000 80B5     		push	{r7, lr}
+ 290              		.cfi_def_cfa_offset 8
+ 291              		.cfi_offset 7, -8
+ 292              		.cfi_offset 14, -4
+ 293 0002 00AF     		add	r7, sp, #0
+ 294              		.cfi_def_cfa_register 7
+ 254:Generated_Source\PSoC4/SPIM_1.c ****     #if(0u != SPIM_1_INTERNAL_RX_INT_ENABLED)
+ 255:Generated_Source\PSoC4/SPIM_1.c ****         CyIntEnable(SPIM_1_RX_ISR_NUMBER);
+ 256:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (0u != SPIM_1_INTERNAL_RX_INT_ENABLED) */
+ 257:Generated_Source\PSoC4/SPIM_1.c **** }
+ 295              		.loc 1 257 0
+ 296 0004 BD46     		mov	sp, r7
+ 297              		@ sp needed
+ 298 0006 80BD     		pop	{r7, pc}
+ 299              		.cfi_endproc
+ 300              	.LFE5:
+ 301              		.size	SPIM_1_EnableRxInt, .-SPIM_1_EnableRxInt
+ 302              		.section	.text.SPIM_1_DisableTxInt,"ax",%progbits
+ 303              		.align	2
+ 304              		.global	SPIM_1_DisableTxInt
+ 305              		.code	16
+ 306              		.thumb_func
+ 307              		.type	SPIM_1_DisableTxInt, %function
+ 308              	SPIM_1_DisableTxInt:
+ 309              	.LFB6:
+ 258:Generated_Source\PSoC4/SPIM_1.c **** 
+ 259:Generated_Source\PSoC4/SPIM_1.c **** 
+ 260:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 261:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_DisableTxInt
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 11
+
+
+ 262:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 263:Generated_Source\PSoC4/SPIM_1.c **** *
+ 264:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 265:Generated_Source\PSoC4/SPIM_1.c **** *  Disable internal Tx interrupt generation.
+ 266:Generated_Source\PSoC4/SPIM_1.c **** *
+ 267:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 268:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 269:Generated_Source\PSoC4/SPIM_1.c **** *
+ 270:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 271:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 272:Generated_Source\PSoC4/SPIM_1.c **** *
+ 273:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 274:Generated_Source\PSoC4/SPIM_1.c **** *  Disable the internal Tx interrupt output -or- the interrupt component itself.
+ 275:Generated_Source\PSoC4/SPIM_1.c **** *
+ 276:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 277:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_DisableTxInt(void) 
+ 278:Generated_Source\PSoC4/SPIM_1.c **** {
+ 310              		.loc 1 278 0
+ 311              		.cfi_startproc
+ 312 0000 80B5     		push	{r7, lr}
+ 313              		.cfi_def_cfa_offset 8
+ 314              		.cfi_offset 7, -8
+ 315              		.cfi_offset 14, -4
+ 316 0002 00AF     		add	r7, sp, #0
+ 317              		.cfi_def_cfa_register 7
+ 279:Generated_Source\PSoC4/SPIM_1.c ****     #if(0u != SPIM_1_INTERNAL_TX_INT_ENABLED)
+ 280:Generated_Source\PSoC4/SPIM_1.c ****         CyIntDisable(SPIM_1_TX_ISR_NUMBER);
+ 281:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (0u != SPIM_1_INTERNAL_TX_INT_ENABLED) */
+ 282:Generated_Source\PSoC4/SPIM_1.c **** }
+ 318              		.loc 1 282 0
+ 319 0004 BD46     		mov	sp, r7
+ 320              		@ sp needed
+ 321 0006 80BD     		pop	{r7, pc}
+ 322              		.cfi_endproc
+ 323              	.LFE6:
+ 324              		.size	SPIM_1_DisableTxInt, .-SPIM_1_DisableTxInt
+ 325              		.section	.text.SPIM_1_DisableRxInt,"ax",%progbits
+ 326              		.align	2
+ 327              		.global	SPIM_1_DisableRxInt
+ 328              		.code	16
+ 329              		.thumb_func
+ 330              		.type	SPIM_1_DisableRxInt, %function
+ 331              	SPIM_1_DisableRxInt:
+ 332              	.LFB7:
+ 283:Generated_Source\PSoC4/SPIM_1.c **** 
+ 284:Generated_Source\PSoC4/SPIM_1.c **** 
+ 285:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 286:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_DisableRxInt
+ 287:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 288:Generated_Source\PSoC4/SPIM_1.c **** *
+ 289:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 290:Generated_Source\PSoC4/SPIM_1.c **** *  Disable internal Rx interrupt generation.
+ 291:Generated_Source\PSoC4/SPIM_1.c **** *
+ 292:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 293:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 294:Generated_Source\PSoC4/SPIM_1.c **** *
+ 295:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 12
+
+
+ 296:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 297:Generated_Source\PSoC4/SPIM_1.c **** *
+ 298:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 299:Generated_Source\PSoC4/SPIM_1.c **** *  Disable the internal Rx interrupt output -or- the interrupt component itself.
+ 300:Generated_Source\PSoC4/SPIM_1.c **** *
+ 301:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 302:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_DisableRxInt(void) 
+ 303:Generated_Source\PSoC4/SPIM_1.c **** {
+ 333              		.loc 1 303 0
+ 334              		.cfi_startproc
+ 335 0000 80B5     		push	{r7, lr}
+ 336              		.cfi_def_cfa_offset 8
+ 337              		.cfi_offset 7, -8
+ 338              		.cfi_offset 14, -4
+ 339 0002 00AF     		add	r7, sp, #0
+ 340              		.cfi_def_cfa_register 7
+ 304:Generated_Source\PSoC4/SPIM_1.c ****     #if(0u != SPIM_1_INTERNAL_RX_INT_ENABLED)
+ 305:Generated_Source\PSoC4/SPIM_1.c ****         CyIntDisable(SPIM_1_RX_ISR_NUMBER);
+ 306:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (0u != SPIM_1_INTERNAL_RX_INT_ENABLED) */
+ 307:Generated_Source\PSoC4/SPIM_1.c **** }
+ 341              		.loc 1 307 0
+ 342 0004 BD46     		mov	sp, r7
+ 343              		@ sp needed
+ 344 0006 80BD     		pop	{r7, pc}
+ 345              		.cfi_endproc
+ 346              	.LFE7:
+ 347              		.size	SPIM_1_DisableRxInt, .-SPIM_1_DisableRxInt
+ 348              		.section	.text.SPIM_1_SetTxInterruptMode,"ax",%progbits
+ 349              		.align	2
+ 350              		.global	SPIM_1_SetTxInterruptMode
+ 351              		.code	16
+ 352              		.thumb_func
+ 353              		.type	SPIM_1_SetTxInterruptMode, %function
+ 354              	SPIM_1_SetTxInterruptMode:
+ 355              	.LFB8:
+ 308:Generated_Source\PSoC4/SPIM_1.c **** 
+ 309:Generated_Source\PSoC4/SPIM_1.c **** 
+ 310:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 311:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_SetTxInterruptMode
+ 312:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 313:Generated_Source\PSoC4/SPIM_1.c **** *
+ 314:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 315:Generated_Source\PSoC4/SPIM_1.c **** *  Configure which status bits trigger an interrupt event.
+ 316:Generated_Source\PSoC4/SPIM_1.c **** *
+ 317:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 318:Generated_Source\PSoC4/SPIM_1.c **** *  intSrc: An or'd combination of the desired status bit masks (defined in the
+ 319:Generated_Source\PSoC4/SPIM_1.c **** *  header file).
+ 320:Generated_Source\PSoC4/SPIM_1.c **** *
+ 321:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 322:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 323:Generated_Source\PSoC4/SPIM_1.c **** *
+ 324:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 325:Generated_Source\PSoC4/SPIM_1.c **** *  Enables the output of specific status bits to the interrupt controller.
+ 326:Generated_Source\PSoC4/SPIM_1.c **** *
+ 327:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 328:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_SetTxInterruptMode(uint8 intSrc) 
+ 329:Generated_Source\PSoC4/SPIM_1.c **** {
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 13
+
+
+ 356              		.loc 1 329 0
+ 357              		.cfi_startproc
+ 358 0000 80B5     		push	{r7, lr}
+ 359              		.cfi_def_cfa_offset 8
+ 360              		.cfi_offset 7, -8
+ 361              		.cfi_offset 14, -4
+ 362 0002 82B0     		sub	sp, sp, #8
+ 363              		.cfi_def_cfa_offset 16
+ 364 0004 00AF     		add	r7, sp, #0
+ 365              		.cfi_def_cfa_register 7
+ 366 0006 021C     		mov	r2, r0
+ 367 0008 FB1D     		add	r3, r7, #7
+ 368 000a 1A70     		strb	r2, [r3]
+ 330:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_TX_STATUS_MASK_REG = intSrc;
+ 369              		.loc 1 330 0
+ 370 000c 034A     		ldr	r2, .L19
+ 371 000e FB1D     		add	r3, r7, #7
+ 372 0010 1B78     		ldrb	r3, [r3]
+ 373 0012 1370     		strb	r3, [r2]
+ 331:Generated_Source\PSoC4/SPIM_1.c **** }
+ 374              		.loc 1 331 0
+ 375 0014 BD46     		mov	sp, r7
+ 376 0016 02B0     		add	sp, sp, #8
+ 377              		@ sp needed
+ 378 0018 80BD     		pop	{r7, pc}
+ 379              	.L20:
+ 380 001a C046     		.align	2
+ 381              	.L19:
+ 382 001c 81000F40 		.word	1074724993
+ 383              		.cfi_endproc
+ 384              	.LFE8:
+ 385              		.size	SPIM_1_SetTxInterruptMode, .-SPIM_1_SetTxInterruptMode
+ 386              		.section	.text.SPIM_1_SetRxInterruptMode,"ax",%progbits
+ 387              		.align	2
+ 388              		.global	SPIM_1_SetRxInterruptMode
+ 389              		.code	16
+ 390              		.thumb_func
+ 391              		.type	SPIM_1_SetRxInterruptMode, %function
+ 392              	SPIM_1_SetRxInterruptMode:
+ 393              	.LFB9:
+ 332:Generated_Source\PSoC4/SPIM_1.c **** 
+ 333:Generated_Source\PSoC4/SPIM_1.c **** 
+ 334:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 335:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_SetRxInterruptMode
+ 336:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 337:Generated_Source\PSoC4/SPIM_1.c **** *
+ 338:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 339:Generated_Source\PSoC4/SPIM_1.c **** *  Configure which status bits trigger an interrupt event.
+ 340:Generated_Source\PSoC4/SPIM_1.c **** *
+ 341:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 342:Generated_Source\PSoC4/SPIM_1.c **** *  intSrc: An or'd combination of the desired status bit masks (defined in the
+ 343:Generated_Source\PSoC4/SPIM_1.c **** *  header file).
+ 344:Generated_Source\PSoC4/SPIM_1.c **** *
+ 345:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 346:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 347:Generated_Source\PSoC4/SPIM_1.c **** *
+ 348:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 14
+
+
+ 349:Generated_Source\PSoC4/SPIM_1.c **** *  Enables the output of specific status bits to the interrupt controller.
+ 350:Generated_Source\PSoC4/SPIM_1.c **** *
+ 351:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 352:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_SetRxInterruptMode(uint8 intSrc) 
+ 353:Generated_Source\PSoC4/SPIM_1.c **** {
+ 394              		.loc 1 353 0
+ 395              		.cfi_startproc
+ 396 0000 80B5     		push	{r7, lr}
+ 397              		.cfi_def_cfa_offset 8
+ 398              		.cfi_offset 7, -8
+ 399              		.cfi_offset 14, -4
+ 400 0002 82B0     		sub	sp, sp, #8
+ 401              		.cfi_def_cfa_offset 16
+ 402 0004 00AF     		add	r7, sp, #0
+ 403              		.cfi_def_cfa_register 7
+ 404 0006 021C     		mov	r2, r0
+ 405 0008 FB1D     		add	r3, r7, #7
+ 406 000a 1A70     		strb	r2, [r3]
+ 354:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_RX_STATUS_MASK_REG  = intSrc;
+ 407              		.loc 1 354 0
+ 408 000c 034A     		ldr	r2, .L22
+ 409 000e FB1D     		add	r3, r7, #7
+ 410 0010 1B78     		ldrb	r3, [r3]
+ 411 0012 1370     		strb	r3, [r2]
+ 355:Generated_Source\PSoC4/SPIM_1.c **** }
+ 412              		.loc 1 355 0
+ 413 0014 BD46     		mov	sp, r7
+ 414 0016 02B0     		add	sp, sp, #8
+ 415              		@ sp needed
+ 416 0018 80BD     		pop	{r7, pc}
+ 417              	.L23:
+ 418 001a C046     		.align	2
+ 419              	.L22:
+ 420 001c 83000F40 		.word	1074724995
+ 421              		.cfi_endproc
+ 422              	.LFE9:
+ 423              		.size	SPIM_1_SetRxInterruptMode, .-SPIM_1_SetRxInterruptMode
+ 424              		.section	.text.SPIM_1_ReadTxStatus,"ax",%progbits
+ 425              		.align	2
+ 426              		.global	SPIM_1_ReadTxStatus
+ 427              		.code	16
+ 428              		.thumb_func
+ 429              		.type	SPIM_1_ReadTxStatus, %function
+ 430              	SPIM_1_ReadTxStatus:
+ 431              	.LFB10:
+ 356:Generated_Source\PSoC4/SPIM_1.c **** 
+ 357:Generated_Source\PSoC4/SPIM_1.c **** 
+ 358:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 359:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_ReadTxStatus
+ 360:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 361:Generated_Source\PSoC4/SPIM_1.c **** *
+ 362:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 363:Generated_Source\PSoC4/SPIM_1.c **** *  Read the Tx status register for the component.
+ 364:Generated_Source\PSoC4/SPIM_1.c **** *
+ 365:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 366:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 367:Generated_Source\PSoC4/SPIM_1.c **** *
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 15
+
+
+ 368:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 369:Generated_Source\PSoC4/SPIM_1.c **** *  Contents of the Tx status register.
+ 370:Generated_Source\PSoC4/SPIM_1.c **** *
+ 371:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+ 372:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_swStatusTx - used to store in software status register,
+ 373:Generated_Source\PSoC4/SPIM_1.c **** *  modified every function call - resets to zero.
+ 374:Generated_Source\PSoC4/SPIM_1.c **** *
+ 375:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 376:Generated_Source\PSoC4/SPIM_1.c **** *  Allows the user and the API to read the Tx status register for error
+ 377:Generated_Source\PSoC4/SPIM_1.c **** *  detection and flow control.
+ 378:Generated_Source\PSoC4/SPIM_1.c **** *
+ 379:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 380:Generated_Source\PSoC4/SPIM_1.c **** *  Clear Tx status register of the component.
+ 381:Generated_Source\PSoC4/SPIM_1.c **** *
+ 382:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+ 383:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+ 384:Generated_Source\PSoC4/SPIM_1.c **** *
+ 385:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 386:Generated_Source\PSoC4/SPIM_1.c **** uint8 SPIM_1_ReadTxStatus(void) 
+ 387:Generated_Source\PSoC4/SPIM_1.c **** {
+ 432              		.loc 1 387 0
+ 433              		.cfi_startproc
+ 434 0000 80B5     		push	{r7, lr}
+ 435              		.cfi_def_cfa_offset 8
+ 436              		.cfi_offset 7, -8
+ 437              		.cfi_offset 14, -4
+ 438 0002 82B0     		sub	sp, sp, #8
+ 439              		.cfi_def_cfa_offset 16
+ 440 0004 00AF     		add	r7, sp, #0
+ 441              		.cfi_def_cfa_register 7
+ 388:Generated_Source\PSoC4/SPIM_1.c ****     uint8 tmpStatus;
+ 389:Generated_Source\PSoC4/SPIM_1.c **** 
+ 390:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_TX_SOFTWARE_BUF_ENABLED)
+ 391:Generated_Source\PSoC4/SPIM_1.c ****         /* Disable TX interrupt to protect global veriables */
+ 392:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_DisableTxInt();
+ 393:Generated_Source\PSoC4/SPIM_1.c **** 
+ 394:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus = SPIM_1_GET_STATUS_TX(SPIM_1_swStatusTx);
+ 395:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_swStatusTx = 0u;
+ 396:Generated_Source\PSoC4/SPIM_1.c **** 
+ 397:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_EnableTxInt();
+ 398:Generated_Source\PSoC4/SPIM_1.c **** 
+ 399:Generated_Source\PSoC4/SPIM_1.c ****     #else
+ 400:Generated_Source\PSoC4/SPIM_1.c **** 
+ 401:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus = SPIM_1_TX_STATUS_REG;
+ 442              		.loc 1 401 0
+ 443 0006 054A     		ldr	r2, .L26
+ 444 0008 FB1D     		add	r3, r7, #7
+ 445 000a 1278     		ldrb	r2, [r2]
+ 446 000c 1A70     		strb	r2, [r3]
+ 402:Generated_Source\PSoC4/SPIM_1.c **** 
+ 403:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_TX_SOFTWARE_BUF_ENABLED) */
+ 404:Generated_Source\PSoC4/SPIM_1.c **** 
+ 405:Generated_Source\PSoC4/SPIM_1.c ****     return(tmpStatus);
+ 447              		.loc 1 405 0
+ 448 000e FB1D     		add	r3, r7, #7
+ 449 0010 1B78     		ldrb	r3, [r3]
+ 406:Generated_Source\PSoC4/SPIM_1.c **** }
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 16
+
+
+ 450              		.loc 1 406 0
+ 451 0012 181C     		mov	r0, r3
+ 452 0014 BD46     		mov	sp, r7
+ 453 0016 02B0     		add	sp, sp, #8
+ 454              		@ sp needed
+ 455 0018 80BD     		pop	{r7, pc}
+ 456              	.L27:
+ 457 001a C046     		.align	2
+ 458              	.L26:
+ 459 001c 61000F40 		.word	1074724961
+ 460              		.cfi_endproc
+ 461              	.LFE10:
+ 462              		.size	SPIM_1_ReadTxStatus, .-SPIM_1_ReadTxStatus
+ 463              		.section	.text.SPIM_1_ReadRxStatus,"ax",%progbits
+ 464              		.align	2
+ 465              		.global	SPIM_1_ReadRxStatus
+ 466              		.code	16
+ 467              		.thumb_func
+ 468              		.type	SPIM_1_ReadRxStatus, %function
+ 469              	SPIM_1_ReadRxStatus:
+ 470              	.LFB11:
+ 407:Generated_Source\PSoC4/SPIM_1.c **** 
+ 408:Generated_Source\PSoC4/SPIM_1.c **** 
+ 409:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 410:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_ReadRxStatus
+ 411:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 412:Generated_Source\PSoC4/SPIM_1.c **** *
+ 413:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 414:Generated_Source\PSoC4/SPIM_1.c **** *  Read the Rx status register for the component.
+ 415:Generated_Source\PSoC4/SPIM_1.c **** *
+ 416:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 417:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 418:Generated_Source\PSoC4/SPIM_1.c **** *
+ 419:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 420:Generated_Source\PSoC4/SPIM_1.c **** *  Contents of the Rx status register.
+ 421:Generated_Source\PSoC4/SPIM_1.c **** *
+ 422:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+ 423:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_swStatusRx - used to store in software Rx status register,
+ 424:Generated_Source\PSoC4/SPIM_1.c **** *  modified every function call - resets to zero.
+ 425:Generated_Source\PSoC4/SPIM_1.c **** *
+ 426:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 427:Generated_Source\PSoC4/SPIM_1.c **** *  Allows the user and the API to read the Rx status register for error
+ 428:Generated_Source\PSoC4/SPIM_1.c **** *  detection and flow control.
+ 429:Generated_Source\PSoC4/SPIM_1.c **** *
+ 430:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 431:Generated_Source\PSoC4/SPIM_1.c **** *  Clear Rx status register of the component.
+ 432:Generated_Source\PSoC4/SPIM_1.c **** *
+ 433:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+ 434:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+ 435:Generated_Source\PSoC4/SPIM_1.c **** *
+ 436:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 437:Generated_Source\PSoC4/SPIM_1.c **** uint8 SPIM_1_ReadRxStatus(void) 
+ 438:Generated_Source\PSoC4/SPIM_1.c **** {
+ 471              		.loc 1 438 0
+ 472              		.cfi_startproc
+ 473 0000 80B5     		push	{r7, lr}
+ 474              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 17
+
+
+ 475              		.cfi_offset 7, -8
+ 476              		.cfi_offset 14, -4
+ 477 0002 82B0     		sub	sp, sp, #8
+ 478              		.cfi_def_cfa_offset 16
+ 479 0004 00AF     		add	r7, sp, #0
+ 480              		.cfi_def_cfa_register 7
+ 439:Generated_Source\PSoC4/SPIM_1.c ****     uint8 tmpStatus;
+ 440:Generated_Source\PSoC4/SPIM_1.c **** 
+ 441:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_RX_SOFTWARE_BUF_ENABLED)
+ 442:Generated_Source\PSoC4/SPIM_1.c ****         /* Disable RX interrupt to protect global veriables */
+ 443:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_DisableRxInt();
+ 444:Generated_Source\PSoC4/SPIM_1.c **** 
+ 445:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus = SPIM_1_GET_STATUS_RX(SPIM_1_swStatusRx);
+ 446:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_swStatusRx = 0u;
+ 447:Generated_Source\PSoC4/SPIM_1.c **** 
+ 448:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_EnableRxInt();
+ 449:Generated_Source\PSoC4/SPIM_1.c **** 
+ 450:Generated_Source\PSoC4/SPIM_1.c ****     #else
+ 451:Generated_Source\PSoC4/SPIM_1.c **** 
+ 452:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus = SPIM_1_RX_STATUS_REG;
+ 481              		.loc 1 452 0
+ 482 0006 054A     		ldr	r2, .L30
+ 483 0008 FB1D     		add	r3, r7, #7
+ 484 000a 1278     		ldrb	r2, [r2]
+ 485 000c 1A70     		strb	r2, [r3]
+ 453:Generated_Source\PSoC4/SPIM_1.c **** 
+ 454:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_RX_SOFTWARE_BUF_ENABLED) */
+ 455:Generated_Source\PSoC4/SPIM_1.c **** 
+ 456:Generated_Source\PSoC4/SPIM_1.c ****     return(tmpStatus);
+ 486              		.loc 1 456 0
+ 487 000e FB1D     		add	r3, r7, #7
+ 488 0010 1B78     		ldrb	r3, [r3]
+ 457:Generated_Source\PSoC4/SPIM_1.c **** }
+ 489              		.loc 1 457 0
+ 490 0012 181C     		mov	r0, r3
+ 491 0014 BD46     		mov	sp, r7
+ 492 0016 02B0     		add	sp, sp, #8
+ 493              		@ sp needed
+ 494 0018 80BD     		pop	{r7, pc}
+ 495              	.L31:
+ 496 001a C046     		.align	2
+ 497              	.L30:
+ 498 001c 63000F40 		.word	1074724963
+ 499              		.cfi_endproc
+ 500              	.LFE11:
+ 501              		.size	SPIM_1_ReadRxStatus, .-SPIM_1_ReadRxStatus
+ 502              		.section	.text.SPIM_1_WriteTxData,"ax",%progbits
+ 503              		.align	2
+ 504              		.global	SPIM_1_WriteTxData
+ 505              		.code	16
+ 506              		.thumb_func
+ 507              		.type	SPIM_1_WriteTxData, %function
+ 508              	SPIM_1_WriteTxData:
+ 509              	.LFB12:
+ 458:Generated_Source\PSoC4/SPIM_1.c **** 
+ 459:Generated_Source\PSoC4/SPIM_1.c **** 
+ 460:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 18
+
+
+ 461:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_WriteTxData
+ 462:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 463:Generated_Source\PSoC4/SPIM_1.c **** *
+ 464:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 465:Generated_Source\PSoC4/SPIM_1.c **** *  Write a byte of data to be sent across the SPI.
+ 466:Generated_Source\PSoC4/SPIM_1.c **** *
+ 467:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 468:Generated_Source\PSoC4/SPIM_1.c **** *  txDataByte: The data value to send across the SPI.
+ 469:Generated_Source\PSoC4/SPIM_1.c **** *
+ 470:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 471:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 472:Generated_Source\PSoC4/SPIM_1.c **** *
+ 473:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+ 474:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_txBufferWrite - used for the account of the bytes which
+ 475:Generated_Source\PSoC4/SPIM_1.c **** *  have been written down in the TX software buffer, modified every function
+ 476:Generated_Source\PSoC4/SPIM_1.c **** *  call if TX Software Buffer is used.
+ 477:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_txBufferRead - used for the account of the bytes which
+ 478:Generated_Source\PSoC4/SPIM_1.c **** *  have been read from the TX software buffer.
+ 479:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_txBuffer[SPIM_1_TX_BUFFER_SIZE] - used to store
+ 480:Generated_Source\PSoC4/SPIM_1.c **** *  data to sending, modified every function call if TX Software Buffer is used.
+ 481:Generated_Source\PSoC4/SPIM_1.c **** *
+ 482:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 483:Generated_Source\PSoC4/SPIM_1.c **** *  Allows the user to transmit any byte of data in a single transfer.
+ 484:Generated_Source\PSoC4/SPIM_1.c **** *
+ 485:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 486:Generated_Source\PSoC4/SPIM_1.c **** *  If this function is called again before the previous byte is finished then
+ 487:Generated_Source\PSoC4/SPIM_1.c **** *  the next byte will be appended to the transfer with no time between
+ 488:Generated_Source\PSoC4/SPIM_1.c **** *  the byte transfers. Clear Tx status register of the component.
+ 489:Generated_Source\PSoC4/SPIM_1.c **** *
+ 490:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+ 491:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+ 492:Generated_Source\PSoC4/SPIM_1.c **** *
+ 493:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 494:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_WriteTxData(uint8 txData) 
+ 495:Generated_Source\PSoC4/SPIM_1.c **** {
+ 510              		.loc 1 495 0
+ 511              		.cfi_startproc
+ 512 0000 80B5     		push	{r7, lr}
+ 513              		.cfi_def_cfa_offset 8
+ 514              		.cfi_offset 7, -8
+ 515              		.cfi_offset 14, -4
+ 516 0002 82B0     		sub	sp, sp, #8
+ 517              		.cfi_def_cfa_offset 16
+ 518 0004 00AF     		add	r7, sp, #0
+ 519              		.cfi_def_cfa_register 7
+ 520 0006 021C     		mov	r2, r0
+ 521 0008 FB1D     		add	r3, r7, #7
+ 522 000a 1A70     		strb	r2, [r3]
+ 496:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_TX_SOFTWARE_BUF_ENABLED)
+ 497:Generated_Source\PSoC4/SPIM_1.c **** 
+ 498:Generated_Source\PSoC4/SPIM_1.c ****         uint8 tempStatus;
+ 499:Generated_Source\PSoC4/SPIM_1.c ****         uint8 tmpTxBufferRead;
+ 500:Generated_Source\PSoC4/SPIM_1.c **** 
+ 501:Generated_Source\PSoC4/SPIM_1.c ****         /* Block if TX buffer is FULL: don't overwrite */
+ 502:Generated_Source\PSoC4/SPIM_1.c ****         do
+ 503:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 504:Generated_Source\PSoC4/SPIM_1.c ****             tmpTxBufferRead = SPIM_1_txBufferRead;
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 19
+
+
+ 505:Generated_Source\PSoC4/SPIM_1.c ****             if(0u == tmpTxBufferRead)
+ 506:Generated_Source\PSoC4/SPIM_1.c ****             {
+ 507:Generated_Source\PSoC4/SPIM_1.c ****                 tmpTxBufferRead = (SPIM_1_TX_BUFFER_SIZE - 1u);
+ 508:Generated_Source\PSoC4/SPIM_1.c ****             }
+ 509:Generated_Source\PSoC4/SPIM_1.c ****             else
+ 510:Generated_Source\PSoC4/SPIM_1.c ****             {
+ 511:Generated_Source\PSoC4/SPIM_1.c ****                 tmpTxBufferRead--;
+ 512:Generated_Source\PSoC4/SPIM_1.c ****             }
+ 513:Generated_Source\PSoC4/SPIM_1.c **** 
+ 514:Generated_Source\PSoC4/SPIM_1.c ****         }while(tmpTxBufferRead == SPIM_1_txBufferWrite);
+ 515:Generated_Source\PSoC4/SPIM_1.c **** 
+ 516:Generated_Source\PSoC4/SPIM_1.c ****         /* Disable TX interrupt to protect global veriables */
+ 517:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_DisableTxInt();
+ 518:Generated_Source\PSoC4/SPIM_1.c **** 
+ 519:Generated_Source\PSoC4/SPIM_1.c ****         tempStatus = SPIM_1_GET_STATUS_TX(SPIM_1_swStatusTx);
+ 520:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_swStatusTx = tempStatus;
+ 521:Generated_Source\PSoC4/SPIM_1.c **** 
+ 522:Generated_Source\PSoC4/SPIM_1.c **** 
+ 523:Generated_Source\PSoC4/SPIM_1.c ****         if((SPIM_1_txBufferRead == SPIM_1_txBufferWrite) &&
+ 524:Generated_Source\PSoC4/SPIM_1.c ****            (0u != (SPIM_1_swStatusTx & SPIM_1_STS_TX_FIFO_NOT_FULL)))
+ 525:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 526:Generated_Source\PSoC4/SPIM_1.c ****             /* Put data element into the TX FIFO */
+ 527:Generated_Source\PSoC4/SPIM_1.c ****             CY_SET_REG8(SPIM_1_TXDATA_PTR, txData);
+ 528:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 529:Generated_Source\PSoC4/SPIM_1.c ****         else
+ 530:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 531:Generated_Source\PSoC4/SPIM_1.c ****             /* Add to the TX software buffer */
+ 532:Generated_Source\PSoC4/SPIM_1.c ****             SPIM_1_txBufferWrite++;
+ 533:Generated_Source\PSoC4/SPIM_1.c ****             if(SPIM_1_txBufferWrite >= SPIM_1_TX_BUFFER_SIZE)
+ 534:Generated_Source\PSoC4/SPIM_1.c ****             {
+ 535:Generated_Source\PSoC4/SPIM_1.c ****                 SPIM_1_txBufferWrite = 0u;
+ 536:Generated_Source\PSoC4/SPIM_1.c ****             }
+ 537:Generated_Source\PSoC4/SPIM_1.c **** 
+ 538:Generated_Source\PSoC4/SPIM_1.c ****             if(SPIM_1_txBufferWrite == SPIM_1_txBufferRead)
+ 539:Generated_Source\PSoC4/SPIM_1.c ****             {
+ 540:Generated_Source\PSoC4/SPIM_1.c ****                 SPIM_1_txBufferRead++;
+ 541:Generated_Source\PSoC4/SPIM_1.c ****                 if(SPIM_1_txBufferRead >= SPIM_1_TX_BUFFER_SIZE)
+ 542:Generated_Source\PSoC4/SPIM_1.c ****                 {
+ 543:Generated_Source\PSoC4/SPIM_1.c ****                     SPIM_1_txBufferRead = 0u;
+ 544:Generated_Source\PSoC4/SPIM_1.c ****                 }
+ 545:Generated_Source\PSoC4/SPIM_1.c ****                 SPIM_1_txBufferFull = 1u;
+ 546:Generated_Source\PSoC4/SPIM_1.c ****             }
+ 547:Generated_Source\PSoC4/SPIM_1.c **** 
+ 548:Generated_Source\PSoC4/SPIM_1.c ****             SPIM_1_txBuffer[SPIM_1_txBufferWrite] = txData;
+ 549:Generated_Source\PSoC4/SPIM_1.c **** 
+ 550:Generated_Source\PSoC4/SPIM_1.c ****             SPIM_1_TX_STATUS_MASK_REG |= SPIM_1_STS_TX_FIFO_NOT_FULL;
+ 551:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 552:Generated_Source\PSoC4/SPIM_1.c **** 
+ 553:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_EnableTxInt();
+ 554:Generated_Source\PSoC4/SPIM_1.c **** 
+ 555:Generated_Source\PSoC4/SPIM_1.c ****     #else
+ 556:Generated_Source\PSoC4/SPIM_1.c ****         /* Wait until TX FIFO has a place */
+ 557:Generated_Source\PSoC4/SPIM_1.c ****         while(0u == (SPIM_1_TX_STATUS_REG & SPIM_1_STS_TX_FIFO_NOT_FULL))
+ 523              		.loc 1 557 0
+ 524 000c C046     		mov	r8, r8
+ 525              	.L33:
+ 526              		.loc 1 557 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 20
+
+
+ 527 000e 074B     		ldr	r3, .L34
+ 528 0010 1B78     		ldrb	r3, [r3]
+ 529 0012 DBB2     		uxtb	r3, r3
+ 530 0014 1A1C     		mov	r2, r3
+ 531 0016 0423     		mov	r3, #4
+ 532 0018 1340     		and	r3, r2
+ 533 001a F8D0     		beq	.L33
+ 558:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 559:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 560:Generated_Source\PSoC4/SPIM_1.c **** 
+ 561:Generated_Source\PSoC4/SPIM_1.c ****         /* Put data element into the TX FIFO */
+ 562:Generated_Source\PSoC4/SPIM_1.c ****         CY_SET_REG8(SPIM_1_TXDATA_PTR, txData);
+ 534              		.loc 1 562 0 is_stmt 1
+ 535 001c 044A     		ldr	r2, .L34+4
+ 536 001e FB1D     		add	r3, r7, #7
+ 537 0020 1B78     		ldrb	r3, [r3]
+ 538 0022 1370     		strb	r3, [r2]
+ 563:Generated_Source\PSoC4/SPIM_1.c **** 
+ 564:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_TX_SOFTWARE_BUF_ENABLED) */
+ 565:Generated_Source\PSoC4/SPIM_1.c **** }
+ 539              		.loc 1 565 0
+ 540 0024 BD46     		mov	sp, r7
+ 541 0026 02B0     		add	sp, sp, #8
+ 542              		@ sp needed
+ 543 0028 80BD     		pop	{r7, pc}
+ 544              	.L35:
+ 545 002a C046     		.align	2
+ 546              	.L34:
+ 547 002c 61000F40 		.word	1074724961
+ 548 0030 43000F40 		.word	1074724931
+ 549              		.cfi_endproc
+ 550              	.LFE12:
+ 551              		.size	SPIM_1_WriteTxData, .-SPIM_1_WriteTxData
+ 552              		.section	.text.SPIM_1_ReadRxData,"ax",%progbits
+ 553              		.align	2
+ 554              		.global	SPIM_1_ReadRxData
+ 555              		.code	16
+ 556              		.thumb_func
+ 557              		.type	SPIM_1_ReadRxData, %function
+ 558              	SPIM_1_ReadRxData:
+ 559              	.LFB13:
+ 566:Generated_Source\PSoC4/SPIM_1.c **** 
+ 567:Generated_Source\PSoC4/SPIM_1.c **** 
+ 568:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 569:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_ReadRxData
+ 570:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 571:Generated_Source\PSoC4/SPIM_1.c **** *
+ 572:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 573:Generated_Source\PSoC4/SPIM_1.c **** *  Read the next byte of data received across the SPI.
+ 574:Generated_Source\PSoC4/SPIM_1.c **** *
+ 575:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 576:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 577:Generated_Source\PSoC4/SPIM_1.c **** *
+ 578:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 579:Generated_Source\PSoC4/SPIM_1.c **** *  The next byte of data read from the FIFO.
+ 580:Generated_Source\PSoC4/SPIM_1.c **** *
+ 581:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 21
+
+
+ 582:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_rxBufferWrite - used for the account of the bytes which
+ 583:Generated_Source\PSoC4/SPIM_1.c **** *  have been written down in the RX software buffer.
+ 584:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_rxBufferRead - used for the account of the bytes which
+ 585:Generated_Source\PSoC4/SPIM_1.c **** *  have been read from the RX software buffer, modified every function
+ 586:Generated_Source\PSoC4/SPIM_1.c **** *  call if RX Software Buffer is used.
+ 587:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_rxBuffer[SPIM_1_RX_BUFFER_SIZE] - used to store
+ 588:Generated_Source\PSoC4/SPIM_1.c **** *  received data.
+ 589:Generated_Source\PSoC4/SPIM_1.c **** *
+ 590:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 591:Generated_Source\PSoC4/SPIM_1.c **** *  Allows the user to read a byte of data received.
+ 592:Generated_Source\PSoC4/SPIM_1.c **** *
+ 593:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 594:Generated_Source\PSoC4/SPIM_1.c **** *  Will return invalid data if the FIFO is empty. The user should Call
+ 595:Generated_Source\PSoC4/SPIM_1.c **** *  GetRxBufferSize() and if it returns a non-zero value then it is safe to call
+ 596:Generated_Source\PSoC4/SPIM_1.c **** *  ReadByte() function.
+ 597:Generated_Source\PSoC4/SPIM_1.c **** *
+ 598:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+ 599:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+ 600:Generated_Source\PSoC4/SPIM_1.c **** *
+ 601:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 602:Generated_Source\PSoC4/SPIM_1.c **** uint8 SPIM_1_ReadRxData(void) 
+ 603:Generated_Source\PSoC4/SPIM_1.c **** {
+ 560              		.loc 1 603 0
+ 561              		.cfi_startproc
+ 562 0000 80B5     		push	{r7, lr}
+ 563              		.cfi_def_cfa_offset 8
+ 564              		.cfi_offset 7, -8
+ 565              		.cfi_offset 14, -4
+ 566 0002 82B0     		sub	sp, sp, #8
+ 567              		.cfi_def_cfa_offset 16
+ 568 0004 00AF     		add	r7, sp, #0
+ 569              		.cfi_def_cfa_register 7
+ 604:Generated_Source\PSoC4/SPIM_1.c ****     uint8 rxData;
+ 605:Generated_Source\PSoC4/SPIM_1.c **** 
+ 606:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_RX_SOFTWARE_BUF_ENABLED)
+ 607:Generated_Source\PSoC4/SPIM_1.c **** 
+ 608:Generated_Source\PSoC4/SPIM_1.c ****         /* Disable RX interrupt to protect global veriables */
+ 609:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_DisableRxInt();
+ 610:Generated_Source\PSoC4/SPIM_1.c **** 
+ 611:Generated_Source\PSoC4/SPIM_1.c ****         if(SPIM_1_rxBufferRead != SPIM_1_rxBufferWrite)
+ 612:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 613:Generated_Source\PSoC4/SPIM_1.c ****             if(0u == SPIM_1_rxBufferFull)
+ 614:Generated_Source\PSoC4/SPIM_1.c ****             {
+ 615:Generated_Source\PSoC4/SPIM_1.c ****                 SPIM_1_rxBufferRead++;
+ 616:Generated_Source\PSoC4/SPIM_1.c ****                 if(SPIM_1_rxBufferRead >= SPIM_1_RX_BUFFER_SIZE)
+ 617:Generated_Source\PSoC4/SPIM_1.c ****                 {
+ 618:Generated_Source\PSoC4/SPIM_1.c ****                     SPIM_1_rxBufferRead = 0u;
+ 619:Generated_Source\PSoC4/SPIM_1.c ****                 }
+ 620:Generated_Source\PSoC4/SPIM_1.c ****             }
+ 621:Generated_Source\PSoC4/SPIM_1.c ****             else
+ 622:Generated_Source\PSoC4/SPIM_1.c ****             {
+ 623:Generated_Source\PSoC4/SPIM_1.c ****                 SPIM_1_rxBufferFull = 0u;
+ 624:Generated_Source\PSoC4/SPIM_1.c ****             }
+ 625:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 626:Generated_Source\PSoC4/SPIM_1.c **** 
+ 627:Generated_Source\PSoC4/SPIM_1.c ****         rxData = SPIM_1_rxBuffer[SPIM_1_rxBufferRead];
+ 628:Generated_Source\PSoC4/SPIM_1.c **** 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 22
+
+
+ 629:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_EnableRxInt();
+ 630:Generated_Source\PSoC4/SPIM_1.c **** 
+ 631:Generated_Source\PSoC4/SPIM_1.c ****     #else
+ 632:Generated_Source\PSoC4/SPIM_1.c **** 
+ 633:Generated_Source\PSoC4/SPIM_1.c ****         rxData = CY_GET_REG8(SPIM_1_RXDATA_PTR);
+ 570              		.loc 1 633 0
+ 571 0006 054A     		ldr	r2, .L38
+ 572 0008 FB1D     		add	r3, r7, #7
+ 573 000a 1278     		ldrb	r2, [r2]
+ 574 000c 1A70     		strb	r2, [r3]
+ 634:Generated_Source\PSoC4/SPIM_1.c **** 
+ 635:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_RX_SOFTWARE_BUF_ENABLED) */
+ 636:Generated_Source\PSoC4/SPIM_1.c **** 
+ 637:Generated_Source\PSoC4/SPIM_1.c ****     return(rxData);
+ 575              		.loc 1 637 0
+ 576 000e FB1D     		add	r3, r7, #7
+ 577 0010 1B78     		ldrb	r3, [r3]
+ 638:Generated_Source\PSoC4/SPIM_1.c **** }
+ 578              		.loc 1 638 0
+ 579 0012 181C     		mov	r0, r3
+ 580 0014 BD46     		mov	sp, r7
+ 581 0016 02B0     		add	sp, sp, #8
+ 582              		@ sp needed
+ 583 0018 80BD     		pop	{r7, pc}
+ 584              	.L39:
+ 585 001a C046     		.align	2
+ 586              	.L38:
+ 587 001c 53000F40 		.word	1074724947
+ 588              		.cfi_endproc
+ 589              	.LFE13:
+ 590              		.size	SPIM_1_ReadRxData, .-SPIM_1_ReadRxData
+ 591              		.section	.text.SPIM_1_GetRxBufferSize,"ax",%progbits
+ 592              		.align	2
+ 593              		.global	SPIM_1_GetRxBufferSize
+ 594              		.code	16
+ 595              		.thumb_func
+ 596              		.type	SPIM_1_GetRxBufferSize, %function
+ 597              	SPIM_1_GetRxBufferSize:
+ 598              	.LFB14:
+ 639:Generated_Source\PSoC4/SPIM_1.c **** 
+ 640:Generated_Source\PSoC4/SPIM_1.c **** 
+ 641:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 642:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_GetRxBufferSize
+ 643:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 644:Generated_Source\PSoC4/SPIM_1.c **** *
+ 645:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 646:Generated_Source\PSoC4/SPIM_1.c **** *  Returns the number of bytes/words of data currently held in the RX buffer.
+ 647:Generated_Source\PSoC4/SPIM_1.c **** *  If RX Software Buffer not used then function return 0 if FIFO empty or 1 if
+ 648:Generated_Source\PSoC4/SPIM_1.c **** *  FIFO not empty. In another case function return size of RX Software Buffer.
+ 649:Generated_Source\PSoC4/SPIM_1.c **** *
+ 650:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 651:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 652:Generated_Source\PSoC4/SPIM_1.c **** *
+ 653:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 654:Generated_Source\PSoC4/SPIM_1.c **** *  Integer count of the number of bytes/words in the RX buffer.
+ 655:Generated_Source\PSoC4/SPIM_1.c **** *
+ 656:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 23
+
+
+ 657:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_rxBufferWrite - used for the account of the bytes which
+ 658:Generated_Source\PSoC4/SPIM_1.c **** *  have been written down in the RX software buffer.
+ 659:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_rxBufferRead - used for the account of the bytes which
+ 660:Generated_Source\PSoC4/SPIM_1.c **** *  have been read from the RX software buffer.
+ 661:Generated_Source\PSoC4/SPIM_1.c **** *
+ 662:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 663:Generated_Source\PSoC4/SPIM_1.c **** *  Clear status register of the component.
+ 664:Generated_Source\PSoC4/SPIM_1.c **** *
+ 665:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 666:Generated_Source\PSoC4/SPIM_1.c **** uint8 SPIM_1_GetRxBufferSize(void) 
+ 667:Generated_Source\PSoC4/SPIM_1.c **** {
+ 599              		.loc 1 667 0
+ 600              		.cfi_startproc
+ 601 0000 80B5     		push	{r7, lr}
+ 602              		.cfi_def_cfa_offset 8
+ 603              		.cfi_offset 7, -8
+ 604              		.cfi_offset 14, -4
+ 605 0002 82B0     		sub	sp, sp, #8
+ 606              		.cfi_def_cfa_offset 16
+ 607 0004 00AF     		add	r7, sp, #0
+ 608              		.cfi_def_cfa_register 7
+ 668:Generated_Source\PSoC4/SPIM_1.c ****     uint8 size;
+ 669:Generated_Source\PSoC4/SPIM_1.c **** 
+ 670:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_RX_SOFTWARE_BUF_ENABLED)
+ 671:Generated_Source\PSoC4/SPIM_1.c **** 
+ 672:Generated_Source\PSoC4/SPIM_1.c ****         /* Disable RX interrupt to protect global veriables */
+ 673:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_DisableRxInt();
+ 674:Generated_Source\PSoC4/SPIM_1.c **** 
+ 675:Generated_Source\PSoC4/SPIM_1.c ****         if(SPIM_1_rxBufferRead == SPIM_1_rxBufferWrite)
+ 676:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 677:Generated_Source\PSoC4/SPIM_1.c ****             size = 0u;
+ 678:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 679:Generated_Source\PSoC4/SPIM_1.c ****         else if(SPIM_1_rxBufferRead < SPIM_1_rxBufferWrite)
+ 680:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 681:Generated_Source\PSoC4/SPIM_1.c ****             size = (SPIM_1_rxBufferWrite - SPIM_1_rxBufferRead);
+ 682:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 683:Generated_Source\PSoC4/SPIM_1.c ****         else
+ 684:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 685:Generated_Source\PSoC4/SPIM_1.c ****             size = (SPIM_1_RX_BUFFER_SIZE - SPIM_1_rxBufferRead) + SPIM_1_rxBufferWrite;
+ 686:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 687:Generated_Source\PSoC4/SPIM_1.c **** 
+ 688:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_EnableRxInt();
+ 689:Generated_Source\PSoC4/SPIM_1.c **** 
+ 690:Generated_Source\PSoC4/SPIM_1.c ****     #else
+ 691:Generated_Source\PSoC4/SPIM_1.c **** 
+ 692:Generated_Source\PSoC4/SPIM_1.c ****         /* We can only know if there is data in the RX FIFO */
+ 693:Generated_Source\PSoC4/SPIM_1.c ****         size = (0u != (SPIM_1_RX_STATUS_REG & SPIM_1_STS_RX_FIFO_NOT_EMPTY)) ? 1u : 0u;
+ 609              		.loc 1 693 0
+ 610 0006 094B     		ldr	r3, .L44
+ 611 0008 1B78     		ldrb	r3, [r3]
+ 612 000a DBB2     		uxtb	r3, r3
+ 613 000c 1A1C     		mov	r2, r3
+ 614 000e 2023     		mov	r3, #32
+ 615 0010 1340     		and	r3, r2
+ 616 0012 01D0     		beq	.L41
+ 617              		.loc 1 693 0 is_stmt 0 discriminator 1
+ 618 0014 0122     		mov	r2, #1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 24
+
+
+ 619 0016 00E0     		b	.L42
+ 620              	.L41:
+ 621              		.loc 1 693 0 discriminator 2
+ 622 0018 0022     		mov	r2, #0
+ 623              	.L42:
+ 624              		.loc 1 693 0 discriminator 4
+ 625 001a FB1D     		add	r3, r7, #7
+ 626 001c 1A70     		strb	r2, [r3]
+ 694:Generated_Source\PSoC4/SPIM_1.c **** 
+ 695:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_TX_SOFTWARE_BUF_ENABLED) */
+ 696:Generated_Source\PSoC4/SPIM_1.c **** 
+ 697:Generated_Source\PSoC4/SPIM_1.c ****     return(size);
+ 627              		.loc 1 697 0 is_stmt 1 discriminator 4
+ 628 001e FB1D     		add	r3, r7, #7
+ 629 0020 1B78     		ldrb	r3, [r3]
+ 698:Generated_Source\PSoC4/SPIM_1.c **** }
+ 630              		.loc 1 698 0 discriminator 4
+ 631 0022 181C     		mov	r0, r3
+ 632 0024 BD46     		mov	sp, r7
+ 633 0026 02B0     		add	sp, sp, #8
+ 634              		@ sp needed
+ 635 0028 80BD     		pop	{r7, pc}
+ 636              	.L45:
+ 637 002a C046     		.align	2
+ 638              	.L44:
+ 639 002c 63000F40 		.word	1074724963
+ 640              		.cfi_endproc
+ 641              	.LFE14:
+ 642              		.size	SPIM_1_GetRxBufferSize, .-SPIM_1_GetRxBufferSize
+ 643              		.section	.text.SPIM_1_GetTxBufferSize,"ax",%progbits
+ 644              		.align	2
+ 645              		.global	SPIM_1_GetTxBufferSize
+ 646              		.code	16
+ 647              		.thumb_func
+ 648              		.type	SPIM_1_GetTxBufferSize, %function
+ 649              	SPIM_1_GetTxBufferSize:
+ 650              	.LFB15:
+ 699:Generated_Source\PSoC4/SPIM_1.c **** 
+ 700:Generated_Source\PSoC4/SPIM_1.c **** 
+ 701:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 702:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_GetTxBufferSize
+ 703:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 704:Generated_Source\PSoC4/SPIM_1.c **** *
+ 705:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 706:Generated_Source\PSoC4/SPIM_1.c **** *  Returns the number of bytes/words of data currently held in the TX buffer.
+ 707:Generated_Source\PSoC4/SPIM_1.c **** *  If TX Software Buffer not used then function return 0 - if FIFO empty, 1 - if
+ 708:Generated_Source\PSoC4/SPIM_1.c **** *  FIFO not full, 4 - if FIFO full. In another case function return size of TX
+ 709:Generated_Source\PSoC4/SPIM_1.c **** *  Software Buffer.
+ 710:Generated_Source\PSoC4/SPIM_1.c **** *
+ 711:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 712:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 713:Generated_Source\PSoC4/SPIM_1.c **** *
+ 714:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 715:Generated_Source\PSoC4/SPIM_1.c **** *  Integer count of the number of bytes/words in the TX buffer.
+ 716:Generated_Source\PSoC4/SPIM_1.c **** *
+ 717:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+ 718:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_txBufferWrite - used for the account of the bytes which
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 25
+
+
+ 719:Generated_Source\PSoC4/SPIM_1.c **** *  have been written down in the TX software buffer.
+ 720:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_txBufferRead - used for the account of the bytes which
+ 721:Generated_Source\PSoC4/SPIM_1.c **** *  have been read from the TX software buffer.
+ 722:Generated_Source\PSoC4/SPIM_1.c **** *
+ 723:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 724:Generated_Source\PSoC4/SPIM_1.c **** *  Clear status register of the component.
+ 725:Generated_Source\PSoC4/SPIM_1.c **** *
+ 726:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 727:Generated_Source\PSoC4/SPIM_1.c **** uint8  SPIM_1_GetTxBufferSize(void) 
+ 728:Generated_Source\PSoC4/SPIM_1.c **** {
+ 651              		.loc 1 728 0
+ 652              		.cfi_startproc
+ 653 0000 80B5     		push	{r7, lr}
+ 654              		.cfi_def_cfa_offset 8
+ 655              		.cfi_offset 7, -8
+ 656              		.cfi_offset 14, -4
+ 657 0002 82B0     		sub	sp, sp, #8
+ 658              		.cfi_def_cfa_offset 16
+ 659 0004 00AF     		add	r7, sp, #0
+ 660              		.cfi_def_cfa_register 7
+ 729:Generated_Source\PSoC4/SPIM_1.c ****     uint8 size;
+ 730:Generated_Source\PSoC4/SPIM_1.c **** 
+ 731:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_TX_SOFTWARE_BUF_ENABLED)
+ 732:Generated_Source\PSoC4/SPIM_1.c ****         /* Disable TX interrupt to protect global veriables */
+ 733:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_DisableTxInt();
+ 734:Generated_Source\PSoC4/SPIM_1.c **** 
+ 735:Generated_Source\PSoC4/SPIM_1.c ****         if(SPIM_1_txBufferRead == SPIM_1_txBufferWrite)
+ 736:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 737:Generated_Source\PSoC4/SPIM_1.c ****             size = 0u;
+ 738:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 739:Generated_Source\PSoC4/SPIM_1.c ****         else if(SPIM_1_txBufferRead < SPIM_1_txBufferWrite)
+ 740:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 741:Generated_Source\PSoC4/SPIM_1.c ****             size = (SPIM_1_txBufferWrite - SPIM_1_txBufferRead);
+ 742:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 743:Generated_Source\PSoC4/SPIM_1.c ****         else
+ 744:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 745:Generated_Source\PSoC4/SPIM_1.c ****             size = (SPIM_1_TX_BUFFER_SIZE - SPIM_1_txBufferRead) + SPIM_1_txBufferWrite;
+ 746:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 747:Generated_Source\PSoC4/SPIM_1.c **** 
+ 748:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_EnableTxInt();
+ 749:Generated_Source\PSoC4/SPIM_1.c **** 
+ 750:Generated_Source\PSoC4/SPIM_1.c ****     #else
+ 751:Generated_Source\PSoC4/SPIM_1.c **** 
+ 752:Generated_Source\PSoC4/SPIM_1.c ****         size = SPIM_1_TX_STATUS_REG;
+ 661              		.loc 1 752 0
+ 662 0006 0F4A     		ldr	r2, .L51
+ 663 0008 FB1D     		add	r3, r7, #7
+ 664 000a 1278     		ldrb	r2, [r2]
+ 665 000c 1A70     		strb	r2, [r3]
+ 753:Generated_Source\PSoC4/SPIM_1.c **** 
+ 754:Generated_Source\PSoC4/SPIM_1.c ****         if(0u != (size & SPIM_1_STS_TX_FIFO_EMPTY))
+ 666              		.loc 1 754 0
+ 667 000e FB1D     		add	r3, r7, #7
+ 668 0010 1B78     		ldrb	r3, [r3]
+ 669 0012 0222     		mov	r2, #2
+ 670 0014 1340     		and	r3, r2
+ 671 0016 03D0     		beq	.L47
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 26
+
+
+ 755:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 756:Generated_Source\PSoC4/SPIM_1.c ****             size = 0u;
+ 672              		.loc 1 756 0
+ 673 0018 FB1D     		add	r3, r7, #7
+ 674 001a 0022     		mov	r2, #0
+ 675 001c 1A70     		strb	r2, [r3]
+ 676 001e 0BE0     		b	.L48
+ 677              	.L47:
+ 757:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 758:Generated_Source\PSoC4/SPIM_1.c ****         else if(0u != (size & SPIM_1_STS_TX_FIFO_NOT_FULL))
+ 678              		.loc 1 758 0
+ 679 0020 FB1D     		add	r3, r7, #7
+ 680 0022 1B78     		ldrb	r3, [r3]
+ 681 0024 0422     		mov	r2, #4
+ 682 0026 1340     		and	r3, r2
+ 683 0028 03D0     		beq	.L49
+ 759:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 760:Generated_Source\PSoC4/SPIM_1.c ****             size = 1u;
+ 684              		.loc 1 760 0
+ 685 002a FB1D     		add	r3, r7, #7
+ 686 002c 0122     		mov	r2, #1
+ 687 002e 1A70     		strb	r2, [r3]
+ 688 0030 02E0     		b	.L48
+ 689              	.L49:
+ 761:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 762:Generated_Source\PSoC4/SPIM_1.c ****         else
+ 763:Generated_Source\PSoC4/SPIM_1.c ****         {
+ 764:Generated_Source\PSoC4/SPIM_1.c ****             size = SPIM_1_FIFO_SIZE;
+ 690              		.loc 1 764 0
+ 691 0032 FB1D     		add	r3, r7, #7
+ 692 0034 0422     		mov	r2, #4
+ 693 0036 1A70     		strb	r2, [r3]
+ 694              	.L48:
+ 765:Generated_Source\PSoC4/SPIM_1.c ****         }
+ 766:Generated_Source\PSoC4/SPIM_1.c **** 
+ 767:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_TX_SOFTWARE_BUF_ENABLED) */
+ 768:Generated_Source\PSoC4/SPIM_1.c **** 
+ 769:Generated_Source\PSoC4/SPIM_1.c ****     return(size);
+ 695              		.loc 1 769 0
+ 696 0038 FB1D     		add	r3, r7, #7
+ 697 003a 1B78     		ldrb	r3, [r3]
+ 770:Generated_Source\PSoC4/SPIM_1.c **** }
+ 698              		.loc 1 770 0
+ 699 003c 181C     		mov	r0, r3
+ 700 003e BD46     		mov	sp, r7
+ 701 0040 02B0     		add	sp, sp, #8
+ 702              		@ sp needed
+ 703 0042 80BD     		pop	{r7, pc}
+ 704              	.L52:
+ 705              		.align	2
+ 706              	.L51:
+ 707 0044 61000F40 		.word	1074724961
+ 708              		.cfi_endproc
+ 709              	.LFE15:
+ 710              		.size	SPIM_1_GetTxBufferSize, .-SPIM_1_GetTxBufferSize
+ 711              		.section	.text.SPIM_1_ClearRxBuffer,"ax",%progbits
+ 712              		.align	2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 27
+
+
+ 713              		.global	SPIM_1_ClearRxBuffer
+ 714              		.code	16
+ 715              		.thumb_func
+ 716              		.type	SPIM_1_ClearRxBuffer, %function
+ 717              	SPIM_1_ClearRxBuffer:
+ 718              	.LFB16:
+ 771:Generated_Source\PSoC4/SPIM_1.c **** 
+ 772:Generated_Source\PSoC4/SPIM_1.c **** 
+ 773:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 774:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_ClearRxBuffer
+ 775:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 776:Generated_Source\PSoC4/SPIM_1.c **** *
+ 777:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 778:Generated_Source\PSoC4/SPIM_1.c **** *  Clear the RX RAM buffer by setting the read and write pointers both to zero.
+ 779:Generated_Source\PSoC4/SPIM_1.c **** *
+ 780:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 781:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 782:Generated_Source\PSoC4/SPIM_1.c **** *
+ 783:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 784:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 785:Generated_Source\PSoC4/SPIM_1.c **** *
+ 786:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+ 787:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_rxBufferWrite - used for the account of the bytes which
+ 788:Generated_Source\PSoC4/SPIM_1.c **** *  have been written down in the RX software buffer, modified every function
+ 789:Generated_Source\PSoC4/SPIM_1.c **** *  call - resets to zero.
+ 790:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_rxBufferRead - used for the account of the bytes which
+ 791:Generated_Source\PSoC4/SPIM_1.c **** *  have been read from the RX software buffer, modified every function call -
+ 792:Generated_Source\PSoC4/SPIM_1.c **** *  resets to zero.
+ 793:Generated_Source\PSoC4/SPIM_1.c **** *
+ 794:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 795:Generated_Source\PSoC4/SPIM_1.c **** *  Setting the pointers to zero makes the system believe there is no data to
+ 796:Generated_Source\PSoC4/SPIM_1.c **** *  read and writing will resume at address 0 overwriting any data that may have
+ 797:Generated_Source\PSoC4/SPIM_1.c **** *  remained in the RAM.
+ 798:Generated_Source\PSoC4/SPIM_1.c **** *
+ 799:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 800:Generated_Source\PSoC4/SPIM_1.c **** *  Any received data not read from the RAM buffer will be lost when overwritten.
+ 801:Generated_Source\PSoC4/SPIM_1.c **** *
+ 802:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+ 803:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+ 804:Generated_Source\PSoC4/SPIM_1.c **** *
+ 805:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 806:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_ClearRxBuffer(void) 
+ 807:Generated_Source\PSoC4/SPIM_1.c **** {
+ 719              		.loc 1 807 0
+ 720              		.cfi_startproc
+ 721 0000 80B5     		push	{r7, lr}
+ 722              		.cfi_def_cfa_offset 8
+ 723              		.cfi_offset 7, -8
+ 724              		.cfi_offset 14, -4
+ 725 0002 00AF     		add	r7, sp, #0
+ 726              		.cfi_def_cfa_register 7
+ 808:Generated_Source\PSoC4/SPIM_1.c ****     /* Clear Hardware RX FIFO */
+ 809:Generated_Source\PSoC4/SPIM_1.c ****     while(0u !=(SPIM_1_RX_STATUS_REG & SPIM_1_STS_RX_FIFO_NOT_EMPTY))
+ 727              		.loc 1 809 0
+ 728 0004 01E0     		b	.L54
+ 729              	.L55:
+ 810:Generated_Source\PSoC4/SPIM_1.c ****     {
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 28
+
+
+ 811:Generated_Source\PSoC4/SPIM_1.c ****         (void) CY_GET_REG8(SPIM_1_RXDATA_PTR);
+ 730              		.loc 1 811 0
+ 731 0006 054B     		ldr	r3, .L56
+ 732 0008 1B78     		ldrb	r3, [r3]
+ 733              	.L54:
+ 809:Generated_Source\PSoC4/SPIM_1.c ****     {
+ 734              		.loc 1 809 0
+ 735 000a 054B     		ldr	r3, .L56+4
+ 736 000c 1B78     		ldrb	r3, [r3]
+ 737 000e DBB2     		uxtb	r3, r3
+ 738 0010 1A1C     		mov	r2, r3
+ 739 0012 2023     		mov	r3, #32
+ 740 0014 1340     		and	r3, r2
+ 741 0016 F6D1     		bne	.L55
+ 812:Generated_Source\PSoC4/SPIM_1.c ****     }
+ 813:Generated_Source\PSoC4/SPIM_1.c **** 
+ 814:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_RX_SOFTWARE_BUF_ENABLED)
+ 815:Generated_Source\PSoC4/SPIM_1.c ****         /* Disable RX interrupt to protect global veriables */
+ 816:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_DisableRxInt();
+ 817:Generated_Source\PSoC4/SPIM_1.c **** 
+ 818:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_rxBufferFull  = 0u;
+ 819:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_rxBufferRead  = 0u;
+ 820:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_rxBufferWrite = 0u;
+ 821:Generated_Source\PSoC4/SPIM_1.c **** 
+ 822:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_EnableRxInt();
+ 823:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_RX_SOFTWARE_BUF_ENABLED) */
+ 824:Generated_Source\PSoC4/SPIM_1.c **** }
+ 742              		.loc 1 824 0
+ 743 0018 BD46     		mov	sp, r7
+ 744              		@ sp needed
+ 745 001a 80BD     		pop	{r7, pc}
+ 746              	.L57:
+ 747              		.align	2
+ 748              	.L56:
+ 749 001c 53000F40 		.word	1074724947
+ 750 0020 63000F40 		.word	1074724963
+ 751              		.cfi_endproc
+ 752              	.LFE16:
+ 753              		.size	SPIM_1_ClearRxBuffer, .-SPIM_1_ClearRxBuffer
+ 754              		.section	.text.SPIM_1_ClearTxBuffer,"ax",%progbits
+ 755              		.align	2
+ 756              		.global	SPIM_1_ClearTxBuffer
+ 757              		.code	16
+ 758              		.thumb_func
+ 759              		.type	SPIM_1_ClearTxBuffer, %function
+ 760              	SPIM_1_ClearTxBuffer:
+ 761              	.LFB17:
+ 825:Generated_Source\PSoC4/SPIM_1.c **** 
+ 826:Generated_Source\PSoC4/SPIM_1.c **** 
+ 827:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 828:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_ClearTxBuffer
+ 829:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 830:Generated_Source\PSoC4/SPIM_1.c **** *
+ 831:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 832:Generated_Source\PSoC4/SPIM_1.c **** *  Clear the TX RAM buffer by setting the read and write pointers both to zero.
+ 833:Generated_Source\PSoC4/SPIM_1.c **** *
+ 834:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 29
+
+
+ 835:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 836:Generated_Source\PSoC4/SPIM_1.c **** *
+ 837:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 838:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 839:Generated_Source\PSoC4/SPIM_1.c **** *
+ 840:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+ 841:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_txBufferWrite - used for the account of the bytes which
+ 842:Generated_Source\PSoC4/SPIM_1.c **** *  have been written down in the TX software buffer, modified every function
+ 843:Generated_Source\PSoC4/SPIM_1.c **** *  call - resets to zero.
+ 844:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_txBufferRead - used for the account of the bytes which
+ 845:Generated_Source\PSoC4/SPIM_1.c **** *  have been read from the TX software buffer, modified every function call -
+ 846:Generated_Source\PSoC4/SPIM_1.c **** *  resets to zero.
+ 847:Generated_Source\PSoC4/SPIM_1.c **** *
+ 848:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+ 849:Generated_Source\PSoC4/SPIM_1.c **** *  Setting the pointers to zero makes the system believe there is no data to
+ 850:Generated_Source\PSoC4/SPIM_1.c **** *  read and writing will resume at address 0 overwriting any data that may have
+ 851:Generated_Source\PSoC4/SPIM_1.c **** *  remained in the RAM.
+ 852:Generated_Source\PSoC4/SPIM_1.c **** *
+ 853:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 854:Generated_Source\PSoC4/SPIM_1.c **** *  Any data not yet transmitted from the RAM buffer will be lost when
+ 855:Generated_Source\PSoC4/SPIM_1.c **** *  overwritten.
+ 856:Generated_Source\PSoC4/SPIM_1.c **** *
+ 857:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+ 858:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+ 859:Generated_Source\PSoC4/SPIM_1.c **** *
+ 860:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 861:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_ClearTxBuffer(void) 
+ 862:Generated_Source\PSoC4/SPIM_1.c **** {
+ 762              		.loc 1 862 0
+ 763              		.cfi_startproc
+ 764 0000 90B5     		push	{r4, r7, lr}
+ 765              		.cfi_def_cfa_offset 12
+ 766              		.cfi_offset 4, -12
+ 767              		.cfi_offset 7, -8
+ 768              		.cfi_offset 14, -4
+ 769 0002 83B0     		sub	sp, sp, #12
+ 770              		.cfi_def_cfa_offset 24
+ 771 0004 00AF     		add	r7, sp, #0
+ 772              		.cfi_def_cfa_register 7
+ 863:Generated_Source\PSoC4/SPIM_1.c ****     uint8 enableInterrupts;
+ 864:Generated_Source\PSoC4/SPIM_1.c **** 
+ 865:Generated_Source\PSoC4/SPIM_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 773              		.loc 1 865 0
+ 774 0006 FC1D     		add	r4, r7, #7
+ 775 0008 FFF7FEFF 		bl	CyEnterCriticalSection
+ 776 000c 031C     		mov	r3, r0
+ 777 000e 2370     		strb	r3, [r4]
+ 866:Generated_Source\PSoC4/SPIM_1.c ****     /* Clear TX FIFO */
+ 867:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_AUX_CONTROL_DP0_REG |= ((uint8)  SPIM_1_TX_FIFO_CLR);
+ 778              		.loc 1 867 0
+ 779 0010 0B4A     		ldr	r2, .L59
+ 780 0012 0B4B     		ldr	r3, .L59
+ 781 0014 1B78     		ldrb	r3, [r3]
+ 782 0016 DBB2     		uxtb	r3, r3
+ 783 0018 0121     		mov	r1, #1
+ 784 001a 0B43     		orr	r3, r1
+ 785 001c DBB2     		uxtb	r3, r3
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 30
+
+
+ 786 001e 1370     		strb	r3, [r2]
+ 868:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_AUX_CONTROL_DP0_REG &= ((uint8) ~SPIM_1_TX_FIFO_CLR);
+ 787              		.loc 1 868 0
+ 788 0020 074A     		ldr	r2, .L59
+ 789 0022 074B     		ldr	r3, .L59
+ 790 0024 1B78     		ldrb	r3, [r3]
+ 791 0026 DBB2     		uxtb	r3, r3
+ 792 0028 0121     		mov	r1, #1
+ 793 002a 8B43     		bic	r3, r1
+ 794 002c DBB2     		uxtb	r3, r3
+ 795 002e 1370     		strb	r3, [r2]
+ 869:Generated_Source\PSoC4/SPIM_1.c **** 
+ 870:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_USE_SECOND_DATAPATH)
+ 871:Generated_Source\PSoC4/SPIM_1.c ****         /* Clear TX FIFO for 2nd Datapath */
+ 872:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_AUX_CONTROL_DP1_REG |= ((uint8)  SPIM_1_TX_FIFO_CLR);
+ 873:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_AUX_CONTROL_DP1_REG &= ((uint8) ~SPIM_1_TX_FIFO_CLR);
+ 874:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_USE_SECOND_DATAPATH) */
+ 875:Generated_Source\PSoC4/SPIM_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 796              		.loc 1 875 0
+ 797 0030 FB1D     		add	r3, r7, #7
+ 798 0032 1B78     		ldrb	r3, [r3]
+ 799 0034 181C     		mov	r0, r3
+ 800 0036 FFF7FEFF 		bl	CyExitCriticalSection
+ 876:Generated_Source\PSoC4/SPIM_1.c **** 
+ 877:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_TX_SOFTWARE_BUF_ENABLED)
+ 878:Generated_Source\PSoC4/SPIM_1.c ****         /* Disable TX interrupt to protect global veriables */
+ 879:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_DisableTxInt();
+ 880:Generated_Source\PSoC4/SPIM_1.c **** 
+ 881:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_txBufferFull  = 0u;
+ 882:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_txBufferRead  = 0u;
+ 883:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_txBufferWrite = 0u;
+ 884:Generated_Source\PSoC4/SPIM_1.c **** 
+ 885:Generated_Source\PSoC4/SPIM_1.c ****         /* Buffer is EMPTY: disable TX FIFO NOT FULL interrupt */
+ 886:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_TX_STATUS_MASK_REG &= ((uint8) ~SPIM_1_STS_TX_FIFO_NOT_FULL);
+ 887:Generated_Source\PSoC4/SPIM_1.c **** 
+ 888:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_EnableTxInt();
+ 889:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_TX_SOFTWARE_BUF_ENABLED) */
+ 890:Generated_Source\PSoC4/SPIM_1.c **** }
+ 801              		.loc 1 890 0
+ 802 003a BD46     		mov	sp, r7
+ 803 003c 03B0     		add	sp, sp, #12
+ 804              		@ sp needed
+ 805 003e 90BD     		pop	{r4, r7, pc}
+ 806              	.L60:
+ 807              		.align	2
+ 808              	.L59:
+ 809 0040 93000F40 		.word	1074725011
+ 810              		.cfi_endproc
+ 811              	.LFE17:
+ 812              		.size	SPIM_1_ClearTxBuffer, .-SPIM_1_ClearTxBuffer
+ 813              		.section	.text.SPIM_1_PutArray,"ax",%progbits
+ 814              		.align	2
+ 815              		.global	SPIM_1_PutArray
+ 816              		.code	16
+ 817              		.thumb_func
+ 818              		.type	SPIM_1_PutArray, %function
+ 819              	SPIM_1_PutArray:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 31
+
+
+ 820              	.LFB18:
+ 891:Generated_Source\PSoC4/SPIM_1.c **** 
+ 892:Generated_Source\PSoC4/SPIM_1.c **** 
+ 893:Generated_Source\PSoC4/SPIM_1.c **** #if(0u != SPIM_1_BIDIRECTIONAL_MODE)
+ 894:Generated_Source\PSoC4/SPIM_1.c ****     /*******************************************************************************
+ 895:Generated_Source\PSoC4/SPIM_1.c ****     * Function Name: SPIM_1_TxEnable
+ 896:Generated_Source\PSoC4/SPIM_1.c ****     ********************************************************************************
+ 897:Generated_Source\PSoC4/SPIM_1.c ****     *
+ 898:Generated_Source\PSoC4/SPIM_1.c ****     * Summary:
+ 899:Generated_Source\PSoC4/SPIM_1.c ****     *  If the SPI master is configured to use a single bi-directional pin then this
+ 900:Generated_Source\PSoC4/SPIM_1.c ****     *  will set the bi-directional pin to transmit.
+ 901:Generated_Source\PSoC4/SPIM_1.c ****     *
+ 902:Generated_Source\PSoC4/SPIM_1.c ****     * Parameters:
+ 903:Generated_Source\PSoC4/SPIM_1.c ****     *  None.
+ 904:Generated_Source\PSoC4/SPIM_1.c ****     *
+ 905:Generated_Source\PSoC4/SPIM_1.c ****     * Return:
+ 906:Generated_Source\PSoC4/SPIM_1.c ****     *  None.
+ 907:Generated_Source\PSoC4/SPIM_1.c ****     *
+ 908:Generated_Source\PSoC4/SPIM_1.c ****     *******************************************************************************/
+ 909:Generated_Source\PSoC4/SPIM_1.c ****     void SPIM_1_TxEnable(void) 
+ 910:Generated_Source\PSoC4/SPIM_1.c ****     {
+ 911:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_CONTROL_REG |= SPIM_1_CTRL_TX_SIGNAL_EN;
+ 912:Generated_Source\PSoC4/SPIM_1.c ****     }
+ 913:Generated_Source\PSoC4/SPIM_1.c **** 
+ 914:Generated_Source\PSoC4/SPIM_1.c **** 
+ 915:Generated_Source\PSoC4/SPIM_1.c ****     /*******************************************************************************
+ 916:Generated_Source\PSoC4/SPIM_1.c ****     * Function Name: SPIM_1_TxDisable
+ 917:Generated_Source\PSoC4/SPIM_1.c ****     ********************************************************************************
+ 918:Generated_Source\PSoC4/SPIM_1.c ****     *
+ 919:Generated_Source\PSoC4/SPIM_1.c ****     * Summary:
+ 920:Generated_Source\PSoC4/SPIM_1.c ****     *  If the SPI master is configured to use a single bi-directional pin then this
+ 921:Generated_Source\PSoC4/SPIM_1.c ****     *  will set the bi-directional pin to receive.
+ 922:Generated_Source\PSoC4/SPIM_1.c ****     *
+ 923:Generated_Source\PSoC4/SPIM_1.c ****     * Parameters:
+ 924:Generated_Source\PSoC4/SPIM_1.c ****     *  None.
+ 925:Generated_Source\PSoC4/SPIM_1.c ****     *
+ 926:Generated_Source\PSoC4/SPIM_1.c ****     * Return:
+ 927:Generated_Source\PSoC4/SPIM_1.c ****     *  None.
+ 928:Generated_Source\PSoC4/SPIM_1.c ****     *
+ 929:Generated_Source\PSoC4/SPIM_1.c ****     *******************************************************************************/
+ 930:Generated_Source\PSoC4/SPIM_1.c ****     void SPIM_1_TxDisable(void) 
+ 931:Generated_Source\PSoC4/SPIM_1.c ****     {
+ 932:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_CONTROL_REG &= ((uint8) ~SPIM_1_CTRL_TX_SIGNAL_EN);
+ 933:Generated_Source\PSoC4/SPIM_1.c ****     }
+ 934:Generated_Source\PSoC4/SPIM_1.c **** 
+ 935:Generated_Source\PSoC4/SPIM_1.c **** #endif /* (0u != SPIM_1_BIDIRECTIONAL_MODE) */
+ 936:Generated_Source\PSoC4/SPIM_1.c **** 
+ 937:Generated_Source\PSoC4/SPIM_1.c **** 
+ 938:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 939:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_PutArray
+ 940:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 941:Generated_Source\PSoC4/SPIM_1.c **** *
+ 942:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 943:Generated_Source\PSoC4/SPIM_1.c **** *  Write available data from ROM/RAM to the TX buffer while space is available
+ 944:Generated_Source\PSoC4/SPIM_1.c **** *  in the TX buffer. Keep trying until all data is passed to the TX buffer.
+ 945:Generated_Source\PSoC4/SPIM_1.c **** *
+ 946:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 32
+
+
+ 947:Generated_Source\PSoC4/SPIM_1.c **** *  *buffer: Pointer to the location in RAM containing the data to send
+ 948:Generated_Source\PSoC4/SPIM_1.c **** *  byteCount: The number of bytes to move to the transmit buffer.
+ 949:Generated_Source\PSoC4/SPIM_1.c **** *
+ 950:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 951:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 952:Generated_Source\PSoC4/SPIM_1.c **** *
+ 953:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 954:Generated_Source\PSoC4/SPIM_1.c **** *  Will stay in this routine until all data has been sent.  May get locked in
+ 955:Generated_Source\PSoC4/SPIM_1.c **** *  this loop if data is not being initiated by the master if there is not
+ 956:Generated_Source\PSoC4/SPIM_1.c **** *  enough room in the TX FIFO.
+ 957:Generated_Source\PSoC4/SPIM_1.c **** *
+ 958:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+ 959:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+ 960:Generated_Source\PSoC4/SPIM_1.c **** *
+ 961:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 962:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_PutArray(const uint8 buffer[], uint8 byteCount)
+ 963:Generated_Source\PSoC4/SPIM_1.c ****                                                                           
+ 964:Generated_Source\PSoC4/SPIM_1.c **** {
+ 821              		.loc 1 964 0
+ 822              		.cfi_startproc
+ 823 0000 80B5     		push	{r7, lr}
+ 824              		.cfi_def_cfa_offset 8
+ 825              		.cfi_offset 7, -8
+ 826              		.cfi_offset 14, -4
+ 827 0002 84B0     		sub	sp, sp, #16
+ 828              		.cfi_def_cfa_offset 24
+ 829 0004 00AF     		add	r7, sp, #0
+ 830              		.cfi_def_cfa_register 7
+ 831 0006 7860     		str	r0, [r7, #4]
+ 832 0008 0A1C     		mov	r2, r1
+ 833 000a FB1C     		add	r3, r7, #3
+ 834 000c 1A70     		strb	r2, [r3]
+ 965:Generated_Source\PSoC4/SPIM_1.c ****     uint8 bufIndex;
+ 966:Generated_Source\PSoC4/SPIM_1.c **** 
+ 967:Generated_Source\PSoC4/SPIM_1.c ****     bufIndex = 0u;
+ 835              		.loc 1 967 0
+ 836 000e 0F23     		mov	r3, #15
+ 837 0010 FB18     		add	r3, r7, r3
+ 838 0012 0022     		mov	r2, #0
+ 839 0014 1A70     		strb	r2, [r3]
+ 968:Generated_Source\PSoC4/SPIM_1.c **** 
+ 969:Generated_Source\PSoC4/SPIM_1.c ****     while(byteCount > 0u)
+ 840              		.loc 1 969 0
+ 841 0016 14E0     		b	.L62
+ 842              	.L63:
+ 970:Generated_Source\PSoC4/SPIM_1.c ****     {
+ 971:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_WriteTxData(buffer[bufIndex]);
+ 843              		.loc 1 971 0
+ 844 0018 0F23     		mov	r3, #15
+ 845 001a FB18     		add	r3, r7, r3
+ 846 001c 1B78     		ldrb	r3, [r3]
+ 847 001e 7A68     		ldr	r2, [r7, #4]
+ 848 0020 D318     		add	r3, r2, r3
+ 849 0022 1B78     		ldrb	r3, [r3]
+ 850 0024 181C     		mov	r0, r3
+ 851 0026 FFF7FEFF 		bl	SPIM_1_WriteTxData
+ 972:Generated_Source\PSoC4/SPIM_1.c ****         bufIndex++;
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 33
+
+
+ 852              		.loc 1 972 0
+ 853 002a 0F23     		mov	r3, #15
+ 854 002c FB18     		add	r3, r7, r3
+ 855 002e 1A78     		ldrb	r2, [r3]
+ 856 0030 0F23     		mov	r3, #15
+ 857 0032 FB18     		add	r3, r7, r3
+ 858 0034 0132     		add	r2, r2, #1
+ 859 0036 1A70     		strb	r2, [r3]
+ 973:Generated_Source\PSoC4/SPIM_1.c ****         byteCount--;
+ 860              		.loc 1 973 0
+ 861 0038 FB1C     		add	r3, r7, #3
+ 862 003a 1A78     		ldrb	r2, [r3]
+ 863 003c FB1C     		add	r3, r7, #3
+ 864 003e 013A     		sub	r2, r2, #1
+ 865 0040 1A70     		strb	r2, [r3]
+ 866              	.L62:
+ 969:Generated_Source\PSoC4/SPIM_1.c ****     {
+ 867              		.loc 1 969 0
+ 868 0042 FB1C     		add	r3, r7, #3
+ 869 0044 1B78     		ldrb	r3, [r3]
+ 870 0046 002B     		cmp	r3, #0
+ 871 0048 E6D1     		bne	.L63
+ 974:Generated_Source\PSoC4/SPIM_1.c ****     }
+ 975:Generated_Source\PSoC4/SPIM_1.c **** }
+ 872              		.loc 1 975 0
+ 873 004a BD46     		mov	sp, r7
+ 874 004c 04B0     		add	sp, sp, #16
+ 875              		@ sp needed
+ 876 004e 80BD     		pop	{r7, pc}
+ 877              		.cfi_endproc
+ 878              	.LFE18:
+ 879              		.size	SPIM_1_PutArray, .-SPIM_1_PutArray
+ 880              		.section	.text.SPIM_1_ClearFIFO,"ax",%progbits
+ 881              		.align	2
+ 882              		.global	SPIM_1_ClearFIFO
+ 883              		.code	16
+ 884              		.thumb_func
+ 885              		.type	SPIM_1_ClearFIFO, %function
+ 886              	SPIM_1_ClearFIFO:
+ 887              	.LFB19:
+ 976:Generated_Source\PSoC4/SPIM_1.c **** 
+ 977:Generated_Source\PSoC4/SPIM_1.c **** 
+ 978:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+ 979:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_ClearFIFO
+ 980:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ 981:Generated_Source\PSoC4/SPIM_1.c **** *
+ 982:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+ 983:Generated_Source\PSoC4/SPIM_1.c **** *  Clear the RX and TX FIFO's of all data for a fresh start.
+ 984:Generated_Source\PSoC4/SPIM_1.c **** *
+ 985:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+ 986:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 987:Generated_Source\PSoC4/SPIM_1.c **** *
+ 988:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+ 989:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ 990:Generated_Source\PSoC4/SPIM_1.c **** *
+ 991:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+ 992:Generated_Source\PSoC4/SPIM_1.c **** *  Clear status register of the component.
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 34
+
+
+ 993:Generated_Source\PSoC4/SPIM_1.c **** *
+ 994:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ 995:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_ClearFIFO(void) 
+ 996:Generated_Source\PSoC4/SPIM_1.c **** {
+ 888              		.loc 1 996 0
+ 889              		.cfi_startproc
+ 890 0000 90B5     		push	{r4, r7, lr}
+ 891              		.cfi_def_cfa_offset 12
+ 892              		.cfi_offset 4, -12
+ 893              		.cfi_offset 7, -8
+ 894              		.cfi_offset 14, -4
+ 895 0002 83B0     		sub	sp, sp, #12
+ 896              		.cfi_def_cfa_offset 24
+ 897 0004 00AF     		add	r7, sp, #0
+ 898              		.cfi_def_cfa_register 7
+ 997:Generated_Source\PSoC4/SPIM_1.c ****     uint8 enableInterrupts;
+ 998:Generated_Source\PSoC4/SPIM_1.c **** 
+ 999:Generated_Source\PSoC4/SPIM_1.c ****     /* Clear Hardware RX FIFO */
+1000:Generated_Source\PSoC4/SPIM_1.c ****     while(0u !=(SPIM_1_RX_STATUS_REG & SPIM_1_STS_RX_FIFO_NOT_EMPTY))
+ 899              		.loc 1 1000 0
+ 900 0006 01E0     		b	.L65
+ 901              	.L66:
+1001:Generated_Source\PSoC4/SPIM_1.c ****     {
+1002:Generated_Source\PSoC4/SPIM_1.c ****         (void) CY_GET_REG8(SPIM_1_RXDATA_PTR);
+ 902              		.loc 1 1002 0
+ 903 0008 124B     		ldr	r3, .L67
+ 904 000a 1B78     		ldrb	r3, [r3]
+ 905              	.L65:
+1000:Generated_Source\PSoC4/SPIM_1.c ****     {
+ 906              		.loc 1 1000 0
+ 907 000c 124B     		ldr	r3, .L67+4
+ 908 000e 1B78     		ldrb	r3, [r3]
+ 909 0010 DBB2     		uxtb	r3, r3
+ 910 0012 1A1C     		mov	r2, r3
+ 911 0014 2023     		mov	r3, #32
+ 912 0016 1340     		and	r3, r2
+ 913 0018 F6D1     		bne	.L66
+1003:Generated_Source\PSoC4/SPIM_1.c ****     }
+1004:Generated_Source\PSoC4/SPIM_1.c **** 
+1005:Generated_Source\PSoC4/SPIM_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 914              		.loc 1 1005 0
+ 915 001a FC1D     		add	r4, r7, #7
+ 916 001c FFF7FEFF 		bl	CyEnterCriticalSection
+ 917 0020 031C     		mov	r3, r0
+ 918 0022 2370     		strb	r3, [r4]
+1006:Generated_Source\PSoC4/SPIM_1.c ****     /* Clear TX FIFO */
+1007:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_AUX_CONTROL_DP0_REG |= ((uint8)  SPIM_1_TX_FIFO_CLR);
+ 919              		.loc 1 1007 0
+ 920 0024 0D4A     		ldr	r2, .L67+8
+ 921 0026 0D4B     		ldr	r3, .L67+8
+ 922 0028 1B78     		ldrb	r3, [r3]
+ 923 002a DBB2     		uxtb	r3, r3
+ 924 002c 0121     		mov	r1, #1
+ 925 002e 0B43     		orr	r3, r1
+ 926 0030 DBB2     		uxtb	r3, r3
+ 927 0032 1370     		strb	r3, [r2]
+1008:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_AUX_CONTROL_DP0_REG &= ((uint8) ~SPIM_1_TX_FIFO_CLR);
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 35
+
+
+ 928              		.loc 1 1008 0
+ 929 0034 094A     		ldr	r2, .L67+8
+ 930 0036 094B     		ldr	r3, .L67+8
+ 931 0038 1B78     		ldrb	r3, [r3]
+ 932 003a DBB2     		uxtb	r3, r3
+ 933 003c 0121     		mov	r1, #1
+ 934 003e 8B43     		bic	r3, r1
+ 935 0040 DBB2     		uxtb	r3, r3
+ 936 0042 1370     		strb	r3, [r2]
+1009:Generated_Source\PSoC4/SPIM_1.c **** 
+1010:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_USE_SECOND_DATAPATH)
+1011:Generated_Source\PSoC4/SPIM_1.c ****         /* Clear TX FIFO for 2nd Datapath */
+1012:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_AUX_CONTROL_DP1_REG |= ((uint8)  SPIM_1_TX_FIFO_CLR);
+1013:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_AUX_CONTROL_DP1_REG &= ((uint8) ~SPIM_1_TX_FIFO_CLR);
+1014:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_USE_SECOND_DATAPATH) */
+1015:Generated_Source\PSoC4/SPIM_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 937              		.loc 1 1015 0
+ 938 0044 FB1D     		add	r3, r7, #7
+ 939 0046 1B78     		ldrb	r3, [r3]
+ 940 0048 181C     		mov	r0, r3
+ 941 004a FFF7FEFF 		bl	CyExitCriticalSection
+1016:Generated_Source\PSoC4/SPIM_1.c **** }
+ 942              		.loc 1 1016 0
+ 943 004e BD46     		mov	sp, r7
+ 944 0050 03B0     		add	sp, sp, #12
+ 945              		@ sp needed
+ 946 0052 90BD     		pop	{r4, r7, pc}
+ 947              	.L68:
+ 948              		.align	2
+ 949              	.L67:
+ 950 0054 53000F40 		.word	1074724947
+ 951 0058 63000F40 		.word	1074724963
+ 952 005c 93000F40 		.word	1074725011
+ 953              		.cfi_endproc
+ 954              	.LFE19:
+ 955              		.size	SPIM_1_ClearFIFO, .-SPIM_1_ClearFIFO
+ 956              		.section	.text.SPIM_1_EnableInt,"ax",%progbits
+ 957              		.align	2
+ 958              		.global	SPIM_1_EnableInt
+ 959              		.code	16
+ 960              		.thumb_func
+ 961              		.type	SPIM_1_EnableInt, %function
+ 962              	SPIM_1_EnableInt:
+ 963              	.LFB20:
+1017:Generated_Source\PSoC4/SPIM_1.c **** 
+1018:Generated_Source\PSoC4/SPIM_1.c **** 
+1019:Generated_Source\PSoC4/SPIM_1.c **** /* Following functions are for version Compatibility, they are obsolete.
+1020:Generated_Source\PSoC4/SPIM_1.c **** *  Please do not use it in new projects.
+1021:Generated_Source\PSoC4/SPIM_1.c **** */
+1022:Generated_Source\PSoC4/SPIM_1.c **** 
+1023:Generated_Source\PSoC4/SPIM_1.c **** 
+1024:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+1025:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_EnableInt
+1026:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+1027:Generated_Source\PSoC4/SPIM_1.c **** *
+1028:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+1029:Generated_Source\PSoC4/SPIM_1.c **** *  Enable internal interrupt generation.
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 36
+
+
+1030:Generated_Source\PSoC4/SPIM_1.c **** *
+1031:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+1032:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+1033:Generated_Source\PSoC4/SPIM_1.c **** *
+1034:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+1035:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+1036:Generated_Source\PSoC4/SPIM_1.c **** *
+1037:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+1038:Generated_Source\PSoC4/SPIM_1.c **** *  Enable the internal interrupt output -or- the interrupt component itself.
+1039:Generated_Source\PSoC4/SPIM_1.c **** *
+1040:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+1041:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_EnableInt(void) 
+1042:Generated_Source\PSoC4/SPIM_1.c **** {
+ 964              		.loc 1 1042 0
+ 965              		.cfi_startproc
+ 966 0000 80B5     		push	{r7, lr}
+ 967              		.cfi_def_cfa_offset 8
+ 968              		.cfi_offset 7, -8
+ 969              		.cfi_offset 14, -4
+ 970 0002 00AF     		add	r7, sp, #0
+ 971              		.cfi_def_cfa_register 7
+1043:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_EnableRxInt();
+ 972              		.loc 1 1043 0
+ 973 0004 FFF7FEFF 		bl	SPIM_1_EnableRxInt
+1044:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_EnableTxInt();
+ 974              		.loc 1 1044 0
+ 975 0008 FFF7FEFF 		bl	SPIM_1_EnableTxInt
+1045:Generated_Source\PSoC4/SPIM_1.c **** }
+ 976              		.loc 1 1045 0
+ 977 000c BD46     		mov	sp, r7
+ 978              		@ sp needed
+ 979 000e 80BD     		pop	{r7, pc}
+ 980              		.cfi_endproc
+ 981              	.LFE20:
+ 982              		.size	SPIM_1_EnableInt, .-SPIM_1_EnableInt
+ 983              		.section	.text.SPIM_1_DisableInt,"ax",%progbits
+ 984              		.align	2
+ 985              		.global	SPIM_1_DisableInt
+ 986              		.code	16
+ 987              		.thumb_func
+ 988              		.type	SPIM_1_DisableInt, %function
+ 989              	SPIM_1_DisableInt:
+ 990              	.LFB21:
+1046:Generated_Source\PSoC4/SPIM_1.c **** 
+1047:Generated_Source\PSoC4/SPIM_1.c **** 
+1048:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+1049:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_DisableInt
+1050:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+1051:Generated_Source\PSoC4/SPIM_1.c **** *
+1052:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+1053:Generated_Source\PSoC4/SPIM_1.c **** *  Disable internal interrupt generation.
+1054:Generated_Source\PSoC4/SPIM_1.c **** *
+1055:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+1056:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+1057:Generated_Source\PSoC4/SPIM_1.c **** *
+1058:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+1059:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 37
+
+
+1060:Generated_Source\PSoC4/SPIM_1.c **** *
+1061:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+1062:Generated_Source\PSoC4/SPIM_1.c **** *  Disable the internal interrupt output -or- the interrupt component itself.
+1063:Generated_Source\PSoC4/SPIM_1.c **** *
+1064:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+1065:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_DisableInt(void) 
+1066:Generated_Source\PSoC4/SPIM_1.c **** {
+ 991              		.loc 1 1066 0
+ 992              		.cfi_startproc
+ 993 0000 80B5     		push	{r7, lr}
+ 994              		.cfi_def_cfa_offset 8
+ 995              		.cfi_offset 7, -8
+ 996              		.cfi_offset 14, -4
+ 997 0002 00AF     		add	r7, sp, #0
+ 998              		.cfi_def_cfa_register 7
+1067:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_DisableTxInt();
+ 999              		.loc 1 1067 0
+ 1000 0004 FFF7FEFF 		bl	SPIM_1_DisableTxInt
+1068:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_DisableRxInt();
+ 1001              		.loc 1 1068 0
+ 1002 0008 FFF7FEFF 		bl	SPIM_1_DisableRxInt
+1069:Generated_Source\PSoC4/SPIM_1.c **** }
+ 1003              		.loc 1 1069 0
+ 1004 000c BD46     		mov	sp, r7
+ 1005              		@ sp needed
+ 1006 000e 80BD     		pop	{r7, pc}
+ 1007              		.cfi_endproc
+ 1008              	.LFE21:
+ 1009              		.size	SPIM_1_DisableInt, .-SPIM_1_DisableInt
+ 1010              		.section	.text.SPIM_1_SetInterruptMode,"ax",%progbits
+ 1011              		.align	2
+ 1012              		.global	SPIM_1_SetInterruptMode
+ 1013              		.code	16
+ 1014              		.thumb_func
+ 1015              		.type	SPIM_1_SetInterruptMode, %function
+ 1016              	SPIM_1_SetInterruptMode:
+ 1017              	.LFB22:
+1070:Generated_Source\PSoC4/SPIM_1.c **** 
+1071:Generated_Source\PSoC4/SPIM_1.c **** 
+1072:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+1073:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_SetInterruptMode
+1074:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+1075:Generated_Source\PSoC4/SPIM_1.c **** *
+1076:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+1077:Generated_Source\PSoC4/SPIM_1.c **** *  Configure which status bits trigger an interrupt event.
+1078:Generated_Source\PSoC4/SPIM_1.c **** *
+1079:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+1080:Generated_Source\PSoC4/SPIM_1.c **** *  intSrc: An or'd combination of the desired status bit masks (defined in the
+1081:Generated_Source\PSoC4/SPIM_1.c **** *  header file).
+1082:Generated_Source\PSoC4/SPIM_1.c **** *
+1083:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+1084:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+1085:Generated_Source\PSoC4/SPIM_1.c **** *
+1086:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+1087:Generated_Source\PSoC4/SPIM_1.c **** *  Enables the output of specific status bits to the interrupt controller.
+1088:Generated_Source\PSoC4/SPIM_1.c **** *
+1089:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 38
+
+
+1090:Generated_Source\PSoC4/SPIM_1.c **** void SPIM_1_SetInterruptMode(uint8 intSrc) 
+1091:Generated_Source\PSoC4/SPIM_1.c **** {
+ 1018              		.loc 1 1091 0
+ 1019              		.cfi_startproc
+ 1020 0000 80B5     		push	{r7, lr}
+ 1021              		.cfi_def_cfa_offset 8
+ 1022              		.cfi_offset 7, -8
+ 1023              		.cfi_offset 14, -4
+ 1024 0002 82B0     		sub	sp, sp, #8
+ 1025              		.cfi_def_cfa_offset 16
+ 1026 0004 00AF     		add	r7, sp, #0
+ 1027              		.cfi_def_cfa_register 7
+ 1028 0006 021C     		mov	r2, r0
+ 1029 0008 FB1D     		add	r3, r7, #7
+ 1030 000a 1A70     		strb	r2, [r3]
+1092:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_TX_STATUS_MASK_REG  = (intSrc & ((uint8) ~SPIM_1_STS_SPI_IDLE));
+ 1031              		.loc 1 1092 0
+ 1032 000c 064A     		ldr	r2, .L72
+ 1033 000e FB1D     		add	r3, r7, #7
+ 1034 0010 1B78     		ldrb	r3, [r3]
+ 1035 0012 1021     		mov	r1, #16
+ 1036 0014 8B43     		bic	r3, r1
+ 1037 0016 DBB2     		uxtb	r3, r3
+ 1038 0018 1370     		strb	r3, [r2]
+1093:Generated_Source\PSoC4/SPIM_1.c ****     SPIM_1_RX_STATUS_MASK_REG  =  intSrc;
+ 1039              		.loc 1 1093 0
+ 1040 001a 044A     		ldr	r2, .L72+4
+ 1041 001c FB1D     		add	r3, r7, #7
+ 1042 001e 1B78     		ldrb	r3, [r3]
+ 1043 0020 1370     		strb	r3, [r2]
+1094:Generated_Source\PSoC4/SPIM_1.c **** }
+ 1044              		.loc 1 1094 0
+ 1045 0022 BD46     		mov	sp, r7
+ 1046 0024 02B0     		add	sp, sp, #8
+ 1047              		@ sp needed
+ 1048 0026 80BD     		pop	{r7, pc}
+ 1049              	.L73:
+ 1050              		.align	2
+ 1051              	.L72:
+ 1052 0028 81000F40 		.word	1074724993
+ 1053 002c 83000F40 		.word	1074724995
+ 1054              		.cfi_endproc
+ 1055              	.LFE22:
+ 1056              		.size	SPIM_1_SetInterruptMode, .-SPIM_1_SetInterruptMode
+ 1057              		.section	.text.SPIM_1_ReadStatus,"ax",%progbits
+ 1058              		.align	2
+ 1059              		.global	SPIM_1_ReadStatus
+ 1060              		.code	16
+ 1061              		.thumb_func
+ 1062              		.type	SPIM_1_ReadStatus, %function
+ 1063              	SPIM_1_ReadStatus:
+ 1064              	.LFB23:
+1095:Generated_Source\PSoC4/SPIM_1.c **** 
+1096:Generated_Source\PSoC4/SPIM_1.c **** 
+1097:Generated_Source\PSoC4/SPIM_1.c **** /*******************************************************************************
+1098:Generated_Source\PSoC4/SPIM_1.c **** * Function Name: SPIM_1_ReadStatus
+1099:Generated_Source\PSoC4/SPIM_1.c **** ********************************************************************************
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 39
+
+
+1100:Generated_Source\PSoC4/SPIM_1.c **** *
+1101:Generated_Source\PSoC4/SPIM_1.c **** * Summary:
+1102:Generated_Source\PSoC4/SPIM_1.c **** *  Read the status register for the component.
+1103:Generated_Source\PSoC4/SPIM_1.c **** *
+1104:Generated_Source\PSoC4/SPIM_1.c **** * Parameters:
+1105:Generated_Source\PSoC4/SPIM_1.c **** *  None.
+1106:Generated_Source\PSoC4/SPIM_1.c **** *
+1107:Generated_Source\PSoC4/SPIM_1.c **** * Return:
+1108:Generated_Source\PSoC4/SPIM_1.c **** *  Contents of the status register.
+1109:Generated_Source\PSoC4/SPIM_1.c **** *
+1110:Generated_Source\PSoC4/SPIM_1.c **** * Global variables:
+1111:Generated_Source\PSoC4/SPIM_1.c **** *  SPIM_1_swStatus - used to store in software status register,
+1112:Generated_Source\PSoC4/SPIM_1.c **** *  modified every function call - resets to zero.
+1113:Generated_Source\PSoC4/SPIM_1.c **** *
+1114:Generated_Source\PSoC4/SPIM_1.c **** * Theory:
+1115:Generated_Source\PSoC4/SPIM_1.c **** *  Allows the user and the API to read the status register for error detection
+1116:Generated_Source\PSoC4/SPIM_1.c **** *  and flow control.
+1117:Generated_Source\PSoC4/SPIM_1.c **** *
+1118:Generated_Source\PSoC4/SPIM_1.c **** * Side Effects:
+1119:Generated_Source\PSoC4/SPIM_1.c **** *  Clear status register of the component.
+1120:Generated_Source\PSoC4/SPIM_1.c **** *
+1121:Generated_Source\PSoC4/SPIM_1.c **** * Reentrant:
+1122:Generated_Source\PSoC4/SPIM_1.c **** *  No.
+1123:Generated_Source\PSoC4/SPIM_1.c **** *
+1124:Generated_Source\PSoC4/SPIM_1.c **** *******************************************************************************/
+1125:Generated_Source\PSoC4/SPIM_1.c **** uint8 SPIM_1_ReadStatus(void) 
+1126:Generated_Source\PSoC4/SPIM_1.c **** {
+ 1065              		.loc 1 1126 0
+ 1066              		.cfi_startproc
+ 1067 0000 80B5     		push	{r7, lr}
+ 1068              		.cfi_def_cfa_offset 8
+ 1069              		.cfi_offset 7, -8
+ 1070              		.cfi_offset 14, -4
+ 1071 0002 82B0     		sub	sp, sp, #8
+ 1072              		.cfi_def_cfa_offset 16
+ 1073 0004 00AF     		add	r7, sp, #0
+ 1074              		.cfi_def_cfa_register 7
+1127:Generated_Source\PSoC4/SPIM_1.c ****     uint8 tmpStatus;
+1128:Generated_Source\PSoC4/SPIM_1.c **** 
+1129:Generated_Source\PSoC4/SPIM_1.c ****     #if(SPIM_1_TX_SOFTWARE_BUF_ENABLED || SPIM_1_RX_SOFTWARE_BUF_ENABLED)
+1130:Generated_Source\PSoC4/SPIM_1.c **** 
+1131:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_DisableInt();
+1132:Generated_Source\PSoC4/SPIM_1.c **** 
+1133:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus  = SPIM_1_GET_STATUS_RX(SPIM_1_swStatusRx);
+1134:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus |= SPIM_1_GET_STATUS_TX(SPIM_1_swStatusTx);
+1135:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus &= ((uint8) ~SPIM_1_STS_SPI_IDLE);
+1136:Generated_Source\PSoC4/SPIM_1.c **** 
+1137:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_swStatusTx = 0u;
+1138:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_swStatusRx = 0u;
+1139:Generated_Source\PSoC4/SPIM_1.c **** 
+1140:Generated_Source\PSoC4/SPIM_1.c ****         SPIM_1_EnableInt();
+1141:Generated_Source\PSoC4/SPIM_1.c **** 
+1142:Generated_Source\PSoC4/SPIM_1.c ****     #else
+1143:Generated_Source\PSoC4/SPIM_1.c **** 
+1144:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus  = SPIM_1_RX_STATUS_REG;
+ 1075              		.loc 1 1144 0
+ 1076 0006 0C4A     		ldr	r2, .L76
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 40
+
+
+ 1077 0008 FB1D     		add	r3, r7, #7
+ 1078 000a 1278     		ldrb	r2, [r2]
+ 1079 000c 1A70     		strb	r2, [r3]
+1145:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus |= SPIM_1_TX_STATUS_REG;
+ 1080              		.loc 1 1145 0
+ 1081 000e 0B4B     		ldr	r3, .L76+4
+ 1082 0010 1B78     		ldrb	r3, [r3]
+ 1083 0012 D9B2     		uxtb	r1, r3
+ 1084 0014 FB1D     		add	r3, r7, #7
+ 1085 0016 FA1D     		add	r2, r7, #7
+ 1086 0018 1278     		ldrb	r2, [r2]
+ 1087 001a 0A43     		orr	r2, r1
+ 1088 001c 1A70     		strb	r2, [r3]
+1146:Generated_Source\PSoC4/SPIM_1.c ****         tmpStatus &= ((uint8) ~SPIM_1_STS_SPI_IDLE);
+ 1089              		.loc 1 1146 0
+ 1090 001e FB1D     		add	r3, r7, #7
+ 1091 0020 FA1D     		add	r2, r7, #7
+ 1092 0022 1278     		ldrb	r2, [r2]
+ 1093 0024 1021     		mov	r1, #16
+ 1094 0026 8A43     		bic	r2, r1
+ 1095 0028 1A70     		strb	r2, [r3]
+1147:Generated_Source\PSoC4/SPIM_1.c **** 
+1148:Generated_Source\PSoC4/SPIM_1.c ****     #endif /* (SPIM_1_TX_SOFTWARE_BUF_ENABLED || SPIM_1_RX_SOFTWARE_BUF_ENABLED) */
+1149:Generated_Source\PSoC4/SPIM_1.c **** 
+1150:Generated_Source\PSoC4/SPIM_1.c ****     return(tmpStatus);
+ 1096              		.loc 1 1150 0
+ 1097 002a FB1D     		add	r3, r7, #7
+ 1098 002c 1B78     		ldrb	r3, [r3]
+1151:Generated_Source\PSoC4/SPIM_1.c **** }
+ 1099              		.loc 1 1151 0
+ 1100 002e 181C     		mov	r0, r3
+ 1101 0030 BD46     		mov	sp, r7
+ 1102 0032 02B0     		add	sp, sp, #8
+ 1103              		@ sp needed
+ 1104 0034 80BD     		pop	{r7, pc}
+ 1105              	.L77:
+ 1106 0036 C046     		.align	2
+ 1107              	.L76:
+ 1108 0038 63000F40 		.word	1074724963
+ 1109 003c 61000F40 		.word	1074724961
+ 1110              		.cfi_endproc
+ 1111              	.LFE23:
+ 1112              		.size	SPIM_1_ReadStatus, .-SPIM_1_ReadStatus
+ 1113              		.text
+ 1114              	.Letext0:
+ 1115              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 1116              		.section	.debug_info,"",%progbits
+ 1117              	.Ldebug_info0:
+ 1118 0000 E9030000 		.4byte	0x3e9
+ 1119 0004 0400     		.2byte	0x4
+ 1120 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1121 000a 04       		.byte	0x4
+ 1122 000b 01       		.uleb128 0x1
+ 1123 000c 00000000 		.4byte	.LASF51
+ 1124 0010 01       		.byte	0x1
+ 1125 0011 73030000 		.4byte	.LASF52
+ 1126 0015 13020000 		.4byte	.LASF53
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 41
+
+
+ 1127 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1128 001d 00000000 		.4byte	0
+ 1129 0021 00000000 		.4byte	.Ldebug_line0
+ 1130 0025 02       		.uleb128 0x2
+ 1131 0026 01       		.byte	0x1
+ 1132 0027 06       		.byte	0x6
+ 1133 0028 CA030000 		.4byte	.LASF0
+ 1134 002c 02       		.uleb128 0x2
+ 1135 002d 01       		.byte	0x1
+ 1136 002e 08       		.byte	0x8
+ 1137 002f C8010000 		.4byte	.LASF1
+ 1138 0033 02       		.uleb128 0x2
+ 1139 0034 02       		.byte	0x2
+ 1140 0035 05       		.byte	0x5
+ 1141 0036 4D030000 		.4byte	.LASF2
+ 1142 003a 02       		.uleb128 0x2
+ 1143 003b 02       		.byte	0x2
+ 1144 003c 07       		.byte	0x7
+ 1145 003d EF000000 		.4byte	.LASF3
+ 1146 0041 02       		.uleb128 0x2
+ 1147 0042 04       		.byte	0x4
+ 1148 0043 05       		.byte	0x5
+ 1149 0044 A5030000 		.4byte	.LASF4
+ 1150 0048 02       		.uleb128 0x2
+ 1151 0049 04       		.byte	0x4
+ 1152 004a 07       		.byte	0x7
+ 1153 004b 8E010000 		.4byte	.LASF5
+ 1154 004f 02       		.uleb128 0x2
+ 1155 0050 08       		.byte	0x8
+ 1156 0051 05       		.byte	0x5
+ 1157 0052 16030000 		.4byte	.LASF6
+ 1158 0056 02       		.uleb128 0x2
+ 1159 0057 08       		.byte	0x8
+ 1160 0058 07       		.byte	0x7
+ 1161 0059 AA020000 		.4byte	.LASF7
+ 1162 005d 03       		.uleb128 0x3
+ 1163 005e 04       		.byte	0x4
+ 1164 005f 05       		.byte	0x5
+ 1165 0060 696E7400 		.ascii	"int\000"
+ 1166 0064 02       		.uleb128 0x2
+ 1167 0065 04       		.byte	0x4
+ 1168 0066 07       		.byte	0x7
+ 1169 0067 02010000 		.4byte	.LASF8
+ 1170 006b 04       		.uleb128 0x4
+ 1171 006c A0010000 		.4byte	.LASF12
+ 1172 0070 02       		.byte	0x2
+ 1173 0071 B901     		.2byte	0x1b9
+ 1174 0073 2C000000 		.4byte	0x2c
+ 1175 0077 02       		.uleb128 0x2
+ 1176 0078 04       		.byte	0x4
+ 1177 0079 04       		.byte	0x4
+ 1178 007a 24030000 		.4byte	.LASF9
+ 1179 007e 02       		.uleb128 0x2
+ 1180 007f 08       		.byte	0x8
+ 1181 0080 04       		.byte	0x4
+ 1182 0081 E8010000 		.4byte	.LASF10
+ 1183 0085 02       		.uleb128 0x2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 42
+
+
+ 1184 0086 01       		.byte	0x1
+ 1185 0087 08       		.byte	0x8
+ 1186 0088 2A030000 		.4byte	.LASF11
+ 1187 008c 04       		.uleb128 0x4
+ 1188 008d 89010000 		.4byte	.LASF13
+ 1189 0091 02       		.byte	0x2
+ 1190 0092 6302     		.2byte	0x263
+ 1191 0094 98000000 		.4byte	0x98
+ 1192 0098 05       		.uleb128 0x5
+ 1193 0099 6B000000 		.4byte	0x6b
+ 1194 009d 02       		.uleb128 0x2
+ 1195 009e 04       		.byte	0x4
+ 1196 009f 07       		.byte	0x7
+ 1197 00a0 0D030000 		.4byte	.LASF14
+ 1198 00a4 06       		.uleb128 0x6
+ 1199 00a5 07020000 		.4byte	.LASF15
+ 1200 00a9 01       		.byte	0x1
+ 1201 00aa 3F       		.byte	0x3f
+ 1202 00ab 00000000 		.4byte	.LFB0
+ 1203 00af 34000000 		.4byte	.LFE0-.LFB0
+ 1204 00b3 01       		.uleb128 0x1
+ 1205 00b4 9C       		.byte	0x9c
+ 1206 00b5 07       		.uleb128 0x7
+ 1207 00b6 B9000000 		.4byte	.LASF17
+ 1208 00ba 01       		.byte	0x1
+ 1209 00bb 78       		.byte	0x78
+ 1210 00bc 00000000 		.4byte	.LFB1
+ 1211 00c0 68000000 		.4byte	.LFE1-.LFB1
+ 1212 00c4 01       		.uleb128 0x1
+ 1213 00c5 9C       		.byte	0x9c
+ 1214 00c6 D9000000 		.4byte	0xd9
+ 1215 00ca 08       		.uleb128 0x8
+ 1216 00cb B7010000 		.4byte	.LASF19
+ 1217 00cf 01       		.byte	0x1
+ 1218 00d0 7A       		.byte	0x7a
+ 1219 00d1 6B000000 		.4byte	0x6b
+ 1220 00d5 02       		.uleb128 0x2
+ 1221 00d6 91       		.byte	0x91
+ 1222 00d7 6F       		.sleb128 -17
+ 1223 00d8 00       		.byte	0
+ 1224 00d9 06       		.uleb128 0x6
+ 1225 00da A5000000 		.4byte	.LASF16
+ 1226 00de 01       		.byte	0x1
+ 1227 00df A3       		.byte	0xa3
+ 1228 00e0 00000000 		.4byte	.LFB2
+ 1229 00e4 24000000 		.4byte	.LFE2-.LFB2
+ 1230 00e8 01       		.uleb128 0x1
+ 1231 00e9 9C       		.byte	0x9c
+ 1232 00ea 07       		.uleb128 0x7
+ 1233 00eb 2F030000 		.4byte	.LASF18
+ 1234 00ef 01       		.byte	0x1
+ 1235 00f0 C0       		.byte	0xc0
+ 1236 00f1 00000000 		.4byte	.LFB3
+ 1237 00f5 54000000 		.4byte	.LFE3-.LFB3
+ 1238 00f9 01       		.uleb128 0x1
+ 1239 00fa 9C       		.byte	0x9c
+ 1240 00fb 0E010000 		.4byte	0x10e
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 43
+
+
+ 1241 00ff 08       		.uleb128 0x8
+ 1242 0100 B7010000 		.4byte	.LASF19
+ 1243 0104 01       		.byte	0x1
+ 1244 0105 C2       		.byte	0xc2
+ 1245 0106 6B000000 		.4byte	0x6b
+ 1246 010a 02       		.uleb128 0x2
+ 1247 010b 91       		.byte	0x91
+ 1248 010c 6F       		.sleb128 -17
+ 1249 010d 00       		.byte	0
+ 1250 010e 09       		.uleb128 0x9
+ 1251 010f C7000000 		.4byte	.LASF20
+ 1252 0113 01       		.byte	0x1
+ 1253 0114 E3       		.byte	0xe3
+ 1254 0115 00000000 		.4byte	.LFB4
+ 1255 0119 08000000 		.4byte	.LFE4-.LFB4
+ 1256 011d 01       		.uleb128 0x1
+ 1257 011e 9C       		.byte	0x9c
+ 1258 011f 09       		.uleb128 0x9
+ 1259 0120 CB020000 		.4byte	.LASF21
+ 1260 0124 01       		.byte	0x1
+ 1261 0125 FC       		.byte	0xfc
+ 1262 0126 00000000 		.4byte	.LFB5
+ 1263 012a 08000000 		.4byte	.LFE5-.LFB5
+ 1264 012e 01       		.uleb128 0x1
+ 1265 012f 9C       		.byte	0x9c
+ 1266 0130 0A       		.uleb128 0xa
+ 1267 0131 E7020000 		.4byte	.LASF22
+ 1268 0135 01       		.byte	0x1
+ 1269 0136 1501     		.2byte	0x115
+ 1270 0138 00000000 		.4byte	.LFB6
+ 1271 013c 08000000 		.4byte	.LFE6-.LFB6
+ 1272 0140 01       		.uleb128 0x1
+ 1273 0141 9C       		.byte	0x9c
+ 1274 0142 0A       		.uleb128 0xa
+ 1275 0143 E9030000 		.4byte	.LASF23
+ 1276 0147 01       		.byte	0x1
+ 1277 0148 2E01     		.2byte	0x12e
+ 1278 014a 00000000 		.4byte	.LFB7
+ 1279 014e 08000000 		.4byte	.LFE7-.LFB7
+ 1280 0152 01       		.uleb128 0x1
+ 1281 0153 9C       		.byte	0x9c
+ 1282 0154 0B       		.uleb128 0xb
+ 1283 0155 2D010000 		.4byte	.LASF24
+ 1284 0159 01       		.byte	0x1
+ 1285 015a 4801     		.2byte	0x148
+ 1286 015c 00000000 		.4byte	.LFB8
+ 1287 0160 20000000 		.4byte	.LFE8-.LFB8
+ 1288 0164 01       		.uleb128 0x1
+ 1289 0165 9C       		.byte	0x9c
+ 1290 0166 7A010000 		.4byte	0x17a
+ 1291 016a 0C       		.uleb128 0xc
+ 1292 016b EF010000 		.4byte	.LASF26
+ 1293 016f 01       		.byte	0x1
+ 1294 0170 4801     		.2byte	0x148
+ 1295 0172 6B000000 		.4byte	0x6b
+ 1296 0176 02       		.uleb128 0x2
+ 1297 0177 91       		.byte	0x91
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 44
+
+
+ 1298 0178 77       		.sleb128 -9
+ 1299 0179 00       		.byte	0
+ 1300 017a 0B       		.uleb128 0xb
+ 1301 017b 5B010000 		.4byte	.LASF25
+ 1302 017f 01       		.byte	0x1
+ 1303 0180 6001     		.2byte	0x160
+ 1304 0182 00000000 		.4byte	.LFB9
+ 1305 0186 20000000 		.4byte	.LFE9-.LFB9
+ 1306 018a 01       		.uleb128 0x1
+ 1307 018b 9C       		.byte	0x9c
+ 1308 018c A0010000 		.4byte	0x1a0
+ 1309 0190 0C       		.uleb128 0xc
+ 1310 0191 EF010000 		.4byte	.LASF26
+ 1311 0195 01       		.byte	0x1
+ 1312 0196 6001     		.2byte	0x160
+ 1313 0198 6B000000 		.4byte	0x6b
+ 1314 019c 02       		.uleb128 0x2
+ 1315 019d 91       		.byte	0x91
+ 1316 019e 77       		.sleb128 -9
+ 1317 019f 00       		.byte	0
+ 1318 01a0 0D       		.uleb128 0xd
+ 1319 01a1 47010000 		.4byte	.LASF28
+ 1320 01a5 01       		.byte	0x1
+ 1321 01a6 8201     		.2byte	0x182
+ 1322 01a8 6B000000 		.4byte	0x6b
+ 1323 01ac 00000000 		.4byte	.LFB10
+ 1324 01b0 20000000 		.4byte	.LFE10-.LFB10
+ 1325 01b4 01       		.uleb128 0x1
+ 1326 01b5 9C       		.byte	0x9c
+ 1327 01b6 CA010000 		.4byte	0x1ca
+ 1328 01ba 0E       		.uleb128 0xe
+ 1329 01bb AE030000 		.4byte	.LASF27
+ 1330 01bf 01       		.byte	0x1
+ 1331 01c0 8401     		.2byte	0x184
+ 1332 01c2 6B000000 		.4byte	0x6b
+ 1333 01c6 02       		.uleb128 0x2
+ 1334 01c7 91       		.byte	0x91
+ 1335 01c8 77       		.sleb128 -9
+ 1336 01c9 00       		.byte	0
+ 1337 01ca 0D       		.uleb128 0xd
+ 1338 01cb 96020000 		.4byte	.LASF29
+ 1339 01cf 01       		.byte	0x1
+ 1340 01d0 B501     		.2byte	0x1b5
+ 1341 01d2 6B000000 		.4byte	0x6b
+ 1342 01d6 00000000 		.4byte	.LFB11
+ 1343 01da 20000000 		.4byte	.LFE11-.LFB11
+ 1344 01de 01       		.uleb128 0x1
+ 1345 01df 9C       		.byte	0x9c
+ 1346 01e0 F4010000 		.4byte	0x1f4
+ 1347 01e4 0E       		.uleb128 0xe
+ 1348 01e5 AE030000 		.4byte	.LASF27
+ 1349 01e9 01       		.byte	0x1
+ 1350 01ea B701     		.2byte	0x1b7
+ 1351 01ec 6B000000 		.4byte	0x6b
+ 1352 01f0 02       		.uleb128 0x2
+ 1353 01f1 91       		.byte	0x91
+ 1354 01f2 77       		.sleb128 -9
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 45
+
+
+ 1355 01f3 00       		.byte	0
+ 1356 01f4 0B       		.uleb128 0xb
+ 1357 01f5 D6030000 		.4byte	.LASF30
+ 1358 01f9 01       		.byte	0x1
+ 1359 01fa EE01     		.2byte	0x1ee
+ 1360 01fc 00000000 		.4byte	.LFB12
+ 1361 0200 34000000 		.4byte	.LFE12-.LFB12
+ 1362 0204 01       		.uleb128 0x1
+ 1363 0205 9C       		.byte	0x9c
+ 1364 0206 1A020000 		.4byte	0x21a
+ 1365 020a 0C       		.uleb128 0xc
+ 1366 020b 0F010000 		.4byte	.LASF31
+ 1367 020f 01       		.byte	0x1
+ 1368 0210 EE01     		.2byte	0x1ee
+ 1369 0212 6B000000 		.4byte	0x6b
+ 1370 0216 02       		.uleb128 0x2
+ 1371 0217 91       		.byte	0x91
+ 1372 0218 77       		.sleb128 -9
+ 1373 0219 00       		.byte	0
+ 1374 021a 0D       		.uleb128 0xd
+ 1375 021b 3B030000 		.4byte	.LASF32
+ 1376 021f 01       		.byte	0x1
+ 1377 0220 5A02     		.2byte	0x25a
+ 1378 0222 6B000000 		.4byte	0x6b
+ 1379 0226 00000000 		.4byte	.LFB13
+ 1380 022a 20000000 		.4byte	.LFE13-.LFB13
+ 1381 022e 01       		.uleb128 0x1
+ 1382 022f 9C       		.byte	0x9c
+ 1383 0230 44020000 		.4byte	0x244
+ 1384 0234 0E       		.uleb128 0xe
+ 1385 0235 B2000000 		.4byte	.LASF33
+ 1386 0239 01       		.byte	0x1
+ 1387 023a 5C02     		.2byte	0x25c
+ 1388 023c 6B000000 		.4byte	0x6b
+ 1389 0240 02       		.uleb128 0x2
+ 1390 0241 91       		.byte	0x91
+ 1391 0242 77       		.sleb128 -9
+ 1392 0243 00       		.byte	0
+ 1393 0244 0D       		.uleb128 0xd
+ 1394 0245 16010000 		.4byte	.LASF34
+ 1395 0249 01       		.byte	0x1
+ 1396 024a 9A02     		.2byte	0x29a
+ 1397 024c 6B000000 		.4byte	0x6b
+ 1398 0250 00000000 		.4byte	.LFB14
+ 1399 0254 30000000 		.4byte	.LFE14-.LFB14
+ 1400 0258 01       		.uleb128 0x1
+ 1401 0259 9C       		.byte	0x9c
+ 1402 025a 6E020000 		.4byte	0x26e
+ 1403 025e 0E       		.uleb128 0xe
+ 1404 025f 84010000 		.4byte	.LASF35
+ 1405 0263 01       		.byte	0x1
+ 1406 0264 9C02     		.2byte	0x29c
+ 1407 0266 6B000000 		.4byte	0x6b
+ 1408 026a 02       		.uleb128 0x2
+ 1409 026b 91       		.byte	0x91
+ 1410 026c 77       		.sleb128 -9
+ 1411 026d 00       		.byte	0
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 46
+
+
+ 1412 026e 0D       		.uleb128 0xd
+ 1413 026f 8E000000 		.4byte	.LASF36
+ 1414 0273 01       		.byte	0x1
+ 1415 0274 D702     		.2byte	0x2d7
+ 1416 0276 6B000000 		.4byte	0x6b
+ 1417 027a 00000000 		.4byte	.LFB15
+ 1418 027e 48000000 		.4byte	.LFE15-.LFB15
+ 1419 0282 01       		.uleb128 0x1
+ 1420 0283 9C       		.byte	0x9c
+ 1421 0284 98020000 		.4byte	0x298
+ 1422 0288 0E       		.uleb128 0xe
+ 1423 0289 84010000 		.4byte	.LASF35
+ 1424 028d 01       		.byte	0x1
+ 1425 028e D902     		.2byte	0x2d9
+ 1426 0290 6B000000 		.4byte	0x6b
+ 1427 0294 02       		.uleb128 0x2
+ 1428 0295 91       		.byte	0x91
+ 1429 0296 77       		.sleb128 -9
+ 1430 0297 00       		.byte	0
+ 1431 0298 0A       		.uleb128 0xa
+ 1432 0299 57030000 		.4byte	.LASF37
+ 1433 029d 01       		.byte	0x1
+ 1434 029e 2603     		.2byte	0x326
+ 1435 02a0 00000000 		.4byte	.LFB16
+ 1436 02a4 24000000 		.4byte	.LFE16-.LFB16
+ 1437 02a8 01       		.uleb128 0x1
+ 1438 02a9 9C       		.byte	0x9c
+ 1439 02aa 0F       		.uleb128 0xf
+ 1440 02ab DA000000 		.4byte	.LASF38
+ 1441 02af 01       		.byte	0x1
+ 1442 02b0 5D03     		.2byte	0x35d
+ 1443 02b2 00000000 		.4byte	.LFB17
+ 1444 02b6 44000000 		.4byte	.LFE17-.LFB17
+ 1445 02ba 01       		.uleb128 0x1
+ 1446 02bb 9C       		.byte	0x9c
+ 1447 02bc D0020000 		.4byte	0x2d0
+ 1448 02c0 0E       		.uleb128 0xe
+ 1449 02c1 B7010000 		.4byte	.LASF19
+ 1450 02c5 01       		.byte	0x1
+ 1451 02c6 5F03     		.2byte	0x35f
+ 1452 02c8 6B000000 		.4byte	0x6b
+ 1453 02cc 02       		.uleb128 0x2
+ 1454 02cd 91       		.byte	0x91
+ 1455 02ce 6F       		.sleb128 -17
+ 1456 02cf 00       		.byte	0
+ 1457 02d0 0F       		.uleb128 0xf
+ 1458 02d1 6E020000 		.4byte	.LASF39
+ 1459 02d5 01       		.byte	0x1
+ 1460 02d6 C203     		.2byte	0x3c2
+ 1461 02d8 00000000 		.4byte	.LFB18
+ 1462 02dc 50000000 		.4byte	.LFE18-.LFB18
+ 1463 02e0 01       		.uleb128 0x1
+ 1464 02e1 9C       		.byte	0x9c
+ 1465 02e2 14030000 		.4byte	0x314
+ 1466 02e6 0C       		.uleb128 0xc
+ 1467 02e7 6C030000 		.4byte	.LASF40
+ 1468 02eb 01       		.byte	0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 47
+
+
+ 1469 02ec C203     		.2byte	0x3c2
+ 1470 02ee 14030000 		.4byte	0x314
+ 1471 02f2 02       		.uleb128 0x2
+ 1472 02f3 91       		.byte	0x91
+ 1473 02f4 6C       		.sleb128 -20
+ 1474 02f5 0C       		.uleb128 0xc
+ 1475 02f6 C1020000 		.4byte	.LASF41
+ 1476 02fa 01       		.byte	0x1
+ 1477 02fb C203     		.2byte	0x3c2
+ 1478 02fd 6B000000 		.4byte	0x6b
+ 1479 0301 02       		.uleb128 0x2
+ 1480 0302 91       		.byte	0x91
+ 1481 0303 6B       		.sleb128 -21
+ 1482 0304 0E       		.uleb128 0xe
+ 1483 0305 DE020000 		.4byte	.LASF42
+ 1484 0309 01       		.byte	0x1
+ 1485 030a C503     		.2byte	0x3c5
+ 1486 030c 6B000000 		.4byte	0x6b
+ 1487 0310 02       		.uleb128 0x2
+ 1488 0311 91       		.byte	0x91
+ 1489 0312 77       		.sleb128 -9
+ 1490 0313 00       		.byte	0
+ 1491 0314 10       		.uleb128 0x10
+ 1492 0315 04       		.byte	0x4
+ 1493 0316 1A030000 		.4byte	0x31a
+ 1494 031a 11       		.uleb128 0x11
+ 1495 031b 6B000000 		.4byte	0x6b
+ 1496 031f 0F       		.uleb128 0xf
+ 1497 0320 F6010000 		.4byte	.LASF43
+ 1498 0324 01       		.byte	0x1
+ 1499 0325 E303     		.2byte	0x3e3
+ 1500 0327 00000000 		.4byte	.LFB19
+ 1501 032b 60000000 		.4byte	.LFE19-.LFB19
+ 1502 032f 01       		.uleb128 0x1
+ 1503 0330 9C       		.byte	0x9c
+ 1504 0331 45030000 		.4byte	0x345
+ 1505 0335 0E       		.uleb128 0xe
+ 1506 0336 B7010000 		.4byte	.LASF19
+ 1507 033a 01       		.byte	0x1
+ 1508 033b E503     		.2byte	0x3e5
+ 1509 033d 6B000000 		.4byte	0x6b
+ 1510 0341 02       		.uleb128 0x2
+ 1511 0342 91       		.byte	0x91
+ 1512 0343 6F       		.sleb128 -17
+ 1513 0344 00       		.byte	0
+ 1514 0345 12       		.uleb128 0x12
+ 1515 0346 A6010000 		.4byte	.LASF44
+ 1516 034a 01       		.byte	0x1
+ 1517 034b 1104     		.2byte	0x411
+ 1518 034d 00000000 		.4byte	.LFB20
+ 1519 0351 10000000 		.4byte	.LFE20-.LFB20
+ 1520 0355 01       		.uleb128 0x1
+ 1521 0356 9C       		.byte	0x9c
+ 1522 0357 12       		.uleb128 0x12
+ 1523 0358 D6010000 		.4byte	.LASF45
+ 1524 035c 01       		.byte	0x1
+ 1525 035d 2904     		.2byte	0x429
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 48
+
+
+ 1526 035f 00000000 		.4byte	.LFB21
+ 1527 0363 10000000 		.4byte	.LFE21-.LFB21
+ 1528 0367 01       		.uleb128 0x1
+ 1529 0368 9C       		.byte	0x9c
+ 1530 0369 0B       		.uleb128 0xb
+ 1531 036a 7E020000 		.4byte	.LASF46
+ 1532 036e 01       		.byte	0x1
+ 1533 036f 4204     		.2byte	0x442
+ 1534 0371 00000000 		.4byte	.LFB22
+ 1535 0375 30000000 		.4byte	.LFE22-.LFB22
+ 1536 0379 01       		.uleb128 0x1
+ 1537 037a 9C       		.byte	0x9c
+ 1538 037b 8F030000 		.4byte	0x38f
+ 1539 037f 0C       		.uleb128 0xc
+ 1540 0380 EF010000 		.4byte	.LASF26
+ 1541 0384 01       		.byte	0x1
+ 1542 0385 4204     		.2byte	0x442
+ 1543 0387 6B000000 		.4byte	0x6b
+ 1544 038b 02       		.uleb128 0x2
+ 1545 038c 91       		.byte	0x91
+ 1546 038d 77       		.sleb128 -9
+ 1547 038e 00       		.byte	0
+ 1548 038f 0D       		.uleb128 0xd
+ 1549 0390 FB020000 		.4byte	.LASF47
+ 1550 0394 01       		.byte	0x1
+ 1551 0395 6504     		.2byte	0x465
+ 1552 0397 6B000000 		.4byte	0x6b
+ 1553 039b 00000000 		.4byte	.LFB23
+ 1554 039f 40000000 		.4byte	.LFE23-.LFB23
+ 1555 03a3 01       		.uleb128 0x1
+ 1556 03a4 9C       		.byte	0x9c
+ 1557 03a5 B9030000 		.4byte	0x3b9
+ 1558 03a9 0E       		.uleb128 0xe
+ 1559 03aa AE030000 		.4byte	.LASF27
+ 1560 03ae 01       		.byte	0x1
+ 1561 03af 6704     		.2byte	0x467
+ 1562 03b1 6B000000 		.4byte	0x6b
+ 1563 03b5 02       		.uleb128 0x2
+ 1564 03b6 91       		.byte	0x91
+ 1565 03b7 77       		.sleb128 -9
+ 1566 03b8 00       		.byte	0
+ 1567 03b9 13       		.uleb128 0x13
+ 1568 03ba 75010000 		.4byte	.LASF48
+ 1569 03be 01       		.byte	0x1
+ 1570 03bf 22       		.byte	0x22
+ 1571 03c0 6B000000 		.4byte	0x6b
+ 1572 03c4 05       		.uleb128 0x5
+ 1573 03c5 03       		.byte	0x3
+ 1574 03c6 00000000 		.4byte	SPIM_1_initVar
+ 1575 03ca 13       		.uleb128 0x13
+ 1576 03cb B8030000 		.4byte	.LASF49
+ 1577 03cf 01       		.byte	0x1
+ 1578 03d0 24       		.byte	0x24
+ 1579 03d1 98000000 		.4byte	0x98
+ 1580 03d5 05       		.uleb128 0x5
+ 1581 03d6 03       		.byte	0x3
+ 1582 03d7 00000000 		.4byte	SPIM_1_swStatusTx
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 49
+
+
+ 1583 03db 13       		.uleb128 0x13
+ 1584 03dc 93030000 		.4byte	.LASF50
+ 1585 03e0 01       		.byte	0x1
+ 1586 03e1 25       		.byte	0x25
+ 1587 03e2 98000000 		.4byte	0x98
+ 1588 03e6 05       		.uleb128 0x5
+ 1589 03e7 03       		.byte	0x3
+ 1590 03e8 00000000 		.4byte	SPIM_1_swStatusRx
+ 1591 03ec 00       		.byte	0
+ 1592              		.section	.debug_abbrev,"",%progbits
+ 1593              	.Ldebug_abbrev0:
+ 1594 0000 01       		.uleb128 0x1
+ 1595 0001 11       		.uleb128 0x11
+ 1596 0002 01       		.byte	0x1
+ 1597 0003 25       		.uleb128 0x25
+ 1598 0004 0E       		.uleb128 0xe
+ 1599 0005 13       		.uleb128 0x13
+ 1600 0006 0B       		.uleb128 0xb
+ 1601 0007 03       		.uleb128 0x3
+ 1602 0008 0E       		.uleb128 0xe
+ 1603 0009 1B       		.uleb128 0x1b
+ 1604 000a 0E       		.uleb128 0xe
+ 1605 000b 55       		.uleb128 0x55
+ 1606 000c 17       		.uleb128 0x17
+ 1607 000d 11       		.uleb128 0x11
+ 1608 000e 01       		.uleb128 0x1
+ 1609 000f 10       		.uleb128 0x10
+ 1610 0010 17       		.uleb128 0x17
+ 1611 0011 00       		.byte	0
+ 1612 0012 00       		.byte	0
+ 1613 0013 02       		.uleb128 0x2
+ 1614 0014 24       		.uleb128 0x24
+ 1615 0015 00       		.byte	0
+ 1616 0016 0B       		.uleb128 0xb
+ 1617 0017 0B       		.uleb128 0xb
+ 1618 0018 3E       		.uleb128 0x3e
+ 1619 0019 0B       		.uleb128 0xb
+ 1620 001a 03       		.uleb128 0x3
+ 1621 001b 0E       		.uleb128 0xe
+ 1622 001c 00       		.byte	0
+ 1623 001d 00       		.byte	0
+ 1624 001e 03       		.uleb128 0x3
+ 1625 001f 24       		.uleb128 0x24
+ 1626 0020 00       		.byte	0
+ 1627 0021 0B       		.uleb128 0xb
+ 1628 0022 0B       		.uleb128 0xb
+ 1629 0023 3E       		.uleb128 0x3e
+ 1630 0024 0B       		.uleb128 0xb
+ 1631 0025 03       		.uleb128 0x3
+ 1632 0026 08       		.uleb128 0x8
+ 1633 0027 00       		.byte	0
+ 1634 0028 00       		.byte	0
+ 1635 0029 04       		.uleb128 0x4
+ 1636 002a 16       		.uleb128 0x16
+ 1637 002b 00       		.byte	0
+ 1638 002c 03       		.uleb128 0x3
+ 1639 002d 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 50
+
+
+ 1640 002e 3A       		.uleb128 0x3a
+ 1641 002f 0B       		.uleb128 0xb
+ 1642 0030 3B       		.uleb128 0x3b
+ 1643 0031 05       		.uleb128 0x5
+ 1644 0032 49       		.uleb128 0x49
+ 1645 0033 13       		.uleb128 0x13
+ 1646 0034 00       		.byte	0
+ 1647 0035 00       		.byte	0
+ 1648 0036 05       		.uleb128 0x5
+ 1649 0037 35       		.uleb128 0x35
+ 1650 0038 00       		.byte	0
+ 1651 0039 49       		.uleb128 0x49
+ 1652 003a 13       		.uleb128 0x13
+ 1653 003b 00       		.byte	0
+ 1654 003c 00       		.byte	0
+ 1655 003d 06       		.uleb128 0x6
+ 1656 003e 2E       		.uleb128 0x2e
+ 1657 003f 00       		.byte	0
+ 1658 0040 3F       		.uleb128 0x3f
+ 1659 0041 19       		.uleb128 0x19
+ 1660 0042 03       		.uleb128 0x3
+ 1661 0043 0E       		.uleb128 0xe
+ 1662 0044 3A       		.uleb128 0x3a
+ 1663 0045 0B       		.uleb128 0xb
+ 1664 0046 3B       		.uleb128 0x3b
+ 1665 0047 0B       		.uleb128 0xb
+ 1666 0048 27       		.uleb128 0x27
+ 1667 0049 19       		.uleb128 0x19
+ 1668 004a 11       		.uleb128 0x11
+ 1669 004b 01       		.uleb128 0x1
+ 1670 004c 12       		.uleb128 0x12
+ 1671 004d 06       		.uleb128 0x6
+ 1672 004e 40       		.uleb128 0x40
+ 1673 004f 18       		.uleb128 0x18
+ 1674 0050 9642     		.uleb128 0x2116
+ 1675 0052 19       		.uleb128 0x19
+ 1676 0053 00       		.byte	0
+ 1677 0054 00       		.byte	0
+ 1678 0055 07       		.uleb128 0x7
+ 1679 0056 2E       		.uleb128 0x2e
+ 1680 0057 01       		.byte	0x1
+ 1681 0058 3F       		.uleb128 0x3f
+ 1682 0059 19       		.uleb128 0x19
+ 1683 005a 03       		.uleb128 0x3
+ 1684 005b 0E       		.uleb128 0xe
+ 1685 005c 3A       		.uleb128 0x3a
+ 1686 005d 0B       		.uleb128 0xb
+ 1687 005e 3B       		.uleb128 0x3b
+ 1688 005f 0B       		.uleb128 0xb
+ 1689 0060 27       		.uleb128 0x27
+ 1690 0061 19       		.uleb128 0x19
+ 1691 0062 11       		.uleb128 0x11
+ 1692 0063 01       		.uleb128 0x1
+ 1693 0064 12       		.uleb128 0x12
+ 1694 0065 06       		.uleb128 0x6
+ 1695 0066 40       		.uleb128 0x40
+ 1696 0067 18       		.uleb128 0x18
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 51
+
+
+ 1697 0068 9642     		.uleb128 0x2116
+ 1698 006a 19       		.uleb128 0x19
+ 1699 006b 01       		.uleb128 0x1
+ 1700 006c 13       		.uleb128 0x13
+ 1701 006d 00       		.byte	0
+ 1702 006e 00       		.byte	0
+ 1703 006f 08       		.uleb128 0x8
+ 1704 0070 34       		.uleb128 0x34
+ 1705 0071 00       		.byte	0
+ 1706 0072 03       		.uleb128 0x3
+ 1707 0073 0E       		.uleb128 0xe
+ 1708 0074 3A       		.uleb128 0x3a
+ 1709 0075 0B       		.uleb128 0xb
+ 1710 0076 3B       		.uleb128 0x3b
+ 1711 0077 0B       		.uleb128 0xb
+ 1712 0078 49       		.uleb128 0x49
+ 1713 0079 13       		.uleb128 0x13
+ 1714 007a 02       		.uleb128 0x2
+ 1715 007b 18       		.uleb128 0x18
+ 1716 007c 00       		.byte	0
+ 1717 007d 00       		.byte	0
+ 1718 007e 09       		.uleb128 0x9
+ 1719 007f 2E       		.uleb128 0x2e
+ 1720 0080 00       		.byte	0
+ 1721 0081 3F       		.uleb128 0x3f
+ 1722 0082 19       		.uleb128 0x19
+ 1723 0083 03       		.uleb128 0x3
+ 1724 0084 0E       		.uleb128 0xe
+ 1725 0085 3A       		.uleb128 0x3a
+ 1726 0086 0B       		.uleb128 0xb
+ 1727 0087 3B       		.uleb128 0x3b
+ 1728 0088 0B       		.uleb128 0xb
+ 1729 0089 27       		.uleb128 0x27
+ 1730 008a 19       		.uleb128 0x19
+ 1731 008b 11       		.uleb128 0x11
+ 1732 008c 01       		.uleb128 0x1
+ 1733 008d 12       		.uleb128 0x12
+ 1734 008e 06       		.uleb128 0x6
+ 1735 008f 40       		.uleb128 0x40
+ 1736 0090 18       		.uleb128 0x18
+ 1737 0091 9742     		.uleb128 0x2117
+ 1738 0093 19       		.uleb128 0x19
+ 1739 0094 00       		.byte	0
+ 1740 0095 00       		.byte	0
+ 1741 0096 0A       		.uleb128 0xa
+ 1742 0097 2E       		.uleb128 0x2e
+ 1743 0098 00       		.byte	0
+ 1744 0099 3F       		.uleb128 0x3f
+ 1745 009a 19       		.uleb128 0x19
+ 1746 009b 03       		.uleb128 0x3
+ 1747 009c 0E       		.uleb128 0xe
+ 1748 009d 3A       		.uleb128 0x3a
+ 1749 009e 0B       		.uleb128 0xb
+ 1750 009f 3B       		.uleb128 0x3b
+ 1751 00a0 05       		.uleb128 0x5
+ 1752 00a1 27       		.uleb128 0x27
+ 1753 00a2 19       		.uleb128 0x19
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 52
+
+
+ 1754 00a3 11       		.uleb128 0x11
+ 1755 00a4 01       		.uleb128 0x1
+ 1756 00a5 12       		.uleb128 0x12
+ 1757 00a6 06       		.uleb128 0x6
+ 1758 00a7 40       		.uleb128 0x40
+ 1759 00a8 18       		.uleb128 0x18
+ 1760 00a9 9742     		.uleb128 0x2117
+ 1761 00ab 19       		.uleb128 0x19
+ 1762 00ac 00       		.byte	0
+ 1763 00ad 00       		.byte	0
+ 1764 00ae 0B       		.uleb128 0xb
+ 1765 00af 2E       		.uleb128 0x2e
+ 1766 00b0 01       		.byte	0x1
+ 1767 00b1 3F       		.uleb128 0x3f
+ 1768 00b2 19       		.uleb128 0x19
+ 1769 00b3 03       		.uleb128 0x3
+ 1770 00b4 0E       		.uleb128 0xe
+ 1771 00b5 3A       		.uleb128 0x3a
+ 1772 00b6 0B       		.uleb128 0xb
+ 1773 00b7 3B       		.uleb128 0x3b
+ 1774 00b8 05       		.uleb128 0x5
+ 1775 00b9 27       		.uleb128 0x27
+ 1776 00ba 19       		.uleb128 0x19
+ 1777 00bb 11       		.uleb128 0x11
+ 1778 00bc 01       		.uleb128 0x1
+ 1779 00bd 12       		.uleb128 0x12
+ 1780 00be 06       		.uleb128 0x6
+ 1781 00bf 40       		.uleb128 0x40
+ 1782 00c0 18       		.uleb128 0x18
+ 1783 00c1 9742     		.uleb128 0x2117
+ 1784 00c3 19       		.uleb128 0x19
+ 1785 00c4 01       		.uleb128 0x1
+ 1786 00c5 13       		.uleb128 0x13
+ 1787 00c6 00       		.byte	0
+ 1788 00c7 00       		.byte	0
+ 1789 00c8 0C       		.uleb128 0xc
+ 1790 00c9 05       		.uleb128 0x5
+ 1791 00ca 00       		.byte	0
+ 1792 00cb 03       		.uleb128 0x3
+ 1793 00cc 0E       		.uleb128 0xe
+ 1794 00cd 3A       		.uleb128 0x3a
+ 1795 00ce 0B       		.uleb128 0xb
+ 1796 00cf 3B       		.uleb128 0x3b
+ 1797 00d0 05       		.uleb128 0x5
+ 1798 00d1 49       		.uleb128 0x49
+ 1799 00d2 13       		.uleb128 0x13
+ 1800 00d3 02       		.uleb128 0x2
+ 1801 00d4 18       		.uleb128 0x18
+ 1802 00d5 00       		.byte	0
+ 1803 00d6 00       		.byte	0
+ 1804 00d7 0D       		.uleb128 0xd
+ 1805 00d8 2E       		.uleb128 0x2e
+ 1806 00d9 01       		.byte	0x1
+ 1807 00da 3F       		.uleb128 0x3f
+ 1808 00db 19       		.uleb128 0x19
+ 1809 00dc 03       		.uleb128 0x3
+ 1810 00dd 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 53
+
+
+ 1811 00de 3A       		.uleb128 0x3a
+ 1812 00df 0B       		.uleb128 0xb
+ 1813 00e0 3B       		.uleb128 0x3b
+ 1814 00e1 05       		.uleb128 0x5
+ 1815 00e2 27       		.uleb128 0x27
+ 1816 00e3 19       		.uleb128 0x19
+ 1817 00e4 49       		.uleb128 0x49
+ 1818 00e5 13       		.uleb128 0x13
+ 1819 00e6 11       		.uleb128 0x11
+ 1820 00e7 01       		.uleb128 0x1
+ 1821 00e8 12       		.uleb128 0x12
+ 1822 00e9 06       		.uleb128 0x6
+ 1823 00ea 40       		.uleb128 0x40
+ 1824 00eb 18       		.uleb128 0x18
+ 1825 00ec 9742     		.uleb128 0x2117
+ 1826 00ee 19       		.uleb128 0x19
+ 1827 00ef 01       		.uleb128 0x1
+ 1828 00f0 13       		.uleb128 0x13
+ 1829 00f1 00       		.byte	0
+ 1830 00f2 00       		.byte	0
+ 1831 00f3 0E       		.uleb128 0xe
+ 1832 00f4 34       		.uleb128 0x34
+ 1833 00f5 00       		.byte	0
+ 1834 00f6 03       		.uleb128 0x3
+ 1835 00f7 0E       		.uleb128 0xe
+ 1836 00f8 3A       		.uleb128 0x3a
+ 1837 00f9 0B       		.uleb128 0xb
+ 1838 00fa 3B       		.uleb128 0x3b
+ 1839 00fb 05       		.uleb128 0x5
+ 1840 00fc 49       		.uleb128 0x49
+ 1841 00fd 13       		.uleb128 0x13
+ 1842 00fe 02       		.uleb128 0x2
+ 1843 00ff 18       		.uleb128 0x18
+ 1844 0100 00       		.byte	0
+ 1845 0101 00       		.byte	0
+ 1846 0102 0F       		.uleb128 0xf
+ 1847 0103 2E       		.uleb128 0x2e
+ 1848 0104 01       		.byte	0x1
+ 1849 0105 3F       		.uleb128 0x3f
+ 1850 0106 19       		.uleb128 0x19
+ 1851 0107 03       		.uleb128 0x3
+ 1852 0108 0E       		.uleb128 0xe
+ 1853 0109 3A       		.uleb128 0x3a
+ 1854 010a 0B       		.uleb128 0xb
+ 1855 010b 3B       		.uleb128 0x3b
+ 1856 010c 05       		.uleb128 0x5
+ 1857 010d 27       		.uleb128 0x27
+ 1858 010e 19       		.uleb128 0x19
+ 1859 010f 11       		.uleb128 0x11
+ 1860 0110 01       		.uleb128 0x1
+ 1861 0111 12       		.uleb128 0x12
+ 1862 0112 06       		.uleb128 0x6
+ 1863 0113 40       		.uleb128 0x40
+ 1864 0114 18       		.uleb128 0x18
+ 1865 0115 9642     		.uleb128 0x2116
+ 1866 0117 19       		.uleb128 0x19
+ 1867 0118 01       		.uleb128 0x1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 54
+
+
+ 1868 0119 13       		.uleb128 0x13
+ 1869 011a 00       		.byte	0
+ 1870 011b 00       		.byte	0
+ 1871 011c 10       		.uleb128 0x10
+ 1872 011d 0F       		.uleb128 0xf
+ 1873 011e 00       		.byte	0
+ 1874 011f 0B       		.uleb128 0xb
+ 1875 0120 0B       		.uleb128 0xb
+ 1876 0121 49       		.uleb128 0x49
+ 1877 0122 13       		.uleb128 0x13
+ 1878 0123 00       		.byte	0
+ 1879 0124 00       		.byte	0
+ 1880 0125 11       		.uleb128 0x11
+ 1881 0126 26       		.uleb128 0x26
+ 1882 0127 00       		.byte	0
+ 1883 0128 49       		.uleb128 0x49
+ 1884 0129 13       		.uleb128 0x13
+ 1885 012a 00       		.byte	0
+ 1886 012b 00       		.byte	0
+ 1887 012c 12       		.uleb128 0x12
+ 1888 012d 2E       		.uleb128 0x2e
+ 1889 012e 00       		.byte	0
+ 1890 012f 3F       		.uleb128 0x3f
+ 1891 0130 19       		.uleb128 0x19
+ 1892 0131 03       		.uleb128 0x3
+ 1893 0132 0E       		.uleb128 0xe
+ 1894 0133 3A       		.uleb128 0x3a
+ 1895 0134 0B       		.uleb128 0xb
+ 1896 0135 3B       		.uleb128 0x3b
+ 1897 0136 05       		.uleb128 0x5
+ 1898 0137 27       		.uleb128 0x27
+ 1899 0138 19       		.uleb128 0x19
+ 1900 0139 11       		.uleb128 0x11
+ 1901 013a 01       		.uleb128 0x1
+ 1902 013b 12       		.uleb128 0x12
+ 1903 013c 06       		.uleb128 0x6
+ 1904 013d 40       		.uleb128 0x40
+ 1905 013e 18       		.uleb128 0x18
+ 1906 013f 9642     		.uleb128 0x2116
+ 1907 0141 19       		.uleb128 0x19
+ 1908 0142 00       		.byte	0
+ 1909 0143 00       		.byte	0
+ 1910 0144 13       		.uleb128 0x13
+ 1911 0145 34       		.uleb128 0x34
+ 1912 0146 00       		.byte	0
+ 1913 0147 03       		.uleb128 0x3
+ 1914 0148 0E       		.uleb128 0xe
+ 1915 0149 3A       		.uleb128 0x3a
+ 1916 014a 0B       		.uleb128 0xb
+ 1917 014b 3B       		.uleb128 0x3b
+ 1918 014c 0B       		.uleb128 0xb
+ 1919 014d 49       		.uleb128 0x49
+ 1920 014e 13       		.uleb128 0x13
+ 1921 014f 3F       		.uleb128 0x3f
+ 1922 0150 19       		.uleb128 0x19
+ 1923 0151 02       		.uleb128 0x2
+ 1924 0152 18       		.uleb128 0x18
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 55
+
+
+ 1925 0153 00       		.byte	0
+ 1926 0154 00       		.byte	0
+ 1927 0155 00       		.byte	0
+ 1928              		.section	.debug_aranges,"",%progbits
+ 1929 0000 D4000000 		.4byte	0xd4
+ 1930 0004 0200     		.2byte	0x2
+ 1931 0006 00000000 		.4byte	.Ldebug_info0
+ 1932 000a 04       		.byte	0x4
+ 1933 000b 00       		.byte	0
+ 1934 000c 0000     		.2byte	0
+ 1935 000e 0000     		.2byte	0
+ 1936 0010 00000000 		.4byte	.LFB0
+ 1937 0014 34000000 		.4byte	.LFE0-.LFB0
+ 1938 0018 00000000 		.4byte	.LFB1
+ 1939 001c 68000000 		.4byte	.LFE1-.LFB1
+ 1940 0020 00000000 		.4byte	.LFB2
+ 1941 0024 24000000 		.4byte	.LFE2-.LFB2
+ 1942 0028 00000000 		.4byte	.LFB3
+ 1943 002c 54000000 		.4byte	.LFE3-.LFB3
+ 1944 0030 00000000 		.4byte	.LFB4
+ 1945 0034 08000000 		.4byte	.LFE4-.LFB4
+ 1946 0038 00000000 		.4byte	.LFB5
+ 1947 003c 08000000 		.4byte	.LFE5-.LFB5
+ 1948 0040 00000000 		.4byte	.LFB6
+ 1949 0044 08000000 		.4byte	.LFE6-.LFB6
+ 1950 0048 00000000 		.4byte	.LFB7
+ 1951 004c 08000000 		.4byte	.LFE7-.LFB7
+ 1952 0050 00000000 		.4byte	.LFB8
+ 1953 0054 20000000 		.4byte	.LFE8-.LFB8
+ 1954 0058 00000000 		.4byte	.LFB9
+ 1955 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1956 0060 00000000 		.4byte	.LFB10
+ 1957 0064 20000000 		.4byte	.LFE10-.LFB10
+ 1958 0068 00000000 		.4byte	.LFB11
+ 1959 006c 20000000 		.4byte	.LFE11-.LFB11
+ 1960 0070 00000000 		.4byte	.LFB12
+ 1961 0074 34000000 		.4byte	.LFE12-.LFB12
+ 1962 0078 00000000 		.4byte	.LFB13
+ 1963 007c 20000000 		.4byte	.LFE13-.LFB13
+ 1964 0080 00000000 		.4byte	.LFB14
+ 1965 0084 30000000 		.4byte	.LFE14-.LFB14
+ 1966 0088 00000000 		.4byte	.LFB15
+ 1967 008c 48000000 		.4byte	.LFE15-.LFB15
+ 1968 0090 00000000 		.4byte	.LFB16
+ 1969 0094 24000000 		.4byte	.LFE16-.LFB16
+ 1970 0098 00000000 		.4byte	.LFB17
+ 1971 009c 44000000 		.4byte	.LFE17-.LFB17
+ 1972 00a0 00000000 		.4byte	.LFB18
+ 1973 00a4 50000000 		.4byte	.LFE18-.LFB18
+ 1974 00a8 00000000 		.4byte	.LFB19
+ 1975 00ac 60000000 		.4byte	.LFE19-.LFB19
+ 1976 00b0 00000000 		.4byte	.LFB20
+ 1977 00b4 10000000 		.4byte	.LFE20-.LFB20
+ 1978 00b8 00000000 		.4byte	.LFB21
+ 1979 00bc 10000000 		.4byte	.LFE21-.LFB21
+ 1980 00c0 00000000 		.4byte	.LFB22
+ 1981 00c4 30000000 		.4byte	.LFE22-.LFB22
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 56
+
+
+ 1982 00c8 00000000 		.4byte	.LFB23
+ 1983 00cc 40000000 		.4byte	.LFE23-.LFB23
+ 1984 00d0 00000000 		.4byte	0
+ 1985 00d4 00000000 		.4byte	0
+ 1986              		.section	.debug_ranges,"",%progbits
+ 1987              	.Ldebug_ranges0:
+ 1988 0000 00000000 		.4byte	.LFB0
+ 1989 0004 34000000 		.4byte	.LFE0
+ 1990 0008 00000000 		.4byte	.LFB1
+ 1991 000c 68000000 		.4byte	.LFE1
+ 1992 0010 00000000 		.4byte	.LFB2
+ 1993 0014 24000000 		.4byte	.LFE2
+ 1994 0018 00000000 		.4byte	.LFB3
+ 1995 001c 54000000 		.4byte	.LFE3
+ 1996 0020 00000000 		.4byte	.LFB4
+ 1997 0024 08000000 		.4byte	.LFE4
+ 1998 0028 00000000 		.4byte	.LFB5
+ 1999 002c 08000000 		.4byte	.LFE5
+ 2000 0030 00000000 		.4byte	.LFB6
+ 2001 0034 08000000 		.4byte	.LFE6
+ 2002 0038 00000000 		.4byte	.LFB7
+ 2003 003c 08000000 		.4byte	.LFE7
+ 2004 0040 00000000 		.4byte	.LFB8
+ 2005 0044 20000000 		.4byte	.LFE8
+ 2006 0048 00000000 		.4byte	.LFB9
+ 2007 004c 20000000 		.4byte	.LFE9
+ 2008 0050 00000000 		.4byte	.LFB10
+ 2009 0054 20000000 		.4byte	.LFE10
+ 2010 0058 00000000 		.4byte	.LFB11
+ 2011 005c 20000000 		.4byte	.LFE11
+ 2012 0060 00000000 		.4byte	.LFB12
+ 2013 0064 34000000 		.4byte	.LFE12
+ 2014 0068 00000000 		.4byte	.LFB13
+ 2015 006c 20000000 		.4byte	.LFE13
+ 2016 0070 00000000 		.4byte	.LFB14
+ 2017 0074 30000000 		.4byte	.LFE14
+ 2018 0078 00000000 		.4byte	.LFB15
+ 2019 007c 48000000 		.4byte	.LFE15
+ 2020 0080 00000000 		.4byte	.LFB16
+ 2021 0084 24000000 		.4byte	.LFE16
+ 2022 0088 00000000 		.4byte	.LFB17
+ 2023 008c 44000000 		.4byte	.LFE17
+ 2024 0090 00000000 		.4byte	.LFB18
+ 2025 0094 50000000 		.4byte	.LFE18
+ 2026 0098 00000000 		.4byte	.LFB19
+ 2027 009c 60000000 		.4byte	.LFE19
+ 2028 00a0 00000000 		.4byte	.LFB20
+ 2029 00a4 10000000 		.4byte	.LFE20
+ 2030 00a8 00000000 		.4byte	.LFB21
+ 2031 00ac 10000000 		.4byte	.LFE21
+ 2032 00b0 00000000 		.4byte	.LFB22
+ 2033 00b4 30000000 		.4byte	.LFE22
+ 2034 00b8 00000000 		.4byte	.LFB23
+ 2035 00bc 40000000 		.4byte	.LFE23
+ 2036 00c0 00000000 		.4byte	0
+ 2037 00c4 00000000 		.4byte	0
+ 2038              		.section	.debug_line,"",%progbits
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 57
+
+
+ 2039              	.Ldebug_line0:
+ 2040 0000 60020000 		.section	.debug_str,"MS",%progbits,1
+ 2040      02004300 
+ 2040      00000201 
+ 2040      FB0E0D00 
+ 2040      01010101 
+ 2041              	.LASF51:
+ 2042 0000 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 2042      4320342E 
+ 2042      392E3320 
+ 2042      32303135 
+ 2042      30333033 
+ 2043 0033 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 2043      20726576 
+ 2043      6973696F 
+ 2043      6E203232 
+ 2043      31323230 
+ 2044 0066 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 2044      66756E63 
+ 2044      74696F6E 
+ 2044      2D736563 
+ 2044      74696F6E 
+ 2045              	.LASF36:
+ 2046 008e 5350494D 		.ascii	"SPIM_1_GetTxBufferSize\000"
+ 2046      5F315F47 
+ 2046      65745478 
+ 2046      42756666 
+ 2046      65725369 
+ 2047              	.LASF16:
+ 2048 00a5 5350494D 		.ascii	"SPIM_1_Start\000"
+ 2048      5F315F53 
+ 2048      74617274 
+ 2048      00
+ 2049              	.LASF33:
+ 2050 00b2 72784461 		.ascii	"rxData\000"
+ 2050      746100
+ 2051              	.LASF17:
+ 2052 00b9 5350494D 		.ascii	"SPIM_1_Enable\000"
+ 2052      5F315F45 
+ 2052      6E61626C 
+ 2052      6500
+ 2053              	.LASF20:
+ 2054 00c7 5350494D 		.ascii	"SPIM_1_EnableTxInt\000"
+ 2054      5F315F45 
+ 2054      6E61626C 
+ 2054      65547849 
+ 2054      6E7400
+ 2055              	.LASF38:
+ 2056 00da 5350494D 		.ascii	"SPIM_1_ClearTxBuffer\000"
+ 2056      5F315F43 
+ 2056      6C656172 
+ 2056      54784275 
+ 2056      66666572 
+ 2057              	.LASF3:
+ 2058 00ef 73686F72 		.ascii	"short unsigned int\000"
+ 2058      7420756E 
+ 2058      7369676E 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 58
+
+
+ 2058      65642069 
+ 2058      6E7400
+ 2059              	.LASF8:
+ 2060 0102 756E7369 		.ascii	"unsigned int\000"
+ 2060      676E6564 
+ 2060      20696E74 
+ 2060      00
+ 2061              	.LASF31:
+ 2062 010f 74784461 		.ascii	"txData\000"
+ 2062      746100
+ 2063              	.LASF34:
+ 2064 0116 5350494D 		.ascii	"SPIM_1_GetRxBufferSize\000"
+ 2064      5F315F47 
+ 2064      65745278 
+ 2064      42756666 
+ 2064      65725369 
+ 2065              	.LASF24:
+ 2066 012d 5350494D 		.ascii	"SPIM_1_SetTxInterruptMode\000"
+ 2066      5F315F53 
+ 2066      65745478 
+ 2066      496E7465 
+ 2066      72727570 
+ 2067              	.LASF28:
+ 2068 0147 5350494D 		.ascii	"SPIM_1_ReadTxStatus\000"
+ 2068      5F315F52 
+ 2068      65616454 
+ 2068      78537461 
+ 2068      74757300 
+ 2069              	.LASF25:
+ 2070 015b 5350494D 		.ascii	"SPIM_1_SetRxInterruptMode\000"
+ 2070      5F315F53 
+ 2070      65745278 
+ 2070      496E7465 
+ 2070      72727570 
+ 2071              	.LASF48:
+ 2072 0175 5350494D 		.ascii	"SPIM_1_initVar\000"
+ 2072      5F315F69 
+ 2072      6E697456 
+ 2072      617200
+ 2073              	.LASF35:
+ 2074 0184 73697A65 		.ascii	"size\000"
+ 2074      00
+ 2075              	.LASF13:
+ 2076 0189 72656738 		.ascii	"reg8\000"
+ 2076      00
+ 2077              	.LASF5:
+ 2078 018e 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2078      20756E73 
+ 2078      69676E65 
+ 2078      6420696E 
+ 2078      7400
+ 2079              	.LASF12:
+ 2080 01a0 75696E74 		.ascii	"uint8\000"
+ 2080      3800
+ 2081              	.LASF44:
+ 2082 01a6 5350494D 		.ascii	"SPIM_1_EnableInt\000"
+ 2082      5F315F45 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 59
+
+
+ 2082      6E61626C 
+ 2082      65496E74 
+ 2082      00
+ 2083              	.LASF19:
+ 2084 01b7 656E6162 		.ascii	"enableInterrupts\000"
+ 2084      6C65496E 
+ 2084      74657272 
+ 2084      75707473 
+ 2084      00
+ 2085              	.LASF1:
+ 2086 01c8 756E7369 		.ascii	"unsigned char\000"
+ 2086      676E6564 
+ 2086      20636861 
+ 2086      7200
+ 2087              	.LASF45:
+ 2088 01d6 5350494D 		.ascii	"SPIM_1_DisableInt\000"
+ 2088      5F315F44 
+ 2088      69736162 
+ 2088      6C65496E 
+ 2088      7400
+ 2089              	.LASF10:
+ 2090 01e8 646F7562 		.ascii	"double\000"
+ 2090      6C6500
+ 2091              	.LASF26:
+ 2092 01ef 696E7453 		.ascii	"intSrc\000"
+ 2092      726300
+ 2093              	.LASF43:
+ 2094 01f6 5350494D 		.ascii	"SPIM_1_ClearFIFO\000"
+ 2094      5F315F43 
+ 2094      6C656172 
+ 2094      4649464F 
+ 2094      00
+ 2095              	.LASF15:
+ 2096 0207 5350494D 		.ascii	"SPIM_1_Init\000"
+ 2096      5F315F49 
+ 2096      6E697400 
+ 2097              	.LASF53:
+ 2098 0213 433A5C55 		.ascii	"C:\\Users\\Joseph\\Documents\\CY8CKIT-049-42xx\\1.0"
+ 2098      73657273 
+ 2098      5C4A6F73 
+ 2098      6570685C 
+ 2098      446F6375 
+ 2099 0241 5C466972 		.ascii	"\\Firmware\\SCB_Bootloader\\Sunrise Clock.cydsn\000"
+ 2099      6D776172 
+ 2099      655C5343 
+ 2099      425F426F 
+ 2099      6F746C6F 
+ 2100              	.LASF39:
+ 2101 026e 5350494D 		.ascii	"SPIM_1_PutArray\000"
+ 2101      5F315F50 
+ 2101      75744172 
+ 2101      72617900 
+ 2102              	.LASF46:
+ 2103 027e 5350494D 		.ascii	"SPIM_1_SetInterruptMode\000"
+ 2103      5F315F53 
+ 2103      6574496E 
+ 2103      74657272 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 60
+
+
+ 2103      7570744D 
+ 2104              	.LASF29:
+ 2105 0296 5350494D 		.ascii	"SPIM_1_ReadRxStatus\000"
+ 2105      5F315F52 
+ 2105      65616452 
+ 2105      78537461 
+ 2105      74757300 
+ 2106              	.LASF7:
+ 2107 02aa 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2107      206C6F6E 
+ 2107      6720756E 
+ 2107      7369676E 
+ 2107      65642069 
+ 2108              	.LASF41:
+ 2109 02c1 62797465 		.ascii	"byteCount\000"
+ 2109      436F756E 
+ 2109      7400
+ 2110              	.LASF21:
+ 2111 02cb 5350494D 		.ascii	"SPIM_1_EnableRxInt\000"
+ 2111      5F315F45 
+ 2111      6E61626C 
+ 2111      65527849 
+ 2111      6E7400
+ 2112              	.LASF42:
+ 2113 02de 62756649 		.ascii	"bufIndex\000"
+ 2113      6E646578 
+ 2113      00
+ 2114              	.LASF22:
+ 2115 02e7 5350494D 		.ascii	"SPIM_1_DisableTxInt\000"
+ 2115      5F315F44 
+ 2115      69736162 
+ 2115      6C655478 
+ 2115      496E7400 
+ 2116              	.LASF47:
+ 2117 02fb 5350494D 		.ascii	"SPIM_1_ReadStatus\000"
+ 2117      5F315F52 
+ 2117      65616453 
+ 2117      74617475 
+ 2117      7300
+ 2118              	.LASF14:
+ 2119 030d 73697A65 		.ascii	"sizetype\000"
+ 2119      74797065 
+ 2119      00
+ 2120              	.LASF6:
+ 2121 0316 6C6F6E67 		.ascii	"long long int\000"
+ 2121      206C6F6E 
+ 2121      6720696E 
+ 2121      7400
+ 2122              	.LASF9:
+ 2123 0324 666C6F61 		.ascii	"float\000"
+ 2123      7400
+ 2124              	.LASF11:
+ 2125 032a 63686172 		.ascii	"char\000"
+ 2125      00
+ 2126              	.LASF18:
+ 2127 032f 5350494D 		.ascii	"SPIM_1_Stop\000"
+ 2127      5F315F53 
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 61
+
+
+ 2127      746F7000 
+ 2128              	.LASF32:
+ 2129 033b 5350494D 		.ascii	"SPIM_1_ReadRxData\000"
+ 2129      5F315F52 
+ 2129      65616452 
+ 2129      78446174 
+ 2129      6100
+ 2130              	.LASF2:
+ 2131 034d 73686F72 		.ascii	"short int\000"
+ 2131      7420696E 
+ 2131      7400
+ 2132              	.LASF37:
+ 2133 0357 5350494D 		.ascii	"SPIM_1_ClearRxBuffer\000"
+ 2133      5F315F43 
+ 2133      6C656172 
+ 2133      52784275 
+ 2133      66666572 
+ 2134              	.LASF40:
+ 2135 036c 62756666 		.ascii	"buffer\000"
+ 2135      657200
+ 2136              	.LASF52:
+ 2137 0373 47656E65 		.ascii	"Generated_Source\\PSoC4\\SPIM_1.c\000"
+ 2137      72617465 
+ 2137      645F536F 
+ 2137      75726365 
+ 2137      5C50536F 
+ 2138              	.LASF50:
+ 2139 0393 5350494D 		.ascii	"SPIM_1_swStatusRx\000"
+ 2139      5F315F73 
+ 2139      77537461 
+ 2139      74757352 
+ 2139      7800
+ 2140              	.LASF4:
+ 2141 03a5 6C6F6E67 		.ascii	"long int\000"
+ 2141      20696E74 
+ 2141      00
+ 2142              	.LASF27:
+ 2143 03ae 746D7053 		.ascii	"tmpStatus\000"
+ 2143      74617475 
+ 2143      7300
+ 2144              	.LASF49:
+ 2145 03b8 5350494D 		.ascii	"SPIM_1_swStatusTx\000"
+ 2145      5F315F73 
+ 2145      77537461 
+ 2145      74757354 
+ 2145      7800
+ 2146              	.LASF0:
+ 2147 03ca 7369676E 		.ascii	"signed char\000"
+ 2147      65642063 
+ 2147      68617200 
+ 2148              	.LASF30:
+ 2149 03d6 5350494D 		.ascii	"SPIM_1_WriteTxData\000"
+ 2149      5F315F57 
+ 2149      72697465 
+ 2149      54784461 
+ 2149      746100
+ 2150              	.LASF23:
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccyFRWYa.s 			page 62
+
+
+ 2151 03e9 5350494D 		.ascii	"SPIM_1_DisableRxInt\000"
+ 2151      5F315F44 
+ 2151      69736162 
+ 2151      6C655278 
+ 2151      496E7400 
+ 2152              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

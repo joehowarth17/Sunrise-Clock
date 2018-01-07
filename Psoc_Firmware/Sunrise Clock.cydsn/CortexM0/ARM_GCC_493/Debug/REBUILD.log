@@ -1,0 +1,16 @@
+--------------- Rebuild Started: 07/13/2017 16:07:42 Project: main.c, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -O0 -ffat-lto-objects -c main.c -o .\CortexM0\ARM_GCC_493\Debug\main.o
+main.c: In function 'main':
+main.c:71:13: warning: unused variable 'ledState' [-Wunused-variable]
+     uint8_t ledState = 0;
+             ^
+main.c:61:11: warning: unused variable 'minutes' [-Wunused-variable]
+     uint8 minutes;
+           ^
+main.c:60:11: warning: unused variable 'seconds' [-Wunused-variable]
+     uint8 seconds;
+           ^
+main.c:59:11: warning: unused variable 'hour' [-Wunused-variable]
+     uint8 hour;
+           ^
+--------------- Rebuild Succeeded: 07/13/2017 16:07:43 ---------------

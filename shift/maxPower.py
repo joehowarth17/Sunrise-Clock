@@ -11,10 +11,11 @@ maxPower = .1 #watts
 inputVoltage = 5 #volts
 #resistor = input("enter resistor value")
 maxSegments = 21
-forwardCurrent = 
+current = 0.01
+voltage = 3
 
-mostPower = maxSegments * 
-
+mostPower = maxSegments * current * voltage
+print(mostPower)
 
 '''
 for k,v in digits.items():

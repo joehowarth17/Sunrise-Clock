@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ESP8266 Lights</title>
+</head>
+<body>
+
+<h1>Enter RGB Values</h1>
+<p><form >
+  Red:<br>
+  <input type="text" name="red" ><br>
+  Green:<br>
+  <input type="text" name="green" ><br>
+  Blue:<br>
+  <input type="text" name="blue" ><br><br>
+  <input type="submit" value="Submit">
+</form></p>
+
+</body>
+</html>

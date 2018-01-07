@@ -1,0 +1,27 @@
+--------------- Build Started: 08/23/2017 01:39:00 Project: Sunrise Clock, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
+The code generation step is up to date.
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_493\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -O0 -ffat-lto-objects -c main.c -o .\CortexM0\ARM_GCC_493\Debug\main.o
+main.c: In function 'main':
+main.c:232:15: warning: unused variable 'control3' [-Wunused-variable]
+         uint8 control3 = readReg(CONTROL_REG_3);
+               ^
+main.c:228:14: warning: unused variable 'output' [-Wunused-variable]
+         char output[25];
+              ^
+main.c:84:11: warning: unused variable 'minutes' [-Wunused-variable]
+     uint8 minutes;
+           ^
+main.c:83:11: warning: unused variable 'seconds' [-Wunused-variable]
+     uint8 seconds;
+           ^
+main.c:82:11: warning: unused variable 'hour' [-Wunused-variable]
+     uint8 hour;
+           ^
+arm-none-eabi-ar.exe -rs ".\CortexM0\ARM_GCC_493\Debug\Sunrise Clock.a" .\CortexM0\ARM_GCC_493\Debug\cyfitter_cfg.o .\CortexM0\ARM_GCC_493\Debug\Bootloadable_1.o .\CortexM0\ARM_GCC_493\Debug\CyFlash.o .\CortexM0\ARM_GCC_493\Debug\CyLib.o .\CortexM0\ARM_GCC_493\Debug\cyPm.o .\CortexM0\ARM_GCC_493\Debug\cyutils.o .\CortexM0\ARM_GCC_493\Debug\I2C.o .\CortexM0\ARM_GCC_493\Debug\I2C_I2C_INT.o .\CortexM0\ARM_GCC_493\Debug\I2C_I2C.o .\CortexM0\ARM_GCC_493\Debug\I2C_I2C_BOOT.o .\CortexM0\ARM_GCC_493\Debug\I2C_I2C_MASTER.o .\CortexM0\ARM_GCC_493\Debug\I2C_PM.o .\CortexM0\ARM_GCC_493\Debug\I2C_BOOT.o .\CortexM0\ARM_GCC_493\Debug\I2C_SCBCLK.o .\CortexM0\ARM_GCC_493\Debug\I2C_sda.o .\CortexM0\ARM_GCC_493\Debug\I2C_sda_PM.o .\CortexM0\ARM_GCC_493\Debug\I2C_scl.o .\CortexM0\ARM_GCC_493\Debug\I2C_scl_PM.o .\CortexM0\ARM_GCC_493\Debug\I2C_SCB_IRQ.o .\CortexM0\ARM_GCC_493\Debug\UART_1.o .\CortexM0\ARM_GCC_493\Debug\UART_1_SPI_UART.o .\CortexM0\ARM_GCC_493\Debug\UART_1_SPI_UART_INT.o .\CortexM0\ARM_GCC_493\Debug\UART_1_PM.o .\CortexM0\ARM_GCC_493\Debug\UART_1_UART.o .\CortexM0\ARM_GCC_493\Debug\UART_1_BOOT.o .\CortexM0\ARM_GCC_493\Debug\UART_1_UART_BOOT.o .\CortexM0\ARM_GCC_493\Debug\UART_1_SCBCLK.o .\CortexM0\ARM_GCC_493\Debug\UART_1_tx.o .\CortexM0\ARM_GCC_493\Debug\UART_1_tx_PM.o .\CortexM0\ARM_GCC_493\Debug\UART_1_rx.o .\CortexM0\ARM_GCC_493\Debug\UART_1_rx_PM.o .\CortexM0\ARM_GCC_493\Debug\CyLFClk.o .\CortexM0\ARM_GCC_493\Debug\Pin_1.o .\CortexM0\ARM_GCC_493\Debug\Pin_1_PM.o .\CortexM0\ARM_GCC_493\Debug\Pin_2.o .\CortexM0\ARM_GCC_493\Debug\Pin_2_PM.o .\CortexM0\ARM_GCC_493\Debug\Pin_3.o .\CortexM0\ARM_GCC_493\Debug\Pin_3_PM.o .\CortexM0\ARM_GCC_493\Debug\Pin_4.o .\CortexM0\ARM_GCC_493\Debug\Pin_4_PM.o .\CortexM0\ARM_GCC_493\Debug\Pin_5.o .\CortexM0\ARM_GCC_493\Debug\Pin_5_PM.o .\CortexM0\ARM_GCC_493\Debug\UART_1_SCB_IRQ.o .\CortexM0\ARM_GCC_493\Debug\AlarmInterrupt.o .\CortexM0\ARM_GCC_493\Debug\AlarmInterrupt_PM.o .\CortexM0\ARM_GCC_493\Debug\CalibrateInterrupt.o .\CortexM0\ARM_GCC_493\Debug\CalibrateInterrupt_PM.o .\CortexM0\ARM_GCC_493\Debug\CyBootAsmGnu.o
+arm-none-eabi-ar.exe: creating .\CortexM0\ARM_GCC_493\Debug\Sunrise Clock.a
+arm-none-eabi-gcc.exe -Wl,--start-group -o ".\CortexM0\ARM_GCC_493\Debug\Sunrise Clock.elf" .\CortexM0\ARM_GCC_493\Debug\main.o .\CortexM0\ARM_GCC_493\Debug\i2cClock.o .\CortexM0\ARM_GCC_493\Debug\RTC.o .\CortexM0\ARM_GCC_493\Debug\TimeFunctions.o .\CortexM0\ARM_GCC_493\Debug\SerialPrint.o .\CortexM0\ARM_GCC_493\Debug\Interrupts.o .\CortexM0\ARM_GCC_493\Debug\cybootloader.o .\CortexM0\ARM_GCC_493\Debug\cymetadata.o .\CortexM0\ARM_GCC_493\Debug\Cm0Start.o ".\CortexM0\ARM_GCC_493\Debug\Sunrise Clock.a" "C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM0\ARM_GCC_493\Debug\CyComponentLibrary.a" -mcpu=cortex-m0 -mthumb -g -ffunction-sections -O0 -ffat-lto-objects -L Generated_Source\PSoC4 "-Wl,-Map,.\CortexM0\ARM_GCC_493\Debug/Sunrise Clock.map" -T "C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\Generated_Source\PSoC4\cm0gcc.ld" -specs=nano.specs -Wl,--gc-sections -Wl,--end-group
+cyelftool.exe -B "C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\CortexM0\ARM_GCC_493\Debug\Sunrise Clock.elf" --flash_row_size 128 --flash_size 32768 --flash_array_size 32768
+cyelftool.exe -S "C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\CortexM0\ARM_GCC_493\Debug\Sunrise Clock.elf"
+Flash used: 17406 of 32768 bytes (53.1 %). Bootloader: 5120 bytes. Application: 12158 bytes. Metadata: 128 bytes.
+SRAM used: 1616 of 4096 bytes (39.5 %). Stack: 1024 bytes. Heap: 128 bytes.
+--------------- Build Succeeded: 08/23/2017 01:39:01 ---------------
