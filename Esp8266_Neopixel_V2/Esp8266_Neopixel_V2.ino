@@ -1,4 +1,4 @@
-/******************************* For RESP8266 **********************************/
+/******************************* For ESP8266 ***********************************/
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 #include <ESP8266WebServer.h>
@@ -113,7 +113,7 @@ startUdp();
 
 MDNS.addService("http","tcp",80);
 
-
+//set up interrupts
 pinMode(interruptPinSunrise,INPUT_PULLUP);
 attachInterrupt(digitalPinToInterrupt(interruptPinSunrise),sunriseInterrupt,FALLING);
 
@@ -426,7 +426,7 @@ uint32_t getTime(){
     
     if((current-requestTime)>interval){
 
-      if(DEBUG)Serial.println("SEnding ntp request");
+      if(DEBUG)Serial.println("Sending ntp request");
       ntpRequest();
       interval *= 2;
       requestTime = current;
