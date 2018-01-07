@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
   21:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
   22:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** #if(I2C_I2C_MASTER_CONST)
   23:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 2
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 2
 
 
   24:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** /***************************************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
   78:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  - I2C_I2C_MSTR_NO_ERROR - Function complete without error. 
   79:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *    The master started the transfer.
   80:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  - I2C_I2C_MSTR_BUS_BUSY - Bus is busy. Nothing was sent on
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 3
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 3
 
 
   81:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *    the bus. The attempt has to be retried.
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  108:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         {
  109:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             I2C_DisableInt();  /* Lock from interruption */
   62              		.loc 1 109 0
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 4
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 4
 
 
   63 0022 0B20     		mov	r0, #11
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  126:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     /* Check if master is ready to start  */
  127:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     if(I2C_I2C_MSTR_NO_ERROR == errStatus) /* No error proceed */
  101              		.loc 1 127 0
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 5
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 5
 
 
  102 005a 7B69     		ldr	r3, [r7, #20]
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  139 0094 9BB2     		uxth	r3, r3
  140 0096 0222     		mov	r2, #2
  141 0098 9343     		bic	r3, r2
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 6
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 6
 
 
  142 009a 9AB2     		uxth	r2, r3
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  177 00d0 1A60     		str	r2, [r3]
  178              	.L6:
  164:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         }
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 7
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 7
 
 
  165:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     }
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  180:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  Enables the I2C interrupt and clears I2C_I2C_MSTAT_RD_CMPLT 
  181:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  status.
  182:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 8
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 8
 
 
  183:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  \param slaveAddr: 7-bit slave address.
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  216:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     {
  217:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         /* Check FSM state and bus before generating Start/ReStart condition */
  218:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         if(I2C_CHECK_I2C_FSM_IDLE)
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 9
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 9
 
 
  239              		.loc 1 218 0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  282 0058 7B61     		str	r3, [r7, #20]
  283              	.L12:
  230:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         }
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 10
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 10
 
 
  231:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         else
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  316 008c FB60     		str	r3, [r7, #12]
  253:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
  254:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         I2C_mstrStatus &= (uint16) ~I2C_I2C_MSTAT_RD_CMPLT;
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 11
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 11
 
 
  317              		.loc 1 254 0
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  272:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
  273:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         /* Generate Start or ReStart */
  274:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         if(I2C_CHECK_I2C_MODE_RESTART(mode))
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 12
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 12
 
 
  354              		.loc 1 274 0
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  393 0104 00000000 		.word	I2C_mstrRdBufIndex
  394 0108 00000000 		.word	I2C_mstrRdBufSize
  395 010c 00000000 		.word	I2C_mstrRdBufPtr
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 13
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 13
 
 
  396 0110 00000000 		.word	I2C_mstrControl
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  326:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *   - I2C_I2C_MSTR_ERR_ABORT_START - Error condition: The start 
  327:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *     condition generation was aborted due to beginning of Slave operation. 
  328:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *     This error condition is only applicable for Multi-Master-Slave mode.
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 14
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 14
 
 
  329:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  448              	.L25:
  349:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         }
  350:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         else
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 15
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 15
 
 
  351:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         {
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  480 005a 7A68     		ldr	r2, [r7, #4]
  481 005c 1A60     		str	r2, [r3]
  374:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             I2C_ClearMasterInterruptSource(I2C_INTR_MASTER_ALL);
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 16
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 16
 
 
  482              		.loc 1 374 0
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  515 008e 1340     		and	r3, r2
  516 0090 02D0     		beq	.L31
  396:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             {
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 17
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 17
 
 
  397:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****                 errStatus = I2C_I2C_MSTR_ERR_LB_NAK;
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  555 00c6 FF32     		add	r2, r2, #255
  556 00c8 1A60     		str	r2, [r3]
  413:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****                                                         I2C_INTR_MASTER_I2C_NACK     |
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 18
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 18
 
 
  414:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****                                                         I2C_INTR_MASTER_I2C_ARB_LOST |
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  598              		.align	2
  599              		.global	I2C_I2CMasterSendRestart
  600              		.code	16
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 19
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 19
 
 
  601              		.thumb_func
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  618 000a 0023     		mov	r3, #0
  619 000c FB60     		str	r3, [r7, #12]
  464:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     errStatus = I2C_I2C_MSTR_NOT_READY;
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 20
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 20
 
 
  620              		.loc 1 464 0
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  481:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         /* TX and RX FIFO have to be EMPTY */
  482:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
  483:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         /* Clean-up interrupt status */
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 21
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 21
 
 
  484:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         I2C_ClearMasterInterruptSource(I2C_INTR_MASTER_ALL);
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  509:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         /* Check results of address phase */
  510:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         if(I2C_CHECK_INTR_MASTER(I2C_INTR_MASTER_I2C_ACK))
  687              		.loc 1 510 0 is_stmt 1
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 22
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 22
 
 
  688 0072 204B     		ldr	r3, .L47+4
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  526:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             I2C_state = I2C_I2C_FSM_IDLE;
  727              		.loc 1 526 0
  728 00ac 104B     		ldr	r3, .L47
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 23
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 23
 
 
  729 00ae 1022     		mov	r2, #16
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  765              		.loc 1 544 0
  766 00e6 181C     		mov	r0, r3
  767 00e8 BD46     		mov	sp, r7
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 24
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 24
 
 
  768 00ea 04B0     		add	sp, sp, #16
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  792              		.cfi_startproc
  793 0000 80B5     		push	{r7, lr}
  794              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 25
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 25
 
 
  795              		.cfi_offset 7, -8
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  833 0032 C046     		mov	r8, r8
  834              	.L53:
  835              		.loc 1 590 0 is_stmt 0 discriminator 1
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 26
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 26
 
 
  836 0034 1F4B     		ldr	r3, .L58+12
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  610:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             resetIp   = I2C_I2C_RESET_ERROR;
  871              		.loc 1 610 0
  872 006a 0123     		mov	r3, #1
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 27
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 27
 
 
  873 006c 7B60     		str	r3, [r7, #4]
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  910 00a4 80BD     		pop	{r7, pc}
  911              	.L59:
  912 00a6 C046     		.align	2
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 28
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 28
 
 
  913              	.L58:
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  940 0006 7860     		str	r0, [r7, #4]
  655:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     uint32 resetIp;
  656:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     uint32 errStatus;
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 29
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 29
 
 
  657:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  676:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         {
  677:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             I2C_state = I2C_I2C_FSM_MSTR_HALT;
  976              		.loc 1 677 0
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 30
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 30
 
 
  977 003e 1F4B     		ldr	r3, .L68
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  691:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         else /* I2C_INTR_MASTER_I2C_BUS_ERROR set is */
  692:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         {
  693:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             I2C_state = I2C_I2C_FSM_IDLE;
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 31
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 31
 
 
  1018              		.loc 1 693 0
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1055 00b2 BB68     		ldr	r3, [r7, #8]
  711:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** }
  1056              		.loc 1 711 0
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 32
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 32
 
 
  1057 00b4 181C     		mov	r0, r3
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  743:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *******************************************************************************/
  744:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** uint32 I2C_I2CMasterReadByte(uint32 ackNack)
  745:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** {
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 33
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 33
 
 
  1080              		.loc 1 745 0
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  757:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         {
  758:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             /* Wait until byte has been received */
  759:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         }
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 34
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 34
 
 
  760:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1155 0066 1A60     		str	r2, [r3]
  781:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
  782:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             /* Reset block in case of: LOST_ARB or BUS_ERR */
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 35
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 35
 
 
  783:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             I2C_SCB_SW_RESET;
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  793:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** ****************************************************************************//**
  794:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *
  795:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  Returns the number of bytes that has been transferred with an
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 36
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 36
 
 
  796:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  I2C_I2CMasterReadBuf() function.
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  819:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** * Function Name: I2C_I2CMasterGetWriteBufSize
  820:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** ****************************************************************************//**
  821:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 37
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 37
 
 
  822:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  Returns the number of bytes that have been transferred with an
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  845:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** /*******************************************************************************
  846:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** * Function Name: I2C_I2CMasterClearReadBuf
  847:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** ****************************************************************************//**
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 38
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 38
 
 
  848:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1298              		.cfi_endproc
  1299              	.LFE9:
  1300              		.size	I2C_I2CMasterClearReadBuf, .-I2C_I2CMasterClearReadBuf
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 39
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 39
 
 
  1301              		.section	.text.I2C_I2CMasterClearWriteBuf,"ax",%progbits
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1333              		.loc 1 887 0
  1334 0020 0B20     		mov	r0, #11
  1335 0022 FFF7FEFF 		bl	CyIntEnable
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 40
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 40
 
 
  888:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** }
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  922:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *    generation. As a result, master has automatically switched to slave 
  923:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *    mode and is responding. The master transaction has not taken place
  924:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *    This error condition only applicable for Multi-Master-Slave mode.
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 41
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 41
 
 
  925:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  - I2C_I2C_MSTAT_ERR_XFER - Error condition: This is the 
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  946:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     I2C_EnableInt();   /* Release lock */
  1389              		.loc 1 946 0
  1390 002c 0B20     		mov	r0, #11
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 42
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 42
 
 
  1391 002e FFF7FEFF 		bl	CyIntEnable
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1424 0004 00AF     		add	r7, sp, #0
  1425              		.cfi_def_cfa_register 7
  968:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     uint32 status;
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 43
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 43
 
 
  969:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  985:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *
  986:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  Generates a ReStart condition:
  987:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *  - SCB IP V1 and later: Generates ReStart using the scb IP functionality
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 44
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 44
 
 
  988:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** *    Sets the I2C_MASTER_CMD_M_START and I2C_MASTER_CMD_M_NACK (if the previous
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
 1021:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     }
 1022:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
 1023:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     /* Prepare DR register to drive SCL line */
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 45
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 45
 
 
 1024:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     I2C_SET_I2C_SCL_DR(I2C_I2C_SCL_LOW);
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
 1040:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         {
 1041:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****             /* Wait until slave releases SCL in case if it stretches */
 1042:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         }
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 46
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 46
 
 
 1043:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****         CyDelayUs(I2C_I2C_THIGH_TIME); /* Count tHIGH */
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
 1062:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     uint32 cmd;
 1063:Generated_Source\PSoC4/I2C_I2C_MASTER.c **** 
 1064:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     /* Generates ReStart use scb IP functionality */
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 47
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 47
 
 
 1065:Generated_Source\PSoC4/I2C_I2C_MASTER.c ****     cmd  = I2C_I2C_MASTER_CMD_M_START;
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1605 003b 02       		.byte	0x2
  1606 003c 07       		.byte	0x7
  1607 003d 66000000 		.4byte	.LASF3
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 48
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 48
 
 
  1608 0041 02       		.uleb128 0x2
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1662 00aa 77000000 		.4byte	0x77
  1663 00ae 04       		.uleb128 0x4
  1664 00af 1C000000 		.4byte	.LASF15
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 49
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 49
 
 
  1665 00b3 02       		.byte	0x2
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1719 011d 64       		.byte	0x64
  1720 011e 83000000 		.4byte	0x83
  1721 0122 02       		.uleb128 0x2
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 50
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 50
 
 
  1722 0123 91       		.byte	0x91
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1776 0189 91       		.byte	0x91
  1777 018a 74       		.sleb128 -12
  1778 018b 00       		.byte	0
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 51
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 51
 
 
  1779 018c 0B       		.uleb128 0xb
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1833 01fe C7020000 		.4byte	.LASF17
  1834 0202 01       		.byte	0x1
  1835 0203 CA01     		.2byte	0x1ca
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 52
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 52
 
 
  1836 0205 83000000 		.4byte	0x83
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1890 0271 70       		.sleb128 -16
  1891 0272 00       		.byte	0
  1892 0273 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 53
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 53
 
 
  1893 0274 FF020000 		.4byte	.LASF29
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  1947 02e9 01       		.byte	0x1
  1948 02ea EA02     		.2byte	0x2ea
  1949 02ec 83000000 		.4byte	0x83
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 54
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 54
 
 
  1950 02f0 02       		.uleb128 0x2
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2004 036b 91       		.byte	0x91
  2005 036c 74       		.sleb128 -12
  2006 036d 00       		.byte	0
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 55
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 55
 
 
  2007 036e 0B       		.uleb128 0xb
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2061 03e1 A4000000 		.4byte	0xa4
  2062 03e5 05       		.uleb128 0x5
  2063 03e6 03       		.byte	0x3
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 56
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 56
 
 
  2064 03e7 00000000 		.4byte	I2C_mstrControl
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2118 045c 01       		.byte	0x1
  2119 045d 29       		.byte	0x29
  2120 045e BA000000 		.4byte	0xba
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 57
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 57
 
 
  2121 0462 05       		.uleb128 0x5
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2175 0030 3B       		.uleb128 0x3b
  2176 0031 05       		.uleb128 0x5
  2177 0032 49       		.uleb128 0x49
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 58
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 58
 
 
  2178 0033 13       		.uleb128 0x13
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2232 006a 00       		.byte	0
  2233 006b 03       		.uleb128 0x3
  2234 006c 08       		.uleb128 0x8
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 59
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 59
 
 
  2235 006d 3A       		.uleb128 0x3a
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2289 00a3 18       		.uleb128 0x18
  2290 00a4 9642     		.uleb128 0x2116
  2291 00a6 19       		.uleb128 0x19
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 60
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 60
 
 
  2292 00a7 01       		.uleb128 0x1
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2346 00dd 18       		.uleb128 0x18
  2347 00de 9742     		.uleb128 0x2117
  2348 00e0 19       		.uleb128 0x19
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 61
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 61
 
 
  2349 00e1 01       		.uleb128 0x1
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2403 0119 01       		.byte	0x1
  2404 011a 3F       		.uleb128 0x3f
  2405 011b 19       		.uleb128 0x19
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 62
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 62
 
 
  2406 011c 03       		.uleb128 0x3
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2460 0153 00       		.byte	0
  2461              		.section	.debug_aranges,"",%progbits
  2462 0000 84000000 		.4byte	0x84
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 63
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 63
 
 
  2463 0004 0200     		.2byte	0x2
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2517 0040 00000000 		.4byte	.LFB8
  2518 0044 14000000 		.4byte	.LFE8
  2519 0048 00000000 		.4byte	.LFB9
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 64
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 64
 
 
  2520 004c 34000000 		.4byte	.LFE9
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2548              	.LASF26:
  2549 0080 72657365 		.ascii	"resetIp\000"
  2549      74497000 
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 65
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 65
 
 
  2550              	.LASF37:
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2571 0139 75696E74 		.ascii	"uint8\000"
  2571      3800
  2572              	.LASF32:
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 66
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 66
 
 
  2573 013f 61636B4E 		.ascii	"ackNack\000"
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2595              	.LASF44:
  2596 0285 4932435F 		.ascii	"I2C_mstrRdBufSize\000"
  2596      6D737472 
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 67
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 67
 
 
  2596      52644275 
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2620      79746500 
  2621              	.LASF27:
  2622 0328 4932435F 		.ascii	"I2C_I2CMasterSendRestart\000"
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 68
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 68
 
 
  2622      4932434D 
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 1
  2640      72436C65 
  2640      61725374 
  2641              	.LASF40:
-ARM GAS  C:\Users\Joseph\AppData\Local\Temp\ccBl2zBF.s 			page 69
+ARM GAS  C:\Users\Joseph\AppData\Local\Temp\cctYi3Th.s 			page 69
 
 
  2642 03f7 4932435F 		.ascii	"I2C_state\000"

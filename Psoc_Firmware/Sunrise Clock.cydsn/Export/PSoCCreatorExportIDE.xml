@@ -173,6 +173,14 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\CalibrateInterrupt.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\CalibrateInterrupt_aliases.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\CalibrateInterrupt_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SelectPin.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SelectPin.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SelectPin_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SelectPin_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ClockPin.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ClockPin.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ClockPin_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\ClockPin_PM.c</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\Export\ARM_GCC_Generic">

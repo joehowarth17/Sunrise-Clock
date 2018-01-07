@@ -1,6 +1,6 @@
 (DELAYFILE
  (SDFVERSION "IEEE 1497 4.0")
- (DATE "2017-08-23T05:06:08Z")
+ (DATE "2017-10-09T03:15:01Z")
  (DESIGN "Sunrise Clock")
  (VENDOR "Cypress Semiconductor")
  (PROGRAM "PSoC Creator")
@@ -35,6 +35,8 @@
     (INTERCONNECT Pin_5\(0\)_PAD Pin_5\(0\).pad_in (0.000:0.000:0.000))
     (INTERCONNECT AlarmInterrupt\(0\)_PAD AlarmInterrupt\(0\).pad_in (0.000:0.000:0.000))
     (INTERCONNECT CalibrateInterrupt\(0\)_PAD CalibrateInterrupt\(0\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT SelectPin\(0\)_PAD SelectPin\(0\).pad_in (0.000:0.000:0.000))
+    (INTERCONNECT ClockPin\(0\)_PAD ClockPin\(0\).pad_in (0.000:0.000:0.000))
    )
   )
  )

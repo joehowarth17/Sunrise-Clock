@@ -29,9 +29,11 @@
       <Data key="43ec2fa1-bf22-4b71-9477-b6ca7b97f0b0/78e33e5d-45ea-4b75-88d5-73274e8a7ce4" value="UART_1_rx" />
       <Data key="54c9d15a-046a-4389-9a71-4bfe0087d3d6" value="Pin_4" />
       <Data key="75fba6e8-3bbc-477a-966a-de4603cb7198" value="Pin_5" />
+      <Data key="0188be25-6a4c-4e1a-8dc4-0a2598eba200" value="ClockPin" />
       <Data key="906c048b-12cc-4fca-98c1-43b5e6ce81c8" value="Pin_3" />
       <Data key="3361bccc-0f04-46d3-a470-ff7f4f2bd80d" value="Pin_2" />
       <Data key="6119d8ca-f1ec-4c4f-9d61-fc5f6d6db77b" value="SCLK" />
+      <Data key="c3839d82-f775-4ab8-a1a6-47c108c8535a" value="SelectPin" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="AlarmInterrupt" />
     </Group>
   </Group>
@@ -1383,6 +1385,11 @@
         <Data key="Port Format" value="2,4" />
       </Group>
     </Group>
+    <Group key="0188be25-6a4c-4e1a-8dc4-0a2598eba200">
+      <Group key="0">
+        <Data key="Port Format" value="3,0" />
+      </Group>
+    </Group>
     <Group key="906c048b-12cc-4fca-98c1-43b5e6ce81c8">
       <Group key="0">
         <Data key="Port Format" value="2,2" />
@@ -1396,6 +1403,11 @@
     <Group key="6119d8ca-f1ec-4c4f-9d61-fc5f6d6db77b">
       <Group key="0">
         <Data key="Port Format" value="3,7" />
+      </Group>
+    </Group>
+    <Group key="c3839d82-f775-4ab8-a1a6-47c108c8535a">
+      <Group key="0">
+        <Data key="Port Format" value="3,1" />
       </Group>
     </Group>
     <Group key="e851a3b9-efb8-48be-bbb8-b303b216c393">

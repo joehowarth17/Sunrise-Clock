@@ -1,8 +1,8 @@
-C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\UART_Bootloader.cydsn\UART_Bootloader.cyprj|24a5d140-78e4-416b-a35a-18e2e09afdb5
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|ea533b62-17bc-4a35-b835-c4fcddd2bae6
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|cb1d0dac-a0ae-42f3-ada6-75799141f4cf
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|dcf7b4ea-4603-43dc-b7b9-f4966e473127
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|563d5846-fa49-4d8b-83f2-d4c43ff925fe
-C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|d2425d72-4665-46d6-9847-3b56b628be60
-C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\Sunrise Clock.cyprj|c1e73217-8dcb-4ba0-af85-f181b590144e
-C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Enocoder.cydsn\Enocoder.cyprj|338cf766-272a-48a1-94f1-49609c655058
+C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\UART_Bootloader.cydsn\UART_Bootloader.cyprj|390de4b3-cff7-4f3b-808e-4429ca1e6289
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|d8482631-ee02-47e3-ba24-ad3616aa4ccb
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|67753daa-149d-4a36-b247-bf1f349eec46
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|99a9fd07-1707-4eb1-9c31-4e196cbec70b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|7d15e8f8-c538-48da-82e9-90671b77e4c1
+C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|9b3c28dc-f7b8-4b25-bfee-c4aff14500b7
+C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Sunrise Clock.cydsn\Sunrise Clock.cyprj|f30c651f-632d-47ae-a65f-75536e51fc82
+C:\Users\Joseph\Documents\CY8CKIT-049-42xx\1.0\Firmware\SCB_Bootloader\Enocoder.cydsn\Enocoder.cyprj|2ce3c32f-2356-4b50-b388-634bba109d5d

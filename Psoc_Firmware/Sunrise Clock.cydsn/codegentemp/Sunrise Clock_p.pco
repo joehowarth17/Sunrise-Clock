@@ -15,5 +15,7 @@ set_io "Pin_4(0)" iocell 2 3
 set_io "Pin_5(0)" iocell 2 4
 set_io "AlarmInterrupt(0)" iocell 4 3
 set_io "CalibrateInterrupt(0)" iocell 0 0
+set_io "SelectPin(0)" iocell 3 1
+set_io "ClockPin(0)" iocell 3 0
 set_location "\I2C:SCB\" m0s8scbcell -1 -1 1
 set_io "\I2C:scl(0)\" iocell 0 4
