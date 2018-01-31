@@ -1,1 +1,2 @@
 # Sunrise-Clock
+This is the code for a “sunrise” alarm clock. The alarm can be set from a simple webpage hosted on an ESP8266. Several RGB LED strips slowly light up simulating a sunrise and a seven-segment display displays the current time. The main microcontroller used is a Psoc 4200 prototyping kit which interfaces with a RTC module. An attiny85 is used with some shift registers to control the seven-segment display, and an ESP8226 hosts a webpage to control the clock and update the time.
